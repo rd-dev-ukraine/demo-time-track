@@ -12,3 +12,4 @@
 /LanceTrack.Web/bin
 /LanceTrack.Web/obj
 *.user
+/bower_components

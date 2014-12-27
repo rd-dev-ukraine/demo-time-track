@@ -143,6 +143,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Features\Account\" />
     <Folder Include="Features\Shared\" />
+    <Folder Include="Libs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanceTrack.DataAccess\LanceTrack.DataAccess.csproj">
@@ -181,6 +182,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties Content_2bower_1json__JSONSchema="http://json.schemastore.org/bower" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
