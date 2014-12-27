@@ -18,9 +18,12 @@
     <script src="@Links.Libs.angular.angular_min_js" type="text/javascript"></script>
     <script src="@Links.Libs.angular.angular_ui_router_min_js" type="text/javascript"></script>
 
+    <script src="@Links.Features.TrackTime.scripts.module_ts" type="text/javascript"></script>
+    <script src="@Links.Features.Shared.scripts.app_ts" type="text/javascript"></script>
+
     @RenderSection("head", false)
 </head>
-<body>
+<body ng-app="lance-track">
     <div class="container">
         @RenderBody()
     </div>

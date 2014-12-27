@@ -13,3 +13,4 @@
 /LanceTrack.Web/obj
 *.user
 /bower_components
+/database/LanceTrack.Database/LanceTrack.Database.dbmdl

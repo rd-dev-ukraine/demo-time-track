@@ -96,6 +96,17 @@ namespace LanceTrack.Web.Features.TrackTime
                 public readonly string Index = "Index";
             }
             public readonly string Index = "~/Features/TrackTime/Index.cshtml";
+            static readonly _scriptsClass s_scripts = new _scriptsClass();
+            public _scriptsClass scripts { get { return s_scripts; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _scriptsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                }
+            }
         }
     }
 

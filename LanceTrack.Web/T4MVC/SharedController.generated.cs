@@ -41,6 +41,17 @@ namespace T4MVC
             }
             public readonly string _Layout = "~/Features/Shared/_Layout.cshtml";
             public readonly string ValidationMessages = "~/Features/Shared/ValidationMessages.resx";
+            static readonly _scriptsClass s_scripts = new _scriptsClass();
+            public _scriptsClass scripts { get { return s_scripts; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _scriptsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                }
+            }
             static readonly _stylesClass s_styles = new _stylesClass();
             public _stylesClass styles { get { return s_styles; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
