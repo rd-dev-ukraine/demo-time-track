@@ -9,7 +9,15 @@ namespace LanceTrack.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("Default", "{controller}/{action}/{id}", new {controller = "Home", action = "Index", id = UrlParameter.Optional});
+            routes.MapRoute(
+                "Default", 
+                "{controller}/{action}/{id}", 
+                new 
+                {
+                    controller = MVC.TrackTime.Name, 
+                    action = MVC.TrackTime.ActionNames.Index, 
+                    id = UrlParameter.Optional
+                });
         }
     }
 }

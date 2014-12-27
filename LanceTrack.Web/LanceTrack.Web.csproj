@@ -80,6 +80,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -118,6 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Libs\angular\angular-ui-router.js" />
+    <Content Include="Libs\angular\angular-ui-router.min.js" />
     <Content Include="Libs\angular\angular.js" />
     <Content Include="Libs\angular\angular.min.js" />
     <Content Include="Libs\bootstrap\css\bootstrap-theme.css" />
@@ -130,16 +135,36 @@
     <Content Include="Libs\bootstrap\js\npm.js" />
     <Content Include="Libs\jquery\jquery.js" />
     <Content Include="Libs\jquery\jquery.min.js" />
+    <Content Include="Features\Shared\_Layout.cshtml" />
+    <Content Include="Features\_ViewStart.cshtml" />
+    <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
+    <Content Include="Features\TrackTime\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Features\Account\AccountController.cs" />
+    <Compile Include="Features\TrackTime\TrackTimeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="T4MVC\AccountController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\TrackTimeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -151,6 +176,11 @@
     <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Libs\jquery\jquery.min.map" />
+    <None Include="T4MVC\T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC\T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -160,8 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Features\Account\" />
-    <Folder Include="Features\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanceTrack.DataAccess\LanceTrack.DataAccess.csproj">
@@ -176,6 +204,9 @@
       <Project>{6dca8d27-acf0-44b0-abe9-77e96df8d66e}</Project>
       <Name>LanceTrack.Server</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
