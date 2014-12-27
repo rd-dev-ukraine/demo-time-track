@@ -6,6 +6,7 @@ namespace LanceTrack.Domain.TimeTracking
     public class ProjectNotReportableException : Exception
     {
         public ProjectNotReportableException()
+            : base(Messages.ProjectNotReportable)
         {
         }
 

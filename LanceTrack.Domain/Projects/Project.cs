@@ -8,11 +8,13 @@ namespace LanceTrack.Domain.Projects
 
         public string Name { get; set; }
 
+        public ProjectStatus Status { get; set; }
+
         public DateTimeOffset StartTime { get; set; }
 
         public DateTimeOffset? EndTime { get; set; }
 
-        public int? MaxHoursPerDay { get; set; }
+        public int? MaxTotalHoursPerDay { get; set; }
 
         public int? MaxTotalHours { get; set; }
     }

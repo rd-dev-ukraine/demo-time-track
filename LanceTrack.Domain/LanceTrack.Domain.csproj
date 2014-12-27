@@ -45,9 +45,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Projects\Project.cs" />
+    <Compile Include="Projects\ProjectStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeTracking\IncorrectHoursException.cs" />
+    <Compile Include="TimeTracking\InvalidHoursException.cs" />
     <Compile Include="TimeTracking\ITimeTrackingService.cs" />
+    <Compile Include="TimeTracking\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="TimeTracking\ProjectAuthorizationException.cs" />
     <Compile Include="TimeTracking\ProjectNotReportableException.cs" />
     <Compile Include="UserAccounts\IUserAccountService.cs" />
@@ -63,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="TimeTracking\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserAccounts\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>

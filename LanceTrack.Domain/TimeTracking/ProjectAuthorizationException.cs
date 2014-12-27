@@ -9,6 +9,7 @@ namespace LanceTrack.Domain.TimeTracking
     public class ProjectAuthorizationException : Exception
     {
         public ProjectAuthorizationException()
+            :base(Messages.ProjectAuthorizationError)
         {
         }
 
