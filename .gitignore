@@ -5,3 +5,7 @@
 /database/LanceTrack.Database/bin
 /database/LanceTrack.Database/obj
 /database/LanceTrack.Database/LanceTrack.Database.sqlproj.user
+/LanceTrack.DataAccess/bin/
+/LanceTrack.DataAccess/obj/
+/LanceTrack.Server/bin/
+/LanceTrack.Server/obj/
