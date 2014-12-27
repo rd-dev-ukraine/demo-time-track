@@ -59,6 +59,7 @@
     <Compile Include="TimeTracking\Events\TimeTrackedEvent.cs" />
     <Compile Include="TimeTracking\ITimeTrackingEventRepository.cs" />
     <Compile Include="TimeTracking\ProjectTimeAggregateRoot.cs" />
+    <Compile Include="TimeTracking\TimeTrackingService.cs" />
     <Compile Include="UserAccounts\IUserAccountDataAccessor.cs" />
     <Compile Include="UserAccounts\UserAccountService.cs" />
   </ItemGroup>

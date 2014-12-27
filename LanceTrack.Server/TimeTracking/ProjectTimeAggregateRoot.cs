@@ -80,6 +80,9 @@ namespace LanceTrack.Server.TimeTracking
 
         public void Apply(TimeTrackedEvent @event)
         {
+            if (_state == null)
+                _state = new State();
+
             var userTimeRecord = _state.UserTime.SingleOrDefault(r => r.UserId == @event.UserId && r.Date == @event.At.Date);
             if (userTimeRecord == null)
                 _state.UserTime.Add(userTimeRecord = new UserTimeRecord
