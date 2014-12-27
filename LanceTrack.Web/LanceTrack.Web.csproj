@@ -120,6 +120,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Features\Account\styles\login.css">
+      <DependentUpon>login.less</DependentUpon>
+    </Content>
+    <Content Include="Features\Account\styles\login.min.css">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\styles\app.css">
+      <DependentUpon>app.less</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\styles\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Libs\angular\angular-ui-router.js" />
     <Content Include="Libs\angular\angular-ui-router.min.js" />
@@ -137,7 +149,17 @@
     <Content Include="Libs\jquery\jquery.min.js" />
     <Content Include="Features\Shared\_Layout.cshtml" />
     <Content Include="Features\_ViewStart.cshtml" />
+    <Content Include="Features\Account\Views\Login.cshtml" />
+    <Content Include="Features\Shared\styles\app.less" />
+    <Content Include="Features\Shared\styles\app.css.map">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Account\styles\login.less" />
+    <Content Include="Features\Account\styles\login.css.map">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
     <None Include="T4MVC\T4MVC.tt.settings.xml" />
+    <Content Include="Libs\normalize.css" />
     <Content Include="Web.config" />
     <Content Include="Features\TrackTime\Index.cshtml" />
   </ItemGroup>
@@ -146,6 +168,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Features\Account\AccountController.cs" />
+    <Compile Include="Features\Account\Models\LoginModel.cs" />
+    <Compile Include="Features\Account\Models\LoginModelValidator.cs" />
+    <Compile Include="Features\Account\UI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UI.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Shared\ValidationMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidationMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Features\TrackTime\TrackTimeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,6 +241,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Features\Account\UI.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Features\Shared\ValidationMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

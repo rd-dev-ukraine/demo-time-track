@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace LanceTrack.Web.Features.TrackTime
 {
+    [Authorize]
     public partial class TrackTimeController : Controller
     {
         // GET: TrackTime

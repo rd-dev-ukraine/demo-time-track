@@ -6,6 +6,7 @@ namespace LanceTrack.Domain.UserAccounts
     public class LoginFailedException : Exception
     {
         public LoginFailedException()
+            :base(Messages.LoginFailed)
         {
         }
 

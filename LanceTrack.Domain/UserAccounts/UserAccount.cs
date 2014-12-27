@@ -2,6 +2,7 @@
 
 namespace LanceTrack.Domain.UserAccounts
 {
+    [TableName("UserAccount")]
     public class UserAccount
     {
         [PrimaryKey, Identity]

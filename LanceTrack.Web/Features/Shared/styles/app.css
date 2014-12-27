@@ -1,0 +1,13 @@
+﻿.field-validation-error {
+  color: red;
+}
+.validation-summary-errors {
+  color: red;
+}
+.validation-summary-errors ul,
+.validation-summary-errors li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+/*# sourceMappingURL=app.css.map */
