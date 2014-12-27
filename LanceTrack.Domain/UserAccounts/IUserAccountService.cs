@@ -1,6 +1,6 @@
 ﻿namespace LanceTrack.Domain.UserAccounts
 {
-    public interface IUserAccountRepository
+    public interface IUserAccountService
     {
         UserAccount Login(string email, string password);
     }

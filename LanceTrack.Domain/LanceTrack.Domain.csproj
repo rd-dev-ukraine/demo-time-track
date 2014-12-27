@@ -50,7 +50,8 @@
     <Compile Include="TimeTracking\ITimeTrackingService.cs" />
     <Compile Include="TimeTracking\ProjectAuthorizationException.cs" />
     <Compile Include="TimeTracking\ProjectNotReportableException.cs" />
-    <Compile Include="UserAccounts\IUserAccountRepository.cs" />
+    <Compile Include="UserAccounts\IUserAccountService.cs" />
+    <Compile Include="UserAccounts\LoginFailedException.cs" />
     <Compile Include="UserAccounts\UserAccount.cs" />
   </ItemGroup>
   <ItemGroup>
