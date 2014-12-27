@@ -3,7 +3,7 @@
 	Id int not null identity(1, 1),
 	ProjectId int not null,
 	UserId int not null,
-	UserPermissions int not null, -- 1 = View, 2 = Edit
+	UserPermissions int not null, -- 1 = View Time, 2 = Register Time, 4 = Register Time for other user
 
 	constraint PK_ProjectPermissions primary key (Id),
 	constraint FK_ProjectPermissions_Project foreign key (ProjectId) references Project(Id),

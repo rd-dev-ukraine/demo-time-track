@@ -59,11 +59,15 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="_publish" />
+    <Folder Include="Tables\Events" />
+    <Folder Include="Tables\ReadModels" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\UserAccount.sql" />
     <Build Include="Tables\Project.sql" />
     <Build Include="Tables\ProjectPermissions.sql" />
+    <Build Include="Tables\ReadModels\ProjectDailyTimeData.sql" />
+    <Build Include="Tables\Events\TimeRegistrationEvents.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="_publish\lance-track.publish.xml" />

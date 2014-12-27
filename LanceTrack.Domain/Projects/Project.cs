@@ -11,5 +11,9 @@ namespace LanceTrack.Domain.Projects
         public DateTimeOffset StartTime { get; set; }
 
         public DateTimeOffset? EndTime { get; set; }
+
+        public int? MaxHoursPerDay { get; set; }
+
+        public int? MaxTotalHours { get; set; }
     }
 }
