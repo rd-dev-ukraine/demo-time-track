@@ -2,3 +2,6 @@
 /LanceTrack.Domain/bin/
 /LanceTrack.Domain/obj/
 /packages/
+/database/LanceTrack.Database/bin
+/database/LanceTrack.Database/obj
+/database/LanceTrack.Database/LanceTrack.Database.sqlproj.user

@@ -47,6 +47,9 @@
     <Compile Include="Projects\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeTracking\ITimeTrackingService.cs" />
+    <Compile Include="TimeTracking\ProjectAuthorizationException.cs" />
+    <Compile Include="TimeTracking\ProjectNotReportableException.cs" />
+    <Compile Include="UserAccounts\IUserAccountRepository.cs" />
     <Compile Include="UserAccounts\UserAccount.cs" />
   </ItemGroup>
   <ItemGroup>
