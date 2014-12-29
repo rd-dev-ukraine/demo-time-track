@@ -22,5 +22,10 @@ namespace LanceTrack.DataAccess.Projects
         {
             return DbManager.GetTable<Project>().SingleOrDefault(p => p.Id == id);
         }
+
+        public IQueryable<Project> GetActiveProjects(int userId, DateTime startDate, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace LanceTrack.DataAccess.TimeTracking
 
         private DbManager DbManager { get; set; }
 
-        public IEnumerable<TimeTrackedEvent> ReadEvents(int projectId)
+        public IEnumerable<TimeTrackedEvent> ReadTimeTrackedEvents(int projectId)
         {
             return DbManager.GetTable<TimeTrackedEvent>()
                             .Where(e => e.ProjectId == projectId);

@@ -57,8 +57,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerDependencyModule.cs" />
     <Compile Include="TimeTracking\Events\TimeTrackedEvent.cs" />
-    <Compile Include="TimeTracking\ITimeTrackingEventRepository.cs" />
+    <Compile Include="TimeTracking\ReadModels\IProjectDailyTimeStorage.cs" />
+    <Compile Include="TimeTracking\ReadModels\IProjectTimeReadModel.cs" />
+    <Compile Include="TimeTracking\Events\ITimeTrackingEventRepository.cs" />
     <Compile Include="TimeTracking\ProjectTimeAggregateRoot.cs" />
+    <Compile Include="TimeTracking\ProjectTimeAggregateRootRepository.cs" />
+    <Compile Include="TimeTracking\ReadModels\ProjectDailyTimeReadModel.cs" />
     <Compile Include="TimeTracking\TimeTrackingService.cs" />
     <Compile Include="UserAccounts\IUserAccountDataAccessor.cs" />
     <Compile Include="UserAccounts\UserAccountService.cs" />

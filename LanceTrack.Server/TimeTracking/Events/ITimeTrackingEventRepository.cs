@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using LanceTrack.Server.TimeTracking.Events;
 
-namespace LanceTrack.Server.TimeTracking
+namespace LanceTrack.Server.TimeTracking.Events
 {
     public interface ITimeTrackingEventRepository
     {
-        IEnumerable<TimeTrackedEvent> ReadEvents(int projectId);
+        IEnumerable<TimeTrackedEvent> ReadTimeTrackedEvents(int projectId);
 
         void StoreEvent(TimeTrackedEvent @event);
     }

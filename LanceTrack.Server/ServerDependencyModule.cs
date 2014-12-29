@@ -2,6 +2,7 @@
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server.Projects;
 using LanceTrack.Server.TimeTracking;
+using LanceTrack.Server.TimeTracking.ReadModels;
 using LanceTrack.Server.UserAccounts;
 using Ninject.Modules;
 
@@ -15,6 +16,7 @@ namespace LanceTrack.Server
             Bind<IProjectService>().To<ProjectService>();
             Bind<IUserAccountService>().To<UserAccountService>();
             Bind<ITimeTrackingService>().To<TimeTrackingService>();
+            Bind<IProjectTimeReadModel>().To<ProjectDailyTimeReadModel>();
         }
     }
 }
