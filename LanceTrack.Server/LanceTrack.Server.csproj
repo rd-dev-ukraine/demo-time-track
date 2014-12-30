@@ -47,9 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Projects\Contract\IProjectPermissionsService.cs" />
-    <Compile Include="Projects\ProjectPermissionsService.cs" />
-    <Compile Include="Projects\ProjectTimeService.cs" />
+    <Compile Include="Projects\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerDependencyModule.cs" />
     <Compile Include="TimeTracking\ProjectTimeAggregateRoot.cs" />

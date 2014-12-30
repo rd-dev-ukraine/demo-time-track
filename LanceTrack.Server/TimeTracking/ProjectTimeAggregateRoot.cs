@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Server.Dependencies.Project;
 using LanceTrack.Server.Dependencies.TimeTracking.Event;
 using LanceTrack.Server.Dependencies.TimeTracking.ReadModels;
 using LanceTrack.Server.Projects;
-using LanceTrack.Server.Projects.Contract;
 
 namespace LanceTrack.Server.TimeTracking
 {
@@ -19,25 +17,25 @@ namespace LanceTrack.Server.TimeTracking
     public class ProjectTimeAggregateRoot
     {
         private readonly Project _project;
-        private readonly IProjectPermissionsService _projectPermissionsService;
-        private readonly List<IProjectTimeReadModel> _readModels;
+        private readonly ProjectService _projectService;
+        private readonly List<IProjectTimeReadModelHandler> _readModels;
         private State _state;
-        private readonly List<TimeTrackedEvent> _timeTrackedEvents = new List<TimeTrackedEvent>();
+        private readonly List<ProjectTimeTrackedEvent> _timeTrackedEvents = new List<ProjectTimeTrackedEvent>();
 
         public ProjectTimeAggregateRoot(
-            IProjectPermissionsService projectPermissionsService,
+            ProjectService projectService,
             Project project,
-            List<IProjectTimeReadModel> readModels)
+            List<IProjectTimeReadModelHandler> readModels)
         {
             if (project == null)
                 throw new ArgumentNullException("project");
-            if (projectPermissionsService == null)
-                throw new ArgumentNullException("projectPermissionsService");
+            if (projectService == null)
+                throw new ArgumentNullException("projectService");
             if (readModels == null)
                 throw new ArgumentNullException("readModels");
 
             _project = project;
-            _projectPermissionsService = projectPermissionsService;
+            _projectService = projectService;
             _readModels = readModels;
 
             Events = new List<object>();
@@ -45,7 +43,7 @@ namespace LanceTrack.Server.TimeTracking
 
         public List<object> Events { get; private set; }
 
-        public void Apply(TimeTrackedEvent @event)
+        public void Apply(ProjectTimeTrackedEvent @event)
         {
             if (_state == null)
                 _state = new State();
@@ -71,6 +69,8 @@ namespace LanceTrack.Server.TimeTracking
 
             foreach (var rm in _readModels)
                 rm.Save();
+
+            _timeTrackedEvents.Clear();
         }
 
         public void TrackTime(int currentUserId, int trackForUserId, DateTimeOffset at, decimal hours)
@@ -78,7 +78,7 @@ namespace LanceTrack.Server.TimeTracking
             if (_project.Status != ProjectStatus.Active)
                 throw new ProjectNotReportableException();
 
-            var perms = _projectPermissionsService.CalculatePermissions(currentUserId, _project.Id);
+            var perms = _projectService.CalculatePermissions(currentUserId, _project.Id);
             if (perms < ProjectPermissions.TrackSelf)
                 throw new ProjectAuthorizationException();
             if (currentUserId != trackForUserId &&
@@ -102,7 +102,7 @@ namespace LanceTrack.Server.TimeTracking
                 (_state.ProjectTotalHours + hours) > _project.MaxTotalHours)
                 throw new IncorrectHoursException();
 
-            var @event = new TimeTrackedEvent
+            var @event = new ProjectTimeTrackedEvent
             {
                 At = at,
                 Hours = hours,

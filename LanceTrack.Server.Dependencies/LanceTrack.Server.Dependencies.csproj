@@ -47,14 +47,17 @@
   <ItemGroup>
     <Compile Include="Project\IProjectAccessor.cs" />
     <Compile Include="Project\IProjectPermissionsAccessor.cs" />
+    <Compile Include="Project\Project.cs" />
+    <Compile Include="Project\ProjectDailyTime.cs" />
     <Compile Include="Project\ProjectPermissions.cs" />
+    <Compile Include="Project\ProjectStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeTracking\Event\ITimeTrackingEventRepository.cs" />
-    <Compile Include="TimeTracking\ReadModels\IProjectDailyTimeStorage.cs" />
-    <Compile Include="TimeTracking\ReadModels\IProjectTimeReadModel.cs" />
-    <Compile Include="TimeTracking\ReadModels\ProjectDailyTimeReadModel.cs" />
+    <Compile Include="TimeTracking\ReadModels\ProjectDailyTime\IProjectDailyTimeStorage.cs" />
+    <Compile Include="TimeTracking\ReadModels\IProjectTimeReadModelHandler.cs" />
+    <Compile Include="TimeTracking\ReadModels\ProjectDailyTime\ProjectDailyTimeReadModelHandler.cs" />
     <Compile Include="UserAccounts\IUserAccountDataAccessor.cs" />
-    <Compile Include="TimeTracking\Event\TimeTrackedEvent.cs" />
+    <Compile Include="TimeTracking\Event\ProjectTimeTrackedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanceTrack.Domain\LanceTrack.Domain.csproj">

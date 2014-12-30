@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Server.Dependencies.TimeTracking.Event;
+using ProjectDailyTimeEntity = LanceTrack.Server.Dependencies.Project.ProjectDailyTime;
 
-namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels
+namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTime
 {
-    public class ProjectDailyTimeReadModel : IProjectTimeReadModel
+    public class ProjectDailyTimeReadModelHandler : IProjectTimeReadModelHandler
     {
         private readonly IProjectDailyTimeStorage _storage;
-        private readonly List<ProjectDailyTime> _readModels = new List<ProjectDailyTime>();
+        private readonly List<ProjectDailyTimeEntity> _readModels = new List<ProjectDailyTimeEntity>();
 
-        public ProjectDailyTimeReadModel(IProjectDailyTimeStorage storage)
+        public ProjectDailyTimeReadModelHandler(IProjectDailyTimeStorage storage)
         {
             if (storage == null)
                 throw new ArgumentNullException("storage");
@@ -19,12 +19,12 @@ namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels
             _storage = storage;
         }
 
-        public void AppyEvent(TimeTrackedEvent evt)
+        public void AppyEvent(ProjectTimeTrackedEvent evt)
         {
             var dailyTime = _readModels.FirstOrDefault(m => m.Date == evt.At.Date &&
                                                             m.ProjectId == evt.ProjectId &&
                                                             m.UserId == evt.UserId) ??
-                                                new ProjectDailyTime
+                                                new ProjectDailyTimeEntity
                                                 {
                                                     Date = evt.At.Date,
                                                     ProjectId = evt.ProjectId,

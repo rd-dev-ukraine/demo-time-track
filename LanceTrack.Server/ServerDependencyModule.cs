@@ -1,8 +1,8 @@
 ﻿using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server.Dependencies.TimeTracking.ReadModels;
+using LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTime;
 using LanceTrack.Server.Projects;
-using LanceTrack.Server.Projects.Contract;
 using LanceTrack.Server.TimeTracking;
 using LanceTrack.Server.UserAccounts;
 using Ninject.Modules;
@@ -13,10 +13,10 @@ namespace LanceTrack.Server
     {
         public override void Load()
         {
-            Bind<IProjectPermissionsService>().To<ProjectPermissionsService>();
             Bind<IUserAccountService>().To<UserAccountService>();
             Bind<ITimeTrackingService>().To<TimeTrackingService>();
-            Bind<IProjectTimeReadModel>().To<ProjectDailyTimeReadModel>();
+            Bind<IProjectTimeReadModelHandler>().To<ProjectDailyTimeReadModelHandler>();
+            Bind<ProjectService>().ToSelf();
         }
     }
 }

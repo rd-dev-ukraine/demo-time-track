@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using BLToolkit.Data;
-using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Server.Dependencies.Project;
 

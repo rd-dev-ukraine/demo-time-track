@@ -2,9 +2,9 @@
 
 namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels
 {
-    public interface IProjectTimeReadModel
+    public interface IProjectTimeReadModelHandler
     {
-        void AppyEvent(TimeTrackedEvent evt);
+        void AppyEvent(ProjectTimeTrackedEvent evt);
 
         void Save();
     }

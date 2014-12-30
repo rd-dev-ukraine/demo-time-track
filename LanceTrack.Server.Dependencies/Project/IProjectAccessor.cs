@@ -5,8 +5,8 @@ namespace LanceTrack.Server.Dependencies.Project
 {
     public interface IProjectAccessor
     {
-        Domain.ProjectTime.Project GetById(int id);
+        Project GetById(int id);
 
-        IQueryable<Domain.ProjectTime.Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate);
+        IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate);
     }
 }

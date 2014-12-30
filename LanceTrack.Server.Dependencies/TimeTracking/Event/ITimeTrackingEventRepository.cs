@@ -4,8 +4,8 @@ namespace LanceTrack.Server.Dependencies.TimeTracking.Event
 {
     public interface ITimeTrackingEventRepository
     {
-        IEnumerable<TimeTrackedEvent> ReadTimeTrackedEvents(int projectId);
+        IEnumerable<ProjectTimeTrackedEvent> ReadTimeTrackedEvents(int projectId);
 
-        void StoreEvent(TimeTrackedEvent @event);
+        void StoreEvent(ProjectTimeTrackedEvent @event);
     }
 }

@@ -5,6 +5,7 @@ using LanceTrack.DataAccess.UserAccounts;
 using LanceTrack.Server.Dependencies.Project;
 using LanceTrack.Server.Dependencies.TimeTracking.Event;
 using LanceTrack.Server.Dependencies.TimeTracking.ReadModels;
+using LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTime;
 using LanceTrack.Server.Dependencies.UserAccounts;
 using Ninject.Modules;
 
