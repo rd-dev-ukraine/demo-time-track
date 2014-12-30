@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Domain.Projects;
+using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Server.Projects;
 using LanceTrack.Server.TimeTracking.Events;

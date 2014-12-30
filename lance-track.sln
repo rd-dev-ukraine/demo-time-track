@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanceTrack.DataAccess", "La
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanceTrack.Web", "LanceTrack.Web\LanceTrack.Web.csproj", "{7B23CE25-BC70-4CDB-B4C3-6E2C01DC3D85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanceTrack.Server.Dependencies", "LanceTrack.Server.Dependencies\LanceTrack.Server.Dependencies.csproj", "{5B283BF1-684B-44C2-B272-FD26EE38B875}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{7B23CE25-BC70-4CDB-B4C3-6E2C01DC3D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B23CE25-BC70-4CDB-B4C3-6E2C01DC3D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B23CE25-BC70-4CDB-B4C3-6E2C01DC3D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B283BF1-684B-44C2-B272-FD26EE38B875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B283BF1-684B-44C2-B272-FD26EE38B875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B283BF1-684B-44C2-B272-FD26EE38B875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B283BF1-684B-44C2-B272-FD26EE38B875}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

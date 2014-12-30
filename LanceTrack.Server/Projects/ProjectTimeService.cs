@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
-using LanceTrack.Domain.Projects;
+using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.UserAccounts;
 
 namespace LanceTrack.Server.Projects
 {
-    public class ProjectService : IProjectService, Domain.Projects.IProjectService
+    public class ProjectTimeService : IProjectTimeService
     {
         private readonly IProjectAccessor _projectAccessor;
         private readonly UserAccount _currentUser;
 
-        public ProjectService(IProjectAccessor projectAccessor, UserAccount currentUser)
+        public ProjectTimeService(IProjectAccessor projectAccessor, UserAccount currentUser)
         {
             if (projectAccessor == null)
                 throw new ArgumentNullException("projectAccessor");

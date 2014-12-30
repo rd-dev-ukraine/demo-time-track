@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 
-namespace LanceTrack.Domain.Projects
+namespace LanceTrack.Domain.ProjectTime
 {
-    public interface IProjectService
+    public interface IProjectTimeService
     {
+        Project GetById(int id);
+
         IQueryable<Project> GetReportableProjects(DateTime startDate, DateTime endDate);
     }
 }

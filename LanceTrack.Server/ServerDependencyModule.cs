@@ -13,7 +13,6 @@ namespace LanceTrack.Server
         public override void Load()
         {
             Bind<IProjectPermissionsService>().To<ProjectPermissionsService>();
-            Bind<IProjectService>().To<ProjectService>();
             Bind<IUserAccountService>().To<UserAccountService>();
             Bind<ITimeTrackingService>().To<TimeTrackingService>();
             Bind<IProjectTimeReadModel>().To<ProjectDailyTimeReadModel>();

@@ -1,6 +1,7 @@
 ﻿using System;
+using LanceTrack.Domain.Projects;
 
-namespace LanceTrack.Domain.Projects
+namespace LanceTrack.Domain.ProjectTime
 {
     public class Project
     {

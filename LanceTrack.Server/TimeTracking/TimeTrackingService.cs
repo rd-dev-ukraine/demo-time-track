@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server.Projects;
@@ -11,7 +12,7 @@ namespace LanceTrack.Server.TimeTracking
     public class TimeTrackingService : ITimeTrackingService
     {
         private readonly ITimeTrackingEventRepository _eventRepository;
-        private readonly IProjectService _projectService;
+        private readonly IProjectTimeService _projectTimeService;
         private readonly IProjectPermissionsService _projectPermissionsService;
         private readonly List<IProjectTimeReadModel> _readModels; 
         private readonly UserAccount _currentUser;
@@ -19,20 +20,20 @@ namespace LanceTrack.Server.TimeTracking
 
         public TimeTrackingService(
             ITimeTrackingEventRepository eventRepository, 
-            IProjectService projectService, 
+            IProjectTimeService projectTimeService, 
             IProjectPermissionsService projectPermissionsService,
             List<IProjectTimeReadModel> readModels,
             UserAccount currentUser)
         {
             _eventRepository = eventRepository;
-            _projectService = projectService;
+            _projectTimeService = projectTimeService;
             _projectPermissionsService = projectPermissionsService;
             _currentUser = currentUser;
             _readModels = readModels;
 
             _repository = new ProjectTimeAggregateRootRepository(projectId =>
             {
-                var project = _projectService.GetById(projectId);
+                var project = _projectTimeService.GetById(projectId);
                 var result = new ProjectTimeAggregateRoot(_projectPermissionsService, project, _readModels);
 
                 foreach (var e in _eventRepository.ReadTimeTrackedEvents(projectId))
@@ -47,8 +48,6 @@ namespace LanceTrack.Server.TimeTracking
         {
             var aggregateRoot = _repository.GetAggregateRoot(projectId);
             aggregateRoot.TrackTime(_currentUser.Id, userId, at, hours);
-
-
         }
     }
 }

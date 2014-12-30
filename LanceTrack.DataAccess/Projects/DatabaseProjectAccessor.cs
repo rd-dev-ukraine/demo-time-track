@@ -2,6 +2,7 @@
 using System.Linq;
 using BLToolkit.Data;
 using LanceTrack.Domain.Projects;
+using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Server.Projects;
 
 namespace LanceTrack.DataAccess.Projects
