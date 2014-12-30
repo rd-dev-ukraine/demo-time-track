@@ -7,5 +7,7 @@ namespace LanceTrack.Server.UserAccounts
         UserAccount FindByCredentials(string email, string password);
 
         UserAccount GetById(int id);
+
+        UserAccount FindByEmail(string email);
     }
 }

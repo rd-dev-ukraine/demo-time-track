@@ -23,9 +23,16 @@ namespace LanceTrack.DataAccess.Projects
             return DbManager.GetTable<Project>().SingleOrDefault(p => p.Id == id);
         }
 
-        public IQueryable<Project> GetActiveProjects(int userId, DateTime startDate, DateTime endDate)
+        public IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            startDate = startDate.Date;
+            endDate = endDate.Date;
+
+            var projectPermissions = DbManager.GetTable<ProjectPermissions>();
+            return DbManager.GetTable<Project>()
+                            .Where(p => projectPermissions.Any(perm => perm.ProjectId == p.Id && perm.UserId == userId))
+                            .Where(p => p.Status == ProjectStatus.Active)
+                            .Where(p => p.StartTime >= startDate && p.StartTime <= endDate);
         }
     }
 }

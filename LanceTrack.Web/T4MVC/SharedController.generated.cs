@@ -37,9 +37,13 @@ namespace T4MVC
             public class _ViewNamesClass
             {
                 public readonly string _Layout = "_Layout";
+                public readonly string Libs = "Libs";
+                public readonly string Urls = "Urls";
                 public readonly string ValidationMessages = "ValidationMessages";
             }
             public readonly string _Layout = "~/Features/Shared/_Layout.cshtml";
+            public readonly string Libs = "~/Features/Shared/Libs.cshtml";
+            public readonly string Urls = "~/Features/Shared/Urls.cshtml";
             public readonly string ValidationMessages = "~/Features/Shared/ValidationMessages.resx";
             static readonly _scriptsClass s_scripts = new _scriptsClass();
             public _scriptsClass scripts { get { return s_scripts; } }

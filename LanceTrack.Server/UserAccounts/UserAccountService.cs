@@ -28,5 +28,13 @@ namespace LanceTrack.Server.UserAccounts
 
             return user;
         }
+
+        public UserAccount FindByEmail(string email)
+        {
+            if (String.IsNullOrWhiteSpace(email))
+                throw new ArgumentNullException("email");
+
+            return _userAccountDataAccessor.FindByEmail(email);
+        }
     }
 }

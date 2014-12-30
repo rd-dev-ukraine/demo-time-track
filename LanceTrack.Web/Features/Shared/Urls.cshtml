@@ -1,0 +1,16 @@
+﻿@using LanceTrack.Web.Infrastructure
+<script type="text/javascript">
+    var urls = @Html.JsonEncode(new
+                        {
+                            templates = new
+                            {
+                                trackTime = Url.Action(MVC.TrackTime.Index())
+                            },
+                            data = new
+                            {
+                                trackTime = Url.Content("~/api/trackTime")
+                            }
+                        });
+</script>
+
+

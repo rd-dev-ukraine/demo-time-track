@@ -1,34 +1,52 @@
 ﻿@model LanceTrack.Web.Features.Account.Models.LoginModel
 @using Rx = LanceTrack.Web.Features.Account.UI
-
-@section head {
-    <link href="@Links.Features.Account.styles.login_min_css" type="text/css" rel="stylesheet" />
+@{
+    Layout = null;
 }
 
-<div class="login-form panel panel-default">
-    <form class="panel-body"
-          method="POST" action="@Url.Action(MVC.Account.Login())">
-        @Html.ValidationSummary(true)
-        <div class="form-group">
-            @Html.LabelFor(m => m.Login, Rx.Login)
-            @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Login)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, Rx.Password)
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password)
-        </div>
-        <div class="form-group">
-            <div class="checkbox">
-                <label>
-                    @Html.CheckBoxFor(m => m.RememberMe) @Rx.RememberMe
-                </label>
-            </div>
+<!DOCTYPE html>
 
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LanceTrack</title>
+
+    @Html.Partial(MVC.Shared.Views.Libs)
+    <link href="@Links.Features.Account.styles.login_min_css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="login-form panel panel-default">
+            <form class="panel-body"
+                  method="POST" action="@Url.Action(MVC.Account.Login())">
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Login, Rx.Login)
+                    @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Login)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, Rx.Password)
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.RememberMe) @Rx.RememberMe
+                        </label>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default btn-primary" type="submit">@Rx.Enter</button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <button class="btn btn-default btn-primary" type="submit">@Rx.Enter</button>
-        </div>
-    </form>
-</div>
+    </div>
+</body>
+</html>

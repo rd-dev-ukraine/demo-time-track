@@ -8,15 +8,8 @@
 
     <title>LanceTrack</title>
 
-    <link href="@Links.Libs.normalize_css" type="text/css" rel="stylesheet" />
-    <link href="@Links.Libs.bootstrap.css.bootstrap_min_css" type="text/css" rel="stylesheet" />
-    <link href="@Links.Libs.bootstrap.css.bootstrap_theme_min_css" type="text/css" rel="stylesheet" />
-    <link href="@Links.Features.Shared.styles.app_min_css" type="text/css" rel="stylesheet" />
-
-    <script src="@Links.Libs.jquery.jquery_min_js" type="text/javascript"></script>
-    <script src="@Links.Libs.bootstrap.js.bootstrap_js" type="text/javascript"></script>
-    <script src="@Links.Libs.angular.angular_min_js" type="text/javascript"></script>
-    <script src="@Links.Libs.angular.angular_ui_router_min_js" type="text/javascript"></script>
+    @Html.Partial(MVC.Shared.Views.Libs)
+    @Html.Partial(MVC.Shared.Views.Urls)
 
     <script src="@Links.Features.TrackTime.scripts.module_ts" type="text/javascript"></script>
     <script src="@Links.Features.Shared.scripts.app_ts" type="text/javascript"></script>
@@ -24,6 +17,15 @@
     @RenderSection("head", false)
 </head>
 <body ng-app="lance-track">
+    <header class="navbar navbar-static-top navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    LanceTrack
+                </a>
+            </div>
+        </div>
+    </header>
     <div class="container">
         @RenderBody()
     </div>

@@ -160,6 +160,9 @@
     <Content Include="Features\Account\styles\login.css.map">
       <DependentUpon>login.css</DependentUpon>
     </Content>
+    <Content Include="Features\Shared\Libs.cshtml" />
+    <Content Include="Features\Shared\Urls.cshtml" />
+    <Content Include="Features\Home\Views\Index.cshtml" />
     <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Libs\normalize.css" />
     <Content Include="Web.config" />
@@ -177,17 +180,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UI.resx</DependentUpon>
     </Compile>
+    <Compile Include="Features\Home\HomeController.cs" />
     <Compile Include="Features\Shared\ValidationMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Features\TrackTime\TrackTimeApiController.cs" />
     <Compile Include="Features\TrackTime\TrackTimeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\HtmlHelperExtension.cs" />
+    <Compile Include="Infrastructure\NinjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T4MVC\AccountController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\SharedController.generated.cs">

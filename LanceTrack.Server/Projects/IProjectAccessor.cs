@@ -8,6 +8,6 @@ namespace LanceTrack.Server.Projects
     {
         Project GetById(int id);
 
-        IQueryable<Project> GetActiveProjects(int userId, DateTime startDate, DateTime endDate);
+        IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate);
     }
 }

@@ -8,7 +8,7 @@ namespace LanceTrack.Web.Features.TrackTime
         // GET: TrackTime
         public virtual ActionResult Index()
         {
-            return View(new object());
+            return PartialView();
         }
     }
 }

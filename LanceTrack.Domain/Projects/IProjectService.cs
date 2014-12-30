@@ -5,6 +5,6 @@ namespace LanceTrack.Domain.Projects
 {
     public interface IProjectService
     {
-        IQueryable<Project> GetActiveProjects(DateTime startDate, DateTime endDate);
+        IQueryable<Project> GetReportableProjects(DateTime startDate, DateTime endDate);
     }
 }

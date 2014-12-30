@@ -14,8 +14,8 @@ namespace LanceTrack.Web
                 "{controller}/{action}/{id}", 
                 new 
                 {
-                    controller = MVC.TrackTime.Name, 
-                    action = MVC.TrackTime.ActionNames.Index, 
+                    controller = MVC.Home.Name, 
+                    action = MVC.Home.ActionNames.Index, 
                     id = UrlParameter.Optional
                 });
         }

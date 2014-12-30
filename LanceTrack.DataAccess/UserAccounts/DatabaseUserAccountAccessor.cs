@@ -28,6 +28,11 @@ namespace LanceTrack.DataAccess.UserAccounts
             return GetById(account.Id);
         }
 
+        public UserAccount FindByEmail(string email)
+        {
+            return DbManager.GetTable<UserAccount>().SingleOrDefault(ua => ua.Email == email);
+        }
+
         public UserAccount GetById(int id)
         {
             return DbManager.GetTable<UserAccount>().SingleOrDefault(u => u.Id == id);

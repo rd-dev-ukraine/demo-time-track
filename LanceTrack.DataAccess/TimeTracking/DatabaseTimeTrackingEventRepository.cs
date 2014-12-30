@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BLToolkit.Data;
 using BLToolkit.Data.Linq;
-using LanceTrack.Server.TimeTracking;
 using LanceTrack.Server.TimeTracking.Events;
 
 namespace LanceTrack.DataAccess.TimeTracking

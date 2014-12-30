@@ -26,6 +26,7 @@ using T4MVC;
 public static partial class MVC
 {
     public static LanceTrack.Web.Features.Account.AccountController Account = new LanceTrack.Web.Features.Account.T4MVC_AccountController();
+    public static LanceTrack.Web.Features.Home.HomeController Home = new LanceTrack.Web.Features.Home.T4MVC_HomeController();
     public static LanceTrack.Web.Features.TrackTime.TrackTimeController TrackTime = new LanceTrack.Web.Features.TrackTime.T4MVC_TrackTimeController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
@@ -182,6 +183,20 @@ namespace Links
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Views {
                 private const string URLPATH = "~/Features/Account/Views";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Home {
+            private const string URLPATH = "~/Features/Home";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Views {
+                private const string URLPATH = "~/Features/Home/Views";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             }

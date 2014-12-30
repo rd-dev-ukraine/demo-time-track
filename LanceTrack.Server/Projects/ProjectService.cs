@@ -26,9 +26,9 @@ namespace LanceTrack.Server.Projects
             return _projectAccessor.GetById(id);
         }
 
-        public IQueryable<Project> GetActiveProjects(DateTime startDate, DateTime endDate)
+        public IQueryable<Project> GetReportableProjects(DateTime startDate, DateTime endDate)
         {
-            return _projectAccessor.GetActiveProjects(_currentUser.Id, startDate, endDate);
+            return _projectAccessor.GetReportableProjectsForUser(_currentUser.Id, startDate, endDate);
         }
     }
 }

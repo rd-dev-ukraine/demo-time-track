@@ -2,8 +2,10 @@ using System;
 using System.Web;
 using BLToolkit.Data;
 using LanceTrack.DataAccess;
+using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
 using LanceTrack.Web;
+using LanceTrack.Web.Infrastructure;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
@@ -65,6 +67,10 @@ namespace LanceTrack.Web
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbManager>().ToSelf().InRequestScope();
+
+            kernel.Bind<UserAccount>()
+                  .ConstructUsing((IUserAccountService svc) => svc.FindByEmail(HttpContext.Current.User.Identity.Name))
+                  .InRequestScope();
         }
     }
 }
