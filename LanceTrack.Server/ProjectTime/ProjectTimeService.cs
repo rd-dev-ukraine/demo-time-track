@@ -31,7 +31,7 @@ namespace LanceTrack.Server.ProjectTime
             _projectTimeRepository = projectTimeRepository;
         }
 
-        public IEnumerable<ProjectInfo> GetProjectTimeInfo(DateTime startDate, DateTime endDate)
+        public IEnumerable<ProjectTimeInfo> GetProjectTimeInfo(DateTime startDate, DateTime endDate)
         {
             return _projectService.GetReportableProjects(startDate, endDate)
                                   .SelectMany(project => _projectTimeRepository.GetProjectDailyTime(project.Id, _currentUser.Id, startDate, endDate)
@@ -41,7 +41,7 @@ namespace LanceTrack.Server.ProjectTime
                                                                                    Time = time
                                                                                }))
                                   .GroupBy(a => a.Project, a => a.Time)
-                                  .Select(a => new ProjectInfo
+                                  .Select(a => new ProjectTimeInfo
                                   {
                                       ProjectId = a.Key.Id,
                                       ProjectTitle = a.Key.Name,

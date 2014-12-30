@@ -6,6 +6,6 @@ namespace LanceTrack.Domain.ProjectTime
 {
     public interface IProjectTimeService
     {
-        IEnumerable<ProjectInfo> GetProjectTimeInfo(DateTime startDate, DateTime endDate);
+        IEnumerable<ProjectTimeInfo> GetProjectTimeInfo(DateTime startDate, DateTime endDate);
     }
 }

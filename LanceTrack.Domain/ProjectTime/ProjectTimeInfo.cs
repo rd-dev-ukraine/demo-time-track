@@ -2,7 +2,7 @@
 
 namespace LanceTrack.Domain.ProjectTime
 {
-    public class ProjectInfo
+    public class ProjectTimeInfo
     {
         public int ProjectId { get; set; }
 
