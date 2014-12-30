@@ -1,4 +1,4 @@
-﻿namespace LanceTrack.Server.Projects
+﻿namespace LanceTrack.Server.Dependencies.Project
 {
     public interface IProjectPermissionsAccessor
     {

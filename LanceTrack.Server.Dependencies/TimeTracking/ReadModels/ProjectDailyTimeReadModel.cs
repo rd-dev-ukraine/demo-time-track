@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Domain.ProjectTime;
-using LanceTrack.Server.TimeTracking.Events;
+using LanceTrack.Server.Dependencies.TimeTracking.Event;
 
-namespace LanceTrack.Server.TimeTracking.ReadModels
+namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels
 {
     public class ProjectDailyTimeReadModel : IProjectTimeReadModel
     {

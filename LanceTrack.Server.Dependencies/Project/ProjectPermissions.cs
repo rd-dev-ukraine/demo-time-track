@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LanceTrack.Server.Projects
+namespace LanceTrack.Server.Dependencies.Project
 {
     [Flags]
     public enum ProjectPermissions

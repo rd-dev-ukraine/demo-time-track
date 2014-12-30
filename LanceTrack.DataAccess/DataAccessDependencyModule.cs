@@ -2,10 +2,10 @@
 using LanceTrack.DataAccess.ProjectTime;
 using LanceTrack.DataAccess.TimeTracking;
 using LanceTrack.DataAccess.UserAccounts;
-using LanceTrack.Server.Projects;
-using LanceTrack.Server.TimeTracking.Events;
-using LanceTrack.Server.TimeTracking.ReadModels;
-using LanceTrack.Server.UserAccounts;
+using LanceTrack.Server.Dependencies.Project;
+using LanceTrack.Server.Dependencies.TimeTracking.Event;
+using LanceTrack.Server.Dependencies.TimeTracking.ReadModels;
+using LanceTrack.Server.Dependencies.UserAccounts;
 using Ninject.Modules;
 
 namespace LanceTrack.DataAccess

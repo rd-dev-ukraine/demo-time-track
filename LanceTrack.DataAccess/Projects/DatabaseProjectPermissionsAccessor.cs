@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using BLToolkit.Data;
-using LanceTrack.Server.Projects;
+using LanceTrack.Server.Dependencies.Project;
 
 namespace LanceTrack.DataAccess.Projects
 {
@@ -17,11 +17,11 @@ namespace LanceTrack.DataAccess.Projects
 
         private DbManager DbManager { get; set; }
 
-        public Server.Projects.ProjectPermissions GetProjectPermissionsForUser(int userId, int projectId)
+        public Server.Dependencies.Project.ProjectPermissions GetProjectPermissionsForUser(int userId, int projectId)
         {
             var perms = DbManager.GetTable<ProjectPermissions>().SingleOrDefault(pp => pp.UserId == userId && pp.ProjectId == projectId);
             if (perms == null)
-                return Server.Projects.ProjectPermissions.None;
+                return LanceTrack.Server.Dependencies.Project.ProjectPermissions.None;
 
             return perms.UserPermissions;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using LanceTrack.Domain.UserAccounts;
+using LanceTrack.Server.Dependencies.UserAccounts;
 
 namespace LanceTrack.Server.UserAccounts
 {

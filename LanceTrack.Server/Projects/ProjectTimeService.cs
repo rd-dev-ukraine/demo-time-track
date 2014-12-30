@@ -2,6 +2,7 @@
 using System.Linq;
 using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.UserAccounts;
+using LanceTrack.Server.Dependencies.Project;
 
 namespace LanceTrack.Server.Projects
 {

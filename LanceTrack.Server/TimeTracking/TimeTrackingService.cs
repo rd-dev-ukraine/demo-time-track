@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
+using LanceTrack.Server.Dependencies.TimeTracking.Event;
+using LanceTrack.Server.Dependencies.TimeTracking.ReadModels;
 using LanceTrack.Server.Projects;
-using LanceTrack.Server.TimeTracking.Events;
-using LanceTrack.Server.TimeTracking.ReadModels;
+using LanceTrack.Server.Projects.Contract;
 
 namespace LanceTrack.Server.TimeTracking
 {

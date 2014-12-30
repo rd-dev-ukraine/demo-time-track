@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LanceTrack.Server.TimeTracking.Events
+namespace LanceTrack.Server.Dependencies.TimeTracking.Event
 {
     public interface ITimeTrackingEventRepository
     {

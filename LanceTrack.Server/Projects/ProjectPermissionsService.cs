@@ -1,4 +1,6 @@
 ﻿using System;
+using LanceTrack.Server.Dependencies.Project;
+using LanceTrack.Server.Projects.Contract;
 
 namespace LanceTrack.Server.Projects
 {

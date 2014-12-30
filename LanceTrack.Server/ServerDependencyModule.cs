@@ -1,8 +1,9 @@
 ﻿using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
+using LanceTrack.Server.Dependencies.TimeTracking.ReadModels;
 using LanceTrack.Server.Projects;
+using LanceTrack.Server.Projects.Contract;
 using LanceTrack.Server.TimeTracking;
-using LanceTrack.Server.TimeTracking.ReadModels;
 using LanceTrack.Server.UserAccounts;
 using Ninject.Modules;
 

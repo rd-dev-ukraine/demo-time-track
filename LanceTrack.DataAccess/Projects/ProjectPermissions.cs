@@ -14,6 +14,6 @@ namespace LanceTrack.DataAccess.Projects
         [PrimaryKey]
         public int UserId { get; set; }
 
-        public Server.Projects.ProjectPermissions UserPermissions { get; set; }
+        public Server.Dependencies.Project.ProjectPermissions UserPermissions { get; set; }
     }
 }

@@ -65,9 +65,9 @@
       <Project>{95df81b0-0e6e-4652-b720-a458a280c55b}</Project>
       <Name>LanceTrack.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LanceTrack.Server\LanceTrack.Server.csproj">
-      <Project>{6dca8d27-acf0-44b0-abe9-77e96df8d66e}</Project>
-      <Name>LanceTrack.Server</Name>
+    <ProjectReference Include="..\LanceTrack.Server.Dependencies\LanceTrack.Server.Dependencies.csproj">
+      <Project>{5b283bf1-684b-44c2-b272-fd26ee38b875}</Project>
+      <Name>LanceTrack.Server.Dependencies</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

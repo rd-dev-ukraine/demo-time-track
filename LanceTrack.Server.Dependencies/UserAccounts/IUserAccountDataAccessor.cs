@@ -1,6 +1,6 @@
 ﻿using LanceTrack.Domain.UserAccounts;
 
-namespace LanceTrack.Server.UserAccounts
+namespace LanceTrack.Server.Dependencies.UserAccounts
 {
     public interface IUserAccountDataAccessor
     {

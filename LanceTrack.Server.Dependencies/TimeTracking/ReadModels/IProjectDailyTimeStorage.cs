@@ -1,6 +1,6 @@
 ﻿using LanceTrack.Domain.ProjectTime;
 
-namespace LanceTrack.Server.TimeTracking.ReadModels
+namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels
 {
     public interface IProjectDailyTimeStorage
     {

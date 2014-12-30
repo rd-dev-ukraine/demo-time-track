@@ -1,7 +1,7 @@
 ﻿using System;
 using BLToolkit.DataAccess;
 
-namespace LanceTrack.Server.TimeTracking.Events
+namespace LanceTrack.Server.Dependencies.TimeTracking.Event
 {
     [TableName("TimeRegistrationEvents")]
     public class TimeTrackedEvent

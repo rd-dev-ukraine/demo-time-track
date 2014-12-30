@@ -3,7 +3,7 @@ using System.Linq;
 using BLToolkit.Data;
 using BLToolkit.Data.Linq;
 using LanceTrack.Domain.ProjectTime;
-using LanceTrack.Server.TimeTracking.ReadModels;
+using LanceTrack.Server.Dependencies.TimeTracking.ReadModels;
 
 namespace LanceTrack.DataAccess.ProjectTime
 {
