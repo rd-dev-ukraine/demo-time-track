@@ -48,8 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessDependencyModule.cs" />
-    <Compile Include="Projects\DatabaseProjectAccessor.cs" />
-    <Compile Include="Projects\DatabaseProjectPermissionsAccessor.cs" />
+    <Compile Include="Projects\DatabaseProjectRepository.cs" />
     <Compile Include="Projects\ProjectPermissions.cs" />
     <Compile Include="ProjectTime\DatabaseProjectTimeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProjectTime\IProjectTimeService.cs" />
+    <Compile Include="ProjectTime\ProjectInfo.cs" />
+    <Compile Include="ProjectTime\TimeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeTracking\IncorrectHoursException.cs" />
     <Compile Include="TimeTracking\InvalidHoursException.cs" />

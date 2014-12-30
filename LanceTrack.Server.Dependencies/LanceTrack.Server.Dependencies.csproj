@@ -45,8 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Project\IProjectAccessor.cs" />
-    <Compile Include="Project\IProjectPermissionsAccessor.cs" />
+    <Compile Include="ProjectTime\IProjectTimeRepository.cs" />
+    <Compile Include="Project\IProjectRepository.cs" />
     <Compile Include="Project\Project.cs" />
     <Compile Include="Project\ProjectDailyTime.cs" />
     <Compile Include="Project\ProjectPermissions.cs" />
