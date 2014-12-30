@@ -37,7 +37,7 @@ namespace LanceTrack.Web.Features.Account
 
                 FormsAuthentication.SetAuthCookie(user.Email, formModel.RememberMe);
 
-                return RedirectToAction(MVC.TrackTime.Index());
+                return RedirectToAction(MVC.Home.Index());
             }
             catch (ValidationException ex)
             {

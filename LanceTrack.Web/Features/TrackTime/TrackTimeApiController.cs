@@ -16,10 +16,11 @@ namespace LanceTrack.Web.Features.TrackTime
             _projectTimeService = projectTimeService;
         }
 
-        [Route("{startDate: datetime}-{endDate: datetime}"), HttpGet]
-        public List<ProjectTimeInfo> ProjectTimeInfo(DateTime startDate, DateTime endDate)
+        [Route(""), HttpGet]
+        public List<ProjectTimeInfo> ProjectTimeInfo()
         {
-            return _projectTimeService.GetProjectTimeInfo(startDate, endDate).ToList();
+            return _projectTimeService.GetProjectTimeInfo(DateTime.Now.AddDays(-3), DateTime.Now.AddDays(4))
+                                      .ToList();
         }
     }
 }

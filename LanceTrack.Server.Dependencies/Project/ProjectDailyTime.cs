@@ -3,6 +3,7 @@ using BLToolkit.DataAccess;
 
 namespace LanceTrack.Server.Dependencies.Project
 {
+    [TableName("ProjectDailyTimeData")]
     public class ProjectDailyTime
     {
         [PrimaryKey]

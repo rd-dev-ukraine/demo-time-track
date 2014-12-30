@@ -33,25 +33,20 @@ namespace LanceTrack.Server.ProjectTime
 
         public IEnumerable<ProjectTimeInfo> GetProjectTimeInfo(DateTime startDate, DateTime endDate)
         {
-            return _projectService.GetReportableProjects(startDate, endDate)
-                                  .SelectMany(project => _projectTimeRepository.GetProjectDailyTime(project.Id, _currentUser.Id, startDate, endDate)
-                                                                               .Select(time => new 
-                                                                               {
-                                                                                   Project = project,
-                                                                                   Time = time
-                                                                               }))
-                                  .GroupBy(a => a.Project, a => a.Time)
-                                  .Select(a => new ProjectTimeInfo
-                                  {
-                                      ProjectId = a.Key.Id,
-                                      ProjectTitle = a.Key.Name,
-                                      Time = a.Select(time => new TimeRecord
-                                      {
-                                          Date = time.Date.Date,
-                                          Hours = time.TotalHours
-                                      })
-                                      .ToList()
-                                  });
+            var projects = _projectService.GetReportableProjects(startDate, endDate).ToList();
+            return projects.Select(a => new ProjectTimeInfo
+                           {
+                               ProjectId = a.Id,
+                               ProjectTitle = a.Name,
+                               Time = _projectTimeRepository.GetProjectDailyTime(a.Id, _currentUser.Id, startDate, endDate)
+                                                            .Select(time => new TimeRecord
+                                                            {
+                                                                Date = time.Date.Date,
+                                                                Hours = time.TotalHours
+                                                            })
+                                                            .ToList()
+                           })
+                           .ToList();
         }
     }
 }

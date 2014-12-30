@@ -85,9 +85,9 @@ namespace LanceTrack.Server.TimeTracking
                 perms < ProjectPermissions.TrackAsOtherUser)
                 throw new ProjectAuthorizationException();
 
-            if (_project.StartTime.Date > at.Date)
+            if (_project.StartDate.Date > at.Date)
                 throw new ProjectNotReportableException();
-            if (_project.EndTime != null && _project.EndTime < at.Date)
+            if (_project.EndDate != null && _project.EndDate < at.Date)
                 throw new ProjectNotReportableException();
 
             if (_project.MaxTotalHoursPerDay != null &&

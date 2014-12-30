@@ -38,9 +38,9 @@ namespace LanceTrack.DataAccess.Projects
 
             var projectPermissions = DbManager.GetTable<ProjectPermissions>();
             return DbManager.GetTable<Project>()
-                .Where(p => projectPermissions.Any(perm => perm.ProjectId == p.Id && perm.UserId == userId))
-                .Where(p => p.Status == ProjectStatus.Active)
-                .Where(p => p.StartTime >= startDate && p.StartTime <= endDate);
+                            .Where(p => projectPermissions.Any(perm => perm.ProjectId == p.Id && perm.UserId == userId))
+                            .Where(p => p.Status == ProjectStatus.Active)
+                            .Where(p => p.StartDate <= endDate && (p.EndDate == null || p.EndDate >= startDate));
         }
     }
 }

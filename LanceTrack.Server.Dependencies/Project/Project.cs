@@ -1,8 +1,9 @@
 ﻿using System;
-using LanceTrack.Domain.ProjectTime;
+using BLToolkit.DataAccess;
 
 namespace LanceTrack.Server.Dependencies.Project
 {
+    [TableName("Project")]
     public class Project
     {
         public int Id { get; set; }
@@ -11,9 +12,9 @@ namespace LanceTrack.Server.Dependencies.Project
 
         public ProjectStatus Status { get; set; }
 
-        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
-        public DateTimeOffset? EndTime { get; set; }
+        public DateTimeOffset? EndDate { get; set; }
 
         public int? MaxTotalHoursPerDay { get; set; }
 
