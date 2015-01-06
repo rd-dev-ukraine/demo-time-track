@@ -275,7 +275,10 @@
   <ItemGroup>
     <TypeScriptCompile Include="Features\Shared\scripts\app.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\dateService.ts" />
+    <TypeScriptCompile Include="Features\Shared\scripts\deferredFunctionService.ts" />
+    <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
+    <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
     <TypeScriptCompile Include="Libs\typings\angular-ui-router.d.ts" />

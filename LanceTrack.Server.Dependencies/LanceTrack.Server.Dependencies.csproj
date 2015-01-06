@@ -52,6 +52,7 @@
     <Compile Include="Project\ProjectPermissions.cs" />
     <Compile Include="Project\ProjectStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeTracking\Event\IProjectEvent.cs" />
     <Compile Include="TimeTracking\Event\ITimeTrackingEventRepository.cs" />
     <Compile Include="TimeTracking\ReadModels\ProjectDailyTime\IProjectDailyTimeStorage.cs" />
     <Compile Include="TimeTracking\ReadModels\IProjectTimeReadModelHandler.cs" />

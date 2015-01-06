@@ -30,5 +30,10 @@ namespace LanceTrack.DataAccess.TimeTracking
         {
             @event.Id = Convert.ToInt32(DbManager.InsertWithIdentity(@event));
         }
+
+        public IEnumerable<IProjectEvent> All()
+        {
+            return DbManager.GetTable<ProjectTimeTrackedEvent>();
+        }
     }
 }

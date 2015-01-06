@@ -3,6 +3,8 @@
         trackTime: string;
     };
     data: {
-        trackTime: string;
+        loadProjectTime: string;
+        track: string;
+        recalculate: string;
     }
 }

@@ -7,5 +7,7 @@ namespace LanceTrack.Server.Dependencies.TimeTracking.Event
         IEnumerable<ProjectTimeTrackedEvent> ReadTimeTrackedEvents(int projectId);
 
         void StoreEvent(ProjectTimeTrackedEvent @event);
+
+        IEnumerable<IProjectEvent> All();
     }
 }

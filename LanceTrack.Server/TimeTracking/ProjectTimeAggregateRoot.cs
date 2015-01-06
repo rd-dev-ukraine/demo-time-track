@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Server.Dependencies.Project;
 using LanceTrack.Server.Dependencies.TimeTracking.Event;
@@ -95,8 +94,7 @@ namespace LanceTrack.Server.TimeTracking
                 throw new IncorrectHoursException();
 
 
-            if (_state == null)
-                throw new ArgumentNullException("State is not initialized.");
+            _state = _state ?? new State();
 
             if (_project.MaxTotalHours != null &&
                 (_state.ProjectTotalHours + hours) > _project.MaxTotalHours)

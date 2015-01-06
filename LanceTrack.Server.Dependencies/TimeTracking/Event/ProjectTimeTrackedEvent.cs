@@ -4,7 +4,7 @@ using BLToolkit.DataAccess;
 namespace LanceTrack.Server.Dependencies.TimeTracking.Event
 {
     [TableName("TimeRegistrationEvents")]
-    public class ProjectTimeTrackedEvent
+    public class ProjectTimeTrackedEvent : IProjectEvent
     {
         [PrimaryKey, Identity]
         public int Id { get; set; }

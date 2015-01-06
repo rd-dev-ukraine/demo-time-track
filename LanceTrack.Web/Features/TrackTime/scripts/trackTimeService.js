@@ -14,12 +14,14 @@
             }
             TrackTimeService.prototype.load = function (startDate, endDate) {
                 var _this = this;
+                var range = this.dates.getValidRange(startDate, endDate);
+
                 var deferred = this.$q.defer();
 
-                var url = urls.data.trackTime + "/" + startDate + "/" + endDate;
+                var url = urls.data.loadProjectTime + "/" + this.dates.format(range.start) + "/" + this.dates.format(range.end);
 
                 this.$http.get(url).success(function (result) {
-                    var model = _this.createModel(result, startDate, endDate);
+                    var model = _this.createModel(result, range.start, range.end);
 
                     deferred.resolve(model);
                 }).error(function (e) {
@@ -29,9 +31,37 @@
                 return deferred.promise;
             };
 
+            TrackTimeService.prototype.trackTime = function (projectId, at, hours) {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.track, {
+                    projectId: projectId,
+                    at: this.dates.format(at),
+                    hours: hours
+                }).success(function () {
+                    return deferred.resolve();
+                }).error(function (err) {
+                    return deferred.reject(err);
+                });
+
+                return deferred.promise;
+            };
+
+            TrackTimeService.prototype.recalculateAll = function () {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.recalculate, {}).success(function () {
+                    return deferred.resolve();
+                }).error(function (err) {
+                    return deferred.reject(err);
+                });
+
+                return deferred.promise;
+            };
+
             TrackTimeService.prototype.createModel = function (data, startDate, endDate) {
                 var _this = this;
-                var range = this.dates.dateRange(startDate, endDate);
+                var range = this.dates.allDateInRange(startDate, endDate);
 
                 return _.chain(data).map(function (project) {
                     var time = project.time;

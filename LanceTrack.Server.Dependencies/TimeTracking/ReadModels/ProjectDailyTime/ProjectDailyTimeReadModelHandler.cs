@@ -23,13 +23,18 @@ namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTim
         {
             var dailyTime = _readModels.FirstOrDefault(m => m.Date == evt.At.Date &&
                                                             m.ProjectId == evt.ProjectId &&
-                                                            m.UserId == evt.UserId) ??
-                                                new ProjectDailyTimeEntity
-                                                {
-                                                    Date = evt.At.Date,
-                                                    ProjectId = evt.ProjectId,
-                                                    UserId = evt.UserId
-                                                };
+                                                            m.UserId == evt.UserId);
+
+            if (dailyTime == null)
+            {
+                dailyTime = new ProjectDailyTimeEntity
+                                                   {
+                                                       Date = evt.At.Date,
+                                                       ProjectId = evt.ProjectId,
+                                                       UserId = evt.UserId
+                                                   };
+                _readModels.Add(dailyTime);
+            }
 
             dailyTime.TotalHours = evt.Hours;
         }

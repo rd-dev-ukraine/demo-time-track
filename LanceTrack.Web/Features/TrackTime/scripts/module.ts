@@ -1,10 +1,10 @@
 ﻿module LanceTrack {
     export module TrackTime {
-        var app = angular.module("lance-track.track-time", []);
+        var app = angular.module("lance-track.track-time", ["lance-track.shared"]);
 
-        app.service("dates", LanceTrack.datesFactory);
         app.service("trackTimeService", trackTimeServiceFactory);
 
         app.controller("trackTimeController", trackTimeController);
+        app.controller("timeCellController", timeCellController);
     }
 }

@@ -239,6 +239,8 @@ namespace Links
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string app_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/app.min.js") ? Url("app.min.js") : Url("app.js");
                 public static readonly string dateService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dateService.min.js") ? Url("dateService.min.js") : Url("dateService.js");
+                public static readonly string deferredFunctionService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/deferredFunctionService.min.js") ? Url("deferredFunctionService.min.js") : Url("deferredFunctionService.js");
+                public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -267,6 +269,7 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
+                public static readonly string timeCellController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/timeCellController.min.js") ? Url("timeCellController.min.js") : Url("timeCellController.js");
                 public static readonly string trackTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeController.min.js") ? Url("trackTimeController.min.js") : Url("trackTimeController.js");
                 public static readonly string trackTimeService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeService.min.js") ? Url("trackTimeService.min.js") : Url("trackTimeService.js");
             }

@@ -8,7 +8,9 @@
                             },
                             data = new
                             {
-                                trackTime = Url.Content("~/api/trackTime")
+                                loadProjectTime = Url.HttpRouteUrl("ProjectTimeInfo", new { }),
+                                track = Url.HttpRouteUrl("TrackTime", new { }),
+                                recalculate = Url.HttpRouteUrl("RecalculateAll", new { })
                             }
                         });
 </script>

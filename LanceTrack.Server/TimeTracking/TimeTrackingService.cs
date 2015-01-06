@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server.Dependencies.TimeTracking.Event;
@@ -44,6 +45,15 @@ namespace LanceTrack.Server.TimeTracking
             var aggregateRoot = _repository.GetAggregateRoot(projectId);
             aggregateRoot.TrackTime(_currentUser.Id, userId, at, hours);
             aggregateRoot.Save(_eventRepository);
+        }
+
+        public void RecalculateAll()
+        {
+            foreach(var projectId in _eventRepository.All().GroupBy(e => e.ProjectId).Select(g => g.Key))
+            {
+                var root =_repository.GetAggregateRoot(projectId);
+                root.Save(_eventRepository);
+            }
         }
     }
 }
