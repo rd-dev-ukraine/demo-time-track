@@ -158,7 +158,18 @@ namespace Links
             public static readonly string angular_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.d.min.js") ? Url("angular.d.min.js") : Url("angular.d.js");
             public static readonly string jquery_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.d.min.js") ? Url("jquery.d.min.js") : Url("jquery.d.js");
             public static readonly string moment_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment.d.min.js") ? Url("moment.d.min.js") : Url("moment.d.js");
+            public static readonly string underscore_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/underscore.d.min.js") ? Url("underscore.d.min.js") : Url("underscore.d.js");
             public static readonly string urls_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/urls.d.min.js") ? Url("urls.d.min.js") : Url("urls.d.js");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class underscore {
+            private const string URLPATH = "~/Libs/underscore";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string underscore_min_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/underscore-min.min.js") ? Url("underscore-min.min.js") : Url("underscore-min.js");
+            public static readonly string underscore_min_map = Url("underscore-min.map");
+            public static readonly string underscore_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/underscore.min.js") ? Url("underscore.min.js") : Url("underscore.js");
         }
     
     }
@@ -227,6 +238,7 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string app_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/app.min.js") ? Url("app.min.js") : Url("app.js");
+                public static readonly string dateService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dateService.min.js") ? Url("dateService.min.js") : Url("dateService.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

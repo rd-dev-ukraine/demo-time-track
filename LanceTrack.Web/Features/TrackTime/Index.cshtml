@@ -1,20 +1,41 @@
 ﻿@model dynamic
 
 <h2>Track time</h2>
-<form class="form-inline">
-    <div class="form-group">
-        <label >Start date</label>
-        <input class="form-control"
-               ng-model="startDate"
-               type="text"/>
-    </div>
-    <div class="form-group">
-        <label>End date</label>
-        <input class="form-control"
-               ng-model="endDate"
-               type="text"/>
-    </div>
-</form>
-<div>
-    {{projectTime | json}}
-</div>
+<section >
+    <form class="form-inline">
+        <div class="form-group">
+            <label>Start date</label>
+            <input class="form-control"
+                   ng-model="startDate"
+                   type="text" />
+        </div>
+        <div class="form-group">
+            <label>End date</label>
+            <input class="form-control"
+                   ng-model="endDate"
+                   type="text" />
+        </div>
+    </form>
+</section>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Project
+            </th>
+            <th ng-repeat="d in dateRange()" ng-bind="d"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="project in projectTime track by project.projectId">
+            <td ng-bind="project.projectTitle"></td>
+            <td ng-repeat="time in project.time">
+                <div>
+                    <input class="form-control"
+                           ng-model="time.hours"
+                           type="text"/>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

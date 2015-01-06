@@ -7,7 +7,8 @@
     "bootstrap": "3.3.1",
     "jquery": "2", 
     "normalize.css": "",
-    "moment" : ""
+    "moment" : "",
+    "underscore": ""
   },
   "private": true
 } 

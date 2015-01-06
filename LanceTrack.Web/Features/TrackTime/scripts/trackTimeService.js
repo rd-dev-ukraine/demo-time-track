@@ -1,28 +1,56 @@
 ﻿var LanceTrack;
 (function (LanceTrack) {
     (function (TrackTime) {
-        function trackTimeServiceFactory($q, $http) {
-            return new TrackTimeService($q, $http);
+        function trackTimeServiceFactory($q, $http, dates) {
+            return new TrackTimeService($q, $http, dates);
         }
         TrackTime.trackTimeServiceFactory = trackTimeServiceFactory;
 
         var TrackTimeService = (function () {
-            function TrackTimeService($q, $http) {
+            function TrackTimeService($q, $http, dates) {
                 this.$q = $q;
                 this.$http = $http;
+                this.dates = dates;
             }
             TrackTimeService.prototype.load = function (startDate, endDate) {
+                var _this = this;
                 var deferred = this.$q.defer();
 
                 var url = urls.data.trackTime + "/" + startDate + "/" + endDate;
 
                 this.$http.get(url).success(function (result) {
-                    return deferred.resolve(result);
+                    var model = _this.createModel(result, startDate, endDate);
+
+                    deferred.resolve(model);
                 }).error(function (e) {
                     return deferred.reject(e);
                 });
 
                 return deferred.promise;
+            };
+
+            TrackTimeService.prototype.createModel = function (data, startDate, endDate) {
+                var _this = this;
+                var range = this.dates.dateRange(startDate, endDate);
+
+                return _.chain(data).map(function (project) {
+                    var time = project.time;
+
+                    project.time = _(range).map(function (date) {
+                        var existingTime = _.find(time, function (rec) {
+                            return _this.dates.eq(rec.date, date);
+                        });
+                        if (existingTime)
+                            return existingTime;
+
+                        return {
+                            hours: null,
+                            date: _this.dates.format(date)
+                        };
+                    });
+
+                    return project;
+                }).value();
             };
             return TrackTimeService;
         })();
@@ -30,5 +58,5 @@
     })(LanceTrack.TrackTime || (LanceTrack.TrackTime = {}));
     var TrackTime = LanceTrack.TrackTime;
 })(LanceTrack || (LanceTrack = {}));
-LanceTrack.TrackTime.trackTimeServiceFactory.$inject = ["$q", "$http"];
+LanceTrack.TrackTime.trackTimeServiceFactory.$inject = ["$q", "$http", "dates"];
 //# sourceMappingURL=trackTimeService.js.map

@@ -163,6 +163,7 @@
     <Content Include="Features\Shared\Libs.cshtml" />
     <Content Include="Features\Shared\Urls.cshtml" />
     <Content Include="Features\Home\Views\Index.cshtml" />
+    <Content Include="Libs\underscore\underscore-min.map" />
     <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Libs\Momentjs\locales.js" />
     <Content Include="Libs\Momentjs\locales.min.js" />
@@ -170,6 +171,8 @@
     <Content Include="Libs\Momentjs\moment-with-locales.min.js" />
     <Content Include="Libs\Momentjs\moment.min.js" />
     <Content Include="Libs\normalize.css" />
+    <Content Include="Libs\underscore\underscore-min.js" />
+    <Content Include="Libs\underscore\underscore.js" />
     <Content Include="Web.config" />
     <Content Include="Features\TrackTime\Index.cshtml" />
   </ItemGroup>
@@ -271,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Features\Shared\scripts\app.ts" />
+    <TypeScriptCompile Include="Features\Shared\scripts\dateService.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
@@ -278,6 +282,7 @@
     <TypeScriptCompile Include="Libs\typings\angular.d.ts" />
     <TypeScriptCompile Include="Libs\typings\jquery.d.ts" />
     <TypeScriptCompile Include="Libs\typings\moment.d.ts" />
+    <TypeScriptCompile Include="Libs\typings\underscore.d.ts" />
     <TypeScriptCompile Include="Libs\typings\urls.d.ts" />
   </ItemGroup>
   <PropertyGroup>
