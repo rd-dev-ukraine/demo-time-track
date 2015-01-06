@@ -6,7 +6,8 @@
     "angular-ui-router": "",
     "bootstrap": "3.3.1",
     "jquery": "2", 
-    "normalize.css": ""    
+    "normalize.css": "",
+    "moment" : ""
   },
   "private": true
 } 

@@ -1,1 +1,1 @@
-{"version":3,"file":"module.js","sourceRoot":"","sources":["module.ts"],"names":[],"mappings":""}
+{"version":3,"file":"module.js","sourceRoot":"","sources":["module.ts"],"names":["LanceTrack","LanceTrack.TrackTime"],"mappings":"AAAA,IAAO,UAAU;AAQhB,CARD,UAAO,UAAU;KACbA,UAAcA,SAASA;QACnBC,IAAIA,GAAGA,GAAGA,OAAOA,CAACA,MAAMA,CAACA,wBAAwBA,EAAEA,EAAEA,CAACA;;QAEtDA,GAAGA,CAACA,OAAOA,CAACA,kBAAkBA,EAAEA,iCAAuBA,CAACA;;QAExDA,GAAGA,CAACA,UAAUA,CAACA,qBAAqBA,EAAEA,6BAAmBA,CAACA;IAC9DA,CAACA,uDAAAD;yCAAAA;AACLA,CAACA,mCAAA"}

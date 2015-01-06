@@ -1,4 +1,6 @@
 ﻿using System;
+using LanceTrack.Domain.Infrastructure;
+using Newtonsoft.Json;
 
 namespace LanceTrack.Domain.ProjectTime
 {
@@ -6,6 +8,7 @@ namespace LanceTrack.Domain.ProjectTime
     {
         public decimal Hours { get; set; }
 
+        [JsonConverter(typeof(DateConverter))]
         public DateTime Date { get; set; }
     }
 }
