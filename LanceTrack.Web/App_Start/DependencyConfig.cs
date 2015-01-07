@@ -71,12 +71,18 @@ namespace LanceTrack.Web
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbManager>()
-                .ToSelf()
-                .When(r =>
+                .ToSelf().WhenAnyAncestorMatches(c =>
                 {
-                    return true;
+                    var result = c.Request.Service.Namespace.StartsWith(typeof(CqrsDependencyModule).Namespace) ||
+                                 c.Request.Service.Namespace.StartsWith("LanceTrack.Cqrs");
+                    return result;
                 })
-                .InTransientScope();
+                //.When(r =>
+                //{
+                //    var result =  r.Target.Type.Namespace.StartsWith(typeof(CqrsDependencyModule).Namespace);
+                //    return result;
+                //})
+                .InSingletonScope();
 
             kernel.Bind<DbManager>()
                   .ToSelf()

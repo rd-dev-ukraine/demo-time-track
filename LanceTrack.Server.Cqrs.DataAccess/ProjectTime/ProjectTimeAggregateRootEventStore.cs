@@ -20,7 +20,7 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> ReadAggregateRootEvents(int aggregateRootId)
         {
-            return DbManager.GetTable<ProjectTimeTrackedEvent>().ToArray();
+            return DbManager.GetTable<ProjectTimeTrackedEvent>().Where(e => e.ProjectId == aggregateRootId).ToArray();
         }
 
         public void Append(ProjectTimeTrackedEvent @event)
