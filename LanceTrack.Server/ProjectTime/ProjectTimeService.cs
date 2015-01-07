@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.UserAccounts;
-using LanceTrack.Server.Dependencies.ProjectTime;
+using LanceTrack.Server.Cqrs.ProjectTime.ReadModels;
+using LanceTrack.Server.Dependencies.ProjectDailyTime;
 using LanceTrack.Server.Projects;
 
 namespace LanceTrack.Server.ProjectTime

@@ -17,8 +17,7 @@ namespace LanceTrack.Cqrs.Server
             _aggregateRootServers = aggregateRootServers.ToDictionary(s => s.AggregateRootType);
         }
 
-        public void Execute<TCommand, TAggregateRoot, TAggregateRootId>(TCommand command) 
-            where TCommand : ICommand<TAggregateRoot, TAggregateRootId> 
+        public void Execute<TAggregateRoot, TAggregateRootId>(ICommand<TAggregateRoot, TAggregateRootId> command) 
             where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>
         {
             IAggregateRootServer aggregateRootServer;

@@ -45,21 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProjectTime\IProjectTimeRepository.cs" />
+    <Compile Include="ProjectDailyTime\IProjectTimeRepository.cs" />
+    <Compile Include="ProjectDailyTime\ProjectDailyTime.cs" />
     <Compile Include="Project\IProjectRepository.cs" />
     <Compile Include="Project\IProjectService.cs" />
     <Compile Include="Project\Project.cs" />
-    <Compile Include="ProjectTime\ProjectDailyTime.cs" />
     <Compile Include="Project\ProjectPermissions.cs" />
     <Compile Include="Project\ProjectStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeTracking\Event\IProjectEvent.cs" />
-    <Compile Include="TimeTracking\Event\ITimeTrackingEventRepository.cs" />
-    <Compile Include="TimeTracking\ReadModels\ProjectDailyTime\IProjectDailyTimeStorage.cs" />
-    <Compile Include="TimeTracking\ReadModels\IProjectTimeReadModelHandler.cs" />
-    <Compile Include="TimeTracking\ReadModels\ProjectDailyTime\ProjectDailyTimeReadModelHandler.cs" />
     <Compile Include="UserAccounts\IUserAccountDataAccessor.cs" />
-    <Compile Include="Cqrs\ProjectTime\ProjectTimeTrackedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanceTrack.Domain\LanceTrack.Domain.csproj">

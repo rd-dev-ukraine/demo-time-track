@@ -40,11 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessDependencyModule.cs" />
@@ -52,7 +48,6 @@
     <Compile Include="Projects\ProjectPermissions.cs" />
     <Compile Include="ProjectTime\DatabaseProjectTimeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeTracking\DatabaseTimeTrackingEventRepository.cs" />
     <Compile Include="UserAccounts\DatabaseUserAccountAccessor.cs" />
     <Compile Include="UserAccounts\UserAccountData.cs" />
   </ItemGroup>

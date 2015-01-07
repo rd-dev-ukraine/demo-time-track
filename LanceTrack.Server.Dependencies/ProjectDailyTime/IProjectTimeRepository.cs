@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LanceTrack.Server.Dependencies.ProjectTime
+namespace LanceTrack.Server.Dependencies.ProjectDailyTime
 {
     public interface IProjectTimeRepository
     {

@@ -2,7 +2,7 @@
 using BLToolkit.DataAccess;
 using LanceTrack.Cqrs.Contract;
 
-namespace LanceTrack.Server.Cqrs.ProjectTime
+namespace LanceTrack.Server.Cqrs.ProjectTime.Events
 {
     [TableName("TimeRegistrationEvents")]
     public class ProjectTimeTrackedEvent : IEvent<ProjectTimeAggregateRoot, int>

@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LanceTrack.Server.Dependencies.Cqrs.ProjectTime;
-using ProjectDailyTimeEntity = LanceTrack.Server.Dependencies.ProjectTime.ProjectDailyTime;
+using LanceTrack.Cqrs.Contract;
+using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
+using LanceTrack.Server.Cqrs.ProjectTime.Events;
+using ProjectDailyTimeEntity = LanceTrack.Server.Dependencies.ProjectDailyTime.ProjectDailyTime;
 
-namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTime
+namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
-    public class ProjectDailyTimeReadModelHandler : IProjectTimeReadModelHandler
+    public class DailyTimeReadModel : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>, 
+        IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly IProjectDailyTimeStorage _storage;
         private readonly List<ProjectDailyTimeEntity> _readModels = new List<ProjectDailyTimeEntity>();
 
-        public ProjectDailyTimeReadModelHandler(IProjectDailyTimeStorage storage)
+        public DailyTimeReadModel(IProjectDailyTimeStorage storage)
         {
             if (storage == null)
                 throw new ArgumentNullException("storage");
@@ -19,7 +22,7 @@ namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTim
             _storage = storage;
         }
 
-        public void AppyEvent(ProjectTimeTrackedEvent evt)
+        public void On(ProjectTimeTrackedEvent evt)
         {
             var dailyTime = _readModels.FirstOrDefault(m => m.Date == evt.At.Date &&
                                                             m.ProjectId == evt.ProjectId &&
@@ -28,11 +31,11 @@ namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTim
             if (dailyTime == null)
             {
                 dailyTime = new ProjectDailyTimeEntity
-                                                   {
-                                                       Date = evt.At.Date,
-                                                       ProjectId = evt.ProjectId,
-                                                       UserId = evt.UserId
-                                                   };
+                {
+                    Date = evt.At.Date,
+                    ProjectId = evt.ProjectId,
+                    UserId = evt.UserId
+                };
                 _readModels.Add(dailyTime);
             }
 
@@ -45,4 +48,5 @@ namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTim
                 _storage.SaveProjectDailyTime(readModel);
         }
     }
+
 }

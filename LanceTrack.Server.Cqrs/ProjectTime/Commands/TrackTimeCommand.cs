@@ -1,7 +1,7 @@
 ﻿using System;
 using LanceTrack.Cqrs.Contract;
 
-namespace LanceTrack.Server.Cqrs.ProjectTime
+namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 {
     public class TrackTimeCommand : ICommand<ProjectTimeAggregateRoot, int>
     {

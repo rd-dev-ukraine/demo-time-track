@@ -2,13 +2,11 @@
 using System.Linq;
 using BLToolkit.Data;
 using BLToolkit.Data.Linq;
-using LanceTrack.Server.Dependencies.Project;
-using LanceTrack.Server.Dependencies.ProjectTime;
-using LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTime;
+using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.DataAccess.ProjectTime
 {
-    public class DatabaseProjectTimeRepository : IProjectDailyTimeStorage, IProjectTimeRepository
+    public class DatabaseProjectTimeRepository : IProjectTimeRepository
     {
         public DatabaseProjectTimeRepository(DbManager dbManager)
         {
@@ -29,11 +27,6 @@ namespace LanceTrack.DataAccess.ProjectTime
                 .Where(t => t.ProjectId == projectId)
                 .Where(t => startDate <= t.Date && t.Date <= endDate)
                 .Where(t => t.UserId == userId);
-        }
-
-        public void SaveProjectDailyTime(ProjectDailyTime projectDailyTime)
-        {
-            DbManager.InsertOrReplace(projectDailyTime);
         }
     }
 }

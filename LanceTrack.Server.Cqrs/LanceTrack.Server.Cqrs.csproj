@@ -35,6 +35,9 @@
     <Reference Include="BLToolkit.4">
       <HintPath>..\packages\BLToolkit.4.2.0\lib\net40-full\BLToolkit.4.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,12 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProjectTime\IProjectTimeAggregateRootEventAccessor.cs" />
+    <Compile Include="CqrsDependencyModule.cs" />
+    <Compile Include="ProjectTime\Dependencies\IProjectDailyTimeStorage.cs" />
+    <Compile Include="ProjectTime\ReadModels\DailyTimeReadModel.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRoot.cs" />
-    <Compile Include="ProjectTime\ProjectTimeAggregateRootEventStore.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRootServer.cs" />
-    <Compile Include="ProjectTime\ProjectTimeTrackedEvent.cs" />
-    <Compile Include="ProjectTime\TrackTimeCommand.cs" />
+    <Compile Include="ProjectTime\Events\ProjectTimeTrackedEvent.cs" />
+    <Compile Include="ProjectTime\Commands\TrackTimeCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,3 +20,6 @@
 /LanceTrack.Cqrs/obj
 /LanceTrack.Server.Cqrs/bin
 /LanceTrack.Server.Cqrs/obj
+*.DotSettings
+/LanceTrack.Server.Cqrs.DataAccess/bin
+/LanceTrack.Server.Cqrs.DataAccess/obj
