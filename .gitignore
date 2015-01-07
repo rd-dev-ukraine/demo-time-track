@@ -16,3 +16,5 @@
 /database/LanceTrack.Database/LanceTrack.Database.dbmdl
 /LanceTrack.Server.Dependencies/bin
 /LanceTrack.Server.Dependencies/obj
+/LanceTrack.Cqrs/bin
+/LanceTrack.Cqrs/obj
