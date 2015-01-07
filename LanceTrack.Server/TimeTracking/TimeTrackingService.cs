@@ -11,9 +11,15 @@ namespace LanceTrack.Server.TimeTracking
         private readonly ICqrs _cqrs;
         private readonly UserAccount _currentUser;
 
-        public TimeTrackingService(UserAccount currentUser)
+        public TimeTrackingService(UserAccount currentUser, ICqrs cqrs)
         {
+            if (currentUser == null)
+                throw new ArgumentNullException("currentUser");
+            if (cqrs == null)
+                throw new ArgumentNullException("cqrs");
+
             _currentUser = currentUser;
+            _cqrs = cqrs;
         }
 
         public void RecalculateAll()

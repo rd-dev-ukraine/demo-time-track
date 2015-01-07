@@ -1,6 +1,8 @@
 using System;
+using System.Configuration;
 using System.Web;
 using BLToolkit.Data;
+using BLToolkit.Data.DataProvider;
 using LanceTrack.DataAccess;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
@@ -68,7 +70,17 @@ namespace LanceTrack.Web
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbManager>().ToSelf().InRequestScope();
+            kernel.Bind<DbManager>()
+                .ToSelf()
+                .When(r =>
+                {
+                    return true;
+                })
+                .InTransientScope();
+
+            kernel.Bind<DbManager>()
+                  .ToSelf()
+                  .InRequestScope();
 
             kernel.Bind<UserAccount>()
                   .ConstructUsing((IUserAccountService svc) => svc.FindByEmail(HttpContext.Current.User.Identity.Name))

@@ -1,5 +1,6 @@
 ﻿using System;
 using BLToolkit.DataAccess;
+using BLToolkit.Mapping;
 using LanceTrack.Cqrs.Contract;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.Events
@@ -22,6 +23,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.Events
 
         public DateTimeOffset RegisteredAt { get; set; }
 
+        [MapIgnore]
         int IEvent<ProjectTimeAggregateRoot, int>.AggregateRootId { get { return ProjectId; } }
     }
 }

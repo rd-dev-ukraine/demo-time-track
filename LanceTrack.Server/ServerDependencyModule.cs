@@ -1,6 +1,7 @@
 ﻿using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
+using LanceTrack.Server.Dependencies.Project;
 using LanceTrack.Server.Projects;
 using LanceTrack.Server.ProjectTime;
 using LanceTrack.Server.TimeTracking;
@@ -16,7 +17,7 @@ namespace LanceTrack.Server
             Bind<IUserAccountService>().To<UserAccountService>();
             Bind<ITimeTrackingService>().To<TimeTrackingService>();
             Bind<IProjectTimeService>().To<ProjectTimeService>();
-            Bind<ProjectService>().ToSelf();
+            Bind<IProjectService>().To<ProjectService>();
         }
     }
 }

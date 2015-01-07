@@ -25,7 +25,7 @@ namespace LanceTrack.Cqrs.Server
             if (!_aggregateRootServers.TryGetValue(typeof(TAggregateRoot), out aggregateRootServer))
                 throw new ArgumentException("Aggregate root type is not supported.");
 
-            ((dynamic)aggregateRootServer).Execute(command);
+            ((dynamic)aggregateRootServer).Execute((dynamic)command);
         }
 
         public void Recalculate<TAggregateRoot, TAggregateRootId>(TAggregateRootId id)

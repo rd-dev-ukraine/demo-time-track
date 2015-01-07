@@ -15,6 +15,7 @@ namespace LanceTrack.Server.Cqrs
             Bind<ICqrs>().To<CqrsServer>().InSingletonScope();
             Bind<IAggregateRootServer>().To<ProjectTimeAggregateRootServer>();
 
+            Bind<ProjectTimeAggregateRoot>().ToSelf();
             Bind<Func<ProjectTimeAggregateRoot>>().ToMethod(context => () => context.Kernel.Get<ProjectTimeAggregateRoot>());
 
             Bind<IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>>().To<DailyTimeReadModel>();

@@ -50,23 +50,23 @@ namespace LanceTrack.Cqrs.Server
             lock (aggregateRootInstance)
             {
                 // Dynamically dispatch command based on it runtime type.
-                events = ((IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>>)((dynamic)aggregateRootInstance).Execute(command)).ToArray();
+                events = ((IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>>)((dynamic)aggregateRootInstance).Execute((dynamic)command)).ToArray();
 
                 // Applies event on aggregate root
                 foreach (var e in events)
-                    ((dynamic)aggregateRootInstance).On(e);
+                    ((dynamic)aggregateRootInstance).On((dynamic)e);
             }
 
             // Saves events in store
             foreach (var e in events)
-                ((dynamic)EventStore).Append(e);
+                ((dynamic)EventStore).Append((dynamic)e);
 
             // Update read models
             foreach (var readModel in aggregateRootInstance.ReadModels)
             {
                 var rm = (dynamic)readModel;
                 foreach (var e in events)
-                    rm.On(e);
+                    rm.On((dynamic)e);
 
                 readModel.Save();
             }
@@ -80,7 +80,7 @@ namespace LanceTrack.Cqrs.Server
             var aggregateRootInstance = AggregateRootFactory();
 
             foreach (var evnt in EventStore.ReadAggregateRootEvents(id))
-                ((dynamic)aggregateRootInstance).On(evnt);
+                ((dynamic)aggregateRootInstance).On((dynamic)evnt);
 
             return aggregateRootInstance;
         }
