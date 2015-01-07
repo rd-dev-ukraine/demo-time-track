@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BLToolkit.Data;
 using BLToolkit.Data.Linq;
+using LanceTrack.Server.Dependencies.Cqrs.ProjectTime;
 using LanceTrack.Server.Dependencies.TimeTracking.Event;
 
 

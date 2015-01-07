@@ -2,6 +2,6 @@
 {
     public interface IProjectDailyTimeStorage
     {
-        void SaveProjectDailyTime(Project.ProjectDailyTime projectDailyTime);
+        void SaveProjectDailyTime(ProjectTime.ProjectDailyTime projectDailyTime);
     }
 }

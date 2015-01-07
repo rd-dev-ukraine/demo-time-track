@@ -28,7 +28,7 @@ namespace LanceTrack.Cqrs.Server
 
         public Type AggregateRootType
         {
-            get { return typeof (TAggregateRoot); }
+            get { return typeof(TAggregateRoot); }
         }
 
         protected Func<TAggregateRoot> AggregateRootFactory { get; private set; }
@@ -50,16 +50,26 @@ namespace LanceTrack.Cqrs.Server
             lock (aggregateRootInstance)
             {
                 // Dynamically dispatch command based on it runtime type.
-                events = ((IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>>) ((dynamic) aggregateRootInstance).Execute(command)).ToArray();
+                events = ((IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>>)((dynamic)aggregateRootInstance).Execute(command)).ToArray();
 
                 // Applies event on aggregate root
                 foreach (var e in events)
-                    ((dynamic) aggregateRootInstance).On(e);
+                    ((dynamic)aggregateRootInstance).On(e);
             }
 
             // Saves events in store
             foreach (var e in events)
-                ((dynamic) EventStore).Append(e);
+                ((dynamic)EventStore).Append(e);
+
+            // Update read models
+            foreach (var readModel in aggregateRootInstance.ReadModels)
+            {
+                var rm = (dynamic)readModel;
+                foreach (var e in events)
+                    rm.On(e);
+
+                readModel.Save();
+            }
         }
 
         /// <summary>
@@ -70,7 +80,7 @@ namespace LanceTrack.Cqrs.Server
             var aggregateRootInstance = AggregateRootFactory();
 
             foreach (var evnt in EventStore.ReadAggregateRootEvents(id))
-                ((dynamic) aggregateRootInstance).On(evnt);
+                ((dynamic)aggregateRootInstance).On(evnt);
 
             return aggregateRootInstance;
         }

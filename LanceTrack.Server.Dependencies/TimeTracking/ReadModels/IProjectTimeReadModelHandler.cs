@@ -1,4 +1,4 @@
-﻿using LanceTrack.Server.Dependencies.TimeTracking.Event;
+﻿using LanceTrack.Server.Dependencies.Cqrs.ProjectTime;
 
 namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels
 {

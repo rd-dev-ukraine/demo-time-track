@@ -42,11 +42,13 @@
     <Compile Include="Contract\IAggregateRoot.cs" />
     <Compile Include="Contract\IAggregateRootCommandHandler.cs" />
     <Compile Include="Contract\IAggregateRootEventRecipient.cs" />
+    <Compile Include="Contract\IAggregateRootReadModelManager.cs" />
     <Compile Include="Contract\ICqrs.cs" />
     <Compile Include="Contract\IEvent.cs" />
     <Compile Include="Contract\ICommand.cs" />
     <Compile Include="Contract\IEventStore.cs" />
     <Compile Include="Contract\IEventStoreAppendMethod.cs" />
+    <Compile Include="Contract\IReadModelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\AggregateRootServer.cs" />
     <Compile Include="Server\CqrsServer.cs" />

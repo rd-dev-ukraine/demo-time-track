@@ -1,4 +1,6 @@
-﻿namespace LanceTrack.Cqrs.Contract
+﻿using System.Collections.Generic;
+
+namespace LanceTrack.Cqrs.Contract
 {
     /// <summary>
     /// Aggregate root contract.
@@ -7,5 +9,9 @@
     /// </summary>
     public interface IAggregateRoot<TAggregateRootId>
     {
+        /// <summary>
+        /// Gets a collection of read model managers.
+        /// </summary>
+        IEnumerable<IReadModelManager<TAggregateRootId>> ReadModels { get; }
     }
 }

@@ -12,15 +12,22 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
         IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly IProjectService _projectService;
-        private State _state;
+        private readonly State _state = new State();
 
-        public ProjectTimeAggregateRoot(IProjectService projectService)
+        public ProjectTimeAggregateRoot(
+            IProjectService projectService,
+            IEnumerable<IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>> readModelManagers)
         {
             if (projectService == null)
                 throw new ArgumentNullException("projectService");
+            if (readModelManagers == null)
+                throw new ArgumentNullException("readModelManagers");
 
             _projectService = projectService;
+            ReadModels = readModelManagers.ToArray();
         }
+
+        public IEnumerable<IReadModelManager<int>> ReadModels { get; private set; }
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(TrackTimeCommand command)
         {
@@ -29,14 +36,14 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
             var project = _projectService.GetById(command.ProjectId);
 
-                if (project.Status != ProjectStatus.Active)
-                    throw new ProjectNotReportableException();
+            if (project.Status != ProjectStatus.Active)
+                throw new ProjectNotReportableException();
 
             var perms = _projectService.CalculatePermissions(command.UserId, project.Id);
 
             if (perms < ProjectPermissions.TrackSelf)
                 throw new ProjectAuthorizationException();
-            
+
             if (project.StartDate.Date > command.At.Date)
                 throw new ProjectNotReportableException();
             if (project.EndDate != null && project.EndDate < command.At.Date)
@@ -45,9 +52,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             if (project.MaxTotalHoursPerDay != null &&
                 command.Hours > project.MaxTotalHoursPerDay.Value)
                 throw new IncorrectHoursException();
-
-
-            _state = _state ?? new State();
 
             if (project.MaxTotalHours != null &&
                 (_state.ProjectTotalHours + command.Hours) > project.MaxTotalHours)
@@ -68,9 +72,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         public void On(ProjectTimeTrackedEvent @event)
         {
-            if (_state == null)
-                _state = new State();
-
             _state.ProjectId = @event.ProjectId;
 
             var userTimeRecord = _state.UserTime.SingleOrDefault(r => r.UserId == @event.UserId && r.Date == @event.At.Date);

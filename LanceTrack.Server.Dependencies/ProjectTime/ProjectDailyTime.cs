@@ -1,7 +1,7 @@
 ﻿using System;
 using BLToolkit.DataAccess;
 
-namespace LanceTrack.Server.Dependencies.Project
+namespace LanceTrack.Server.Dependencies.ProjectTime
 {
     [TableName("ProjectDailyTimeData")]
     public class ProjectDailyTime

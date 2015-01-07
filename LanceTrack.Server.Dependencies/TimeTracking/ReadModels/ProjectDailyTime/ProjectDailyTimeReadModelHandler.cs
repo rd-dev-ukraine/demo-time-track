@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LanceTrack.Server.Dependencies.TimeTracking.Event;
-using ProjectDailyTimeEntity = LanceTrack.Server.Dependencies.Project.ProjectDailyTime;
+using LanceTrack.Server.Dependencies.Cqrs.ProjectTime;
+using ProjectDailyTimeEntity = LanceTrack.Server.Dependencies.ProjectTime.ProjectDailyTime;
 
 namespace LanceTrack.Server.Dependencies.TimeTracking.ReadModels.ProjectDailyTime
 {

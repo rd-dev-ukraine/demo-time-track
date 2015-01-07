@@ -49,7 +49,7 @@
     <Compile Include="Project\IProjectRepository.cs" />
     <Compile Include="Project\IProjectService.cs" />
     <Compile Include="Project\Project.cs" />
-    <Compile Include="Project\ProjectDailyTime.cs" />
+    <Compile Include="ProjectTime\ProjectDailyTime.cs" />
     <Compile Include="Project\ProjectPermissions.cs" />
     <Compile Include="Project\ProjectStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
