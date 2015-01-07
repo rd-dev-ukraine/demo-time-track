@@ -4,6 +4,8 @@ using BLToolkit.Data;
 using LanceTrack.DataAccess;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
+using LanceTrack.Server.Cqrs;
+using LanceTrack.Server.Cqrs.DataAccess;
 using LanceTrack.Web;
 using LanceTrack.Web.Infrastructure;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -44,7 +46,7 @@ namespace LanceTrack.Web
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel(new ServerDependencyModule(), new DataAccessDependencyModule());
+            var kernel = new StandardKernel(new ServerDependencyModule(), new DataAccessDependencyModule(), new CqrsDependencyModule(), new CqrsDataAccessDependencyModule());
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);

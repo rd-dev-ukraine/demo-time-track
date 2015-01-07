@@ -246,6 +246,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LanceTrack.Cqrs\LanceTrack.Cqrs.csproj">
+      <Project>{1e717244-c9e7-452b-aaa4-e73e6af5379d}</Project>
+      <Name>LanceTrack.Cqrs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LanceTrack.DataAccess\LanceTrack.DataAccess.csproj">
       <Project>{864c7770-b024-4230-9af7-1291a3b73492}</Project>
       <Name>LanceTrack.DataAccess</Name>
@@ -253,6 +257,18 @@
     <ProjectReference Include="..\LanceTrack.Domain\LanceTrack.Domain.csproj">
       <Project>{95df81b0-0e6e-4652-b720-a458a280c55b}</Project>
       <Name>LanceTrack.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanceTrack.Server.Cqrs.DataAccess\LanceTrack.Server.Cqrs.DataAccess.csproj">
+      <Project>{813dc375-f925-4dc6-9bc1-609830c96276}</Project>
+      <Name>LanceTrack.Server.Cqrs.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanceTrack.Server.Cqrs\LanceTrack.Server.Cqrs.csproj">
+      <Project>{5736a6c1-8af7-4b43-83fb-1d7511221729}</Project>
+      <Name>LanceTrack.Server.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanceTrack.Server.Dependencies\LanceTrack.Server.Dependencies.csproj">
+      <Project>{5b283bf1-684b-44c2-b272-fd26ee38b875}</Project>
+      <Name>LanceTrack.Server.Dependencies</Name>
     </ProjectReference>
     <ProjectReference Include="..\LanceTrack.Server\LanceTrack.Server.csproj">
       <Project>{6dca8d27-acf0-44b0-abe9-77e96df8d66e}</Project>
