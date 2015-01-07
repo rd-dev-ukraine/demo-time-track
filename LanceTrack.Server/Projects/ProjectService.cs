@@ -5,7 +5,7 @@ using LanceTrack.Server.Dependencies.Project;
 
 namespace LanceTrack.Server.Projects
 {
-    public class ProjectService 
+    public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
         

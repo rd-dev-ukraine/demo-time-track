@@ -18,3 +18,5 @@
 /LanceTrack.Server.Dependencies/obj
 /LanceTrack.Cqrs/bin
 /LanceTrack.Cqrs/obj
+/LanceTrack.Server.Cqrs/bin
+/LanceTrack.Server.Cqrs/obj

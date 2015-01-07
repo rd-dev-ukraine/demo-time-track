@@ -7,6 +7,5 @@
     /// </summary>
     public interface IAggregateRoot<TAggregateRootId>
     {
-        TAggregateRootId Id { get; }
     }
 }

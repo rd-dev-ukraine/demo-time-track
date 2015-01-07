@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B283BF1-684B-44C2-B272-FD26EE38B875}</ProjectGuid>
+    <ProjectGuid>{5736A6C1-8AF7-4B43-83FB-1D7511221729}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LanceTrack.Server.Dependencies</RootNamespace>
-    <AssemblyName>LanceTrack.Server.Dependencies</AssemblyName>
+    <RootNamespace>LanceTrack.Server.Cqrs</RootNamespace>
+    <AssemblyName>LanceTrack.Server.Cqrs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -32,8 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BLToolkit.4, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b1d3f6ab3aadaca3, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BLToolkit.4">
       <HintPath>..\packages\BLToolkit.4.2.0\lib\net40-full\BLToolkit.4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -45,26 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProjectTime\IProjectTimeRepository.cs" />
-    <Compile Include="Project\IProjectRepository.cs" />
-    <Compile Include="Project\IProjectService.cs" />
-    <Compile Include="Project\Project.cs" />
-    <Compile Include="Project\ProjectDailyTime.cs" />
-    <Compile Include="Project\ProjectPermissions.cs" />
-    <Compile Include="Project\ProjectStatus.cs" />
+    <Compile Include="ProjectTime\IProjectTimeAggregateRootEventAccessor.cs" />
+    <Compile Include="ProjectTime\ProjectTimeAggregateRoot.cs" />
+    <Compile Include="ProjectTime\ProjectTimeAggregateRootEventStore.cs" />
+    <Compile Include="ProjectTime\ProjectTimeAggregateRootServer.cs" />
+    <Compile Include="ProjectTime\ProjectTimeTrackedEvent.cs" />
+    <Compile Include="ProjectTime\TrackTimeCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeTracking\Event\IProjectEvent.cs" />
-    <Compile Include="TimeTracking\Event\ITimeTrackingEventRepository.cs" />
-    <Compile Include="TimeTracking\ReadModels\ProjectDailyTime\IProjectDailyTimeStorage.cs" />
-    <Compile Include="TimeTracking\ReadModels\IProjectTimeReadModelHandler.cs" />
-    <Compile Include="TimeTracking\ReadModels\ProjectDailyTime\ProjectDailyTimeReadModelHandler.cs" />
-    <Compile Include="UserAccounts\IUserAccountDataAccessor.cs" />
-    <Compile Include="Cqrs\ProjectTime\ProjectTimeTrackedEvent.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LanceTrack.Cqrs\LanceTrack.Cqrs.csproj">
+      <Project>{1E717244-C9E7-452B-AAA4-E73E6AF5379D}</Project>
+      <Name>LanceTrack.Cqrs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LanceTrack.Domain\LanceTrack.Domain.csproj">
       <Project>{95df81b0-0e6e-4652-b720-a458a280c55b}</Project>
       <Name>LanceTrack.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanceTrack.Server.Dependencies\LanceTrack.Server.Dependencies.csproj">
+      <Project>{5B283BF1-684B-44C2-B272-FD26EE38B875}</Project>
+      <Name>LanceTrack.Server.Dependencies</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

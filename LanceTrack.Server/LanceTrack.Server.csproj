@@ -60,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LanceTrack.Cqrs\LanceTrack.Cqrs.csproj">
+      <Project>{1e717244-c9e7-452b-aaa4-e73e6af5379d}</Project>
+      <Name>LanceTrack.Cqrs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LanceTrack.Domain\LanceTrack.Domain.csproj">
       <Project>{95df81b0-0e6e-4652-b720-a458a280c55b}</Project>
       <Name>LanceTrack.Domain</Name>
@@ -69,7 +73,9 @@
       <Name>LanceTrack.Server.Dependencies</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Cqrs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
