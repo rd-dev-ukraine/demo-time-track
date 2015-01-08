@@ -52,6 +52,7 @@
     <Compile Include="Project\Project.cs" />
     <Compile Include="Project\ProjectPermissions.cs" />
     <Compile Include="Project\ProjectStatus.cs" />
+    <Compile Include="Project\ProjectUserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAccounts\IUserAccountDataAccessor.cs" />
   </ItemGroup>

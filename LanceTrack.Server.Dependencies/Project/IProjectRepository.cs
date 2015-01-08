@@ -9,6 +9,6 @@ namespace LanceTrack.Server.Dependencies.Project
 
         IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate);
 
-        ProjectPermissions GetProjectPermissionsForUser(int userId, int projectId);
+        ProjectUserData GetProjectPermissionsForUser(int userId, int projectId);
     }
 }

@@ -22,13 +22,10 @@ namespace LanceTrack.DataAccess.Projects
             return DbManager.GetTable<Project>().SingleOrDefault(p => p.Id == id);
         }
 
-        public Server.Dependencies.Project.ProjectPermissions GetProjectPermissionsForUser(int userId, int projectId)
+        public ProjectUserData GetProjectPermissionsForUser(int userId, int projectId)
         {
-            var perms = DbManager.GetTable<ProjectPermissions>().SingleOrDefault(pp => pp.UserId == userId && pp.ProjectId == projectId);
-            if (perms == null)
-                return Server.Dependencies.Project.ProjectPermissions.None;
-
-            return perms.UserPermissions;
+            return DbManager.GetTable<ProjectUserData>()
+                            .SingleOrDefault(pp => pp.UserId == userId && pp.ProjectId == projectId);
         }
 
         public IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate)
@@ -36,7 +33,7 @@ namespace LanceTrack.DataAccess.Projects
             startDate = startDate.Date;
             endDate = endDate.Date;
 
-            var projectPermissions = DbManager.GetTable<ProjectPermissions>();
+            var projectPermissions = DbManager.GetTable<ProjectUserData>();
             return DbManager.GetTable<Project>()
                             .Where(p => projectPermissions.Any(perm => perm.ProjectId == p.Id && perm.UserId == userId))
                             .Where(p => p.Status == ProjectStatus.Active)

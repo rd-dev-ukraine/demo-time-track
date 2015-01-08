@@ -49,21 +49,21 @@ when not matched by target then
 
 set identity_insert Project off;
 
-merge ProjectPermissions as t 
+merge ProjectUserData as t 
 using 
 (
-	values (1, 1, 2),
-		   (1, 2, 1),
-		   (2, 1, 2)
+	values (1, 1, 2, 20),
+		   (1, 2, 1, 22),
+		   (2, 1, 2, 24)
 
-
-) as s (ProjectId, UserId, UserPermissions)
+) as s (ProjectId, UserId, UserPermissions, HourlyRate)
 on
 	s.ProjectId = t.ProjectId and
 	s.UserId = t.UserId
 when matched then
 	update set
-		t.UserPermissions = s.UserPermissions
+		t.UserPermissions = s.UserPermissions,
+		t.HourlyRate = s.HourlyRate
 when not matched by target then
-	insert (ProjectId, UserId, UserPermissions)
-	values (ProjectId, UserId, UserPermissions);
+	insert (ProjectId, UserId, UserPermissions, HourlyRate)
+	values (ProjectId, UserId, UserPermissions, HourlyRate);

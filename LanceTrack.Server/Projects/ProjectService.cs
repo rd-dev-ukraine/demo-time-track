@@ -33,7 +33,7 @@ namespace LanceTrack.Server.Projects
             return _projectRepository.GetReportableProjectsForUser(_currentUser.Id, startDate, endDate);
         }
 
-        public ProjectPermissions CalculatePermissions(int userId, int projectId)
+        public ProjectUserData GetProjectUserData(int userId, int projectId)
         {
             return _projectRepository.GetProjectPermissionsForUser(userId, projectId);
         }

@@ -19,6 +19,8 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.Events
 
         public decimal Hours { get; set; }
 
+        public decimal HourlyRate { get; set; }
+
         public int RegisteredByUserId { get; set; }
 
         public DateTimeOffset RegisteredAt { get; set; }

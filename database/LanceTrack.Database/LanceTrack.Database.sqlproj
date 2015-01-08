@@ -65,7 +65,7 @@
   <ItemGroup>
     <Build Include="Tables\UserAccount.sql" />
     <Build Include="Tables\Project.sql" />
-    <Build Include="Tables\ProjectPermissions.sql" />
+    <Build Include="Tables\ProjectUserData.sql" />
     <Build Include="Tables\ReadModels\ProjectDailyTimeData.sql" />
     <Build Include="Tables\Events\TimeRegistrationEvents.sql" />
   </ItemGroup>

@@ -1,9 +1,9 @@
 ﻿using BLToolkit.DataAccess;
 
-namespace LanceTrack.DataAccess.Projects
+namespace LanceTrack.Server.Dependencies.Project
 {
-    [TableName("ProjectPermissions")]
-    class ProjectPermissions
+    [TableName("ProjectUserData")]
+    public class ProjectUserData
     {
         [Identity]
         public int Id { get; set; }
@@ -14,6 +14,8 @@ namespace LanceTrack.DataAccess.Projects
         [PrimaryKey]
         public int UserId { get; set; }
 
-        public Server.Dependencies.Project.ProjectPermissions UserPermissions { get; set; }
+        public ProjectPermissions UserPermissions { get; set; }
+
+        public decimal HourlyRate { get; set; }
     }
 }

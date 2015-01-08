@@ -5,6 +5,7 @@
 	ProjectId int not null,
 	At datetimeoffset not null,
 	Hours decimal (18,2) not null,
+	HourlyRate decimal(18, 2) not null default(1),
 	RegisteredByUserId int not null,
 	RegisteredAt datetimeoffset not null,
 

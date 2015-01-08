@@ -41,9 +41,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             if (project.Status != ProjectStatus.Active)
                 throw new ProjectNotReportableException();
 
-            var perms = _projectService.CalculatePermissions(command.UserId, project.Id);
+            var projectUserData = _projectService.GetProjectUserData(command.UserId, project.Id);
 
-            if (perms < ProjectPermissions.TrackSelf)
+            if (projectUserData == null || projectUserData.UserPermissions < ProjectPermissions.TrackSelf)
                 throw new ProjectAuthorizationException();
 
             if (project.StartDate.Date > command.At.Date)
@@ -66,7 +66,8 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 ProjectId = project.Id,
                 RegisteredAt = DateTimeOffset.Now,
                 RegisteredByUserId = command.UserId,
-                UserId = command.UserId
+                UserId = command.UserId,
+                HourlyRate = projectUserData.HourlyRate
             };
 
             yield return @event;
