@@ -46,6 +46,7 @@
     <Compile Include="DataAccessDependencyModule.cs" />
     <Compile Include="Projects\DatabaseProjectRepository.cs" />
     <Compile Include="ProjectTime\DatabaseProjectTimeRepository.cs" />
+    <Compile Include="ProjectUserSummary\DatabaseProjectUserSummaryAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAccounts\DatabaseUserAccountAccessor.cs" />
     <Compile Include="UserAccounts\UserAccountData.cs" />

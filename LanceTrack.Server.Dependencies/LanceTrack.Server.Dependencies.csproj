@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProjectDailyTime\IProjectTimeRepository.cs" />
-    <Compile Include="ProjectDailyTime\ProjectDailyTime.cs" />
+    <Compile Include="ProjectDailyTime\ProjectDailyTimeData.cs" />
+    <Compile Include="ProjectUserInfo\IProjectUserSummaryAccessor.cs" />
     <Compile Include="Project\IProjectRepository.cs" />
     <Compile Include="Project\IProjectService.cs" />
     <Compile Include="Project\Project.cs" />

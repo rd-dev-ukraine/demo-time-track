@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BLToolkit.Data;
 using LanceTrack.Server.Dependencies.Project;
@@ -28,16 +29,25 @@ namespace LanceTrack.DataAccess.Projects
                             .SingleOrDefault(pp => pp.UserId == userId && pp.ProjectId == projectId);
         }
 
+        public IEnumerable<Project> GetProjects(int userId)
+        {
+            return GetActiveProjects(userId);
+        }
+
         public IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate)
         {
             startDate = startDate.Date;
             endDate = endDate.Date;
 
+            return GetActiveProjects(userId).Where(p => p.StartDate <= endDate && (p.EndDate == null || p.EndDate >= startDate));
+        }
+
+        private IQueryable<Project> GetActiveProjects(int userId)
+        {
             var projectPermissions = DbManager.GetTable<ProjectUserData>();
             return DbManager.GetTable<Project>()
                             .Where(p => projectPermissions.Any(perm => perm.ProjectId == p.Id && perm.UserId == userId))
-                            .Where(p => p.Status == ProjectStatus.Active)
-                            .Where(p => p.StartDate <= endDate && (p.EndDate == null || p.EndDate >= startDate));
+                            .Where(p => p.Status == ProjectStatus.Active);
         }
     }
 }

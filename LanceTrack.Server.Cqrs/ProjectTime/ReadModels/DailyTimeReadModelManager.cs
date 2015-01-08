@@ -4,17 +4,17 @@ using System.Linq;
 using LanceTrack.Cqrs.Contract;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
-using ProjectDailyTimeEntity = LanceTrack.Server.Dependencies.ProjectDailyTime.ProjectDailyTime;
+using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
-    public class DailyTimeReadModel : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>, 
+    public class DailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>, 
         IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
     {
-        private readonly IProjectDailyTimeStorage _storage;
-        private readonly List<ProjectDailyTimeEntity> _readModels = new List<ProjectDailyTimeEntity>();
+        private readonly IDailyTimeStorage _storage;
+        private readonly List<ProjectDailyTimeData> _readModels = new List<ProjectDailyTimeData>();
 
-        public DailyTimeReadModel(IProjectDailyTimeStorage storage)
+        public DailyTimeReadModelManager(IDailyTimeStorage storage)
         {
             if (storage == null)
                 throw new ArgumentNullException("storage");
@@ -30,7 +30,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 
             if (dailyTime == null)
             {
-                dailyTime = new ProjectDailyTimeEntity
+                dailyTime = new ProjectDailyTimeData
                 {
                     Date = evt.At.Date,
                     ProjectId = evt.ProjectId,

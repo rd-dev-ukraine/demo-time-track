@@ -18,12 +18,12 @@ namespace LanceTrack.DataAccess.ProjectTime
 
         private DbManager DbManager { get; set; }
 
-        public IQueryable<ProjectDailyTime> GetProjectDailyTime(int projectId, int userId, DateTime startDate, DateTime endDate)
+        public IQueryable<ProjectDailyTimeData> GetProjectDailyTime(int projectId, int userId, DateTime startDate, DateTime endDate)
         {
             startDate = startDate.Date;
             endDate = endDate.Date;
 
-            return DbManager.GetTable<ProjectDailyTime>()
+            return DbManager.GetTable<ProjectDailyTimeData>()
                 .Where(t => t.ProjectId == projectId)
                 .Where(t => startDate <= t.Date && t.Date <= endDate)
                 .Where(t => t.UserId == userId);

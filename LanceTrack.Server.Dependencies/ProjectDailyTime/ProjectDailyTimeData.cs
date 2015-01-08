@@ -4,7 +4,7 @@ using BLToolkit.DataAccess;
 namespace LanceTrack.Server.Dependencies.ProjectDailyTime
 {
     [TableName("ProjectDailyTimeData")]
-    public class ProjectDailyTime
+    public class ProjectDailyTimeData
     {
         [PrimaryKey]
         public int ProjectId { get;set; }

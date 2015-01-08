@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server.Dependencies.Project;
@@ -21,6 +22,11 @@ namespace LanceTrack.Server.Projects
                 throw new ArgumentNullException("currentUser");
             _projectRepository = projectRepository;
             _currentUser = currentUser;
+        }
+
+        public IEnumerable<Project> GetProjects()
+        {
+            return _projectRepository.GetProjects(_currentUser.Id);
         }
 
         public Project GetById(int id)

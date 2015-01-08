@@ -43,7 +43,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
             var projectUserData = _projectService.GetProjectUserData(command.UserId, project.Id);
 
-            if (projectUserData == null || projectUserData.UserPermissions < ProjectPermissions.TrackSelf)
+            if (projectUserData == null || (projectUserData.UserPermissions & ProjectPermissions.TrackSelf) == 0)
                 throw new ProjectAuthorizationException();
 
             if (project.StartDate.Date > command.At.Date)

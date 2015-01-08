@@ -7,9 +7,9 @@ using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
-    public class ProjectDailyTimeStorage : IProjectDailyTimeStorage
+    public class DailyTimeStorage : IDailyTimeStorage
     {
-        public ProjectDailyTimeStorage(DbManager dbManager)
+        public DailyTimeStorage(DbManager dbManager)
         {
             if (dbManager == null)
                 throw new ArgumentNullException("dbManager");
@@ -19,7 +19,7 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 
         private DbManager DbManager { get; set; }
 
-        public void SaveProjectDailyTime(ProjectDailyTime readModel)
+        public void SaveProjectDailyTime(ProjectDailyTimeData readModel)
         {
             DbManager.InsertOrReplace(readModel);
         }
