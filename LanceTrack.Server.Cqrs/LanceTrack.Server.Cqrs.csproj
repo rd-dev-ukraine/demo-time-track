@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CqrsDependencyModule.cs" />
+    <Compile Include="ProjectTime\DailyTimeHelper.cs" />
     <Compile Include="ProjectTime\Dependencies\IDailyTimeStorage.cs" />
     <Compile Include="ProjectTime\Dependencies\IProjectUserSummaryStorage.cs" />
     <Compile Include="ProjectTime\ReadModels\DailyTimeReadModelManager.cs" />
