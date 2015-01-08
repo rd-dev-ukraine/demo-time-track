@@ -8,8 +8,8 @@ using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
-    public class DailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>, 
-        IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
+    public class DailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
+        IAggregateRootReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         private readonly IDailyTimeStorage _storage;
         private readonly List<ProjectDailyTimeData> _readModels = new List<ProjectDailyTimeData>();
@@ -22,7 +22,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             _storage = storage;
         }
 
-        public void On(ProjectTimeTrackedEvent evt)
+        public void On(ProjectTimeTrackedEvent evt, ProjectTimeAggregateRootState state)
         {
             var dailyTime = _readModels.FirstOrDefault(m => m.Date == evt.At.Date &&
                                                             m.ProjectId == evt.ProjectId &&

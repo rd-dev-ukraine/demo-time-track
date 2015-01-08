@@ -9,11 +9,10 @@ using LanceTrack.Server.Cqrs.ProjectTime.Events;
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
     public class ProjectUserSummaryReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
-        IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
+        IAggregateRootReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         // Key is projectId, userId
         private readonly Dictionary<Tuple<int, int>, ProjectUserSummaryData> _models = new Dictionary<Tuple<int, int>, ProjectUserSummaryData>();
-        private readonly HashSet<DailyTime> _dailyTime = new HashSet<DailyTime>();
 
         private readonly IProjectUserSummaryStorage _storage;
 
@@ -25,20 +24,8 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             _storage = storage;
         }
 
-        public void On(ProjectTimeTrackedEvent @event)
+        public void On(ProjectTimeTrackedEvent @event, ProjectTimeAggregateRootState state)
         {
-            var entity = new DailyTime
-            {
-                At = @event.At.ToUniversalTime().Date,
-                ProjectId = @event.ProjectId,
-                UserId = @event.UserId,
-                Hours = @event.Hours,
-                HourlyRate = @event.HourlyRate
-            };
-
-            _dailyTime.Remove(entity);
-            _dailyTime.Add(entity);
-
             var key = new Tuple<int, int>(@event.ProjectId, @event.UserId);
 
             ProjectUserSummaryData model;
@@ -54,7 +41,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             model.UserTotalAmountEarned = 0;
             model.UserTotalHoursReported = 0;
 
-            foreach(var dt in _dailyTime.Where(e => e.ProjectId == @event.ProjectId))
+            foreach(var dt in state.ProjectUserTime.Where(e => e.ProjectId == @event.ProjectId))
             {
                 model.ProjectTotalHoursReported += dt.Hours;
                 model.ProjectTotalAmountEarned += dt.Hours * dt.HourlyRate;
@@ -71,54 +58,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
         {
             foreach (var model in _models.Values)
                 _storage.Save(model);
-        }
-
-        private class DailyTime : IEquatable<DailyTime>
-        {
-            public DateTime At { get; set; }
-
-            public decimal Hours { get; set; }
-
-            public int ProjectId { get; set; }
-
-            public int UserId { get; set; }
-
-            public decimal HourlyRate { get; set; }
-
-            public bool Equals(DailyTime other)
-            {
-                if (ReferenceEquals(null, other))
-                    return false;
-                if (ReferenceEquals(this, other))
-                    return true;
-
-                return At.Equals(other.At) &&
-                       ProjectId == other.ProjectId &&
-                       UserId == other.UserId;
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj))
-                    return false;
-                if (ReferenceEquals(this, obj))
-                    return true;
-                if (obj.GetType() != GetType())
-                    return false;
-
-                return Equals((DailyTime)obj);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    var hashCode = At.GetHashCode();
-                    hashCode = (hashCode * 397) ^ ProjectId;
-                    hashCode = (hashCode * 397) ^ UserId;
-                    return hashCode;
-                }
-            }
         }
     }
 }

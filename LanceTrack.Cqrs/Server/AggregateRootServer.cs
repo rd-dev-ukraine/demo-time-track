@@ -66,7 +66,7 @@ namespace LanceTrack.Cqrs.Server
             {
                 var rm = (dynamic)readModel;
                 foreach (var e in events)
-                    rm.On((dynamic)e);
+                    rm.On((dynamic)e, ((dynamic)aggregateRootInstance).State);
 
                 readModel.Save();
             }
@@ -84,7 +84,7 @@ namespace LanceTrack.Cqrs.Server
                 ((dynamic)aggregateRootInstance).On((dynamic)evnt);
 
                 foreach (var readModel in aggregateRootInstance.ReadModels)
-                    ((dynamic)readModel).On((dynamic)evnt);
+                    ((dynamic)readModel).On((dynamic)evnt, ((dynamic)aggregateRootInstance).State);
             }
 
             // Update read models

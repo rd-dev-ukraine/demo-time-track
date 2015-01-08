@@ -9,12 +9,12 @@ using LanceTrack.Server.Dependencies.Project;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime
 {
-    public class ProjectTimeAggregateRoot : IAggregateRoot<int>,
+    public class ProjectTimeAggregateRoot : IAggregateRootWithState<ProjectTimeAggregateRootState, int>,
         IAggregateRootCommandHandler<TrackTimeCommand, ProjectTimeAggregateRoot, int>,
         IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly IProjectService _projectService;
-        private readonly State _state = new State();
+        
 
         public ProjectTimeAggregateRoot(
             IProjectService projectService,
@@ -27,15 +27,15 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
             _projectService = projectService;
             ReadModels = readModelManagers.ToArray();
+            State = new ProjectTimeAggregateRootState();
         }
 
         public IEnumerable<IReadModelManager<int>> ReadModels { get; private set; }
 
+        public ProjectTimeAggregateRootState State { get; private set; }
+
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(TrackTimeCommand command)
         {
-            if (_state.IsAnyEventProcessed && _state.ProjectId != command.ProjectId)
-                throw new ArgumentException("Command belongs to another project.");
-
             var project = _projectService.GetById(command.ProjectId);
 
             if (project.Status != ProjectStatus.Active)
@@ -55,8 +55,10 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 command.Hours > project.MaxTotalHoursPerDay.Value)
                 throw new IncorrectHoursException();
 
-            if (project.MaxTotalHours != null &&
-                (_state.ProjectTotalHours + command.Hours) > project.MaxTotalHours)
+            var projectDailyHours = State.ProjectUserTime.Where(p => p.ProjectId == command.ProjectId);
+
+            if (projectDailyHours.Any() &&
+                (projectDailyHours.Sum(p => p.Hours) + command.Hours) > project.MaxTotalHours)
                 throw new IncorrectHoursException();
 
             if (command.Hours == 0)
@@ -78,48 +80,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         public void On(ProjectTimeTrackedEvent @event)
         {
-            _state.IsAnyEventProcessed = true;
-            _state.ProjectId = @event.ProjectId;
-
-            var date = @event.At.Date.ToUniversalTime();
-
-            var userTimeRecord = _state.UserTime.SingleOrDefault(r => r.UserId == @event.UserId && r.Date == date);
-            if (userTimeRecord == null)
-                _state.UserTime.Add(userTimeRecord = new UserTimeRecord
-                {
-                    Date = date,
-                    UserId = @event.UserId
-                });
-
-            userTimeRecord.TotalHours = @event.Hours;
-        }
-
-        public class State
-        {
-            public State()
-            {
-                UserTime = new List<UserTimeRecord>();
-            }
-
-            public bool IsAnyEventProcessed { get; set; }
-
-            public int ProjectId { get; set; }
-
-            public decimal ProjectTotalHours
-            {
-                get { return UserTime.Any() ? UserTime.Sum(t => t.TotalHours) : 0; }
-            }
-
-            public List<UserTimeRecord> UserTime { get; set; }
-        }
-
-        public class UserTimeRecord
-        {
-            public DateTime Date { get; set; }
-
-            public decimal TotalHours { get; set; }
-
-            public int UserId { get; set; }
+            State.On(@event);
         }
     }
 }
