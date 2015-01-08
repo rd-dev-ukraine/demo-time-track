@@ -10,8 +10,10 @@ namespace LanceTrack.Server.Cqrs.DataAccess
     {
         public override void Load()
         {
-            Bind<IDailyTimeStorage>().To<DailyTimeStorage>();
             Bind<IEventStore<ProjectTimeAggregateRoot, int>>().To<ProjectTimeAggregateRootEventStore>();
+
+            Bind<IDailyTimeStorage>().To<DailyTimeStorage>();
+            Bind<IProjectUserSummaryStorage>().To<ProjectUserSummaryStorage>();
         }
     }
 }

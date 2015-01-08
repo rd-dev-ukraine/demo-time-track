@@ -19,6 +19,7 @@ namespace LanceTrack.Server.Cqrs
             Bind<Func<ProjectTimeAggregateRoot>>().ToMethod(context => () => context.Kernel.Get<ProjectTimeAggregateRoot>());
 
             Bind<IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>>().To<DailyTimeReadModelManager>();
+            Bind<IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>>().To<ProjectUserSummaryReadModelManager>();
         }
     }
 }

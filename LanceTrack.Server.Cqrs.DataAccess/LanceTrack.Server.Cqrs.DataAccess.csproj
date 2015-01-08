@@ -50,6 +50,7 @@
     <Compile Include="CqrsDataAccessDependencyModule.cs" />
     <Compile Include="ProjectTime\DailyTimeStorage.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRootEventStore.cs" />
+    <Compile Include="ProjectTime\ProjectUserSummaryStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,10 @@
     <ProjectReference Include="..\LanceTrack.Cqrs\LanceTrack.Cqrs.csproj">
       <Project>{1e717244-c9e7-452b-aaa4-e73e6af5379d}</Project>
       <Name>LanceTrack.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanceTrack.Domain\LanceTrack.Domain.csproj">
+      <Project>{95DF81B0-0E6E-4652-B720-A458A280C55B}</Project>
+      <Name>LanceTrack.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\LanceTrack.Server.Cqrs\LanceTrack.Server.Cqrs.csproj">
       <Project>{5736a6c1-8af7-4b43-83fb-1d7511221729}</Project>

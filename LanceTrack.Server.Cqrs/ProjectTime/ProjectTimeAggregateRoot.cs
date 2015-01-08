@@ -59,6 +59,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 (_state.ProjectTotalHours + command.Hours) > project.MaxTotalHours)
                 throw new IncorrectHoursException();
 
+            if (command.Hours == 0)
+                yield break;
+
             var @event = new ProjectTimeTrackedEvent
             {
                 At = command.At,
@@ -77,11 +80,13 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
         {
             _state.ProjectId = @event.ProjectId;
 
-            var userTimeRecord = _state.UserTime.SingleOrDefault(r => r.UserId == @event.UserId && r.Date == @event.At.Date);
+            var date = @event.At.Date.ToUniversalTime();
+
+            var userTimeRecord = _state.UserTime.SingleOrDefault(r => r.UserId == @event.UserId && r.Date == date);
             if (userTimeRecord == null)
                 _state.UserTime.Add(userTimeRecord = new UserTimeRecord
                 {
-                    Date = @event.At.Date,
+                    Date = date,
                     UserId = @event.UserId
                 });
 
@@ -107,8 +112,10 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         public class UserTimeRecord
         {
-            public DateTimeOffset Date { get; set; }
+            public DateTime Date { get; set; }
+
             public decimal TotalHours { get; set; }
+
             public int UserId { get; set; }
         }
     }
