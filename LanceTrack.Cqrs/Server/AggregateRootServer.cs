@@ -80,7 +80,14 @@ namespace LanceTrack.Cqrs.Server
             var aggregateRootInstance = AggregateRootFactory();
 
             foreach (var evnt in EventStore.ReadAggregateRootEvents(id))
+            {
                 ((dynamic)aggregateRootInstance).On((dynamic)evnt);
+
+                foreach (var readModel in aggregateRootInstance.ReadModels)
+                    ((dynamic)readModel).On((dynamic)evnt);
+            }
+
+            // Update read models
 
             return aggregateRootInstance;
         }
