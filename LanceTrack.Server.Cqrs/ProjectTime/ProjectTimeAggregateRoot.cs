@@ -33,7 +33,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(TrackTimeCommand command)
         {
-            if (_state.ProjectId != command.ProjectId)
+            if (_state.IsAnyEventProcessed && _state.ProjectId != command.ProjectId)
                 throw new ArgumentException("Command belongs to another project.");
 
             var project = _projectService.GetById(command.ProjectId);
@@ -78,6 +78,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         public void On(ProjectTimeTrackedEvent @event)
         {
+            _state.IsAnyEventProcessed = true;
             _state.ProjectId = @event.ProjectId;
 
             var date = @event.At.Date.ToUniversalTime();
@@ -99,6 +100,8 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             {
                 UserTime = new List<UserTimeRecord>();
             }
+
+            public bool IsAnyEventProcessed { get; set; }
 
             public int ProjectId { get; set; }
 
