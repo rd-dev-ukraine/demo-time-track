@@ -10,10 +10,12 @@ namespace LanceTrack.Cqrs.Server
     ///     Basic implementation of class which manages collection of aggregate root of particular type.
     ///     It is responsible for executing commands on aggregate root and saving and applying events.
     /// </summary>
-    public abstract class AggregateRootServer<TAggregateRoot, TAggregateRootId> : IAggregateRootServer
-        where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>
+    public abstract class AggregateRootServer<TAggregateRoot, TState, TAggregateRootId> : IAggregateRootServer
+        where TAggregateRoot : class, IAggregateRootWithState<TState, TAggregateRootId> 
+        where TState : IAggregateRootState<TAggregateRootId>
     {
         private readonly ConcurrentDictionary<TAggregateRootId, TAggregateRoot> _aggregateRoots = new ConcurrentDictionary<TAggregateRootId, TAggregateRoot>();
+        private readonly dynamic _self;
 
         protected AggregateRootServer(
             IEventStore<TAggregateRoot, TAggregateRootId> eventStore,
@@ -24,6 +26,7 @@ namespace LanceTrack.Cqrs.Server
 
             EventStore = eventStore;
             AggregateRootFactory = aggregateRootFactory;
+            _self = this;
         }
 
         public Type AggregateRootType
@@ -47,14 +50,25 @@ namespace LanceTrack.Cqrs.Server
 
             IEvent<TAggregateRoot, TAggregateRootId>[] events;
 
+            // Aggregate root is locking point.
+            // Command execution and event applying are performed in the lock.
+            // Also read model updated inside lock to prevent state mutating due read model updating.
             lock (aggregateRootInstance)
             {
                 // Dynamically dispatch command based on it runtime type.
-                events = ((IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>>)((dynamic)aggregateRootInstance).Execute((dynamic)command)).ToArray();
+                events = ((IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>>)_self.DispatchCommandOnAggregateRoot(aggregateRootInstance, (dynamic)command)).ToArray();
 
                 // Applies event on aggregate root
                 foreach (var e in events)
-                    ((dynamic)aggregateRootInstance).On((dynamic)e);
+                    _self.DispatchEventOnAggregateRoot(aggregateRootInstance, (dynamic)e);
+
+                // Update read models
+                foreach (var readModel in aggregateRootInstance.ReadModels)
+                {
+                    var rm = (dynamic)readModel;
+                    foreach (var e in events)
+                        _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)e, rm);
+                }
             }
 
             // Saves events in store
@@ -63,13 +77,7 @@ namespace LanceTrack.Cqrs.Server
 
             // Update read models
             foreach (var readModel in aggregateRootInstance.ReadModels)
-            {
-                var rm = (dynamic)readModel;
-                foreach (var e in events)
-                    rm.On((dynamic)e, ((dynamic)aggregateRootInstance).State);
-
                 readModel.Save();
-            }
         }
 
         /// <summary>
@@ -79,17 +87,52 @@ namespace LanceTrack.Cqrs.Server
         {
             var aggregateRootInstance = AggregateRootFactory();
 
-            foreach (var evnt in EventStore.ReadAggregateRootEvents(id))
+            lock (aggregateRootInstance)
             {
-                ((dynamic)aggregateRootInstance).On((dynamic)evnt);
+                foreach (var evnt in EventStore.ReadAggregateRootEvents(id))
+                {
+                    _self.DispatchEventOnAggregateRoot(aggregateRootInstance, (dynamic)evnt);
 
-                foreach (var readModel in aggregateRootInstance.ReadModels)
-                    ((dynamic)readModel).On((dynamic)evnt, ((dynamic)aggregateRootInstance).State);
+                    foreach (var readModel in aggregateRootInstance.ReadModels)
+                        _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)evnt, (dynamic)readModel);
+                }
             }
 
             // Update read models
 
             return aggregateRootInstance;
+        }
+
+        protected virtual IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>> DispatchCommandOnAggregateRoot<TCommand>(TAggregateRoot aggregateRoot, TCommand command)
+            where TCommand : ICommand<TAggregateRoot, TAggregateRootId>
+        {
+            var commandHandler = aggregateRoot as IAggregateRootCommandHandler<TCommand, TAggregateRoot, TAggregateRootId>;
+            if (commandHandler == null)
+                throw new InvalidOperationException(String.Format("Aggregate root {0} does not support dispatching of {1} command.", typeof(TAggregateRoot), typeof(TCommand)));
+            return commandHandler.Execute(command);
+        }
+
+        protected virtual void DispatchEventOnAggregateRoot<TEvent>(TAggregateRoot aggregateRoot, TEvent @event)
+            where TEvent : IEvent<TAggregateRoot, TAggregateRootId>
+        {
+            var eventRecipient = aggregateRoot as IAggregateRootEventRecipient<TEvent, TAggregateRoot, TAggregateRootId>;
+            if (eventRecipient == null)
+                throw new InvalidOperationException(String.Format("Aggregate root {0} does not support dispatching of {1} event.", typeof(TAggregateRoot), typeof(TEvent)));
+
+
+            eventRecipient.On(@event);
+        }
+
+        protected virtual void DispatchEventOnReadModel<TEvent, TReadModel>(TAggregateRoot aggregateRoot, TEvent @event, TReadModel readModel)
+            where TEvent: IEvent<TAggregateRoot, TAggregateRootId> 
+            where TReadModel: IAggregateRootReadModelManager<TAggregateRoot, TAggregateRootId>
+        {
+            var eventWithStateRecipient = readModel as IAggregateRootReadModelEventRecipient<TEvent, TState, TAggregateRoot, TAggregateRootId>;
+
+            if (eventWithStateRecipient == null)
+                throw new InvalidOperationException(String.Format("Read model {0} does not support dispatching of {1} event.", typeof(TReadModel), typeof(TEvent)));
+
+            eventWithStateRecipient.On(@event, aggregateRoot.State);
         }
     }
 }
