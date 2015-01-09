@@ -11,7 +11,7 @@ namespace LanceTrack.Cqrs.Server
     ///     It is responsible for executing commands on aggregate root and saving and applying events.
     /// </summary>
     public abstract class AggregateRootServer<TAggregateRoot, TState, TAggregateRootId> : IAggregateRootServer
-        where TAggregateRoot : class, IAggregateRootWithState<TState, TAggregateRootId> 
+        where TAggregateRoot : class, IAggregateRootWithState<TState, TAggregateRootId>
         where TState : IAggregateRootState<TAggregateRootId>
     {
         private readonly ConcurrentDictionary<TAggregateRootId, TAggregateRoot> _aggregateRoots = new ConcurrentDictionary<TAggregateRootId, TAggregateRoot>();
@@ -58,26 +58,33 @@ namespace LanceTrack.Cqrs.Server
                 // Dynamically dispatch command based on it runtime type.
                 events = ((IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>>)_self.DispatchCommandOnAggregateRoot(aggregateRootInstance, (dynamic)command)).ToArray();
 
-                // Applies event on aggregate root
-                foreach (var e in events)
-                    _self.DispatchEventOnAggregateRoot(aggregateRootInstance, (dynamic)e);
-
-                // Update read models
-                foreach (var readModel in aggregateRootInstance.ReadModels)
+                if (events.Any())
                 {
-                    var rm = (dynamic)readModel;
+                    // Applies event on aggregate root
                     foreach (var e in events)
-                        _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)e, rm);
+                        _self.DispatchEventOnAggregateRoot(aggregateRootInstance, (dynamic)e);
+
+                    // Update read models
+                    foreach (var readModel in aggregateRootInstance.ReadModels)
+                        lock (readModel)
+                        {
+                            var rm = (dynamic)readModel;
+                            foreach (var e in events)
+                                _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)e, rm);
+                        }
                 }
             }
 
-            // Saves events in store
-            foreach (var e in events)
-                ((dynamic)EventStore).Append((dynamic)e);
+            if (events.Any())
+            {
+                // Saves events in store
+                foreach (var e in events)
+                    ((dynamic)EventStore).Append((dynamic)e);
 
-            // Update read models
-            foreach (var readModel in aggregateRootInstance.ReadModels)
-                readModel.Save();
+                // Update read models
+                foreach (var readModel in aggregateRootInstance.ReadModels)
+                    readModel.Save();
+            }
         }
 
         /// <summary>
@@ -94,11 +101,10 @@ namespace LanceTrack.Cqrs.Server
                     _self.DispatchEventOnAggregateRoot(aggregateRootInstance, (dynamic)evnt);
 
                     foreach (var readModel in aggregateRootInstance.ReadModels)
-                        _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)evnt, (dynamic)readModel);
+                        lock (readModel)
+                            _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)evnt, (dynamic)readModel);
                 }
             }
-
-            // Update read models
 
             return aggregateRootInstance;
         }
@@ -124,8 +130,8 @@ namespace LanceTrack.Cqrs.Server
         }
 
         protected virtual void DispatchEventOnReadModel<TEvent, TReadModel>(TAggregateRoot aggregateRoot, TEvent @event, TReadModel readModel)
-            where TEvent: IEvent<TAggregateRoot, TAggregateRootId> 
-            where TReadModel: IAggregateRootReadModelManager<TAggregateRoot, TAggregateRootId>
+            where TEvent : IEvent<TAggregateRoot, TAggregateRootId>
+            where TReadModel : IAggregateRootReadModelManager<TAggregateRoot, TAggregateRootId>
         {
             var eventWithStateRecipient = readModel as IAggregateRootReadModelEventRecipient<TEvent, TState, TAggregateRoot, TAggregateRootId>;
 

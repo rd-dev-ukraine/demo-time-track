@@ -12,6 +12,7 @@ using LanceTrack.Web;
 using LanceTrack.Web.Infrastructure;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
+using Ninject.Extensions.NamedScope;
 using Ninject.Web.Common;
 using WebActivatorEx;
 
@@ -71,18 +72,14 @@ namespace LanceTrack.Web
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbManager>()
-                .ToSelf().WhenAnyAncestorMatches(c =>
+                .ToSelf()
+                .WhenAnyAncestorMatches(c =>
                 {
                     var result = c.Request.Service.Namespace.StartsWith(typeof(CqrsDependencyModule).Namespace) ||
                                  c.Request.Service.Namespace.StartsWith("LanceTrack.Cqrs");
                     return result;
                 })
-                //.When(r =>
-                //{
-                //    var result =  r.Target.Type.Namespace.StartsWith(typeof(CqrsDependencyModule).Namespace);
-                //    return result;
-                //})
-                .InSingletonScope();
+                .InCallScope();
 
             kernel.Bind<DbManager>()
                   .ToSelf()
