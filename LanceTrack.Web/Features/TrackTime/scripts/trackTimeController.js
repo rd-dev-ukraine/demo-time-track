@@ -3,17 +3,16 @@
     (function (TrackTime) {
         function trackTimeController($scope, trackTimeService, dates, deferredFunction) {
             function reload() {
-                trackTimeService.load($scope.startDate, $scope.endDate).then(function (r) {
+                trackTimeService.load($scope.date).then(function (r) {
                     $scope.projectTime = r;
                 });
             }
 
-            $scope.startDate = dates.format(dates.startOfCurrentWeek());
-            $scope.endDate = dates.format(dates.endOfCurrentWeek());
+            $scope.date = dates.now();
 
             $scope.dateRange = function () {
-                return _.map(dates.allDateInRange($scope.startDate, $scope.endDate), function (d) {
-                    return dates.format(d);
+                return _.map(dates.allDateInWeek($scope.date), function (d) {
+                    return dates.formatDay(d);
                 });
             };
 
@@ -23,8 +22,7 @@
 
             reload();
 
-            $scope.$watch("startDate", reload);
-            $scope.$watch("endDate", reload);
+            $scope.$watch("date", reload);
         }
         TrackTime.trackTimeController = trackTimeController;
     })(LanceTrack.TrackTime || (LanceTrack.TrackTime = {}));

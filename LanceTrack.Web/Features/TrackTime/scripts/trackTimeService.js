@@ -12,17 +12,15 @@
                 this.$http = $http;
                 this.dates = dates;
             }
-            TrackTimeService.prototype.load = function (startDate, endDate) {
+            TrackTimeService.prototype.load = function (date) {
                 var _this = this;
-                var range = this.dates.getValidRange(startDate, endDate);
-
                 var deferred = this.$q.defer();
 
-                var url = urls.data.loadProjectTime + "/" + this.dates.format(range.start) + "/" + this.dates.format(range.end);
+                date = this.dates.parse(date);
+                var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
 
                 this.$http.get(url).success(function (result) {
-                    var model = _this.createModel(result, range.start, range.end);
-
+                    var model = _this.createModel(result, _this.dates.startOfWeek(date), _this.dates.endOfWeek(date));
                     deferred.resolve(model);
                 }).error(function (e) {
                     return deferred.reject(e);

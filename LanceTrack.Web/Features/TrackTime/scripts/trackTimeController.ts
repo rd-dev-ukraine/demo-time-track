@@ -7,29 +7,25 @@
             deferredFunction: LanceTrack.DeferredFunctionService) {
 
             function reload() {
-                trackTimeService.load($scope.startDate, $scope.endDate)
+                trackTimeService.load($scope.date)
                     .then(r => {
                         $scope.projectTime = r;
                     });
             }
 
+            $scope.date = dates.now();
 
-            $scope.startDate = dates.format(dates.startOfCurrentWeek());
-            $scope.endDate = dates.format(dates.endOfCurrentWeek());
-
-            $scope.dateRange = () => _.map(dates.allDateInRange($scope.startDate, $scope.endDate), d => dates.format(d));
+            $scope.dateRange = () => _.map(dates.allDateInWeek($scope.date), d => dates.formatDay(d));
 
             $scope.recalculateAll = deferredFunction.decorate(() => trackTimeService.recalculateAll());
 
             reload();
 
-            $scope.$watch("startDate", reload);
-            $scope.$watch("endDate", reload);
+            $scope.$watch("date", reload);
         }
 
         export interface TrackTimeScope extends ng.IScope {
-            startDate: string;
-            endDate: string;
+            date: string;
             projectTime: ProjectTimeInfo[];
 
             dateRange: () => string[];

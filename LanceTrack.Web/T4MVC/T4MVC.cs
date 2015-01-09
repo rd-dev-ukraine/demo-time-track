@@ -83,6 +83,15 @@ namespace Links
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class angular_ui_bootstrap {
+            private const string URLPATH = "~/Libs/angular-ui-bootstrap";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string ui_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ui-bootstrap.min.js") ? Url("ui-bootstrap.min.js") : Url("ui-bootstrap.js");
+            public static readonly string ui_bootstrap_min_js = Url("ui-bootstrap.min.js");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class bootstrap {
             private const string URLPATH = "~/Libs/bootstrap";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }

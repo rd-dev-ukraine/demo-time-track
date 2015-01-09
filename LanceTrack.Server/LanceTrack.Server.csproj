@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="Projects\ProjectService.cs" />
     <Compile Include="ProjectTime\ProjectTimeService.cs" />
     <Compile Include="ProjectUserInfo\ProjectUserInfoService.cs" />

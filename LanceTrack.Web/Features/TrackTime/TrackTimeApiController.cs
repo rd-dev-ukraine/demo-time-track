@@ -6,6 +6,7 @@ using System.Web.Http;
 using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
+using LanceTrack.Server;
 
 namespace LanceTrack.Web.Features.TrackTime
 {
@@ -30,11 +31,11 @@ namespace LanceTrack.Web.Features.TrackTime
             _currentUser = currentUser;
         }
 
-        [Route("project-time/{startDate:datetime?}/{endDate:datetime?}", Name = "ProjectTimeInfo"), HttpGet]
-        public List<ProjectTimeInfo> ProjectTimeInfo(DateTime? startDate, DateTime? endDate)
+        [Route("project-time/{weekDate?}", Name = "ProjectTimeInfo"), HttpGet]
+        public List<ProjectTimeInfo> ProjectTimeInfo(DateTime weekDate)
         {
-            var startDateVal = startDate ?? DateTime.Now.AddDays(-3);
-            var endDateVal = endDate ?? DateTime.Now.AddDays(4);
+            var startDateVal = weekDate.StartOfWeek();
+            var endDateVal = weekDate.EndOfWeek();
             return _projectTimeService.GetProjectTimeInfo(startDateVal, endDateVal).ToList();
         }
 

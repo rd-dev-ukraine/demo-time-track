@@ -12,6 +12,10 @@
             return this.parseMoment(date).format(Dates.DateFormat);
         };
 
+        Dates.prototype.formatDay = function (date) {
+            return this.parseMoment(date).format(Dates.DayFormat);
+        };
+
         Dates.prototype.parse = function (date) {
             return this.parseMoment(date).toDate();
         };
@@ -22,6 +26,18 @@
 
         Dates.prototype.endOfCurrentWeek = function () {
             return this.format(moment().endOf("week"));
+        };
+
+        Dates.prototype.startOfWeek = function (date) {
+            return this.format(this.parseMoment(date).startOf("week"));
+        };
+
+        Dates.prototype.endOfWeek = function (date) {
+            return this.format(this.parseMoment(date).endOf("week"));
+        };
+
+        Dates.prototype.allDateInWeek = function (date) {
+            return this.allDateInRange(this.startOfWeek(date), this.endOfWeek(date));
         };
 
         Dates.prototype.allDateInRange = function (startDate, endDate) {
@@ -39,6 +55,10 @@
             }
 
             return result;
+        };
+
+        Dates.prototype.now = function () {
+            return this.format(moment());
         };
 
         /*
@@ -78,6 +98,7 @@
             return moment(date);
         };
         Dates.DateFormat = "YYYY-MM-DD";
+        Dates.DayFormat = "ddd, DD MMM";
         return Dates;
     })();
     LanceTrack.Dates = Dates;

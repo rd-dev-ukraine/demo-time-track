@@ -5,9 +5,14 @@
 
     export class Dates {
         static DateFormat: string = "YYYY-MM-DD";
+        static DayFormat: string = "ddd, DD MMM";
 
-        format(date: any) {
+        format(date: any): string {
             return this.parseMoment(date).format(Dates.DateFormat);
+        }
+
+        formatDay(date: any): string {
+            return this.parseMoment(date).format(Dates.DayFormat);
         }
 
         parse(date: any): Date {
@@ -20,6 +25,18 @@
 
         endOfCurrentWeek(): string {
             return this.format(moment().endOf("week"));
+        }
+
+        startOfWeek(date: any): string {
+            return this.format(this.parseMoment(date).startOf("week"));
+        }
+
+        endOfWeek(date: any): string {
+            return this.format(this.parseMoment(date).endOf("week"));
+        }
+
+        allDateInWeek(date: any): Date[]{
+            return this.allDateInRange(this.startOfWeek(date), this.endOfWeek(date));
         }
 
         allDateInRange(startDate: any, endDate: any): Date[]{
@@ -37,6 +54,10 @@
             }
 
             return result;
+        }
+
+        now(): string {
+            return this.format(moment());
         }
 
         /*

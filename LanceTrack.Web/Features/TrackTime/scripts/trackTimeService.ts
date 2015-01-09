@@ -11,17 +11,15 @@
                 private dates: LanceTrack.Dates) {
             }
 
-            load(startDate: string, endDate: string): ng.IPromise<ProjectTimeInfo[]> {
-                var range = this.dates.getValidRange(startDate, endDate);
-
+            load(date: any): ng.IPromise<ProjectTimeInfo[]> {
                 var deferred = this.$q.defer();
 
-                var url = urls.data.loadProjectTime + "/" + this.dates.format(range.start) + "/" + this.dates.format(range.end);
+                date = this.dates.parse(date);
+                var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
 
                 this.$http.get(url)
                     .success((result: ProjectTimeInfo[]) => {
-                        var model = this.createModel(result, range.start, range.end);
-
+                        var model = this.createModel(result, this.dates.startOfWeek(date), this.dates.endOfWeek(date));
                         deferred.resolve(model);
                     })
                     .error(e => deferred.reject(e));
