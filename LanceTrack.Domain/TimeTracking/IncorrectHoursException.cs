@@ -6,6 +6,7 @@ namespace LanceTrack.Domain.TimeTracking
     public class IncorrectHoursException : Exception
     {
         public IncorrectHoursException()
+            :base("Hours value is not correct.")
         {
         }
 

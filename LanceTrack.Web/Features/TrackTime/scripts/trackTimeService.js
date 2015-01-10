@@ -68,8 +68,11 @@
                         var existingTime = _.find(time, function (rec) {
                             return _this.dates.eq(rec.date, date);
                         });
-                        if (existingTime)
+                        if (existingTime) {
+                            if (existingTime.hours == 0)
+                                existingTime.hours = null;
                             return existingTime;
+                        }
 
                         return {
                             hours: null,

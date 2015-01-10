@@ -11,17 +11,10 @@
     @Html.Partial(MVC.Shared.Views.Libs)
     @Html.Partial(MVC.Shared.Views.Urls)
 
-    @* Shared feature*@
-    <script src="@Links.Features.Shared.scripts.dateService_ts" type="text/javascript"></script>
-    <script src="@Links.Features.Shared.scripts.deferredFunctionService_ts" type="text/javascript"></script>
-    <script src="@Links.Features.Shared.scripts.module_ts" type="text/javascript"></script>
+    @Html.Partial(MVC.Shared.Views.Refs)
+    @Html.Partial(MVC.TrackTime.Views.Refs)
 
-    @* TrackTime feature *@
-    <script src="@Links.Features.TrackTime.scripts.trackTimeService_ts" type="text/javascript"></script>
-    <script src="@Links.Features.TrackTime.scripts.trackTimeController_ts" type="text/javascript"></script>
-    <script src="@Links.Features.TrackTime.scripts.timeCellController_ts" type="text/javascript"></script>
-    <script src="@Links.Features.TrackTime.scripts.module_ts" type="text/javascript"></script>
-
+    
     @* Angular application *@
     <script src="@Links.Features.Shared.scripts.app_ts" type="text/javascript"></script>
 

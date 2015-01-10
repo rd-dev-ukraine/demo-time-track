@@ -61,9 +61,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 (projectDailyHours.Sum(p => p.Hours) + command.Hours) > project.MaxTotalHours)
                 throw new IncorrectHoursException();
 
-            if (command.Hours == 0)
-                yield break;
-
             var @event = new ProjectTimeTrackedEvent
             {
                 At = command.At,

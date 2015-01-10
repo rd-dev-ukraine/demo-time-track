@@ -18,35 +18,57 @@
             <input class="form-control"
                    ng-model="date"
                    ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-                   
                    type="text" />
         </div>
     </form>
 </div>
 <div class="panel panel-default">
-    <table class="table table-bordered panel-body">
-        <thead>
-            <tr>
-                <th>
-                    Project
-                </th>
-                <th ng-repeat="d in dateRange()" ng-bind="d"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="project in projectTime track by project.projectId">
-                <td ng-bind="project.projectTitle"></td>
-                <td ng-repeat="time in project.time">
-                    <div ng-controller="timeCellController"
-                         ng-init="project=project;cell=time;">
-                        <input class="form-control"
-                               ng-model="cell.hours"
-                               type="text"
-                               title="{{project.projectTitle}}" />
-                        <span ng-if="trackTime.isLoading">Loading</span>
+    <div class="panel-body">
+        <div>
+            <div class="col-md-2 time-track-grid-header">
+                
+            </div>
+            <div class="col-md-10">
+                <div class="col-container">
+                    <div class="col-weekday time-track-grid-header"
+                         ng-repeat="d in dateRange()" ng-bind="d">
                     </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+
+        <div ng-repeat="project in projectTime track by project.projectId">
+            <div class="col-md-2"
+                 ng-bind="project.projectTitle">
+            </div>
+            <div class="col-md-10">
+                <div class="col-container">
+                    <div class="col-weekday"
+                         ng-repeat="time in project.time">
+                        <div class="time-cell"
+                             ng-controller="timeCellController"
+                             ng-init="project=project;cell=time;">
+                            
+                            <div class="time-cell__state-indicator">
+                                <span class="time-cell_glyph error glyphicon glyphicon-minus-sign"
+                                      ng-if="trackTime.isError"
+                                      title="{{trackTime.error.message}}">
+                                </span>
+                                <span class="time-cell_glyph glyphicon glyphicon-refresh"
+                                      ng-if="trackTime.isLoading">
+                                </span>
+                            </div>
+
+                            <div class="time-cell__input-wrapper">
+                                <input class="time-cell__input"
+                                       ng-model="cell.hours"
+                                       type="text"
+                                       title="{{project.projectTitle}}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

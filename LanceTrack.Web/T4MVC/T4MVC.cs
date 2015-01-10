@@ -159,19 +159,6 @@ namespace Links
         public static readonly string normalize_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/normalize.min.css") ? Url("normalize.min.css") : Url("normalize.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class typings {
-            private const string URLPATH = "~/Libs/typings";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string angular_ui_router_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular-ui-router.d.min.js") ? Url("angular-ui-router.d.min.js") : Url("angular-ui-router.d.js");
-            public static readonly string angular_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.d.min.js") ? Url("angular.d.min.js") : Url("angular.d.js");
-            public static readonly string jquery_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.d.min.js") ? Url("jquery.d.min.js") : Url("jquery.d.js");
-            public static readonly string moment_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/moment.d.min.js") ? Url("moment.d.min.js") : Url("moment.d.js");
-            public static readonly string underscore_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/underscore.d.min.js") ? Url("underscore.d.min.js") : Url("underscore.d.js");
-            public static readonly string urls_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/urls.d.min.js") ? Url("urls.d.min.js") : Url("urls.d.js");
-        }
-    
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class underscore {
             private const string URLPATH = "~/Libs/underscore";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -273,6 +260,13 @@ namespace Links
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Models {
+                private const string URLPATH = "~/Features/TrackTime/Models";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class scripts {
                 private const string URLPATH = "~/Features/TrackTime/scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -281,6 +275,18 @@ namespace Links
                 public static readonly string timeCellController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/timeCellController.min.js") ? Url("timeCellController.min.js") : Url("timeCellController.js");
                 public static readonly string trackTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeController.min.js") ? Url("trackTimeController.min.js") : Url("trackTimeController.js");
                 public static readonly string trackTimeService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeService.min.js") ? Url("trackTimeService.min.js") : Url("trackTimeService.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class styles {
+                private const string URLPATH = "~/Features/TrackTime/styles";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string track_time_less = Url("track-time.less");
+                public static readonly string track_time_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/track-time.min.css") ? Url("track-time.min.css") : Url("track-time.css");
+                     
+                public static readonly string track_time_css_map = Url("track-time.css.map");
+                public static readonly string track_time_min_css = Url("track-time.min.css");
             }
         
         }

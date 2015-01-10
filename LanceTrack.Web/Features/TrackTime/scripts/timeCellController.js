@@ -6,13 +6,11 @@
                 return trackTimeService.trackTime($scope.project.projectId, $scope.cell.date, $scope.cell.hours).then(function () {
                     $scope.lastHours = $scope.cell.hours;
                     $scope.$root.$broadcast("TimeTracked");
-                }).catch(function () {
-                    $scope.cell.hours = $scope.lastHours;
                 });
             });
 
             $scope.$watch("cell.hours", function (oldVal, newVal) {
-                if (oldVal == undefined || oldVal == newVal)
+                if (oldVal == undefined || oldVal == newVal || newVal == $scope.cell.hours)
                     return;
 
                 $scope.trackTime();

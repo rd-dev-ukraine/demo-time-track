@@ -79,7 +79,7 @@ namespace LanceTrack.Web
                                  c.Request.Service.Namespace.StartsWith("LanceTrack.Cqrs");
                     return result;
                 })
-                .InCallScope();
+                .InTransientScope();
 
             kernel.Bind<DbManager>()
                   .ToSelf()

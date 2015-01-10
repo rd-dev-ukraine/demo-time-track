@@ -13,15 +13,12 @@
                     .then(() => {
                         $scope.lastHours = $scope.cell.hours;
                         $scope.$root.$broadcast("TimeTracked");
-                    })
-                    .catch(() => {
-                        $scope.cell.hours = $scope.lastHours;
                     });
 
             });
 
             $scope.$watch("cell.hours", (oldVal, newVal) => {
-                if (oldVal == undefined || oldVal == newVal)
+                if (oldVal == undefined || oldVal == newVal || newVal == $scope.cell.hours)
                     return;
 
                 $scope.trackTime();

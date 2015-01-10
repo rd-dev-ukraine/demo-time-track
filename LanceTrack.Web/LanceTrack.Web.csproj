@@ -137,6 +137,12 @@
     <Content Include="Features\Shared\styles\app.min.css">
       <DependentUpon>app.css</DependentUpon>
     </Content>
+    <Content Include="Features\TrackTime\styles\track-time.css">
+      <DependentUpon>track-time.less</DependentUpon>
+    </Content>
+    <Content Include="Features\TrackTime\styles\track-time.min.css">
+      <DependentUpon>track-time.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap.js" />
     <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap.min.js" />
@@ -169,6 +175,12 @@
     <Content Include="Features\Shared\Urls.cshtml" />
     <Content Include="Features\Home\Views\Index.cshtml" />
     <Content Include="Libs\underscore\underscore-min.map" />
+    <Content Include="Features\TrackTime\styles\track-time.less" />
+    <Content Include="Features\TrackTime\styles\track-time.css.map">
+      <DependentUpon>track-time.css</DependentUpon>
+    </Content>
+    <Content Include="Features\TrackTime\Refs.cshtml" />
+    <Content Include="Features\Shared\Refs.cshtml" />
     <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Libs\Momentjs\locales.js" />
     <Content Include="Libs\Momentjs\locales.min.js" />

@@ -83,7 +83,8 @@ namespace LanceTrack.Cqrs.Server
 
                 // Update read models
                 foreach (var readModel in aggregateRootInstance.ReadModels)
-                    readModel.Save();
+                    lock (readModel)
+                        readModel.Save();
             }
         }
 

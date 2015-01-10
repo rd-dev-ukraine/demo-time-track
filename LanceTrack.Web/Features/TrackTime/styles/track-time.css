@@ -1,0 +1,35 @@
+﻿.col-container {
+  overflow: hidden;
+}
+.col-weekday {
+  width: 14.1%;
+  float: left;
+  overflow: hidden;
+}
+.time-track-grid-header {
+  font-weight: bold;
+}
+.time-cell {
+  overflow: hidden;
+  display: block;
+  margin: 0.3rem;
+}
+.time-cell__input-wrapper {
+  display: block;
+  overflow: hidden;
+}
+.time-cell__input {
+  display: block;
+  width: 100%;
+  border: 0 none;
+}
+.time-cell__input:focus {
+  outline: none;
+}
+.time-cell__state-indicator {
+  float: right;
+}
+.time-cell_glyph.error {
+  color: red;
+}
+/*# sourceMappingURL=track-time.css.map */

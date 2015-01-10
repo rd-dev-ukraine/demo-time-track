@@ -94,12 +94,36 @@ namespace LanceTrack.Web.Features.TrackTime
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string Refs = "Refs";
             }
             public readonly string Index = "~/Features/TrackTime/Index.cshtml";
+            public readonly string Refs = "~/Features/TrackTime/Refs.cshtml";
+            static readonly _ModelsClass s_Models = new _ModelsClass();
+            public _ModelsClass Models { get { return s_Models; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _ModelsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                }
+            }
             static readonly _scriptsClass s_scripts = new _scriptsClass();
             public _scriptsClass scripts { get { return s_scripts; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public partial class _scriptsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                }
+            }
+            static readonly _stylesClass s_styles = new _stylesClass();
+            public _stylesClass styles { get { return s_styles; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _stylesClass
             {
                 static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
                 public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
