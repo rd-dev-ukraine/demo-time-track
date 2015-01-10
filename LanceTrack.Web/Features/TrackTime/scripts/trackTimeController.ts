@@ -4,6 +4,8 @@
 
         export function trackTimeController(
             $scope: TrackTimeScope,
+            $state: ng.ui.IStateService,
+            $stateParams: { at: string },
             trackTimeService: TrackTimeService,
             dates: LanceTrack.Dates,
             deferredFunction: LanceTrack.DeferredFunctionService) {
@@ -15,7 +17,7 @@
                     });
             }
 
-            $scope.date = dates.now();
+            $scope.date = dates.format($stateParams.at || dates.now());
 
             $scope.dateRange = () => _.map(dates.allDateInWeek($scope.date), d => dates.formatDay(d));
 
@@ -24,8 +26,10 @@
             reload();
 
             $scope.$watch("date", (o, n) => {
-                if (o != undefined && o != n)
-                    reload();
+                if (o == undefined || o == n)
+                    return;
+
+                $state.go("track-time", { at: $scope.date });
             });
         }
 
@@ -38,4 +42,4 @@
         }
     }
 }
-LanceTrack.TrackTime.trackTimeController.$inject = ["$scope", "trackTimeService", "dates", "deferredFunction"];
+LanceTrack.TrackTime.trackTimeController.$inject = ["$scope", "$state", "$stateParams", "trackTimeService", "dates", "deferredFunction"];
