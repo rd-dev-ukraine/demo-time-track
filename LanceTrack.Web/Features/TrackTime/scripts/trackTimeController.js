@@ -19,14 +19,22 @@
             $scope.recalculateAll = deferredFunction.decorate(function () {
                 return trackTimeService.recalculateAll();
             });
+            $scope.statistics = deferredFunction.decorate(function () {
+                return trackTimeService.statistic();
+            });
 
             reload();
+            $scope.statistics();
 
             $scope.$watch("date", function (o, n) {
                 if (o == undefined || o == n)
                     return;
 
                 $state.go("track-time", { at: $scope.date });
+            });
+
+            $scope.$on("TimeTracked", function () {
+                return $scope.statistics();
             });
         }
         TrackTime.trackTimeController = trackTimeController;

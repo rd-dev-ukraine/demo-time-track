@@ -5,6 +5,7 @@
     data: {
         loadProjectTime: string;
         track: string;
+        statistics: string;
         recalculate: string;
     }
 }

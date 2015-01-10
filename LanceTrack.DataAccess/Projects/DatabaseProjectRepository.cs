@@ -31,15 +31,16 @@ namespace LanceTrack.DataAccess.Projects
 
         public IEnumerable<Project> GetProjects(int userId)
         {
-            return GetActiveProjects(userId);
+            return GetActiveProjects(userId).ToList();
         }
 
-        public IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate)
+        public IEnumerable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate)
         {
             startDate = startDate.Date;
             endDate = endDate.Date;
 
-            return GetActiveProjects(userId).Where(p => p.StartDate <= endDate && (p.EndDate == null || p.EndDate >= startDate));
+            return GetActiveProjects(userId).Where(p => p.StartDate <= endDate && (p.EndDate == null || p.EndDate >= startDate))
+                                            .ToList();
         }
 
         private IQueryable<Project> GetActiveProjects(int userId)

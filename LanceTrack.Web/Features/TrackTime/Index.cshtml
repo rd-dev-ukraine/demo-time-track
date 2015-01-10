@@ -12,15 +12,21 @@
     </a>
 </div>
 <div class="panel panel-default">
-    <form class="form-inline panel-body">
-        <div class="form-group">
-            <label>Date</label>
-            <input class="form-control"
-                   ng-model="date"
-                   ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-                   type="text" />
+    <div class="panel-body">
+        <div class="user-statistics pull-right">
+            <span ng-if="statistics.isLoading">LOADING..</span>
+            {{statistics.value | json}}
         </div>
-    </form>
+        <form class="form-inline">
+            <div class="form-group">
+                <label>Date</label>
+                <input class="form-control"
+                       ng-model="date"
+                       ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
+                       type="text"/>
+            </div>
+        </form>
+    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">

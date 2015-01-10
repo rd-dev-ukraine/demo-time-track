@@ -29,6 +29,18 @@
                 return deferred.promise;
             };
 
+            TrackTimeService.prototype.statistic = function () {
+                var deferred = this.$q.defer();
+
+                this.$http.get(urls.data.statistics).success(function (result) {
+                    return deferred.resolve(result);
+                }).error(function (err) {
+                    return deferred.reject(err);
+                });
+
+                return deferred.promise;
+            };
+
             TrackTimeService.prototype.trackTime = function (projectId, at, hours) {
                 var deferred = this.$q.defer();
 

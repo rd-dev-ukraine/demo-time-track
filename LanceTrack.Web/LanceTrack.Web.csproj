@@ -212,6 +212,7 @@
       <DependentUpon>ValidationMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Features\TrackTime\Models\ProjectTimeInfoResult.cs" />
+    <Compile Include="Features\TrackTime\Models\StatisticsResult.cs" />
     <Compile Include="Features\TrackTime\TrackTimeApiController.cs" />
     <Compile Include="Features\TrackTime\TrackTimeController.cs" />
     <Compile Include="Global.asax.cs">

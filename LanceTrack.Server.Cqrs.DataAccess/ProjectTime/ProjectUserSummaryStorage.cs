@@ -24,7 +24,8 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
             if (entity == null)
                 throw new ArgumentNullException("entity");
 
-            if (DbManager.GetTable<ProjectUserSummaryData>().Any(e => e.ProjectId == entity.ProjectId && e.UserId == entity.UserId))
+            if (DbManager.GetTable<ProjectUserSummaryData>()
+                         .Any(e => e.ProjectId == entity.ProjectId && e.UserId == entity.UserId))
                 DbManager.Update(entity);
             else
                 entity.Id = Convert.ToInt32(DbManager.InsertWithIdentity(entity));

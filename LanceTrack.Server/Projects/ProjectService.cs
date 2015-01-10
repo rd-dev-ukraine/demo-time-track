@@ -34,7 +34,7 @@ namespace LanceTrack.Server.Projects
             return _projectRepository.GetById(id);
         }
 
-        public IQueryable<Project> GetReportableProjects(DateTime startDate, DateTime endDate)
+        public IEnumerable<Project> GetReportableProjects(DateTime startDate, DateTime endDate)
         {
             return _projectRepository.GetReportableProjectsForUser(_currentUser.Id, startDate, endDate);
         }

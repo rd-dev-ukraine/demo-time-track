@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using LanceTrack.Domain.ProjectTime;
+using LanceTrack.Domain.ProjectUserInfo;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
@@ -17,8 +18,13 @@ namespace LanceTrack.Web.Features.TrackTime
         private readonly UserAccount _currentUser;
         private readonly IProjectTimeService _projectTimeService;
         private readonly ITimeTrackingService _timeTrackingService;
+        private readonly IProjectUserInfoService _projectUserInfoService;
 
-        public TrackTimeApiController(UserAccount currentUser, IProjectTimeService projectTimeService, ITimeTrackingService timeTrackingService)
+        public TrackTimeApiController(
+            UserAccount currentUser,
+            IProjectTimeService projectTimeService,
+            ITimeTrackingService timeTrackingService,
+            IProjectUserInfoService projectUserInfoService)
         {
             if (projectTimeService == null)
                 throw new ArgumentNullException("projectTimeService");
@@ -26,9 +32,12 @@ namespace LanceTrack.Web.Features.TrackTime
                 throw new ArgumentNullException("timeTrackingService");
             if (currentUser == null)
                 throw new ArgumentNullException("currentUser");
+            if (projectUserInfoService == null)
+                throw new ArgumentNullException("projectUserInfoService");
 
             _projectTimeService = projectTimeService;
             _timeTrackingService = timeTrackingService;
+            _projectUserInfoService = projectUserInfoService;
             _currentUser = currentUser;
         }
 
@@ -46,15 +55,34 @@ namespace LanceTrack.Web.Features.TrackTime
             };
         }
 
+        [Route("statistics", Name = "Statistics"), HttpGet]
+        public StatisticsResult Statistics()
+        {
+            var stats = _projectUserInfoService.AllProjectUserSummaryData();
+
+            var result = new StatisticsResult
+            {
+                ProjectStatistics = stats.ToList()
+            };
+
+            if (stats.Any())
+            {
+                result.TotalEarnings = stats.Sum(p => p.UserTotalAmountEarned);
+                result.TotalHours = stats.Sum(p => p.UserTotalHoursReported);
+            }
+
+            return result;
+        }
+
         [Route("track", Name = "TrackTime"), HttpPost]
         public IHttpActionResult TrackTime(TrackTimeParams parameters)
         {
             try
             {
-                _timeTrackingService.TrackTime(parameters.ProjectId , _currentUser.Id, parameters.At, parameters.Hours);
+                _timeTrackingService.TrackTime(parameters.ProjectId, _currentUser.Id, parameters.At, parameters.Hours);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

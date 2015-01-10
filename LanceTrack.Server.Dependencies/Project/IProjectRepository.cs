@@ -8,7 +8,7 @@ namespace LanceTrack.Server.Dependencies.Project
     {
         Project GetById(int id);
 
-        IQueryable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate);
+        IEnumerable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate);
 
         ProjectUserData GetProjectPermissionsForUser(int userId, int projectId);
 

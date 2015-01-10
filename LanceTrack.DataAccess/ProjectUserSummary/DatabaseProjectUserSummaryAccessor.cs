@@ -20,7 +20,8 @@ namespace LanceTrack.DataAccess.ProjectUserSummary
         
         public ProjectUserSummaryData ProjectUserSummary(int userId, int projectId)
         {
-            return DbManager.GetTable<ProjectUserSummaryData>().SingleOrDefault(r => r.UserId == userId && r.ProjectId == projectId);
+            return DbManager.GetTable<ProjectUserSummaryData>()
+                            .SingleOrDefault(r => r.UserId == userId && r.ProjectId == projectId);
         }
     }
 }
