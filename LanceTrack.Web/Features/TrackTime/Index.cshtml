@@ -14,8 +14,13 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="user-statistics pull-right">
+            <p ng-if="statistics.value">
+                Total hours: {{statistics.value.totalHours}}
+            </p>
+            <p ng-if="statistics.value">
+                Total earnings: ${{statistics.value.totalEarnings}}
+            </p>
             <span ng-if="statistics.isLoading">LOADING..</span>
-            {{statistics.value | json}}
         </div>
         <form class="form-inline">
             <div class="form-group">
@@ -37,13 +42,13 @@
             <div class="col-md-10">
                 <div class="col-container">
                     <div class="col-weekday time-track-grid-header"
-                         ng-repeat="d in dateRange()" ng-bind="d">
+                         ng-repeat="d in dates" ng-bind="dateService.formatDay(d)">
                     </div>
                 </div>
             </div>
         </div>
 
-        <div ng-repeat="project in projectTime track by project.projectId">
+        <div ng-repeat="project in projectTime.projects track by project.projectId">
             <div class="col-md-2"
                  ng-bind="project.projectTitle">
             </div>
@@ -54,7 +59,7 @@
                         <div class="time-cell"
                              ng-controller="timeCellController"
                              ng-init="project=project;cell=time;">
-                            
+
                             <div class="time-cell__state-indicator">
                                 <span class="time-cell_glyph error glyphicon glyphicon-minus-sign"
                                       ng-if="trackTime.isError"
@@ -70,9 +75,19 @@
                                        ng-model="cell.hours"
                                        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                                        type="text"
-                                       title="{{project.projectTitle}}" />
+                                       title="{{project.projectTitle}}"/>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <div class="col-container">
+                    <div class="col-weekday time-track-grid-header"
+                         ng-repeat="d in dates" ng-bind="totalHoursAt(d)">
                     </div>
                 </div>
             </div>

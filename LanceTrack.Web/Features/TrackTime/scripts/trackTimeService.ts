@@ -1,8 +1,5 @@
 ﻿module LanceTrack {
     export module TrackTime {
-        import ProjectTimeInfo = Api.ProjectTimeInfo;
-        import TimeRecord = Api.TimeRecord;
-
         export function trackTimeServiceFactory($q: ng.IQService, $http: ng.IHttpService, dates: LanceTrack.Dates) {
             return new TrackTimeService($q, $http, dates);
         }
@@ -14,7 +11,7 @@
                 private dates: LanceTrack.Dates) {
             }
 
-            load(date: any): ng.IPromise<ProjectTimeInfo[]> {
+            load(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
                 var deferred = this.$q.defer();
 
                 date = this.dates.parse(date);
@@ -22,8 +19,8 @@
 
                 this.$http.get(url)
                     .success((result: Api.ProjectTimeInfoResult) => {
-                        var model = this.createModel(result.time, this.dates.parse(result.startDate), this.dates.parse(result.endDate));
-                        deferred.resolve(model);
+                        result.projects = this.addEmptyTimeSlots(result.projects, this.dates.parse(result.startDate), this.dates.parse(result.endDate));
+                        deferred.resolve(result);
                     })
                     .error(e => deferred.reject(e));
 
@@ -63,14 +60,14 @@
                 return deferred.promise;
             }
 
-            private createModel(data: ProjectTimeInfo[], startDate: any, endDate: any): ProjectTimeInfo[] {
+            private addEmptyTimeSlots(data: Api.ProjectTimeInfo[], startDate: any, endDate: any): Api.ProjectTimeInfo[] {
                 var range = this.dates.allDateInRange(startDate, endDate);
 
-                return _.chain(data).map((project: ProjectTimeInfo) => {
+                return _.chain(data).map((project: Api.ProjectTimeInfo) => {
                     var time = project.time;
 
                     project.time = _(range).map((date: Date) => {
-                        var existingTime = _.find(time, (rec: TimeRecord) => this.dates.eq(rec.date, date));
+                        var existingTime = _.find(time, (rec: Api.TimeRecord) => this.dates.eq(rec.date, date));
                         if (existingTime) {
                             if (existingTime.hours == 0)
                                 existingTime.hours = null;

@@ -20,8 +20,8 @@
                 var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
 
                 this.$http.get(url).success(function (result) {
-                    var model = _this.createModel(result.time, _this.dates.parse(result.startDate), _this.dates.parse(result.endDate));
-                    deferred.resolve(model);
+                    result.projects = _this.addEmptyTimeSlots(result.projects, _this.dates.parse(result.startDate), _this.dates.parse(result.endDate));
+                    deferred.resolve(result);
                 }).error(function (e) {
                     return deferred.reject(e);
                 });
@@ -69,7 +69,7 @@
                 return deferred.promise;
             };
 
-            TrackTimeService.prototype.createModel = function (data, startDate, endDate) {
+            TrackTimeService.prototype.addEmptyTimeSlots = function (data, startDate, endDate) {
                 var _this = this;
                 var range = this.dates.allDateInRange(startDate, endDate);
 

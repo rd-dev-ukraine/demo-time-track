@@ -51,7 +51,7 @@ namespace LanceTrack.Web.Features.TrackTime
             {
                 StartDate = startDateVal,
                 EndDate = endDateVal,
-                Time = _projectTimeService.GetProjectTimeInfo(startDateVal, endDateVal).ToList()
+                Projects = _projectTimeService.GetProjectTimeInfo(startDateVal, endDateVal).ToList()
             };
         }
 

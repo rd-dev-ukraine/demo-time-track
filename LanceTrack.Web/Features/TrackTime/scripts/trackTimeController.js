@@ -5,16 +5,12 @@
             function reload() {
                 trackTimeService.load($scope.date).then(function (r) {
                     $scope.projectTime = r;
+                    $scope.dates = dates.allDateInRange(r.startDate, r.endDate);
                 });
             }
 
+            $scope.dateService = dates;
             $scope.date = dates.format($stateParams.at || dates.now());
-
-            $scope.dateRange = function () {
-                return _.map(dates.allDateInWeek($scope.date), function (d) {
-                    return dates.formatDay(d);
-                });
-            };
 
             $scope.recalculateAll = deferredFunction.decorate(function () {
                 return trackTimeService.recalculateAll();
@@ -23,7 +19,30 @@
                 return trackTimeService.statistic();
             });
 
+            $scope.totalHoursAt = function (date) {
+                if (!$scope.projectTime)
+                    return null;
+
+                var allTime = _.chain($scope.projectTime.projects).map(function (t) {
+                    return t.time;
+                }).flatten().value();
+
+                var timeAtDate = _.filter(allTime, function (t) {
+                    return dates.eq(t.date, date);
+                });
+
+                var result = _.reduce(timeAtDate, function (total, t) {
+                    return total + (+t.hours);
+                }, 0);
+
+                if (result == 0)
+                    return null;
+
+                return result;
+            };
+
             reload();
+
             $scope.statistics();
 
             $scope.$watch("date", function (o, n) {

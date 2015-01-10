@@ -14,6 +14,6 @@ namespace LanceTrack.Web.Features.TrackTime.Models
         [JsonConverter(typeof(DateConverter))]
         public DateTime EndDate { get; set; }
 
-        public List<ProjectTimeInfo> Time { get; set; } 
+        public List<ProjectTimeInfo> Projects { get; set; } 
     }
 }

@@ -1,6 +1,5 @@
 ﻿module LanceTrack {
     export module TrackTime {
-        import ProjectTimeInfo = Api.ProjectTimeInfo;
 
         export function trackTimeController(
             $scope: TrackTimeScope,
@@ -14,18 +13,39 @@
                 trackTimeService.load($scope.date)
                     .then(r => {
                         $scope.projectTime = r;
+                        $scope.dates = dates.allDateInRange(r.startDate, r.endDate);
                     });
             }
 
-            
+            $scope.dateService = dates;
             $scope.date = dates.format($stateParams.at || dates.now());
 
-            $scope.dateRange = () => _.map(dates.allDateInWeek($scope.date), d => dates.formatDay(d));
+            
 
             $scope.recalculateAll = deferredFunction.decorate(() => trackTimeService.recalculateAll());
             $scope.statistics = deferredFunction.decorate(() => trackTimeService.statistic());
 
+            $scope.totalHoursAt = (date: any): number => {
+                if (!$scope.projectTime)
+                    return null;
+
+                var allTime = _.chain($scope.projectTime.projects)
+                    .map(t => t.time)
+                    .flatten()
+                    .value();
+
+                var timeAtDate = _.filter(allTime, t => dates.eq(t.date, date));
+
+                var result = <number>_.reduce(timeAtDate, (total: number, t: Api.TimeRecord) => total + (+t.hours), 0);
+
+                if (result == 0)
+                    return null;
+
+                return result;
+            };
+
             reload();
+
             $scope.statistics();
 
             $scope.$watch("date", (o, n) => {
@@ -40,10 +60,15 @@
 
         export interface TrackTimeScope extends ng.IScope {
             date: string;
-            projectTime: ProjectTimeInfo[];
+            projectTime: Api.ProjectTimeInfoResult;
+            dates: Date[];
+
             statistics: DeferredDecoratedFunction<Api.StatisticsResult>;
-            dateRange: () => string[];
+            
             recalculateAll: DeferredDecoratedFunction<any>;
+            totalHoursAt(date: any): number;
+
+            dateService: LanceTrack.Dates;
         }
     }
 }

@@ -32,4 +32,11 @@
 .time-cell_glyph.error {
   color: red;
 }
+.user-statistics {
+  border-radius: 1rem;
+  border: 1rem solid #33fe21;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 2rem;
+}
 /*# sourceMappingURL=track-time.css.map */

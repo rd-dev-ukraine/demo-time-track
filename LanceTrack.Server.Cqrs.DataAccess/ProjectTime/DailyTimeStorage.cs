@@ -2,7 +2,6 @@
 using BLToolkit.Data;
 using BLToolkit.Data.Linq;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
-using LanceTrack.Server.Cqrs.ProjectTime.ReadModels;
 using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
