@@ -16,11 +16,12 @@
                     });
 
             });
-
+            
             $scope.$watch("cell.hours", (oldVal, newVal) => {
-                if (oldVal == undefined || oldVal == newVal || newVal == $scope.cell.hours)
+                if (oldVal == undefined || oldVal == newVal ||
+                    newVal == $scope.cell.hours)
                     return;
-
+                
                 $scope.trackTime();
             });
         }

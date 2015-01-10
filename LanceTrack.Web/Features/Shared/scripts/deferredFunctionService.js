@@ -10,9 +10,7 @@
         }
         DeferredFunctionService.prototype.decorate = function (fn) {
             var code = function () {
-                code.value = null;
-                code.error = null;
-                code.isError = false;
+                code.reset();
 
                 code.isLoading = true;
                 return fn().then(function (v) {
@@ -25,7 +23,13 @@
                 });
             };
 
-            code.isLoading = false;
+            code.reset = function () {
+                code.value = null;
+                code.error = null;
+                code.isError = null;
+                code.isLoading = false;
+            };
+            code.reset();
 
             return code;
         };

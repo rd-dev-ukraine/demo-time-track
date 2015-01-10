@@ -7,9 +7,7 @@
         decorate<T>(fn: () => ng.IPromise<T>): DeferredDecoratedFunction<T> {
 
             var code: any = () => {
-                code.value = null;
-                code.error = null;
-                code.isError = false;
+                code.reset();
 
                 code.isLoading = true;
                 return fn().then(v => code.value = v)
@@ -20,7 +18,13 @@
                     .finally(() => code.isLoading = false);
             };
 
-            code.isLoading = false;
+            code.reset = () => {
+                code.value = null;
+                code.error = null;
+                code.isError = null;
+                code.isLoading = false;
+            };
+            code.reset();
 
             return code;
         }
@@ -33,5 +37,7 @@
         value: T;
 
         (): ng.IPromise<T>;
+
+        reset();
     }
 }
