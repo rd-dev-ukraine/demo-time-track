@@ -199,6 +199,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Features\TrackTime\Models\ProjectTimeInfoResult.cs" />
     <Compile Include="Features\TrackTime\TrackTimeApiController.cs" />
     <Compile Include="Features\TrackTime\TrackTimeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -302,12 +303,13 @@
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
-    <TypeScriptCompile Include="Libs\typings\angular-ui-router.d.ts" />
-    <TypeScriptCompile Include="Libs\typings\angular.d.ts" />
-    <TypeScriptCompile Include="Libs\typings\jquery.d.ts" />
-    <TypeScriptCompile Include="Libs\typings\moment.d.ts" />
-    <TypeScriptCompile Include="Libs\typings\underscore.d.ts" />
-    <TypeScriptCompile Include="Libs\typings\urls.d.ts" />
+    <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
+    <TypeScriptCompile Include="Typings\angular.d.ts" />
+    <TypeScriptCompile Include="Typings\jquery.d.ts" />
+    <TypeScriptCompile Include="Typings\moment.d.ts" />
+    <TypeScriptCompile Include="Typings\underscore.d.ts" />
+    <TypeScriptCompile Include="Typings\api.d.ts" />
+    <TypeScriptCompile Include="Typings\urls.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

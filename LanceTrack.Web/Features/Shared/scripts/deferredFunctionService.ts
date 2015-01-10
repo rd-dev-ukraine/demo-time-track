@@ -7,8 +7,17 @@
         decorate<T>(fn: () => ng.IPromise<T>): DeferredDecoratedFunction<T> {
 
             var code: any = () => {
+                code.value = null;
+                code.error = null;
+                code.isError = false;
+
                 code.isLoading = true;
-                return fn().finally(() => code.isLoading = false);
+                return fn().then(v => code.value = v)
+                    .catch(err => {
+                        code.error = err;
+                        code.isError = true;
+                    })
+                    .finally(() => code.isLoading = false);
             };
 
             code.isLoading = false;
@@ -19,7 +28,10 @@
 
     export interface DeferredDecoratedFunction<T> {
         isLoading: boolean;
+        isError: boolean;
+        error: any;
+        value: T;
 
         (): ng.IPromise<T>;
     }
-} 
+}

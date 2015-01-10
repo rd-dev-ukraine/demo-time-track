@@ -20,7 +20,7 @@
                 var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
 
                 this.$http.get(url).success(function (result) {
-                    var model = _this.createModel(result, _this.dates.startOfWeek(date), _this.dates.endOfWeek(date));
+                    var model = _this.createModel(result.time, _this.dates.parse(result.startDate), _this.dates.parse(result.endDate));
                     deferred.resolve(model);
                 }).error(function (e) {
                     return deferred.reject(e);

@@ -1,5 +1,7 @@
 ﻿module LanceTrack {
     export module TrackTime {
+        import ProjectTimeInfo = Api.ProjectTimeInfo;
+
         export function trackTimeController(
             $scope: TrackTimeScope,
             trackTimeService: TrackTimeService,
@@ -21,7 +23,10 @@
 
             reload();
 
-            $scope.$watch("date", reload);
+            $scope.$watch("date", (o, n) => {
+                if (o != undefined && o != n)
+                    reload();
+            });
         }
 
         export interface TrackTimeScope extends ng.IScope {

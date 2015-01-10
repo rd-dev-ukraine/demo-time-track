@@ -22,7 +22,10 @@
 
             reload();
 
-            $scope.$watch("date", reload);
+            $scope.$watch("date", function (o, n) {
+                if (o != undefined && o != n)
+                    reload();
+            });
         }
         TrackTime.trackTimeController = trackTimeController;
     })(LanceTrack.TrackTime || (LanceTrack.TrackTime = {}));

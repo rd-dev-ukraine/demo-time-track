@@ -1,25 +1,40 @@
 ﻿module LanceTrack {
     export module TrackTime {
-        export function timeCellController($scope: TimeCellScope, trackTimeService: TrackTimeService) {
+        import ProjectTimeInfo = Api.ProjectTimeInfo;
+        import TimeRecord = Api.TimeRecord;
+
+        export function timeCellController(
+            $scope: TimeCellScope,
+            trackTimeService: TrackTimeService,
+            deferredFunction: LanceTrack.DeferredFunctionService) {
+
+            $scope.trackTime = deferredFunction.decorate(() => {
+                return trackTimeService.trackTime($scope.project.projectId, $scope.cell.date, $scope.cell.hours)
+                    .then(() => {
+                        $scope.lastHours = $scope.cell.hours;
+                        $scope.$root.$broadcast("TimeTracked");
+                    })
+                    .catch(() => {
+                        $scope.cell.hours = $scope.lastHours;
+                    });
+
+            });
 
             $scope.$watch("cell.hours", (oldVal, newVal) => {
                 if (oldVal == undefined || oldVal == newVal)
                     return;
 
-                $scope.isLoading = true;
-
-                trackTimeService.trackTime($scope.project.projectId, $scope.cell.date, $scope.cell.hours)
-                    .then(() => {
-                        $scope.$root.$broadcast("TimeTracked");
-                    }).finally(() => $scope.isLoading = false);
+                $scope.trackTime();
             });
         }
 
         export interface TimeCellScope extends TrackTimeScope {
+            lastHours: number;
             project: ProjectTimeInfo;
             cell: TimeRecord;
-            isLoading: boolean;
+
+            trackTime: LanceTrack.DeferredDecoratedFunction<any>;
         }
     }
 }
-LanceTrack.TrackTime.timeCellController.$inject = ["$scope", "trackTimeService"];
+LanceTrack.TrackTime.timeCellController.$inject = ["$scope", "trackTimeService", "deferredFunction"];

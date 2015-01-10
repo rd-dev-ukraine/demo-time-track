@@ -1,5 +1,8 @@
 ﻿module LanceTrack {
     export module TrackTime {
+        import ProjectTimeInfo = Api.ProjectTimeInfo;
+        import TimeRecord = Api.TimeRecord;
+
         export function trackTimeServiceFactory($q: ng.IQService, $http: ng.IHttpService, dates: LanceTrack.Dates) {
             return new TrackTimeService($q, $http, dates);
         }
@@ -18,8 +21,8 @@
                 var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
 
                 this.$http.get(url)
-                    .success((result: ProjectTimeInfo[]) => {
-                        var model = this.createModel(result, this.dates.startOfWeek(date), this.dates.endOfWeek(date));
+                    .success((result: Api.ProjectTimeInfoResult) => {
+                        var model = this.createModel(result.time, this.dates.parse(result.startDate), this.dates.parse(result.endDate));
                         deferred.resolve(model);
                     })
                     .error(e => deferred.reject(e));
@@ -71,17 +74,6 @@
                     return project;
                 }).value();
             }
-        }
-
-        export interface ProjectTimeInfo {
-            projectId: number;
-            projectTitle: string;
-            time: TimeRecord[];
-        }
-
-        export interface TimeRecord {
-            date: string;
-            hours: number;
         }
     }
 }
