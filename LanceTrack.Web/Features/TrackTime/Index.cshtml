@@ -28,34 +28,31 @@
                 <input class="form-control"
                        ng-model="date"
                        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
-                       type="text"/>
+                       type="text" />
             </div>
         </form>
     </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <div>
-            <div class="col-md-2 time-track-grid-header">
-                
-            </div>
-            <div class="col-md-10">
-                <div class="col-container">
-                    <div class="col-weekday time-track-grid-header"
-                         ng-repeat="d in dates" ng-bind="dateService.formatDay(d)">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
 
-        <div ng-repeat="project in projectTime.projects track by project.projectId">
-            <div class="col-md-2"
-                 ng-bind="project.projectTitle">
-            </div>
-            <div class="col-md-10">
-                <div class="col-container">
-                    <div class="col-weekday"
-                         ng-repeat="time in project.time">
+                    <th>
+
+                    </th>
+                    <th ng-repeat="d in dates" ng-bind="dateService.formatDay(d)">
+
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="project in projectTime.projects track by project.projectId">
+
+                    <td ng-bind="project.projectTitle"></td>
+                    <td ng-repeat="time in project.time">
                         <div class="time-cell"
                              ng-controller="timeCellController"
                              ng-init="project=project;cell=time;">
@@ -75,22 +72,24 @@
                                        ng-model="cell.hours"
                                        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                                        type="text"
-                                       title="{{project.projectTitle}}"/>
+                                       title="{{project.projectTitle}}" />
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="col-md-2"></div>
-            <div class="col-md-10">
-                <div class="col-container">
-                    <div class="col-weekday time-track-grid-header"
-                         ng-repeat="d in dates" ng-bind="totalHoursAt(d)">
-                    </div>
-                </div>
-            </div>
-        </div>
+
+                    </td>
+                    <td>
+                        {{totalHoursForProject(project.projectId)}}
+                    </td>
+                </tr>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td ng-repeat="d in dates" ng-bind="totalHoursAt(d)"></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </div>

@@ -20,7 +20,7 @@
             $scope.dateService = dates;
             $scope.date = dates.format($stateParams.at || dates.now());
 
-            
+
 
             $scope.recalculateAll = deferredFunction.decorate(() => trackTimeService.recalculateAll());
             $scope.statistics = deferredFunction.decorate(() => trackTimeService.statistic());
@@ -37,6 +37,19 @@
                 var timeAtDate = _.filter(allTime, t => dates.eq(t.date, date));
 
                 var result = <number>_.reduce(timeAtDate, (total: number, t: Api.TimeRecord) => total + (+t.hours), 0);
+
+                if (result == 0)
+                    return null;
+
+                return result;
+            };
+
+            $scope.totalHoursForProject = (projectId: number): number => {
+                if (!$scope.projectTime)
+                    return null;
+
+                var projTime = _.find($scope.projectTime.projects, e => e.projectId == projectId);
+                var result = <number>_.reduce(projTime.time, (acc: number, t: Api.TimeRecord) => acc + (+t.hours), 0);
 
                 if (result == 0)
                     return null;
@@ -64,9 +77,10 @@
             dates: Date[];
 
             statistics: DeferredDecoratedFunction<Api.StatisticsResult>;
-            
+
             recalculateAll: DeferredDecoratedFunction<any>;
             totalHoursAt(date: any): number;
+            totalHoursForProject(projectId: number): number;
 
             dateService: LanceTrack.Dates;
         }

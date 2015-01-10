@@ -41,6 +41,23 @@
                 return result;
             };
 
+            $scope.totalHoursForProject = function (projectId) {
+                if (!$scope.projectTime)
+                    return null;
+
+                var projTime = _.find($scope.projectTime.projects, function (e) {
+                    return e.projectId == projectId;
+                });
+                var result = _.reduce(projTime.time, function (acc, t) {
+                    return acc + (+t.hours);
+                }, 0);
+
+                if (result == 0)
+                    return null;
+
+                return result;
+            };
+
             reload();
 
             $scope.statistics();
