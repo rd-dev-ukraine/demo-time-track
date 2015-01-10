@@ -79,7 +79,11 @@ namespace LanceTrack.Web.Features.TrackTime
         {
             try
             {
-                _timeTrackingService.TrackTime(parameters.ProjectId, _currentUser.Id, parameters.At, parameters.Hours);
+                decimal hours;
+                if (!Decimal.TryParse(parameters.Hours, out hours))
+                    return BadRequest("Hours value invalid.");
+
+                _timeTrackingService.TrackTime(parameters.ProjectId, _currentUser.Id, parameters.At, hours);
                 return Ok();
             }
             catch (Exception ex)
@@ -100,7 +104,7 @@ namespace LanceTrack.Web.Features.TrackTime
 
             public DateTime At { get; set; }
 
-            public decimal Hours { get; set; }
+            public string Hours { get; set; }
         }
     }
 }

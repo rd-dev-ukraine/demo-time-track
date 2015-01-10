@@ -35,7 +35,7 @@
                     return total + (+t.hours);
                 }, 0);
 
-                if (result == 0)
+                if (!result)
                     return null;
 
                 return result;
@@ -52,7 +52,7 @@
                     return acc + (+t.hours);
                 }, 0);
 
-                if (result == 0)
+                if (!result)
                     return null;
 
                 return result;

@@ -38,7 +38,7 @@
 
                 var result = <number>_.reduce(timeAtDate, (total: number, t: Api.TimeRecord) => total + (+t.hours), 0);
 
-                if (result == 0)
+                if (!result)
                     return null;
 
                 return result;
@@ -51,7 +51,7 @@
                 var projTime = _.find($scope.projectTime.projects, e => e.projectId == projectId);
                 var result = <number>_.reduce(projTime.time, (acc: number, t: Api.TimeRecord) => acc + (+t.hours), 0);
 
-                if (result == 0)
+                if (!result)
                     return null;
 
                 return result;
