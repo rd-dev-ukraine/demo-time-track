@@ -79,7 +79,7 @@ namespace LanceTrack.Cqrs.Server
             {
                 // Saves events in store
                 foreach (var e in events)
-                    ((dynamic)EventStore).Append((dynamic)e);
+                    _self.AppendEventToStore((dynamic)e);
 
                 // Update read models
                 foreach (var readModel in aggregateRootInstance.ReadModels)
@@ -140,6 +140,16 @@ namespace LanceTrack.Cqrs.Server
                 throw new InvalidOperationException(String.Format("Read model {0} does not support dispatching of {1} event.", typeof(TReadModel), typeof(TEvent)));
 
             eventWithStateRecipient.On(@event, aggregateRoot.State);
+        }
+
+        protected virtual void AppendEventToStore<TEvent>(TEvent @event)
+            where TEvent : IEvent<TAggregateRoot, TAggregateRootId>
+        {
+            var appendMethod = EventStore as IEventStoreAppendMethod<TEvent, TAggregateRoot, TAggregateRootId>;
+            if (appendMethod == null)
+                throw new InvalidOperationException(String.Format("Event store for aggregate root {0} does not support storing of {1} event.", typeof(TAggregateRoot), typeof(TEvent)));
+
+            appendMethod.Append(@event);
         }
     }
 }
