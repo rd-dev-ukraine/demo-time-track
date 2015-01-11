@@ -9,7 +9,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
     /// Helper class reacts on events and calculates user daily time.
     /// </summary>
     public class ProjectTimeAggregateRootState : IAggregateRootState<int>,
-        IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
+        IEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
     {
         private Dictionary<Tuple<int, int, DateTime>, ProjectUserDailyTimeRecord> _projectUserDailyTimeData = new Dictionary<Tuple<int, int, DateTime>, ProjectUserDailyTimeRecord>();
 

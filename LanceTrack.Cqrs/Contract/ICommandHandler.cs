@@ -6,7 +6,7 @@ namespace LanceTrack.Cqrs.Contract
     /// Implement a set of this interface on <see cref="IAggregateRoot{TAggregateRootId}"/> implementation
     /// to declare support of handling <see cref="ICommand{TAggregateRoot, TAggregateRootId}"/> of particular type.
     /// </summary>
-    public interface IAggregateRootCommandHandler<TCommand, TAggregateRoot, TAggregateRootId>
+    public interface ICommandHandler<TCommand, TAggregateRoot, TAggregateRootId>
         where TCommand : ICommand<TAggregateRoot, TAggregateRootId>
         where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>
     {

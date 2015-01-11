@@ -3,9 +3,10 @@
 namespace LanceTrack.Cqrs.Contract
 {
     /// <summary>
-    ///     Event store must expose set of Append(TEvent) methods which will be dynamically invoked on event saving.
-    ///     Implement a set of <see cref="IEventStoreAppendMethod{TEvent,TAggregateRoot,TAggregateRootId}" />
-    ///     on event store implementation to declare support of saving particular event type.
+    ///  Event store provides read and write access to an events of particular aggregate root.
+    ///  It is invoked internally due maintaining aggregate root lifecycle.
+    ///  Event store must implement a set of <see cref="IEventStoreAppendMethod{TEvent,TAggregateRoot,TAggregateRootId}" /> 
+    ///  which will be dynamically invoked on event saving.     
     /// </summary>
     public interface IEventStore<TAggregateRoot, TAggregateRootId>
         where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>

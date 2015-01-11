@@ -1,8 +1,8 @@
 ﻿namespace LanceTrack.Cqrs.Contract
 {
     /// <summary>
-    ///     Declare set of this interfaces on <see cref="IEventStore{TAggregateRoot, TAggregateRootId}" />
-    ///     to declare support of saving message of particular type.
+    /// Must be implemented on an <see cref="IEventStore{TAggregateRoot,TAggregateRootId}"/> 
+    /// implementation in order to support storing of particular type of events.
     /// </summary>
     public interface IEventStoreAppendMethod<TEvent, TAggregateRoot, TAggregateRootId>
         where TEvent : IEvent<TAggregateRoot, TAggregateRootId>

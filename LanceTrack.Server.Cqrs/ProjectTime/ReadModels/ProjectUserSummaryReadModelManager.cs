@@ -9,7 +9,7 @@ using LanceTrack.Server.Cqrs.ProjectTime.Events;
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
     public class ProjectUserSummaryReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
-        IAggregateRootReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
+        IReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         // Key is projectId, userId
         private readonly Dictionary<Tuple<int, int>, ProjectUserSummaryData> _models = new Dictionary<Tuple<int, int>, ProjectUserSummaryData>();

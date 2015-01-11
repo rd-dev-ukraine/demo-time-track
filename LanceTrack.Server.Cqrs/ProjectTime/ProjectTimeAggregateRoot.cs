@@ -10,8 +10,8 @@ using LanceTrack.Server.Dependencies.Project;
 namespace LanceTrack.Server.Cqrs.ProjectTime
 {
     public class ProjectTimeAggregateRoot : IAggregateRootWithState<ProjectTimeAggregateRootState, int>,
-        IAggregateRootCommandHandler<TrackTimeCommand, ProjectTimeAggregateRoot, int>,
-        IAggregateRootEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
+        ICommandHandler<TrackTimeCommand, ProjectTimeAggregateRoot, int>,
+        IEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly IProjectService _projectService;
         

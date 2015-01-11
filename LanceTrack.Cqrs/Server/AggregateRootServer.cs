@@ -113,7 +113,7 @@ namespace LanceTrack.Cqrs.Server
         protected virtual IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>> DispatchCommandOnAggregateRoot<TCommand>(TAggregateRoot aggregateRoot, TCommand command)
             where TCommand : ICommand<TAggregateRoot, TAggregateRootId>
         {
-            var commandHandler = aggregateRoot as IAggregateRootCommandHandler<TCommand, TAggregateRoot, TAggregateRootId>;
+            var commandHandler = aggregateRoot as ICommandHandler<TCommand, TAggregateRoot, TAggregateRootId>;
             if (commandHandler == null)
                 throw new InvalidOperationException(String.Format("Aggregate root {0} does not support dispatching of {1} command.", typeof(TAggregateRoot), typeof(TCommand)));
             return commandHandler.Execute(command);
@@ -122,7 +122,7 @@ namespace LanceTrack.Cqrs.Server
         protected virtual void DispatchEventOnAggregateRoot<TEvent>(TAggregateRoot aggregateRoot, TEvent @event)
             where TEvent : IEvent<TAggregateRoot, TAggregateRootId>
         {
-            var eventRecipient = aggregateRoot as IAggregateRootEventRecipient<TEvent, TAggregateRoot, TAggregateRootId>;
+            var eventRecipient = aggregateRoot as IEventRecipient<TEvent, TAggregateRoot, TAggregateRootId>;
             if (eventRecipient == null)
                 throw new InvalidOperationException(String.Format("Aggregate root {0} does not support dispatching of {1} event.", typeof(TAggregateRoot), typeof(TEvent)));
 
@@ -134,7 +134,7 @@ namespace LanceTrack.Cqrs.Server
             where TEvent : IEvent<TAggregateRoot, TAggregateRootId>
             where TReadModel : IAggregateRootReadModelManager<TAggregateRoot, TAggregateRootId>
         {
-            var eventWithStateRecipient = readModel as IAggregateRootReadModelEventRecipient<TEvent, TState, TAggregateRoot, TAggregateRootId>;
+            var eventWithStateRecipient = readModel as IReadModelEventRecipient<TEvent, TState, TAggregateRoot, TAggregateRootId>;
 
             if (eventWithStateRecipient == null)
                 throw new InvalidOperationException(String.Format("Read model {0} does not support dispatching of {1} event.", typeof(TReadModel), typeof(TEvent)));

@@ -40,12 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contract\IAggregateRoot.cs" />
-    <Compile Include="Contract\IAggregateRootCommandHandler.cs" />
-    <Compile Include="Contract\IAggregateRootReadModelEventRecipient.cs" />
-    <Compile Include="Contract\IAggregateRootEventRecipient.cs" />
+    <Compile Include="Contract\ICommandHandler.cs" />
+    <Compile Include="Contract\IReadModelEventRecipient.cs" />
+    <Compile Include="Contract\IEventRecipient.cs" />
     <Compile Include="Contract\IAggregateRootReadModelManager.cs" />
     <Compile Include="Contract\IAggregateRootState.cs" />
     <Compile Include="Contract\IAggregateRootWithState.cs" />
+    <Compile Include="Contract\ICommandWithResult.cs" />
     <Compile Include="Contract\ICqrs.cs" />
     <Compile Include="Contract\IEvent.cs" />
     <Compile Include="Contract\ICommand.cs" />

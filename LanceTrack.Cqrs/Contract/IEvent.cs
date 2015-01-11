@@ -1,5 +1,9 @@
 ﻿namespace LanceTrack.Cqrs.Contract
 {
+    /// <summary>
+    /// Single domain knowlege fact expressed as element of time-ordered sequence.
+    /// Events are produced by the aggregate root on executing command.
+    /// </summary>
     public interface IEvent<TAggregateRoot, TAggregateRootId>
         where TAggregateRoot : class, IAggregateRoot<TAggregateRootId>
     {
