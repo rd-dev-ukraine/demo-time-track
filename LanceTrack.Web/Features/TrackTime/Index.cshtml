@@ -11,17 +11,22 @@
         <span ng-if="recalculateAll.isLoading"> ... in progress </span>
     </a>
 </div>
+<div class="user-statistics__container">
+    <div class="user-statistics">
+        <p class="user-statistics__value"
+           ng-if="statistics.value">
+            Total hours: {{statistics.value.totalHours}}
+        </p>
+        <p class="user-statistics__value"
+           ng-if="statistics.value">
+            Total earnings: ${{statistics.value.totalEarnings}}
+        </p>
+        <span ng-if="statistics.isLoading">LOADING..</span>
+    </div>
+
+</div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="user-statistics pull-right">
-            <p ng-if="statistics.value">
-                Total hours: {{statistics.value.totalHours}}
-            </p>
-            <p ng-if="statistics.value">
-                Total earnings: ${{statistics.value.totalEarnings}}
-            </p>
-            <span ng-if="statistics.isLoading">LOADING..</span>
-        </div>
         <form class="form-inline">
             <div class="form-group">
                 <label>Date</label>
@@ -58,11 +63,11 @@
                              ng-init="project=project;cell=time;">
 
                             <div class="time-cell__state-indicator">
-                                <span class="time-cell_glyph error glyphicon glyphicon-minus-sign"
+                                <span class="time-cell__glyph error glyphicon glyphicon-minus-sign"
                                       ng-if="trackTime.isError"
                                       title="{{trackTime.error.message}}">
                                 </span>
-                                <span class="time-cell_glyph glyphicon glyphicon-refresh"
+                                <span class="time-cell__glyph glyphicon glyphicon-refresh"
                                       ng-if="trackTime.isLoading">
                                 </span>
                             </div>
@@ -77,8 +82,8 @@
                         </div>
 
                     </td>
-                    <td>
-                        {{totalHoursForProject(project.projectId)}}
+                    <td class="time-sum">
+                        {{totalHoursForProject(project.projectId)}}hrs
                     </td>
                 </tr>
 
@@ -86,7 +91,8 @@
             <tfoot>
                 <tr>
                     <td></td>
-                    <td ng-repeat="d in dates" ng-bind="totalHoursAt(d)"></td>
+                    <td class="time-sum"
+                        ng-repeat="d in dates" ng-bind="totalHoursAt(d)"></td>
                     <td></td>
                 </tr>
             </tfoot>
