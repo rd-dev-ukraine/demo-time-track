@@ -1,8 +1,8 @@
 ﻿create table TimeRegistrationEvents
 (
 	Id int not null identity (1, 1),
-	UserId int not null,
 	ProjectId int not null,
+	UserId int not null,	
 	At datetimeoffset not null,
 	Hours decimal (18,2) not null,
 	HourlyRate decimal(18, 2) not null default(1),

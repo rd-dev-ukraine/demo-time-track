@@ -69,6 +69,7 @@
     <Build Include="Tables\ReadModels\ProjectDailyTimeData.sql" />
     <Build Include="Tables\Events\TimeRegistrationEvents.sql" />
     <Build Include="Tables\ReadModels\ProjectUserSummaryData.sql" />
+    <Build Include="Tables\Events\InvoiceEvents.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="_publish\lance-track.publish.xml" />

@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CqrsDependencyModule.cs" />
+    <Compile Include="ProjectTime\Events\InvoiceEvent.cs" />
+    <Compile Include="ProjectTime\Events\InvoiceEventType.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRootState.cs" />
     <Compile Include="ProjectTime\Dependencies\IDailyTimeStorage.cs" />
     <Compile Include="ProjectTime\Dependencies\IProjectUserSummaryStorage.cs" />
