@@ -5,6 +5,7 @@ using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.ProjectUserInfo;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
+using LanceTrack.Server.Cqrs.ProjectTime.State;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {

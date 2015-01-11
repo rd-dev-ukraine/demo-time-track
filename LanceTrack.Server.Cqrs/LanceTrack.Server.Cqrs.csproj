@@ -48,9 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CqrsDependencyModule.cs" />
+    <Compile Include="Infrastructure\EnumerableExtension.cs" />
+    <Compile Include="ProjectTime\Commands\BillProjectCommand.cs" />
+    <Compile Include="ProjectTime\Commands\RecalculateInvoiceInfoCommand.cs" />
+    <Compile Include="ProjectTime\Commands\RecalculateInvoiceInfoCommandResult.cs" />
     <Compile Include="ProjectTime\Events\InvoiceEvent.cs" />
     <Compile Include="ProjectTime\Events\InvoiceEventType.cs" />
-    <Compile Include="ProjectTime\ProjectTimeAggregateRootState.cs" />
+    <Compile Include="ProjectTime\State\UserBillingHours.cs" />
+    <Compile Include="ProjectTime\State\ProjectTimeAggregateRootState.cs" />
     <Compile Include="ProjectTime\Dependencies\IDailyTimeStorage.cs" />
     <Compile Include="ProjectTime\Dependencies\IProjectUserSummaryStorage.cs" />
     <Compile Include="ProjectTime\ReadModels\DailyTimeReadModelManager.cs" />
@@ -59,6 +64,7 @@
     <Compile Include="ProjectTime\Events\ProjectTimeTrackedEvent.cs" />
     <Compile Include="ProjectTime\Commands\TrackTimeCommand.cs" />
     <Compile Include="ProjectTime\ReadModels\ProjectUserSummaryReadModelManager.cs" />
+    <Compile Include="ProjectTime\State\ProjectUserDailyTimeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
