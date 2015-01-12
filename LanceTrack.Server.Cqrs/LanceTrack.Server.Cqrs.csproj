@@ -48,12 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CqrsDependencyModule.cs" />
+    <Compile Include="Infrastructure\DictionaryExtensions.cs" />
     <Compile Include="Infrastructure\EnumerableExtension.cs" />
     <Compile Include="ProjectTime\Commands\BillProjectCommand.cs" />
     <Compile Include="ProjectTime\Commands\RecalculateInvoiceInfoCommand.cs" />
-    <Compile Include="ProjectTime\Commands\RecalculateInvoiceInfoCommandResult.cs" />
+    <Compile Include="ProjectTime\Dependencies\IInvoiceStorage.cs" />
     <Compile Include="ProjectTime\Events\InvoiceEvent.cs" />
     <Compile Include="ProjectTime\Events\InvoiceEventType.cs" />
+    <Compile Include="ProjectTime\ReadModels\InvoiceReadModelManager.cs" />
     <Compile Include="ProjectTime\State\UserBillingHours.cs" />
     <Compile Include="ProjectTime\State\ProjectTimeAggregateRootState.cs" />
     <Compile Include="ProjectTime\Dependencies\IDailyTimeStorage.cs" />

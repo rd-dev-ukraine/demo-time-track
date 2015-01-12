@@ -48,9 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CqrsDataAccessDependencyModule.cs" />
-    <Compile Include="ProjectTime\DailyTimeStorage.cs" />
+    <Compile Include="ProjectTime\DatabaseDailyTimeStorage.cs" />
+    <Compile Include="ProjectTime\DatabaseInvoiceStorage.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRootEventStore.cs" />
-    <Compile Include="ProjectTime\ProjectUserSummaryStorage.cs" />
+    <Compile Include="ProjectTime\DatabaseProjectUserSummaryStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

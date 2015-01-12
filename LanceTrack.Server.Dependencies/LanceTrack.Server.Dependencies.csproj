@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Invoicing\IInvoiceRepository.cs" />
     <Compile Include="ProjectDailyTime\IProjectTimeRepository.cs" />
     <Compile Include="ProjectDailyTime\ProjectDailyTimeData.cs" />
     <Compile Include="ProjectUserInfo\IProjectUserSummaryAccessor.cs" />

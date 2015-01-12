@@ -1,8 +1,9 @@
 ﻿using LanceTrack.Cqrs.Contract;
+using LanceTrack.Domain.Invoicing;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 {
-    public class RecalculateInvoiceInfoCommand : ICommandWithResult<RecalculateInvoiceInfoCommandResult, ProjectTimeAggregateRoot, int>
+    public class RecalculateInvoiceInfoCommand : ICommandWithResult<InvoiceRecalculationResult, ProjectTimeAggregateRoot, int>
     {
         public int ProjectId { get; set; }
 
@@ -12,6 +13,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 
         int ICommand<ProjectTimeAggregateRoot, int>.AggregateRootId { get { return ProjectId; } }
 
-        public RecalculateInvoiceInfoCommandResult Result { get; set; }
+        public InvoiceRecalculationResult Result { get; set; }
     }
 }

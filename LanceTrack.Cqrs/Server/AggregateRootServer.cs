@@ -136,10 +136,9 @@ namespace LanceTrack.Cqrs.Server
         {
             var eventWithStateRecipient = readModel as IReadModelEventRecipient<TEvent, TState, TAggregateRoot, TAggregateRootId>;
 
-            if (eventWithStateRecipient == null)
-                throw new InvalidOperationException(String.Format("Read model {0} does not support dispatching of {1} event.", typeof(TReadModel), typeof(TEvent)));
-
-            eventWithStateRecipient.On(@event, aggregateRoot.State);
+            // Read model manager is allowed to dispatch only events required for specified read model updating.
+            if (eventWithStateRecipient != null)
+                eventWithStateRecipient.On(@event, aggregateRoot.State);
         }
 
         protected virtual void AppendEventToStore<TEvent>(TEvent @event)

@@ -15,7 +15,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly Dictionary<Tuple<int, DateTime>, ProjectUserDailyTimeRecord> _projectUserDailyTimeData = new Dictionary<Tuple<int, DateTime>, ProjectUserDailyTimeRecord>();
-        private readonly Dictionary<int, List<UserBillingHours>> _userBillingHours = new Dictionary<int, List<UserBillingHours>>();
+        private readonly Dictionary<int, List<UserBillingHours>> _userBillableHours = new Dictionary<int, List<UserBillingHours>>();
+        private readonly Dictionary<int, decimal> _userBilledHours = new Dictionary<int, decimal>();
+        private readonly HashSet<string> _invoiceNumbers = new HashSet<string>();
 
         public int ProjectId { get; private set; }
 
@@ -23,17 +25,24 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         public IEnumerable<ProjectUserDailyTimeRecord> ProjectUserTime { get { return _projectUserDailyTimeData.Values; } }
 
+        public HashSet<string> Invoices { get { return _invoiceNumbers; } }
+
         public void On(ProjectTimeTrackedEvent e)
         {
             ProjectId = e.ProjectId;
 
             UpdateDailyTime(e);
-            UpdateBillableHours(e);
+
+            UpdateBillableHours(e.UserId);
         }
 
         public void On(InvoiceEvent e)
         {
-            throw new NotImplementedException();
+            var userHours = _userBilledHours.GetOrAdd(e.UserId);
+            if (e.EventType == InvoiceEventType.Billing)
+                _userBilledHours[e.UserId] = userHours + e.Hours;
+
+            UpdateBillableHours(e.UserId);
         }
 
         private void UpdateDailyTime(ProjectTimeTrackedEvent e)
@@ -66,9 +75,33 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         /// <summary>
         /// Recalculate billable hours for one user.
         /// </summary>
-        private void UpdateBillableHours(ProjectTimeTrackedEvent e)
+        private void UpdateBillableHours(int userId)
         {
-            _userBillingHours[e.UserId] = UserBillingHours(e.UserId).ToList();
+            var userHours = new List<UserBillingHours>();
+            var restOfBilledHours = _userBilledHours.GetOrAdd(userId);
+
+
+            foreach (var hrs in UserBillingHours(userId).ToList())
+            {
+                restOfBilledHours -= hrs.Hours;
+
+                // There are billed hours 
+                if (restOfBilledHours > 0)
+                    continue;
+
+                // Add non-billed hours
+                if (restOfBilledHours < 0)
+                {
+                    hrs.Hours = Math.Abs(restOfBilledHours);
+                    restOfBilledHours = 0;
+                }
+
+                if (restOfBilledHours == 0)
+                    userHours.Add(hrs);
+            }
+
+
+            _userBillableHours[userId] = userHours;
         }
 
         private IEnumerable<UserBillingHours> UserBillingHours(int userId)

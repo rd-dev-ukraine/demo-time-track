@@ -20,6 +20,7 @@ namespace LanceTrack.Server.Cqrs
 
             Bind<IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>>().To<DailyTimeReadModelManager>();
             Bind<IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>>().To<ProjectUserSummaryReadModelManager>();
+            Bind<IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>>().To<InvoiceReadModelManager>();
         }
     }
 }

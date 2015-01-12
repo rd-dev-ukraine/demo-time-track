@@ -12,8 +12,9 @@ namespace LanceTrack.Server.Cqrs.DataAccess
         {
             Bind<IEventStore<ProjectTimeAggregateRoot, int>>().To<ProjectTimeAggregateRootEventStore>();
 
-            Bind<IDailyTimeStorage>().To<DailyTimeStorage>();
-            Bind<IProjectUserSummaryStorage>().To<ProjectUserSummaryStorage>();
+            Bind<IDailyTimeStorage>().To<DatabaseDailyTimeStorage>();
+            Bind<IProjectUserSummaryStorage>().To<DatabaseProjectUserSummaryStorage>();
+            Bind<IInvoiceStorage>().To<DatabaseInvoiceStorage>();
         }
     }
 }

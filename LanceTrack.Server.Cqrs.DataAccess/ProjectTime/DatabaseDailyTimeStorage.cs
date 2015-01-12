@@ -6,9 +6,9 @@ using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
-    public class DailyTimeStorage : IDailyTimeStorage
+    public class DatabaseDailyTimeStorage : IDailyTimeStorage
     {
-        public DailyTimeStorage(DbManager dbManager)
+        public DatabaseDailyTimeStorage(DbManager dbManager)
         {
             if (dbManager == null)
                 throw new ArgumentNullException("dbManager");

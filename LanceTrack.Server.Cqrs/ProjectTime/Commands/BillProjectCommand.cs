@@ -2,7 +2,7 @@
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 {
-    public class BillProjectCommand : ICommand<ProjectTimeAggregateRoot, int>
+    public class BillProjectCommand : ICommandWithResult<string, ProjectTimeAggregateRoot, int>
     {
         public int ProjectId { get; set; }
 
@@ -10,10 +10,11 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 
         public decimal Hours { get; set; }
 
-        public decimal Sum { get; set; }
-
-        public string InvoiceNum { get; set; }
-
         int ICommand<ProjectTimeAggregateRoot, int>.AggregateRootId { get { return ProjectId; } }
+
+        /// <summary>
+        /// Gets new invoice number.
+        /// </summary>
+        public string Result { get; set; }
     }
 }

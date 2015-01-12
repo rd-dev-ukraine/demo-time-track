@@ -1,7 +1,9 @@
-﻿using LanceTrack.DataAccess.Projects;
+﻿using LanceTrack.DataAccess.Invoicing;
+using LanceTrack.DataAccess.Projects;
 using LanceTrack.DataAccess.ProjectTime;
 using LanceTrack.DataAccess.ProjectUserSummary;
 using LanceTrack.DataAccess.UserAccounts;
+using LanceTrack.Server.Dependencies.Invoicing;
 using LanceTrack.Server.Dependencies.Project;
 using LanceTrack.Server.Dependencies.ProjectDailyTime;
 using LanceTrack.Server.Dependencies.ProjectUserInfo;
@@ -18,6 +20,7 @@ namespace LanceTrack.DataAccess
             Bind<IUserAccountDataAccessor>().To<DatabaseUserAccountAccessor>();
             Bind<IProjectTimeRepository>().To<DatabaseProjectTimeRepository>();
             Bind<IProjectUserSummaryAccessor>().To<DatabaseProjectUserSummaryAccessor>();
+            Bind<IInvoiceRepository>().To<DatabaseInvoiceRepository>();
         }
     }
 }

@@ -7,9 +7,9 @@ using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
-    public class ProjectUserSummaryStorage : IProjectUserSummaryStorage
+    public class DatabaseProjectUserSummaryStorage : IProjectUserSummaryStorage
     {
-        public ProjectUserSummaryStorage(DbManager dbManager)
+        public DatabaseProjectUserSummaryStorage(DbManager dbManager)
         {
             if (dbManager == null)
                 throw new ArgumentNullException("dbManager");
