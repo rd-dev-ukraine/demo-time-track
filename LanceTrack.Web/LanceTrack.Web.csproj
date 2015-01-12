@@ -206,6 +206,7 @@
       <DependentUpon>UI.resx</DependentUpon>
     </Compile>
     <Compile Include="Features\Home\HomeController.cs" />
+    <Compile Include="Features\Invoicing\InvoiceApiController.cs" />
     <Compile Include="Features\Shared\ValidationMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

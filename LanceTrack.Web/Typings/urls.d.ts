@@ -7,5 +7,6 @@
         track: string;
         statistics: string;
         recalculate: string;
+        recalculateInvoice: string;
     }
 }

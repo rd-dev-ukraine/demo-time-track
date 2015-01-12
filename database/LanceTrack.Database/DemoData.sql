@@ -52,8 +52,8 @@ set identity_insert Project off;
 merge ProjectUserData as t 
 using 
 (
-	values (1, 1, 2, 20),
-		   (1, 2, 1, 22),
+	values (1, 1, 34, 20),
+		   (1, 2, 33, 22),
 		   (2, 1, 2, 24)
 
 ) as s (ProjectId, UserId, UserPermissions, HourlyRate)

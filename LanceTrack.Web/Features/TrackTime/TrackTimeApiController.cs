@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Web.Http;
 using LanceTrack.Domain.ProjectTime;
 using LanceTrack.Domain.ProjectUserInfo;
@@ -17,8 +15,8 @@ namespace LanceTrack.Web.Features.TrackTime
     {
         private readonly UserAccount _currentUser;
         private readonly IProjectTimeService _projectTimeService;
-        private readonly ITimeTrackingService _timeTrackingService;
         private readonly IProjectUserInfoService _projectUserInfoService;
+        private readonly ITimeTrackingService _timeTrackingService;
 
         public TrackTimeApiController(
             UserAccount currentUser,
@@ -53,6 +51,12 @@ namespace LanceTrack.Web.Features.TrackTime
                 EndDate = endDateVal,
                 Projects = _projectTimeService.GetProjectTimeInfo(startDateVal, endDateVal).ToList()
             };
+        }
+
+        [Route("recalculate", Name = "RecalculateAll"), HttpPost]
+        public void RecalculateAll()
+        {
+            _timeTrackingService.RecalculateAll();
         }
 
         [Route("statistics", Name = "Statistics"), HttpGet]
@@ -92,19 +96,11 @@ namespace LanceTrack.Web.Features.TrackTime
             }
         }
 
-        [Route("recalculate", Name = "RecalculateAll"), HttpPost]
-        public void RecalculateAll()
-        {
-            _timeTrackingService.RecalculateAll();
-        }
-
         public class TrackTimeParams
         {
-            public int ProjectId { get; set; }
-
             public DateTime At { get; set; }
-
             public string Hours { get; set; }
+            public int ProjectId { get; set; }
         }
     }
 }
