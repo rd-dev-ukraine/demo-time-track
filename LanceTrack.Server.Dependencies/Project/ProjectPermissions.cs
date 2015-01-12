@@ -10,6 +10,8 @@ namespace LanceTrack.Server.Dependencies.Project
         TrackSelf = 2,
         TrackAsOtherUser = 4,
         ViewTotalAmount = 8,
-        ViewProjectTotalHours = 16
+        ViewProjectTotalHours = 16,
+        BillProject = 32
+
     }
 }

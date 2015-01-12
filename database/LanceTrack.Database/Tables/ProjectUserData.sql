@@ -3,7 +3,7 @@
 	Id int not null identity(1, 1),
 	ProjectId int not null,
 	UserId int not null,
-	UserPermissions int not null, -- 1 = View Time, 2 = Register Time, 4 = Register Time for other user
+	UserPermissions int not null, 
 	HourlyRate numeric(18, 2) not null default(1),
 
 	constraint PK_ProjectUserData primary key (ProjectId, UserId),

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Cqrs.Contract;
+using LanceTrack.Domain.Invoicing;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Server.Cqrs.ProjectTime.Commands;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
@@ -12,10 +13,12 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 {
     public class ProjectTimeAggregateRoot : IAggregateRootWithState<ProjectTimeAggregateRootState, int>,
         ICommandHandler<TrackTimeCommand, ProjectTimeAggregateRoot, int>,
-        IEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>
+        ICommandHandler<BillProjectCommand, ProjectTimeAggregateRoot, int>,
+        ICommandHandler<RecalculateInvoiceInfoCommand, ProjectTimeAggregateRoot, int>,
+        IEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>,
+        IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly IProjectService _projectService;
-        
 
         public ProjectTimeAggregateRoot(
             IProjectService projectService,
@@ -76,9 +79,75 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             yield return @event;
         }
 
+        public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(BillProjectCommand command)
+        {
+            CheckUserBillingRights(command.ProjectId, command.UserId);
+
+            var maxBillableHours = State.MaxBillableHours(command.UserId);
+            if (maxBillableHours < command.Hours)
+                throw new ArgumentException(String.Format("Max {0} hours could be billed.", maxBillableHours));
+
+            var sum = State.CalculateInvoiceSum(command.UserId, command.Hours);
+
+            var invoiceNum = InvoiceNum(command.ProjectId);
+
+            command.Result = invoiceNum;
+
+            var ev = new InvoiceEvent
+            {
+                At = DateTimeOffset.Now,
+                EventType = InvoiceEventType.Billing,
+                Hours = command.Hours,
+                InvoiceSum = sum,
+                ProjectId = command.ProjectId,
+                UserId = command.UserId,
+                RegisteredAt = DateTimeOffset.Now,
+                RegisteredByUserId = command.UserId,
+                InvoiceNum = invoiceNum
+            };
+
+            yield return ev;
+        }
+
+        public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(RecalculateInvoiceInfoCommand command)
+        {
+            CheckUserBillingRights(command.ProjectId, command.UserId);
+            var maxBillableHours = State.MaxBillableHours(command.UserId);
+            var hours = Math.Min(command.BilledHours, maxBillableHours);
+
+            var sum = State.CalculateInvoiceSum(command.UserId, hours);
+
+            command.Result = new InvoiceRecalculationResult
+            {
+                BillingHours = hours,
+                MaxHours = maxBillableHours,
+                Sum = sum
+            };
+
+            yield break;
+        }
+
         public void On(ProjectTimeTrackedEvent @event)
         {
             State.On(@event);
+        }
+
+        public void On(InvoiceEvent @event)
+        {
+            State.On(@event);
+        }
+
+        private void CheckUserBillingRights(int projectId, int userId)
+        {
+            var userData = _projectService.GetProjectUserData(userId, projectId);
+            if (userData == null ||
+                (userData.UserPermissions & ProjectPermissions.BillProject) == 0)
+                throw new ArgumentException("User is not allowed to bill the project.");
+        }
+
+        private string InvoiceNum(int projectId)
+        {
+            return String.Format("INV{0:000000}-{1}/{2:yyyyMMdd}", projectId, State.Invoices.Count + 1, DateTimeOffset.Now);
         }
     }
 }

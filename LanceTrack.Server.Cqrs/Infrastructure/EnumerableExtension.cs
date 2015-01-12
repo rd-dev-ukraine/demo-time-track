@@ -37,5 +37,18 @@ namespace LanceTrack.Server.Cqrs.Infrastructure
             if (batch.Any())
                 yield return batch;
         }
+
+        public static decimal SumOrDefault<T>(this IEnumerable<T> source, Func<T, decimal> selector, decimal defaultValue = 0)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+            if (selector == null)
+                throw new ArgumentNullException("selector");
+
+            if (!source.Any())
+                return defaultValue;
+
+            return source.Sum(selector);
+        }
     }
 }
