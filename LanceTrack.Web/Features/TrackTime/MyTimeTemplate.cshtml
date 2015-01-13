@@ -56,11 +56,11 @@
             <tbody>
                 <tr ng-repeat="project in data.projects track by project.id">
 
-                    <td ng-bind="project.projectTitle"></td>
-                    <td ng-repeat="time in projectTime(project.id)">
+                    <td ng-bind="project.name"></td>
+                    <td ng-repeat="d in dates">
                         <div class="time-cell"
                              ng-controller="timeCellController"
-                             ng-init="project=project;cell=time;">
+                             ng-init="project=project;cell=cell(project.id, d);">
 
                             <div class="time-cell__state-indicator">
                                 <span class="time-cell__glyph error glyphicon glyphicon-minus-sign"
@@ -74,10 +74,10 @@
 
                             <div class="time-cell__input-wrapper">
                                 <input class="time-cell__input"
-                                       ng-model="cell.hours"
+                                       ng-model="cell.totalHours"
                                        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                                        type="text"
-                                       title="{{project.projectTitle}}" />
+                                       title="{{project.name}}" />
                             </div>
                         </div>
 

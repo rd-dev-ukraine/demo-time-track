@@ -8,7 +8,7 @@
                 });
             });
 
-            $scope.$watch("cell.hours", function (oldVal, newVal) {
+            $scope.$watch("cell.totalHours", function (oldVal, newVal) {
                 if (oldVal == undefined || oldVal == newVal || newVal == $scope.cell.totalHours)
                     return;
 

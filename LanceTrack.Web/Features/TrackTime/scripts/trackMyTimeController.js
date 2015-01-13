@@ -19,12 +19,12 @@
                 return trackTimeService.statistic();
             });
 
-            $scope.projectTime = function (projectId) {
+            $scope.cell = function (projectId, date) {
                 if (!$scope.data)
                     return null;
 
-                return _.filter($scope.data.time, function (t) {
-                    return t.projectId == projectId;
+                return _.find($scope.data.time, function (t) {
+                    return t.projectId == projectId && dates.eq(t.date, date);
                 });
             };
 
@@ -71,7 +71,7 @@
                 if (o == undefined || o == n)
                     return;
 
-                $state.go("track-time", { at: $scope.at });
+                $state.go("my-time", { at: $scope.at });
             });
 
             $scope.$on("TimeTracked", function () {

@@ -25,11 +25,13 @@
             $scope.recalculateAll = deferredFunction.decorate(() => trackTimeService.recalculateAll());
             $scope.statistics = deferredFunction.decorate(() => trackTimeService.statistic());
 
-            $scope.projectTime = (projectId: number) => {
+            $scope.cell = (projectId: number, date: any) : Api.ProjectDailyTime => {
                 if (!$scope.data)
                     return null;
 
-                return _.filter($scope.data.time, t => t.projectId == projectId);
+                return _.find(
+                    $scope.data.time,
+                    (t: Api.ProjectDailyTime) => t.projectId == projectId && dates.eq(t.date, date));
             };
 
             $scope.totalHoursAt = (date: any): number => {
@@ -67,7 +69,7 @@
                 if (o == undefined || o == n)
                     return;
 
-                $state.go("track-time", { at: $scope.at });
+                $state.go("my-time", { at: $scope.at });
             });
 
             $scope.$on("TimeTracked", () => $scope.statistics());
@@ -81,7 +83,7 @@
 
             statistics: DeferredDecoratedFunction<Api.StatisticsResult>;
             
-            projectTime(projectId: number): Api.ProjectDailyTime[];
+            cell(projectId: number, date: any): Api.ProjectDailyTime;
             recalculateAll: DeferredDecoratedFunction<any>;
             totalHoursAt(date: any): number;
             totalHoursForProject(projectId: number): number;

@@ -7,14 +7,17 @@
             deferredFunction: LanceTrack.DeferredFunctionService) {
 
             $scope.trackTime = deferredFunction.decorate(() => {
-                return trackTimeService.trackTime($scope.cell.projectId, $scope.cell.userId, $scope.cell.date, $scope.cell.totalHours)
-                    .then(() => {
+                return trackTimeService.trackTime(
+                    $scope.cell.projectId,
+                    $scope.cell.userId,
+                    $scope.cell.date,
+                    $scope.cell.totalHours).then(() => {
                         $scope.$root.$broadcast("TimeTracked");
                     });
 
             });
 
-            $scope.$watch("cell.hours", (oldVal, newVal) => {
+            $scope.$watch("cell.totalHours", (oldVal, newVal) => {
                 if (oldVal == undefined || oldVal == newVal ||
                     newVal == $scope.cell.totalHours)
                     return;
