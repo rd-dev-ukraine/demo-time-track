@@ -7,9 +7,11 @@
 
         $stateProvider.state("track-time", {
             url: "/track-time/:at",
-            templateUrl: "",
+            templateUrl: urls.templates.trackTime,
             controller: "trackTimeController"
         });
     });
 })(LanceTrack || (LanceTrack = {}));
+
+var urls;
 //# sourceMappingURL=app.js.map
