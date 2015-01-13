@@ -1,4 +1,4 @@
-module LanceTrack.Domain.Projects {
+module Api {
 	export enum ProjectStatus {
 		Disabled = 0,
 		Active = 1,

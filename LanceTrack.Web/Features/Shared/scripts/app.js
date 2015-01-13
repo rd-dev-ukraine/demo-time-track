@@ -7,7 +7,7 @@
 
         $stateProvider.state("track-time", {
             url: "/track-time/:at",
-            templateUrl: Api.urls.templates.trackTime,
+            templateUrl: "",
             controller: "trackTimeController"
         });
     });

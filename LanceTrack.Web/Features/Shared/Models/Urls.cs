@@ -8,11 +8,13 @@ namespace LanceTrack.Web.Features.Shared.Models
         public DataUrls Data { get; set; }
         public TemplatesUrls Templates { get; set; }
 
+        [TsClass(Module = "Api")]
         public class TemplatesUrls
         {
             public string TrackTime { get; set; }
         }
 
+        [TsClass(Module = "Api")]
         public class DataUrls
         {
             public string LoadProjectTime { get; set; }

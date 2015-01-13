@@ -188,10 +188,10 @@
     </Content>
     <Content Include="Features\TrackTime\Refs.cshtml" />
     <Content Include="Features\Shared\Refs.cshtml" />
-    <Content Include="Typings\TypeLite.Net4.tt">
+    <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Typings\Manager.ttinclude" />
     <Content Include="Libs\Momentjs\locales.js" />
     <Content Include="Libs\Momentjs\locales.min.js" />
@@ -333,18 +333,18 @@
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
+    <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
+    <TypeScriptCompile Include="Typings\angular.d.ts" />
     <TypeScriptCompile Include="Typings\Enums.ts">
       <DependentUpon>TypeLite.Net4.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Typings\jquery.d.ts" />
+    <TypeScriptCompile Include="Typings\moment.d.ts" />
     <TypeScriptCompile Include="Typings\TypeLite.Net4.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TypeLite.Net4.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
-    <TypeScriptCompile Include="Typings\angular.d.ts" />
-    <TypeScriptCompile Include="Typings\jquery.d.ts" />
-    <TypeScriptCompile Include="Typings\moment.d.ts" />
     <TypeScriptCompile Include="Typings\underscore.d.ts" />
   </ItemGroup>
   <PropertyGroup>

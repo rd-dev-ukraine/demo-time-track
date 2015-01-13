@@ -1,8 +1,9 @@
 ﻿using BLToolkit.DataAccess;
+using TypeLite;
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("ProjectUserSummaryData")]
+    [TableName("ProjectUserSummaryData"), TsClass(Module = "Api")]
     public class ProjectUserSummary
     {
         [Identity]
