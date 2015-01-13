@@ -47,6 +47,7 @@ namespace LanceTrack.Web.Features.TrackTime
 
             return new ProjectTimeInfoResult
             {
+                CurrentUserId = _currentUser.Id,
                 StartDate = startDateVal,
                 EndDate = endDateVal,
                 Projects = _projectService.ReportableProjects().ToList(),
@@ -103,6 +104,7 @@ namespace LanceTrack.Web.Features.TrackTime
             public DateTime At { get; set; }
             public string Hours { get; set; }
             public int ProjectId { get; set; }
+            public int UserId { get; set; }
         }
     }
 }

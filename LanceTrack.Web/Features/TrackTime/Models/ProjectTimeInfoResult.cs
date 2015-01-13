@@ -9,6 +9,8 @@ namespace LanceTrack.Web.Features.TrackTime.Models
 {
     public class ProjectTimeInfoResult
     {
+        public int CurrentUserId { get; set; }
+
         [JsonConverter(typeof(DateConverter))]
         public DateTime StartDate { get; set; }
 
