@@ -31,7 +31,7 @@
             <div class="form-group">
                 <label>Date</label>
                 <input class="form-control"
-                       ng-model="date"
+                       ng-model="at"
                        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
                        type="text" />
             </div>
@@ -54,10 +54,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="project in projectTime.projects track by project.projectId">
+                <tr ng-repeat="project in data.projects track by project.id">
 
                     <td ng-bind="project.projectTitle"></td>
-                    <td ng-repeat="time in project.time">
+                    <td ng-repeat="time in projectTime(project.id)">
                         <div class="time-cell"
                              ng-controller="timeCellController"
                              ng-init="project=project;cell=time;">
@@ -83,7 +83,7 @@
 
                     </td>
                     <td class="time-sum">
-                        {{totalHoursForProject(project.projectId)}}hrs
+                        {{totalHoursForProject(project.id)}}hrs
                     </td>
                 </tr>
 

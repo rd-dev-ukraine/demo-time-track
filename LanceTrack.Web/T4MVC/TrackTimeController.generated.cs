@@ -73,13 +73,13 @@ namespace LanceTrack.Web.Features.TrackTime
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
+            public readonly string MyTimeTemplate = "MyTimeTemplate";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
+            public const string MyTimeTemplate = "MyTimeTemplate";
         }
 
 
@@ -93,10 +93,10 @@ namespace LanceTrack.Web.Features.TrackTime
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Index = "Index";
+                public readonly string MyTimeTemplate = "MyTimeTemplate";
                 public readonly string Refs = "Refs";
             }
-            public readonly string Index = "~/Features/TrackTime/Index.cshtml";
+            public readonly string MyTimeTemplate = "~/Features/TrackTime/MyTimeTemplate.cshtml";
             public readonly string Refs = "~/Features/TrackTime/Refs.cshtml";
             static readonly _ModelsClass s_Models = new _ModelsClass();
             public _ModelsClass Models { get { return s_Models; } }
@@ -140,13 +140,13 @@ namespace LanceTrack.Web.Features.TrackTime
         public T4MVC_TrackTimeController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void MyTimeTemplateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult MyTimeTemplate()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MyTimeTemplate);
+            MyTimeTemplateOverride(callInfo);
             return callInfo;
         }
 

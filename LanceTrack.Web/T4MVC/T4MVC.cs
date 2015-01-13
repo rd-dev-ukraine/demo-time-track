@@ -288,7 +288,7 @@ namespace Links
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
                 public static readonly string timeCellController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/timeCellController.min.js") ? Url("timeCellController.min.js") : Url("timeCellController.js");
-                public static readonly string trackTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeController.min.js") ? Url("trackTimeController.min.js") : Url("trackTimeController.js");
+                public static readonly string trackMyTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackMyTimeController.min.js") ? Url("trackMyTimeController.min.js") : Url("trackMyTimeController.js");
                 public static readonly string trackTimeService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeService.min.js") ? Url("trackTimeService.min.js") : Url("trackTimeService.js");
             }
         

@@ -56,7 +56,7 @@ namespace LanceTrack.Web.Features.Account
         public virtual ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction(MVC.TrackTime.Index());
+            return RedirectToAction(MVC.Home.Index());
         }
 
     }

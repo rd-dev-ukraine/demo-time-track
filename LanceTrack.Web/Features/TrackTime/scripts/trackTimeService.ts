@@ -14,7 +14,20 @@
                 private dates: LanceTrack.Dates) {
             }
 
-            load(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
+            loadMyTime(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
+                var deferred = this.$q.defer();
+
+                this.loadTimeInfo(date)
+                    .then((result: Api.ProjectTimeInfoResult) => {
+                        result.time = _.filter(result.time, time => time.userId == result.currentUserId);
+                        deferred.resolve(result);
+                    })
+                    .catch(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
+
+            loadTimeInfo(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
                 var deferred = this.$q.defer();
 
                 date = this.dates.parse(date);
@@ -40,11 +53,12 @@
                 return deferred.promise;
             }
 
-            trackTime(projectId: number, at: any, hours: number): ng.IPromise<any> {
+            trackTime(projectId: number, userId: number, at: any, hours: number): ng.IPromise<any> {
                 var deferred = this.$q.defer();
 
                 this.$http.post(urls.data.track, {
                     projectId: projectId,
+                    userId: userId,
                     at: this.dates.format(at),
                     hours: hours
                 }).success(() => deferred.resolve())

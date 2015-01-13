@@ -12,7 +12,22 @@
                 this.$http = $http;
                 this.dates = dates;
             }
-            TrackTimeService.prototype.load = function (date) {
+            TrackTimeService.prototype.loadMyTime = function (date) {
+                var deferred = this.$q.defer();
+
+                this.loadTimeInfo(date).then(function (result) {
+                    result.time = _.filter(result.time, function (time) {
+                        return time.userId == result.currentUserId;
+                    });
+                    deferred.resolve(result);
+                }).catch(function (err) {
+                    return deferred.reject(err);
+                });
+
+                return deferred.promise;
+            };
+
+            TrackTimeService.prototype.loadTimeInfo = function (date) {
                 var _this = this;
                 var deferred = this.$q.defer();
 
@@ -41,11 +56,12 @@
                 return deferred.promise;
             };
 
-            TrackTimeService.prototype.trackTime = function (projectId, at, hours) {
+            TrackTimeService.prototype.trackTime = function (projectId, userId, at, hours) {
                 var deferred = this.$q.defer();
 
                 this.$http.post(urls.data.track, {
                     projectId: projectId,
+                    userId: userId,
                     at: this.dates.format(at),
                     hours: hours
                 }).success(function () {

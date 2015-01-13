@@ -3,13 +3,13 @@
     
 
     app.config(($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
-        $urlRouterProvider.otherwise("/track-time/");
+        $urlRouterProvider.otherwise("/my-time/");
 
         $stateProvider
-            .state("track-time", {
-                url: "/track-time/:at",
-                templateUrl: urls.templates.trackTime, 
-                controller: "trackTimeController"
+            .state("my-time", {
+                url: "/my-time/:at",
+                templateUrl: urls.templates.trackMyTime, 
+                controller: "trackMyTimeController"
             });
     });
 }

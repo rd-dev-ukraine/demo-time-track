@@ -203,7 +203,7 @@
     <Content Include="Libs\underscore\underscore.js" />
     <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
-    <Content Include="Features\TrackTime\Index.cshtml" />
+    <Content Include="Features\TrackTime\MyTimeTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\DependencyConfig.cs" />
@@ -318,6 +318,7 @@
     <EmbeddedResource Include="Features\Account\UI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UI.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Features\Shared\ValidationMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -331,7 +332,7 @@
     <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
-    <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
+    <TypeScriptCompile Include="Features\TrackTime\scripts\trackMyTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
     <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="Typings\angular.d.ts" />

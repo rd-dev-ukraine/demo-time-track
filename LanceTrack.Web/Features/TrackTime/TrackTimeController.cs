@@ -5,8 +5,7 @@ namespace LanceTrack.Web.Features.TrackTime
     [Authorize]
     public partial class TrackTimeController : Controller
     {
-        // GET: TrackTime
-        public virtual ActionResult Index()
+        public virtual ActionResult MyTimeTemplate()
         {
             return PartialView();
         }
