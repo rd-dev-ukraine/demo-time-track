@@ -22,8 +22,8 @@ declare module Api {
 	}
 	interface ProjectTimeInfoResult {
 		currentUserId: number;
-		startDate: Date;
-		endDate: Date;
+		startDate: string;
+		endDate: string;
 		projects: Api.Project[];
 		time: Api.ProjectDailyTime[];
 		users: Api.UserAccount[];
@@ -40,7 +40,7 @@ declare module Api {
 	interface ProjectDailyTime {
 		projectId: number;
 		userId: number;
-		date: Date;
+		date: string;
 		totalHours: number;
 	}
 	interface UserAccount {

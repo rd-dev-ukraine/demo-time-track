@@ -1,90 +1,93 @@
-﻿//module LanceTrack {
-//    export module TrackTime {
-//        export function trackTimeServiceFactory($q: ng.IQService, $http: ng.IHttpService, dates: LanceTrack.Dates) {
-//            return new TrackTimeService($q, $http, dates);
-//        }
+﻿module LanceTrack {
+    export module TrackTime {
+        export function trackTimeServiceFactory(
+            $q: ng.IQService,
+            $http: ng.IHttpService,
+            dates: LanceTrack.Dates) {
+            return new TrackTimeService($q, $http, dates);
+        }
 
-//        export class TrackTimeService {
-//            constructor(
-//                private $q: ng.IQService,
-//                private $http: ng.IHttpService,
-//                private dates: LanceTrack.Dates) {
-//            }
+        export class TrackTimeService {
+            constructor(
+                private $q: ng.IQService,
+                private $http: ng.IHttpService,
+                private dates: LanceTrack.Dates) {
+            }
 
-//            load(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
-//                var deferred = this.$q.defer();
+            load(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
+                var deferred = this.$q.defer();
 
-//                date = this.dates.parse(date);
-//                var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
+                date = this.dates.parse(date);
+                var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
 
-//                this.$http.get(url)
-//                    .success((result: Api.ProjectTimeInfoResult) => {
-//                        result.projects = this.addEmptyTimeSlots(result.projects, this.dates.parse(result.startDate), this.dates.parse(result.endDate));
-//                        deferred.resolve(result);
-//                    })
-//                    .error(e => deferred.reject(e));
+                this.$http.get(url)
+                    .success((result: Api.ProjectTimeInfoResult) => {
+                        this.addEmptyTimeSlots(result);
+                        deferred.resolve(result);
+                    })
+                    .error(e => deferred.reject(e));
 
-//                return deferred.promise;
-//            }
+                return deferred.promise;
+            }
 
-//            statistic(): ng.IPromise<Api.StatisticsResult> {
-//                var deferred = this.$q.defer();
+            statistic(): ng.IPromise<Api.StatisticsResult> {
+                var deferred = this.$q.defer();
 
-//                this.$http.get(urls.data.statistics)
-//                    .success(result => deferred.resolve(result))
-//                    .error(err => deferred.reject(err));
+                this.$http.get(urls.data.statistics)
+                    .success(result => deferred.resolve(result))
+                    .error(err => deferred.reject(err));
 
-//                return deferred.promise;
-//            }
+                return deferred.promise;
+            }
 
-//            trackTime(projectId: number, at: any, hours: number): ng.IPromise<any> {
-//                var deferred = this.$q.defer();
+            trackTime(projectId: number, at: any, hours: number): ng.IPromise<any> {
+                var deferred = this.$q.defer();
 
-//                this.$http.post(urls.data.track, {
-//                    projectId: projectId,
-//                    at: this.dates.format(at),
-//                    hours: hours
-//                }).success(() => deferred.resolve())
-//                    .error((err) => deferred.reject(err));
+                this.$http.post(urls.data.track, {
+                    projectId: projectId,
+                    at: this.dates.format(at),
+                    hours: hours
+                }).success(() => deferred.resolve())
+                    .error((err) => deferred.reject(err));
 
-//                return deferred.promise;
-//            }
+                return deferred.promise;
+            }
 
-//            recalculateAll(): ng.IPromise<any> {
-//                var deferred = this.$q.defer();
+            recalculateAll(): ng.IPromise<any> {
+                var deferred = this.$q.defer();
 
-//                this.$http.post(urls.data.recalculate, {})
-//                    .success(() => deferred.resolve())
-//                    .error(err => deferred.reject(err));
+                this.$http.post(urls.data.recalculate, {})
+                    .success(() => deferred.resolve())
+                    .error(err => deferred.reject(err));
 
-//                return deferred.promise;
-//            }
+                return deferred.promise;
+            }
 
-//            private addEmptyTimeSlots(data: Api.ProjectTimeInfo[], startDate: any, endDate: any): Api.ProjectTimeInfo[] {
-//                var range = this.dates.allDateInRange(startDate, endDate);
+            private addEmptyTimeSlots(info: Api.ProjectTimeInfoResult): void {
+                var dateRange = this.dates.allDateInRange(info.startDate, info.endDate);
 
-//                return _.chain(data).map((project: Api.ProjectTimeInfo) => {
-//                    var time = project.time;
+                _.forEach(info.projects, (project: Api.Project) => {
+                    _.forEach(dateRange, (date: Date) => {
+                        _.forEach(info.users, (user: Api.UserAccount) => {
+                            var time = _.find(info.time, (timeRecord: Api.ProjectDailyTime) => {
+                                return timeRecord.userId == user.id &&
+                                    timeRecord.projectId == project.id &&
+                                    this.dates.eq(timeRecord.date, date);
+                            });
 
-//                    project.time = _(range).map((date: Date) => {
-//                        var existingTime = _.find(time, (rec: Api.TimeRecord) => this.dates.eq(rec.date, date));
-//                        if (existingTime) {
-//                            if (existingTime.hours == 0)
-//                                existingTime.hours = null;
-//                            return existingTime;
-//                        }
-
-//                        return {
-//                            hours: null,
-//                            date: this.dates.format(date)
-//                        };
-//                    });
-
-
-//                    return project;
-//                }).value();
-//            }
-//        }
-//    }
-//}
-//LanceTrack.TrackTime.trackTimeServiceFactory.$inject = ["$q", "$http", "dates"];
+                            if (!time) {
+                                info.time.push({
+                                    date: this.dates.format(date),
+                                    projectId: project.id,
+                                    totalHours: null,
+                                    userId: user.id
+                                });
+                            }
+                        });
+                    });
+                });
+            }
+        }
+    }
+}
+LanceTrack.TrackTime.trackTimeServiceFactory.$inject = ["$q", "$http", "dates"];

@@ -12,6 +12,7 @@
 
 <# var ts = TypeScript.Definitions()
 		.ForLoadedAssemblies()
+		.WithConvertor<DateTime>(t => "string")
         .WithFormatter((TypeLite.TsModels.IMemberIdentifier identifier) => 
            Char.ToLower(identifier.Name[0]) + identifier.Name.Substring(1)
         );
