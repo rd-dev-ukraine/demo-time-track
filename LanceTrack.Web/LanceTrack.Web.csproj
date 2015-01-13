@@ -51,7 +51,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
@@ -85,8 +85,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="T4MVCExtensions">
-      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.11.0\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
     <Reference Include="TypeLite">
       <HintPath>..\packages\TypeLite.1.0.1.0\lib\net4\TypeLite.dll</HintPath>
@@ -187,12 +188,11 @@
     </Content>
     <Content Include="Features\TrackTime\Refs.cshtml" />
     <Content Include="Features\Shared\Refs.cshtml" />
-    <Content Include="Scripts\TypeLite.Net4.tt">
+    <Content Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
     </Content>
-    <Content Include="Scripts\Manager.ttinclude" />
-    <None Include="T4MVC\T4MVC.tt.settings.xml" />
+    <Content Include="Typings\Manager.ttinclude" />
     <Content Include="Libs\Momentjs\locales.js" />
     <Content Include="Libs\Momentjs\locales.min.js" />
     <Content Include="Libs\Momentjs\moment-with-locales.js" />
@@ -201,6 +201,7 @@
     <Content Include="Libs\normalize.css" />
     <Content Include="Libs\underscore\underscore-min.js" />
     <Content Include="Libs\underscore\underscore.js" />
+    <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
     <Content Include="Features\TrackTime\Index.cshtml" />
   </ItemGroup>
@@ -332,10 +333,10 @@
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
-    <TypeScriptCompile Include="Scripts\Enums.ts">
+    <TypeScriptCompile Include="Typings\Enums.ts">
       <DependentUpon>TypeLite.Net4.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Scripts\TypeLite.Net4.d.ts">
+    <TypeScriptCompile Include="Typings\TypeLite.Net4.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TypeLite.Net4.tt</DependentUpon>
