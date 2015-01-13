@@ -2,7 +2,7 @@
 using System.Linq;
 using BLToolkit.Data;
 using BLToolkit.Data.Linq;
-using LanceTrack.Domain.ProjectUserInfo;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
@@ -19,12 +19,12 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 
         private DbManager DbManager { get; set; }
 
-        public void Save(ProjectUserSummaryData entity)
+        public void Save(ProjectUserSummary entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
 
-            if (DbManager.GetTable<ProjectUserSummaryData>()
+            if (DbManager.GetTable<ProjectUserSummary>()
                          .Any(e => e.ProjectId == entity.ProjectId && e.UserId == entity.UserId))
                 DbManager.Update(entity);
             else

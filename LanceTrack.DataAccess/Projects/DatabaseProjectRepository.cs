@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using BLToolkit.Data;
-using LanceTrack.Server.Dependencies.Project;
+using LanceTrack.Domain.Projects;
+using LanceTrack.Server.Dependencies.Projects;
 
-namespace LanceTrack.DataAccess.Projects
+namespace LanceTrack.Server.DataAccess.Projects
 {
     public class DatabaseProjectRepository : IProjectRepository
     {
@@ -18,37 +18,57 @@ namespace LanceTrack.DataAccess.Projects
 
         private DbManager DbManager { get; set; }
 
+        public IQueryable<Project> BillableProjects(int userId)
+        {
+            return Projects(userId, ProjectPermissions.BillProject);
+        }
+
         public Project GetById(int id)
         {
             return DbManager.GetTable<Project>().SingleOrDefault(p => p.Id == id);
         }
 
-        public ProjectUserData GetProjectPermissionsForUser(int userId, int projectId)
-        {
-            return DbManager.GetTable<ProjectUserData>()
-                            .SingleOrDefault(pp => pp.UserId == userId && pp.ProjectId == projectId);
-        }
-
-        public IEnumerable<Project> GetProjects(int userId)
-        {
-            return GetActiveProjects(userId).ToList();
-        }
-
-        public IEnumerable<Project> GetReportableProjectsForUser(int userId, DateTime startDate, DateTime endDate)
+        public IQueryable<ProjectDailyTime> GetProjectDailyTime(int userId, DateTime startDate, DateTime endDate)
         {
             startDate = startDate.Date;
             endDate = endDate.Date;
 
-            return GetActiveProjects(userId).Where(p => p.StartDate <= endDate && (p.EndDate == null || p.EndDate >= startDate))
-                                            .ToList();
+            return DbManager.GetTable<ProjectDailyTime>()
+                .Join(ReportableProjects(userId), t => t.ProjectId, p => p.Id, (t, p) => t)
+                .Where(t => startDate <= t.Date && t.Date <= endDate);
         }
 
-        private IQueryable<Project> GetActiveProjects(int userId)
+        public ProjectUserData GetProjectPermissionsForUser(int userId, int projectId)
         {
-            var projectPermissions = DbManager.GetTable<ProjectUserData>();
+            return DbManager.GetTable<ProjectUserData>()
+                .SingleOrDefault(pp => pp.UserId == userId && pp.ProjectId == projectId);
+        }
+
+        public IQueryable<ProjectUserSummary> ProjectUserSummary(int userId)
+        {
+            return DbManager.GetTable<ProjectUserSummary>()
+                .Where(a => a.UserId == userId)
+                .Join(Projects(userId, ProjectPermissions.TrackSelf), a => a.ProjectId, p => p.Id, (a, p) => a);
+        }
+
+        public IQueryable<Project> ReportableProjects(int userId)
+        {
+            return Projects(userId, ProjectPermissions.TrackSelf);
+        }
+
+        private IQueryable<Project> Projects(int userId, ProjectPermissions permissions)
+        {
+            var pud = ProjectUserData();
             return DbManager.GetTable<Project>()
-                            .Where(p => projectPermissions.Any(perm => perm.ProjectId == p.Id && perm.UserId == userId))
-                            .Where(p => p.Status == ProjectStatus.Active);
+                .Where(p => pud.Any(perm => perm.ProjectId == p.Id &&
+                                            perm.UserId == userId &&
+                                            (perm.UserPermissions & permissions) != ProjectPermissions.None))
+                .Where(p => p.Status == ProjectStatus.Active);
+        }
+
+        private IQueryable<ProjectUserData> ProjectUserData()
+        {
+            return DbManager.GetTable<ProjectUserData>();
         }
     }
 }

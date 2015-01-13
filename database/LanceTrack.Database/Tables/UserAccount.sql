@@ -2,6 +2,7 @@
 (
 	Id int not null identity (1, 1),
 	Email nvarchar(250) not null,
+	DisplayName nvarchar(250) not null,
 	Password nvarchar(50) not null,
 
 	constraint PK_UserAccount primary key (Id),

@@ -3,21 +3,21 @@
 merge UserAccount as t 
 using 
 (
-	values (1, 'admin@test.com', 'admin'),
-		   (2, 'user@test.com', '1')
+	values (1, 'Admin', 'admin@test.com', 'admin'),
+		   (2, 'User', 'user@test.com', '1')
 
 
-) as s (Id, Email, Password)
+) as s (Id, DisplayName, Email, Password)
 on
 	s.Id = t.Id
 when matched then
 	update set
+		t.DisplayName = s.DisplayName,
 		t.Email = s.Email,
 		t.Password = s.Password		
 when not matched by target then
-	insert (Id, Email, Password)
-	values (Id, Email, Password);
-
+	insert (Id, DisplayName, Email, Password)
+	values (Id, DisplayName, Email, Password);
 
 set identity_insert UserAccount off;
 

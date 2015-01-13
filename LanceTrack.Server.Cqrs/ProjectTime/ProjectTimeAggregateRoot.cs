@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.Invoicing;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Server.Cqrs.ProjectTime.Commands;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
 using LanceTrack.Server.Cqrs.ProjectTime.State;
-using LanceTrack.Server.Dependencies.Project;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime
 {

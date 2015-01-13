@@ -61,7 +61,7 @@
     <Compile Include="ProjectTime\State\ProjectTimeAggregateRootState.cs" />
     <Compile Include="ProjectTime\Dependencies\IDailyTimeStorage.cs" />
     <Compile Include="ProjectTime\Dependencies\IProjectUserSummaryStorage.cs" />
-    <Compile Include="ProjectTime\ReadModels\DailyTimeReadModelManager.cs" />
+    <Compile Include="ProjectTime\ReadModels\ProjectDailyTimeReadModelManager.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRoot.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRootServer.cs" />
     <Compile Include="ProjectTime\Events\ProjectTimeTrackedEvent.cs" />

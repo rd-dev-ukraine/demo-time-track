@@ -50,12 +50,11 @@
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="Invoicing\InvoiceService.cs" />
     <Compile Include="Projects\ProjectService.cs" />
-    <Compile Include="ProjectTime\ProjectTimeService.cs" />
-    <Compile Include="ProjectUserInfo\ProjectUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerDependencyModule.cs" />
     <Compile Include="TimeTracking\TimeTrackingService.cs" />
     <Compile Include="UserAccounts\UserAccountService.cs" />
+    <Compile Include="UserAccounts\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

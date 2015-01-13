@@ -1,9 +1,9 @@
-﻿using LanceTrack.Domain.ProjectUserInfo;
+﻿using LanceTrack.Domain.Projects;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.Dependencies
 {
     public interface IProjectUserSummaryStorage
     {
-        void Save(ProjectUserSummaryData entity);
+        void Save(ProjectUserSummary entity);
     }
 }

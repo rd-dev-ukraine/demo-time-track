@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LanceTrack.Server.Dependencies.Project
+namespace LanceTrack.Domain.Projects
 {
     [Flags]
     public enum ProjectPermissions
@@ -8,10 +8,9 @@ namespace LanceTrack.Server.Dependencies.Project
         None = 0,
         View = 1,
         TrackSelf = 2,
-        TrackAsOtherUser = 4,
+        TrackAsOtherUser = 6, // Always includes track self
         ViewTotalAmount = 8,
         ViewProjectTotalHours = 16,
         BillProject = 32
-
     }
 }

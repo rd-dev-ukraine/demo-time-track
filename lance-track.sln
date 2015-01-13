@@ -16,7 +16,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LanceTrack.Database", "data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanceTrack.Server", "LanceTrack.Server\LanceTrack.Server.csproj", "{6DCA8D27-ACF0-44B0-ABE9-77E96DF8D66E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanceTrack.DataAccess", "LanceTrack.DataAccess\LanceTrack.DataAccess.csproj", "{864C7770-B024-4230-9AF7-1291A3B73492}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanceTrack.Server.DataAccess", "LanceTrack.DataAccess\LanceTrack.Server.DataAccess.csproj", "{864C7770-B024-4230-9AF7-1291A3B73492}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanceTrack.Web", "LanceTrack.Web\LanceTrack.Web.csproj", "{7B23CE25-BC70-4CDB-B4C3-6E2C01DC3D85}"
 EndProject

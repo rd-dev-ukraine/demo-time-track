@@ -1,4 +1,4 @@
-﻿namespace LanceTrack.Server.Dependencies.Project
+﻿namespace LanceTrack.Domain.Projects
 {
     public enum ProjectStatus
     {

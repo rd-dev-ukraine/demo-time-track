@@ -1,8 +1,8 @@
 ﻿using System;
 using BLToolkit.Data;
 using BLToolkit.Data.Linq;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
-using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
@@ -18,7 +18,7 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 
         private DbManager DbManager { get; set; }
 
-        public void SaveProjectDailyTime(ProjectDailyTimeData readModel)
+        public void SaveProjectDailyTime(ProjectDailyTime readModel)
         {
             DbManager.InsertOrReplace(readModel);
         }

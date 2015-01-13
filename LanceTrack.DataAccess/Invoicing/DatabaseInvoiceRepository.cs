@@ -5,7 +5,7 @@ using BLToolkit.Data;
 using LanceTrack.Domain.Invoicing;
 using LanceTrack.Server.Dependencies.Invoicing;
 
-namespace LanceTrack.DataAccess.Invoicing
+namespace LanceTrack.Server.DataAccess.Invoicing
 {
     public class DatabaseInvoiceRepository : IInvoiceRepository
     {

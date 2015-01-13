@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Cqrs.Contract;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
 using LanceTrack.Server.Cqrs.ProjectTime.State;
-using LanceTrack.Server.Dependencies.ProjectDailyTime;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
-    public class DailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
+    public class ProjectDailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
         IReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         private readonly IDailyTimeStorage _storage;
-        private readonly List<ProjectDailyTimeData> _readModels = new List<ProjectDailyTimeData>();
+        private readonly List<ProjectDailyTime> _readModels = new List<ProjectDailyTime>();
 
-        public DailyTimeReadModelManager(IDailyTimeStorage storage)
+        public ProjectDailyTimeReadModelManager(IDailyTimeStorage storage)
         {
             if (storage == null)
                 throw new ArgumentNullException("storage");
@@ -31,7 +31,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 
             if (dailyTime == null)
             {
-                dailyTime = new ProjectDailyTimeData
+                dailyTime = new ProjectDailyTime
                 {
                     Date = evt.At.Date,
                     ProjectId = evt.ProjectId,

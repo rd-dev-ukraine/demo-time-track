@@ -1,10 +1,10 @@
 ﻿using System;
 using BLToolkit.DataAccess;
 
-namespace LanceTrack.Server.Dependencies.ProjectDailyTime
+namespace LanceTrack.Domain.Projects
 {
     [TableName("ProjectDailyTimeData")]
-    public class ProjectDailyTimeData
+    public class ProjectDailyTime
     {
         [PrimaryKey]
         public int ProjectId { get;set; }

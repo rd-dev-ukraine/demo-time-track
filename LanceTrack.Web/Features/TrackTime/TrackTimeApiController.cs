@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
-using LanceTrack.Domain.ProjectTime;
-using LanceTrack.Domain.ProjectUserInfo;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
@@ -14,28 +13,29 @@ namespace LanceTrack.Web.Features.TrackTime
     public class TrackTimeApiController : ApiController
     {
         private readonly UserAccount _currentUser;
-        private readonly IProjectTimeService _projectTimeService;
-        private readonly IProjectUserInfoService _projectUserInfoService;
+        private readonly IProjectService _projectService;
         private readonly ITimeTrackingService _timeTrackingService;
+        private readonly IUserService _userService;
 
         public TrackTimeApiController(
             UserAccount currentUser,
-            IProjectTimeService projectTimeService,
             ITimeTrackingService timeTrackingService,
-            IProjectUserInfoService projectUserInfoService)
+            IUserService userService,
+            IProjectService projectService)
         {
-            if (projectTimeService == null)
-                throw new ArgumentNullException("projectTimeService");
             if (timeTrackingService == null)
                 throw new ArgumentNullException("timeTrackingService");
             if (currentUser == null)
                 throw new ArgumentNullException("currentUser");
-            if (projectUserInfoService == null)
-                throw new ArgumentNullException("projectUserInfoService");
+            if (userService == null)
+                throw new ArgumentNullException("userService");
+            if (projectService == null)
+                throw new ArgumentNullException("projectService");
 
-            _projectTimeService = projectTimeService;
+
             _timeTrackingService = timeTrackingService;
-            _projectUserInfoService = projectUserInfoService;
+            _userService = userService;
+            _projectService = projectService;
             _currentUser = currentUser;
         }
 
@@ -49,7 +49,9 @@ namespace LanceTrack.Web.Features.TrackTime
             {
                 StartDate = startDateVal,
                 EndDate = endDateVal,
-                Projects = _projectTimeService.GetProjectTimeInfo(startDateVal, endDateVal).ToList()
+                Projects = _projectService.ReportableProjects().ToList(),
+                Time = _projectService.ProjectDailyTime(startDateVal, endDateVal).ToList(),
+                Users = _userService.All().ToList()
             };
         }
 
@@ -62,7 +64,7 @@ namespace LanceTrack.Web.Features.TrackTime
         [Route("statistics", Name = "Statistics"), HttpGet]
         public StatisticsResult Statistics()
         {
-            var stats = _projectUserInfoService.AllProjectUserSummaryData();
+            var stats = _projectService.ProjectUserSummary();
 
             var result = new StatisticsResult
             {

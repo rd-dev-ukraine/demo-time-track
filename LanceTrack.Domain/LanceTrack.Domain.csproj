@@ -52,11 +52,13 @@
     <Compile Include="Invoicing\IInvoiceService.cs" />
     <Compile Include="Invoicing\Invoice.cs" />
     <Compile Include="Invoicing\InvoiceRecalculationResult.cs" />
-    <Compile Include="ProjectTime\IProjectTimeService.cs" />
-    <Compile Include="ProjectTime\ProjectTimeInfo.cs" />
-    <Compile Include="ProjectTime\TimeRecord.cs" />
-    <Compile Include="ProjectUserInfo\IProjectUserInfoService.cs" />
-    <Compile Include="ProjectUserInfo\ProjectUserSummaryData.cs" />
+    <Compile Include="Projects\IProjectService.cs" />
+    <Compile Include="Projects\Project.cs" />
+    <Compile Include="Projects\ProjectDailyTime.cs" />
+    <Compile Include="Projects\ProjectPermissions.cs" />
+    <Compile Include="Projects\ProjectStatus.cs" />
+    <Compile Include="Projects\ProjectUserData.cs" />
+    <Compile Include="Projects\ProjectUserSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeTracking\IncorrectHoursException.cs" />
     <Compile Include="TimeTracking\InvalidHoursException.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="TimeTracking\ProjectAuthorizationException.cs" />
     <Compile Include="TimeTracking\ProjectNotReportableException.cs" />
     <Compile Include="UserAccounts\IUserAccountService.cs" />
+    <Compile Include="UserAccounts\IUserService.cs" />
     <Compile Include="UserAccounts\LoginFailedException.cs" />
     <Compile Include="UserAccounts\Messages.Designer.cs">
       <AutoGen>True</AutoGen>

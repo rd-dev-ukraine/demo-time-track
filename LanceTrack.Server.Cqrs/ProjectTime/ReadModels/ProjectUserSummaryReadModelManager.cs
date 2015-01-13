@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Cqrs.Contract;
-using LanceTrack.Domain.ProjectUserInfo;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
 using LanceTrack.Server.Cqrs.ProjectTime.State;
@@ -13,7 +13,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
         IReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         // Key is projectId, userId
-        private readonly Dictionary<Tuple<int, int>, ProjectUserSummaryData> _models = new Dictionary<Tuple<int, int>, ProjectUserSummaryData>();
+        private readonly Dictionary<Tuple<int, int>, ProjectUserSummary> _models = new Dictionary<Tuple<int, int>, ProjectUserSummary>();
 
         private readonly IProjectUserSummaryStorage _storage;
 
@@ -29,9 +29,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
         {
             var key = new Tuple<int, int>(@event.ProjectId, @event.UserId);
 
-            ProjectUserSummaryData model;
+            ProjectUserSummary model;
             if (!_models.TryGetValue(key, out model))
-                _models.Add(key, model = new ProjectUserSummaryData
+                _models.Add(key, model = new ProjectUserSummary
                                 {
                                     ProjectId = @event.ProjectId,
                                     UserId = @event.UserId

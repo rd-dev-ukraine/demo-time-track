@@ -1,25 +1,19 @@
-﻿using LanceTrack.DataAccess.Invoicing;
-using LanceTrack.DataAccess.Projects;
-using LanceTrack.DataAccess.ProjectTime;
-using LanceTrack.DataAccess.ProjectUserSummary;
-using LanceTrack.DataAccess.UserAccounts;
+﻿using LanceTrack.Server.DataAccess.Invoicing;
+using LanceTrack.Server.DataAccess.Projects;
+using LanceTrack.Server.DataAccess.UserAccounts;
 using LanceTrack.Server.Dependencies.Invoicing;
-using LanceTrack.Server.Dependencies.Project;
-using LanceTrack.Server.Dependencies.ProjectDailyTime;
-using LanceTrack.Server.Dependencies.ProjectUserInfo;
+using LanceTrack.Server.Dependencies.Projects;
 using LanceTrack.Server.Dependencies.UserAccounts;
 using Ninject.Modules;
 
-namespace LanceTrack.DataAccess
+namespace LanceTrack.Server.DataAccess
 {
     public class DataAccessDependencyModule : NinjectModule
     {
         public override void Load()
         {
             Bind<IProjectRepository>().To<DatabaseProjectRepository>();
-            Bind<IUserAccountDataAccessor>().To<DatabaseUserAccountAccessor>();
-            Bind<IProjectTimeRepository>().To<DatabaseProjectTimeRepository>();
-            Bind<IProjectUserSummaryAccessor>().To<DatabaseProjectUserSummaryAccessor>();
+            Bind<IUserAccountRepository>().To<DatabaseUserAccountRepository>();
             Bind<IInvoiceRepository>().To<DatabaseInvoiceRepository>();
         }
     }

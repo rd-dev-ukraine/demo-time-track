@@ -270,9 +270,9 @@
       <Project>{1e717244-c9e7-452b-aaa4-e73e6af5379d}</Project>
       <Name>LanceTrack.Cqrs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LanceTrack.DataAccess\LanceTrack.DataAccess.csproj">
+    <ProjectReference Include="..\LanceTrack.DataAccess\LanceTrack.Server.DataAccess.csproj">
       <Project>{864c7770-b024-4230-9af7-1291a3b73492}</Project>
-      <Name>LanceTrack.DataAccess</Name>
+      <Name>LanceTrack.Server.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\LanceTrack.Domain\LanceTrack.Domain.csproj">
       <Project>{95df81b0-0e6e-4652-b720-a458a280c55b}</Project>

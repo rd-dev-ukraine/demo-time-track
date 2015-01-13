@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LanceTrack.Domain.ProjectUserInfo;
+using LanceTrack.Domain.Projects;
 
 namespace LanceTrack.Web.Features.TrackTime.Models
 {
@@ -9,6 +9,6 @@ namespace LanceTrack.Web.Features.TrackTime.Models
 
         public decimal TotalEarnings { get; set; }
 
-        public List<ProjectUserSummaryData> ProjectStatistics { get; set; } 
+        public List<ProjectUserSummary> ProjectStatistics { get; set; } 
     }
 }

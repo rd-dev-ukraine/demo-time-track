@@ -1,6 +1,6 @@
 ﻿using BLToolkit.DataAccess;
 
-namespace LanceTrack.Server.Dependencies.Project
+namespace LanceTrack.Domain.Projects
 {
     [TableName("ProjectUserData")]
     public class ProjectUserData

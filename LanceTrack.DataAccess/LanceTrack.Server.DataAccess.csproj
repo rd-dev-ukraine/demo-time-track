@@ -7,8 +7,8 @@
     <ProjectGuid>{864C7770-B024-4230-9AF7-1291A3B73492}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LanceTrack.DataAccess</RootNamespace>
-    <AssemblyName>LanceTrack.DataAccess</AssemblyName>
+    <RootNamespace>LanceTrack.Server.DataAccess</RootNamespace>
+    <AssemblyName>LanceTrack.Server.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -46,10 +46,8 @@
     <Compile Include="DataAccessDependencyModule.cs" />
     <Compile Include="Invoicing\DatabaseInvoiceRepository.cs" />
     <Compile Include="Projects\DatabaseProjectRepository.cs" />
-    <Compile Include="ProjectTime\DatabaseProjectTimeRepository.cs" />
-    <Compile Include="ProjectUserSummary\DatabaseProjectUserSummaryAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserAccounts\DatabaseUserAccountAccessor.cs" />
+    <Compile Include="UserAccounts\DatabaseUserAccountRepository.cs" />
     <Compile Include="UserAccounts\UserAccountData.cs" />
   </ItemGroup>
   <ItemGroup>

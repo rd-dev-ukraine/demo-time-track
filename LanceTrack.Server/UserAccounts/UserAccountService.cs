@@ -6,14 +6,14 @@ namespace LanceTrack.Server.UserAccounts
 {
     public class UserAccountService : IUserAccountService
     {
-        private readonly IUserAccountDataAccessor _userAccountDataAccessor;
+        private readonly IUserAccountRepository _userAccountRepository;
 
-        public UserAccountService(IUserAccountDataAccessor userAccountDataAccessor)
+        public UserAccountService(IUserAccountRepository userAccountRepository)
         {
-            if (userAccountDataAccessor == null)
-                throw new ArgumentNullException("userAccountDataAccessor");
+            if (userAccountRepository == null)
+                throw new ArgumentNullException("userAccountRepository");
 
-            _userAccountDataAccessor = userAccountDataAccessor;
+            _userAccountRepository = userAccountRepository;
         }
 
         public UserAccount Login(string email, string password)
@@ -23,7 +23,7 @@ namespace LanceTrack.Server.UserAccounts
             if (String.IsNullOrWhiteSpace(password))
                 throw new ArgumentNullException("password");
 
-            var user = _userAccountDataAccessor.FindByCredentials(email, password);
+            var user = _userAccountRepository.FindByCredentials(email, password);
             if (user == null)
                 throw new LoginFailedException();
 
@@ -35,7 +35,7 @@ namespace LanceTrack.Server.UserAccounts
             if (String.IsNullOrWhiteSpace(email))
                 throw new ArgumentNullException("email");
 
-            return _userAccountDataAccessor.FindByEmail(email);
+            return _userAccountRepository.FindByEmail(email);
         }
     }
 }

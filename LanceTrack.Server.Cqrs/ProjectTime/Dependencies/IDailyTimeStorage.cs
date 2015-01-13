@@ -1,9 +1,9 @@
-﻿using LanceTrack.Server.Dependencies.ProjectDailyTime;
+﻿using LanceTrack.Domain.Projects;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.Dependencies
 {
     public interface IDailyTimeStorage
     {
-        void SaveProjectDailyTime(ProjectDailyTimeData readModel);
+        void SaveProjectDailyTime(ProjectDailyTime readModel);
     }
 }

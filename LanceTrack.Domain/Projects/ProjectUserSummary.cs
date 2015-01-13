@@ -1,9 +1,9 @@
 ﻿using BLToolkit.DataAccess;
 
-namespace LanceTrack.Domain.ProjectUserInfo
+namespace LanceTrack.Domain.Projects
 {
     [TableName("ProjectUserSummaryData")]
-    public class ProjectUserSummaryData
+    public class ProjectUserSummary
     {
         [Identity]
         public int Id { get; set; }
