@@ -3,14 +3,14 @@
     (function (TrackTime) {
         function timeCellController($scope, trackTimeService, deferredFunction) {
             $scope.trackTime = deferredFunction.decorate(function () {
-                return trackTimeService.trackTime($scope.project.projectId, $scope.cell.date, $scope.cell.hours).then(function () {
-                    $scope.lastHours = $scope.cell.hours;
+                return trackTimeService.trackTime($scope.cell.projectId, $scope.cell.date, $scope.cell.totalHours).then(function () {
+                    $scope.lastHours = $scope.cell.totalHours;
                     $scope.$root.$broadcast("TimeTracked");
                 });
             });
 
             $scope.$watch("cell.hours", function (oldVal, newVal) {
-                if (oldVal == undefined || oldVal == newVal || newVal == $scope.cell.hours)
+                if (oldVal == undefined || oldVal == newVal || newVal == $scope.cell.totalHours)
                     return;
 
                 $scope.trackTime();

@@ -1,9 +1,10 @@
 ﻿using System;
 using BLToolkit.DataAccess;
+using TypeLite;
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("Project")]
+    [TableName("Project"), TsClass(Module = "Api")]
     public class Project
     {
         public int Id { get; set; }

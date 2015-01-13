@@ -4,9 +4,11 @@ using LanceTrack.Domain.Infrastructure;
 using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.UserAccounts;
 using Newtonsoft.Json;
+using TypeLite;
 
 namespace LanceTrack.Web.Features.TrackTime.Models
 {
+    [TsClass(Module = "Api")]
     public class ProjectTimeInfoResult
     {
         public int CurrentUserId { get; set; }

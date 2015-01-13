@@ -1,17 +1,15 @@
 ﻿module LanceTrack {
     export module TrackTime {
-        import ProjectTimeInfo = Api.ProjectTimeInfo;
-        import TimeRecord = Api.TimeRecord;
-
+        
         export function timeCellController(
             $scope: TimeCellScope,
             trackTimeService: TrackTimeService,
             deferredFunction: LanceTrack.DeferredFunctionService) {
 
             $scope.trackTime = deferredFunction.decorate(() => {
-                return trackTimeService.trackTime($scope.project.projectId, $scope.cell.date, $scope.cell.hours)
+                return trackTimeService.trackTime($scope.cell.projectId, $scope.cell.date, $scope.cell.totalHours)
                     .then(() => {
-                        $scope.lastHours = $scope.cell.hours;
+                        $scope.lastHours = $scope.cell.totalHours;
                         $scope.$root.$broadcast("TimeTracked");
                     });
 
@@ -19,7 +17,7 @@
             
             $scope.$watch("cell.hours", (oldVal, newVal) => {
                 if (oldVal == undefined || oldVal == newVal ||
-                    newVal == $scope.cell.hours)
+                    newVal == $scope.cell.totalHours)
                     return;
                 
                 $scope.trackTime();
@@ -28,8 +26,7 @@
 
         export interface TimeCellScope extends TrackTimeScope {
             lastHours: number;
-            project: ProjectTimeInfo;
-            cell: TimeRecord;
+            cell: Api.ProjectDailyTime;
 
             trackTime: LanceTrack.DeferredDecoratedFunction<any>;
         }

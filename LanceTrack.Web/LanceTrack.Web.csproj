@@ -88,6 +88,12 @@
     <Reference Include="T4MVCExtensions">
       <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
+    <Reference Include="TypeLite">
+      <HintPath>..\packages\TypeLite.1.0.1.0\lib\net4\TypeLite.dll</HintPath>
+    </Reference>
+    <Reference Include="TypeLite.Net4">
+      <HintPath>..\packages\TypeLite.1.0.1.0\lib\net4\TypeLite.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -181,6 +187,11 @@
     </Content>
     <Content Include="Features\TrackTime\Refs.cshtml" />
     <Content Include="Features\Shared\Refs.cshtml" />
+    <Content Include="Scripts\TypeLite.Net4.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\Manager.ttinclude" />
     <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Libs\Momentjs\locales.js" />
     <Content Include="Libs\Momentjs\locales.min.js" />
@@ -207,6 +218,7 @@
     </Compile>
     <Compile Include="Features\Home\HomeController.cs" />
     <Compile Include="Features\Invoicing\InvoiceApiController.cs" />
+    <Compile Include="Features\Shared\Models\Urls.cs" />
     <Compile Include="Features\Shared\ValidationMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -226,6 +238,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\InvoicingController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\SharedController.generated.cs">
@@ -317,13 +332,19 @@
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
+    <TypeScriptCompile Include="Scripts\Enums.ts">
+      <DependentUpon>TypeLite.Net4.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\TypeLite.Net4.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TypeLite.Net4.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="Typings\angular.d.ts" />
     <TypeScriptCompile Include="Typings\jquery.d.ts" />
     <TypeScriptCompile Include="Typings\moment.d.ts" />
     <TypeScriptCompile Include="Typings\underscore.d.ts" />
-    <TypeScriptCompile Include="Typings\api.d.ts" />
-    <TypeScriptCompile Include="Typings\urls.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,8 +1,9 @@
 ﻿using BLToolkit.DataAccess;
+using TypeLite;
 
 namespace LanceTrack.Domain.UserAccounts
 {
-    [TableName("UserAccount")]
+    [TableName("UserAccount"), TsClass(Module = "Api")]
     public class UserAccount
     {
         [PrimaryKey, Identity]

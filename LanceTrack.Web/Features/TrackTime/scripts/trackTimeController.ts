@@ -76,7 +76,7 @@
             projectTime: Api.ProjectTimeInfoResult;
             dates: Date[];
 
-            statistics: DeferredDecoratedFunction<Api.StatisticsResult>;
+            statistics: DeferredDecoratedFunction<Api.>;
 
             recalculateAll: DeferredDecoratedFunction<any>;
             totalHoursAt(date: any): number;

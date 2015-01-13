@@ -1,9 +1,10 @@
 ﻿using System;
 using BLToolkit.DataAccess;
+using TypeLite;
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("ProjectDailyTimeData")]
+    [TableName("ProjectDailyTimeData"), TsClass(Module = "Api")]
     public class ProjectDailyTime
     {
         [PrimaryKey]
