@@ -27,9 +27,10 @@ public static partial class MVC
 {
     public static LanceTrack.Web.Features.Account.AccountController Account = new LanceTrack.Web.Features.Account.T4MVC_AccountController();
     public static LanceTrack.Web.Features.Home.HomeController Home = new LanceTrack.Web.Features.Home.T4MVC_HomeController();
-    public static LanceTrack.Web.Features.TrackTime.TrackTimeController TrackTime = new LanceTrack.Web.Features.TrackTime.T4MVC_TrackTimeController();
+    public static LanceTrack.Web.Features.TrackTime.TrackTimeTemplatesController TrackTimeTemplates = new LanceTrack.Web.Features.TrackTime.T4MVC_TrackTimeTemplatesController();
     public static T4MVC.InvoicingController Invoicing = new T4MVC.InvoicingController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
+    public static T4MVC.TrackTimeController TrackTime = new T4MVC.TrackTimeController();
 }
 
 namespace T4MVC
@@ -287,6 +288,7 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
+                public static readonly string statisticsController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/statisticsController.min.js") ? Url("statisticsController.min.js") : Url("statisticsController.js");
                 public static readonly string timeCellController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/timeCellController.min.js") ? Url("timeCellController.min.js") : Url("timeCellController.js");
                 public static readonly string trackMyTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackMyTimeController.min.js") ? Url("trackMyTimeController.min.js") : Url("trackMyTimeController.js");
                 public static readonly string trackTimeService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeService.min.js") ? Url("trackTimeService.min.js") : Url("trackTimeService.js");

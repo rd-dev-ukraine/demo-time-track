@@ -7,6 +7,7 @@
 
         app.controller("trackMyTimeController", TrackTime.trackMyTimeController);
         app.controller("timeCellController", TrackTime.timeCellController);
+        app.controller("statisticsController", TrackTime.statisticsController);
     })(LanceTrack.TrackTime || (LanceTrack.TrackTime = {}));
     var TrackTime = LanceTrack.TrackTime;
 })(LanceTrack || (LanceTrack = {}));

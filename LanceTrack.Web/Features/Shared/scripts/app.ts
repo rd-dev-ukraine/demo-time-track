@@ -12,6 +12,14 @@
                 controller: "trackMyTimeController"
             });
     });
+
+    app.run(["$rootScope", ($rootScope: IAppRootScope) => {
+        $rootScope.urls = urls;
+    }]);
+
+    export interface IAppRootScope extends ng.IScope {
+        urls: Api.Urls;
+    }
 }
 
 var urls: Api.Urls;

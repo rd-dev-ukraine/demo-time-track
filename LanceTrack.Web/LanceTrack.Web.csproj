@@ -189,6 +189,7 @@
     </Content>
     <Content Include="Features\TrackTime\Refs.cshtml" />
     <Content Include="Features\Shared\Refs.cshtml" />
+    <Content Include="Features\TrackTime\TimeCellTemplate.cshtml" />
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
@@ -229,7 +230,7 @@
     <Compile Include="Features\TrackTime\Models\ProjectTimeInfoResult.cs" />
     <Compile Include="Features\TrackTime\Models\StatisticsResult.cs" />
     <Compile Include="Features\TrackTime\TrackTimeApiController.cs" />
-    <Compile Include="Features\TrackTime\TrackTimeController.cs" />
+    <Compile Include="Features\TrackTime\TrackTimeTemplatesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +255,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\TrackTimeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\TrackTimeTemplatesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -332,6 +336,7 @@
     <TypeScriptCompile Include="Features\Shared\scripts\deferredFunctionService.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
+    <TypeScriptCompile Include="Features\TrackTime\scripts\statisticsController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackMyTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />

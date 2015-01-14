@@ -15,9 +15,6 @@
             $scope.recalculateAll = deferredFunction.decorate(function () {
                 return trackTimeService.recalculateAll();
             });
-            $scope.statistics = deferredFunction.decorate(function () {
-                return trackTimeService.statistic();
-            });
 
             $scope.cell = function (projectId, date) {
                 if (!$scope.data)
@@ -65,17 +62,11 @@
 
             reload();
 
-            $scope.statistics();
-
             $scope.$watch("at", function (o, n) {
                 if (o == undefined || o == n)
                     return;
 
                 $state.go("my-time", { at: $scope.at });
-            });
-
-            $scope.$on("TimeTracked", function () {
-                return $scope.statistics();
             });
         }
         TrackTime.trackMyTimeController = trackMyTimeController;

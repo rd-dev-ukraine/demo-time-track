@@ -12,6 +12,7 @@ namespace LanceTrack.Web.Features.Shared.Models
         public class TemplatesUrls
         {
             public string TrackMyTime { get; set; }
+            public string TimeCell { get; set; }
         }
 
         [TsClass(Module = "Api")]

@@ -20,10 +20,7 @@
             $scope.dateService = dates;
             $scope.at = dates.format($stateParams.at || dates.now());
 
-
-
             $scope.recalculateAll = deferredFunction.decorate(() => trackTimeService.recalculateAll());
-            $scope.statistics = deferredFunction.decorate(() => trackTimeService.statistic());
 
             $scope.cell = (projectId: number, date: any) : Api.ProjectDailyTime => {
                 if (!$scope.data)
@@ -62,17 +59,13 @@
             };
 
             reload();
-
-            $scope.statistics();
-
+            
             $scope.$watch("at", (o, n) => {
                 if (o == undefined || o == n)
                     return;
 
                 $state.go("my-time", { at: $scope.at });
             });
-
-            $scope.$on("TimeTracked", () => $scope.statistics());
         }
 
         export interface TrackMyTimeScope extends ng.IScope {
@@ -80,8 +73,6 @@
 
             at: string;
             dates: Date[];
-
-            statistics: DeferredDecoratedFunction<Api.StatisticsResult>;
             
             cell(projectId: number, date: any): Api.ProjectDailyTime;
             recalculateAll: DeferredDecoratedFunction<any>;

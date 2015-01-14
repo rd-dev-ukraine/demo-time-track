@@ -19,6 +19,7 @@ declare module Api {
 	}
 	interface TemplatesUrls {
 		trackMyTime: string;
+		timeCell: string;
 	}
 	interface ProjectTimeInfoResult {
 		currentUserId: number;

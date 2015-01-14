@@ -6,5 +6,6 @@
 
         app.controller("trackMyTimeController", trackMyTimeController);
         app.controller("timeCellController", timeCellController);
+        app.controller("statisticsController", statisticsController);
     }
 }

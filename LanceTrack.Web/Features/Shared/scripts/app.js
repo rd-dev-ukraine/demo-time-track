@@ -11,6 +11,11 @@
             controller: "trackMyTimeController"
         });
     });
+
+    app.run([
+        "$rootScope", function ($rootScope) {
+            $rootScope.urls = urls;
+        }]);
 })(LanceTrack || (LanceTrack = {}));
 
 var urls;

@@ -1,0 +1,23 @@
+﻿@model dynamic
+
+<div class="time-cell"
+     ng-controller="timeCellController">
+
+    <div class="time-cell__state-indicator">
+        <span class="time-cell__glyph error glyphicon glyphicon-minus-sign"
+              ng-if="trackTime.isError"
+              title="{{trackTime.error.message}}">
+        </span>
+        <span class="time-cell__glyph glyphicon glyphicon-floppy-save"
+              ng-if="trackTime.isLoading">
+        </span>
+    </div>
+
+    <div class="time-cell__input-wrapper">
+        <input class="time-cell__input"
+               ng-model="cell.totalHours"
+               ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
+               type="text"
+               title="{{project.name}}" />
+    </div>
+</div>
