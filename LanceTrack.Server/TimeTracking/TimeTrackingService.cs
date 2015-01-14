@@ -34,8 +34,10 @@ namespace LanceTrack.Server.TimeTracking
                 At = at,
                 Hours = hours,
                 ProjectId = projectId,
-                UserId = _currentUser.Id
+                ForUserId = userId,
+                ByUserId = _currentUser.Id
             };
+
             _cqrs.Execute(command);
         }
     }

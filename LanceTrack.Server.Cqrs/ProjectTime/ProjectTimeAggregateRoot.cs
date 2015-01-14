@@ -45,9 +45,14 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             if (project.Status != ProjectStatus.Active)
                 throw new ProjectNotReportableException();
 
-            var projectUserData = _projectService.GetProjectUserData(command.UserId, project.Id);
+            var targetUserProjectData = _projectService.GetProjectUserData(command.ForUserId, command.ProjectId);
+            if (targetUserProjectData == null)
+                throw new ProjectAuthorizationException("User is not assigned to the project.");
 
-            if (projectUserData == null || (projectUserData.UserPermissions & ProjectPermissions.TrackSelf) == 0)
+            var trackingPermissions = command.ForUserId == command.ByUserId ? ProjectPermissions.TrackSelf : ProjectPermissions.TrackAsOtherUser;
+            var trackerUserData = _projectService.GetProjectUserData(command.ByUserId, project.Id);
+            if (trackerUserData == null ||
+                (trackerUserData.UserPermissions & trackingPermissions) == 0)
                 throw new ProjectAuthorizationException();
 
             if (project.StartDate.Date > command.At.Date)
@@ -71,9 +76,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 Hours = command.Hours,
                 ProjectId = project.Id,
                 RegisteredAt = DateTimeOffset.Now,
-                RegisteredByUserId = command.UserId,
-                UserId = command.UserId,
-                HourlyRate = projectUserData.HourlyRate
+                RegisteredByUserId = command.ByUserId,
+                UserId = command.ForUserId,
+                HourlyRate = trackerUserData.HourlyRate
             };
 
             yield return @event;
