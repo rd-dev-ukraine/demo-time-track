@@ -1,6 +1,11 @@
 ﻿@model dynamic
 
-<div ng-repeat="user in data.users">
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="byUserMode" btn-radio=" true ">By User</label>
+    <label class="btn btn-primary" ng-model="byUserMode" btn-radio=" false ">By Project</label>
+</div>
+<div ng-repeat="user in data.users"
+     ng-if="byUserMode">
     <h3>{{user.displayName}}</h3>
     <table class="table table-bordered">
         <thead>
@@ -31,6 +36,42 @@
             </td>
             <td></td>
         </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div ng-repeat="project in data.projects"
+     ng-if="!byUserMode">
+    <h3>{{project.name}}</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th ng-repeat="d in dates" ng-bind="dateService.formatDay(d)"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in usersForProject(project.id)">
+                <td ng-bind="user.displayName"></td>
+                <td ng-repeat="d in dates"
+                    ng-init="project=project;cell=cell(project.id, d, user.id);"
+                    ng-include="urls.templates.timeCell"></td>
+                <td class="time-sum">
+                    {{totalHoursForProject(project.id)}}hrs
+                </td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td class="time-sum"
+                    ng-repeat="d in dates">
+                    {{totalHoursAt(d)}}hrs
+                </td>
+                <td></td>
+            </tr>
         </tfoot>
     </table>
 </div>

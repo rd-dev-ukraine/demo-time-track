@@ -2,11 +2,9 @@
     export module TrackTime {
 
         export function usersTimeController(
-            $scope: UserTimeScope,
-            $state: ng.ui.IStateService,
-            $stateParams: { at: string },
-            trackTimeService: TrackTimeService,
-            dates: LanceTrack.Dates) {
+            $scope: UserTimeScope) {
+
+            $scope.byUserMode = false;
 
             $scope.projectsForUser = (userId: number) => {
                 if (!$scope.data)
@@ -14,13 +12,28 @@
 
                 return _.filter(
                     $scope.data.projects,
-                    (p: Api.Project) => _.any($scope.data.time, (t: Api.ProjectDailyTime) => t.userId == userId && t.projectId == p.id));
+                    (p: Api.Project) => _.any($scope.data.time,
+                                             (t: Api.ProjectDailyTime) => t.userId == userId && t.projectId == p.id));
             };
+
+            $scope.usersForProject = (projectId: number) => {
+                if (!$scope.data)
+                    return null;
+
+                return _.filter(
+                    $scope.data.users,
+                    (u: Api.UserAccount) => _.any($scope.data.time,
+                                                  (t: Api.ProjectDailyTime) => t.userId == u.id && t.projectId == projectId));
+            };
+
         }
 
         export interface UserTimeScope extends TrackTimeBaseScope {
+            byUserMode: boolean;
+
             projectsForUser(userId: number): Api.Project[];
+            usersForProject(projectId: number): Api.UserAccount[];
         }
     }
 }
-LanceTrack.TrackTime.usersTimeController.$inject = ["$scope", "$state", "$stateParams", "trackTimeService", "dates"];
+LanceTrack.TrackTime.usersTimeController.$inject = ["$scope"];
