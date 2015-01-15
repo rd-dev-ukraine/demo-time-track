@@ -22,7 +22,7 @@
                 ng-init="project=project;cell=cell(project.id, d, user.id);"
                 ng-include="urls.templates.timeCell"></td>
             <td class="time-sum">
-                {{totalHoursForProject(project.id)}}hrs
+                {{totalHours({userId: user.id })}}hrs
             </td>
         </tr>
 
@@ -32,7 +32,7 @@
             <td></td>
             <td class="time-sum"
                 ng-repeat="d in dates">
-                {{totalHoursAt(d)}}hrs
+                {{totalHoursAt({userId: user.id, at: d })}}hrs
             </td>
             <td></td>
         </tr>
@@ -58,7 +58,7 @@
                     ng-init="project=project;cell=cell(project.id, d, user.id);"
                     ng-include="urls.templates.timeCell"></td>
                 <td class="time-sum">
-                    {{totalHoursForProject(project.id)}}hrs
+                    {{totalHours({projectId: project.id, userId: user.id })}}hrs
                 </td>
             </tr>
 
@@ -68,7 +68,7 @@
                 <td></td>
                 <td class="time-sum"
                     ng-repeat="d in dates">
-                    {{totalHoursAt(d)}}hrs
+                    {{totalHours({projectId: project.id, userId: user.id, at: d })}}hrs
                 </td>
                 <td></td>
             </tr>

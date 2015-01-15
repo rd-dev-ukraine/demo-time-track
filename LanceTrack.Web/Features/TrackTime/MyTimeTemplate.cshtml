@@ -16,7 +16,7 @@
                 ng-init="project=project;cell=cell(project.id, d);"
                 ng-include="urls.templates.timeCell"></td>
             <td class="time-sum">
-                {{totalHoursForProject(project.id)}}hrs
+                {{totalHours({projectId: project.id, userId: data.currentUserId })}}hrs
             </td>
         </tr>
 
@@ -26,7 +26,7 @@
             <td></td>
             <td class="time-sum"
                 ng-repeat="d in dates">
-                {{totalHoursAt(d)}}hrs
+                {{totalHours({userId: data.currentUserId, at: d })}}hrs
             </td>
             <td></td>
         </tr>

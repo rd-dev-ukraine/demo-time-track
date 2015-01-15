@@ -23,32 +23,25 @@
                 });
             };
 
-            $scope.totalHoursAt = function (date) {
+            $scope.totalHours = function (of) {
                 if (!$scope.data)
                     return null;
 
-                var timeAtDate = _.filter($scope.data.time, function (t) {
-                    return dates.eq(t.date, date);
-                });
+                var time = $scope.data.time;
+                if (of.projectId)
+                    time = _.filter(time, function (t) {
+                        return t.projectId == of.projectId;
+                    });
+                if (of.userId)
+                    time = _.filter(time, function (t) {
+                        return t.userId == of.userId;
+                    });
+                if (of.at)
+                    time = _.filter(time, function (t) {
+                        return dates.eq(t.date, of.at);
+                    });
 
-                var result = _.reduce(timeAtDate, function (total, t) {
-                    return total + (+t.totalHours);
-                }, 0);
-
-                if (!result)
-                    return null;
-
-                return result;
-            };
-
-            $scope.totalHoursForProject = function (projectId) {
-                if (!$scope.data)
-                    return null;
-
-                var projectTime = _.filter($scope.data.time, function (e) {
-                    return e.projectId == projectId;
-                });
-                var result = _.reduce(projectTime, function (acc, t) {
+                var result = _.reduce(time, function (acc, t) {
                     return acc + (+t.totalHours);
                 }, 0);
 
