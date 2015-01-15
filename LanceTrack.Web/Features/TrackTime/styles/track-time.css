@@ -1,4 +1,5 @@
-﻿.time-track-grid-header {
+﻿/* Colors */
+.time-track-grid-header {
   font-weight: bold;
 }
 .time-cell {
@@ -13,6 +14,10 @@
 }
 .time-cell__td {
   position: relative;
+}
+.time-cell__editor:focus {
+  border: 2px solid;
+  border-color: #fa8719;
 }
 .user-statistics {
   border-radius: 1rem;

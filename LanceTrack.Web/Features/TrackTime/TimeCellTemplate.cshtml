@@ -6,7 +6,7 @@
      ng-controller="timeCellController">
 
     <div class="input-group time-cell__inner">
-        <input class="form-control"
+        <input class="form-control time-cell__editor"
                ng-model="cell.totalHours"
                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                type="text"

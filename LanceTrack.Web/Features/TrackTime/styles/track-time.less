@@ -10,10 +10,10 @@
     bottom: 8px;
     left: 8px;
     right: 8px;
-    
+
     &__height-expander {
         visibility: hidden;
-    }    
+    }
 
 
     &__td {
@@ -22,13 +22,18 @@
 
     &__inner {
     }
+
+    &__editor:focus {
+        border: 2px solid;
+        border-color: @accent-color;
+    }
 }
 
 @statSize: 1rem;
 
 .user-statistics {
     border-radius: @statSize;
-    border: @statSize/2 solid #fa8719;
+    border: @statSize/2 solid @accent-color;
     padding: @statSize;
     font-size: @statSize *2;
     position: absolute;
