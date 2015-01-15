@@ -81,8 +81,11 @@ namespace LanceTrack.Web.Features.TrackTime
             try
             {
                 decimal hours;
-                if (!Decimal.TryParse(parameters.Hours, out hours))
-                    return BadRequest("Hours value invalid.");
+                if (String.IsNullOrWhiteSpace(parameters.Hours))
+                    hours = 0;
+                else
+                    if (!Decimal.TryParse(parameters.Hours, out hours))
+                        return BadRequest("Hours value invalid.");
 
                 _timeTrackingService.TrackTime(parameters.ProjectId, parameters.UserId, parameters.At, hours);
                 return Ok();

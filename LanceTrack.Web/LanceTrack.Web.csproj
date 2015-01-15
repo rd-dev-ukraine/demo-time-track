@@ -145,6 +145,12 @@
     <Content Include="Features\Shared\styles\app.min.css">
       <DependentUpon>app.css</DependentUpon>
     </Content>
+    <Content Include="Features\Shared\styles\vars.css">
+      <DependentUpon>vars.less</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\styles\vars.min.css">
+      <DependentUpon>vars.css</DependentUpon>
+    </Content>
     <Content Include="Features\TrackTime\styles\track-time.css">
       <DependentUpon>track-time.less</DependentUpon>
     </Content>
@@ -192,6 +198,10 @@
     <Content Include="Features\TrackTime\TimeCellTemplate.cshtml" />
     <Content Include="Features\TrackTime\UsersTimeTemplate.cshtml" />
     <Content Include="Features\TrackTime\TrackTimeTemplate.cshtml" />
+    <Content Include="Features\Shared\styles\vars.less" />
+    <Content Include="Features\Shared\styles\vars.css.map">
+      <DependentUpon>vars.css</DependentUpon>
+    </Content>
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>

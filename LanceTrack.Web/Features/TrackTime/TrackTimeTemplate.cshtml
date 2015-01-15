@@ -1,11 +1,20 @@
 ﻿@model dynamic
 
-<div class="clearfix">
+<div class="clearfix user-statistics__container">
+    <div class="user-statistics"
+         ng-controller="statisticsController">
+        <div class="user-statistics__value">
+            Total hours: {{statistics.value.totalHours}}
+        </div>
+        <div class="user-statistics__value">
+            Total earnings: ${{statistics.value.totalEarnings}}
+        </div>
+    </div>
     <h2>
         Track time
     </h2>
 </div>
-<ul class="nav nav-pills">
+<ul class="nav nav-pills section">
     <li ui-sref-active="active">
         <a ui-sref="track-time.my({ at: at })">My Time</a>
     </li>
@@ -14,21 +23,6 @@
     </li>
 
 </ul>
-<div class="user-statistics__container"
-     ng-controller="statisticsController">
-    <div class="user-statistics">
-        <p class="user-statistics__value"
-           ng-if="statistics.value">
-            Total hours: {{statistics.value.totalHours}}
-        </p>
-        <p class="user-statistics__value"
-           ng-if="statistics.value">
-            Total earnings: ${{statistics.value.totalEarnings}}
-        </p>
-        <span ng-if="statistics.isLoading">LOADING..</span>
-    </div>
-
-</div>
 <div class="panel panel-default">
     <div class="panel-body">
         <form class="form-inline">
