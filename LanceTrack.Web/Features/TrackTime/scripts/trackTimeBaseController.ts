@@ -61,7 +61,7 @@
                 if (o == undefined || o == n)
                     return;
 
-                $state.go("my-time", { at: $scope.at });
+                $state.go($state.current.name, { at: $scope.at });
             });
         }
 
