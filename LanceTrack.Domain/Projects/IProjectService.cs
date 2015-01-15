@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LanceTrack.Domain.UserAccounts;
 
 namespace LanceTrack.Domain.Projects
 {
@@ -21,6 +22,8 @@ namespace LanceTrack.Domain.Projects
         /// </summary>
         IEnumerable<Project> ReportableProjects();
 
-        ProjectUserData GetProjectUserData(int userId, int projectId);
+        ProjectUserInfo GetProjectUserInfo(int userId, int projectId);
+
+        IEnumerable<ProjectUserInfo> GetProjectUserInfo(int projectId);
     }
 }

@@ -46,7 +46,7 @@ namespace LanceTrack.Server.DataAccess.UserAccounts
         {
             var projectWhereUserCouldSeeOtherUsers = _projectRepository.BillableProjects(userId).Union(_projectRepository.ReportableProjects(userId))
                                                                        .Select(d => d.Id);
-            var projectUserData = DbManager.GetTable<ProjectUserData>();
+            var projectUserData = DbManager.GetTable<ProjectUserInfo>();
 
             return DbManager.GetTable<UserAccount>()
                             .Where(ua => ua.Id == userId || 

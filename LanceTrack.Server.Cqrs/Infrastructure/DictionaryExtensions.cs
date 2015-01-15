@@ -17,5 +17,17 @@ namespace LanceTrack.Server.Cqrs.Infrastructure
             dictionary.Add(key, defaultValue);
             return defaultValue;
         }
+
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default (TValue))
+        {
+            if (dictionary == null)
+                throw new ArgumentNullException("dictionary");
+
+            TValue existingValue;
+            if (dictionary.TryGetValue(key, out existingValue))
+                return existingValue;
+
+            return defaultValue;
+        }
     }
 }

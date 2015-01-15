@@ -10,11 +10,13 @@ namespace LanceTrack.Domain.Invoicing
 
         Invoice Get(string number);
 
-        InvoiceRecalculationResult RecalculateInvoiceInfo(int projectId, decimal hours);
+        List<InvoiceDetails> Details(string invoiceNumber);
+
+        List<InvoiceRecalculationResult> RecalculateInvoiceInfo(int projectId, List<InvoiceUserRequest> invoiceUserRequest);
 
         /// <summary>
         /// Bill specified project for user for specified amount of hours and returns new invoice number.
         /// </summary>
-        string BillProject(int projectId, decimal hours);
+        string BillProject(int projectId, List<InvoiceUserRequest> invoiceUserRequest);
     }
 }

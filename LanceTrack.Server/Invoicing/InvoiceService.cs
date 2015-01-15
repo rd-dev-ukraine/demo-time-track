@@ -47,13 +47,21 @@ namespace LanceTrack.Server.Invoicing
             return _invoiceRepository.GetByNumber(number, _currentUser.Id);
         }
 
-        public InvoiceRecalculationResult RecalculateInvoiceInfo(int projectId, decimal hours)
+        public List<InvoiceDetails> Details(string invoiceNumber)
+        {
+            if(String.IsNullOrWhiteSpace(invoiceNumber))
+                throw new ArgumentNullException("invoiceNumber");
+
+            return _invoiceRepository.Details(invoiceNumber, _currentUser.Id)
+                                     .ToList();
+        }
+
+        public List<InvoiceRecalculationResult> RecalculateInvoiceInfo(int projectId, List<InvoiceUserRequest> invoiceUserRequest)
         {
             var recalculateInvocieInfoCommand = new RecalculateInvoiceInfoCommand
             {
                 ProjectId = projectId,
-                UserId = _currentUser.Id,
-                BilledHours = hours
+                InvoiceUserRequest = invoiceUserRequest.ToList()
             };
 
             _cqrs.Execute(recalculateInvocieInfoCommand);
@@ -61,13 +69,13 @@ namespace LanceTrack.Server.Invoicing
             return recalculateInvocieInfoCommand.Result;
         }
 
-        public string BillProject(int projectId, decimal hours)
+        public string BillProject(int projectId, List<InvoiceUserRequest> invoiceUserRequest)
         {
             var billProjectCommand = new BillProjectCommand
             {
-                Hours = hours,
                 ProjectId = projectId,
-                UserId = _currentUser.Id
+                ByUserId = _currentUser.Id,
+                InvoiceUserRequest = invoiceUserRequest.Where(i => i.Hours > 0).ToList()
             };
 
             _cqrs.Execute(billProjectCommand);

@@ -10,5 +10,7 @@ namespace LanceTrack.Server.Dependencies.Invoicing
         IEnumerable<Invoice> UserArchiveInvoices(int userId);
 
         Invoice GetByNumber(string invoiceNumber, int userId);
+
+        List<InvoiceDetails> Details(string invoiceNumber, int userId);
     }
 }

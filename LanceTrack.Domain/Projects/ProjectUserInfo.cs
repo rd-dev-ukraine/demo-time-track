@@ -3,7 +3,7 @@
 namespace LanceTrack.Domain.Projects
 {
     [TableName("ProjectUserData")]
-    public class ProjectUserData
+    public class ProjectUserInfo
     {
         [Identity]
         public int Id { get; set; }

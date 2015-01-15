@@ -2,6 +2,8 @@
 {
     public class InvoiceRecalculationResult
     {
+        public int UserId { get; set; }
+
         public decimal MaxHours { get; set; }
 
         public decimal BillingHours { get; set; }

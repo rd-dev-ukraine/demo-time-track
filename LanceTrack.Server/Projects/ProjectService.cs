@@ -36,10 +36,17 @@ namespace LanceTrack.Server.Projects
             return _projectRepository.GetById(id);
         }
 
-        public ProjectUserData GetProjectUserData(int userId, int projectId)
+        public ProjectUserInfo GetProjectUserInfo(int userId, int projectId)
         {
             return _projectRepository.GetProjectUserData()
                                      .SingleOrDefault(d => d.UserId == userId && d.ProjectId == projectId);
+        }
+
+        public IEnumerable<ProjectUserInfo> GetProjectUserInfo(int projectId)
+        {
+            return _projectRepository.GetProjectUserData()
+                                     .Where(d => d.ProjectId == projectId)
+                                     .ToList();
         }
 
         public IEnumerable<ProjectDailyTime> ProjectDailyTime(DateTime startDate, DateTime endDate)
@@ -57,7 +64,7 @@ namespace LanceTrack.Server.Projects
 
             foreach (var result in data)
             {
-                var projectData = GetProjectUserData(_currentUser.Id, result.ProjectId);
+                var projectData = GetProjectUserInfo(_currentUser.Id, result.ProjectId);
 
                 if (projectData == null)
                     return null;

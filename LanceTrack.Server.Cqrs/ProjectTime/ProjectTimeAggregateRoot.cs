@@ -45,12 +45,12 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             if (project.Status != ProjectStatus.Active)
                 throw new ProjectNotReportableException();
 
-            var targetUserProjectData = _projectService.GetProjectUserData(command.ForUserId, command.ProjectId);
+            var targetUserProjectData = _projectService.GetProjectUserInfo(command.ForUserId, command.ProjectId);
             if (targetUserProjectData == null)
                 throw new ProjectAuthorizationException("User is not assigned to the project.");
 
             var trackingPermissions = command.ForUserId == command.ByUserId ? ProjectPermissions.TrackSelf : ProjectPermissions.TrackAsOtherUser;
-            var trackerUserData = _projectService.GetProjectUserData(command.ByUserId, project.Id);
+            var trackerUserData = _projectService.GetProjectUserInfo(command.ByUserId, project.Id);
             if (trackerUserData == null ||
                 (trackerUserData.UserPermissions & trackingPermissions) == 0)
                 throw new ProjectAuthorizationException();
@@ -86,48 +86,66 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(BillProjectCommand command)
         {
-            CheckUserBillingRights(command.ProjectId, command.UserId);
+            CheckUserBillingRights(command.ProjectId, command.ByUserId);
 
-            var maxBillableHours = State.MaxBillableHours(command.UserId);
-            if (maxBillableHours < command.Hours)
-                throw new ArgumentException(String.Format("Max {0} hours could be billed.", maxBillableHours));
-
-            var sum = State.CalculateInvoiceSum(command.UserId, command.Hours);
+            if (!command.InvoiceUserRequest.Any())
+                throw new ArgumentException("Invoice is empty.");
 
             var invoiceNum = InvoiceNum(command.ProjectId);
-
             command.Result = invoiceNum;
 
-            var ev = new InvoiceEvent
+            foreach (var userInvoiceInfo in command.InvoiceUserRequest)
             {
-                At = DateTimeOffset.Now,
-                EventType = InvoiceEventType.Billing,
-                Hours = command.Hours,
-                InvoiceSum = sum,
-                ProjectId = command.ProjectId,
-                UserId = command.UserId,
-                RegisteredAt = DateTimeOffset.Now,
-                RegisteredByUserId = command.UserId,
-                InvoiceNum = invoiceNum
-            };
+                if (_projectService.GetProjectUserInfo(userInvoiceInfo.UserId, command.ProjectId) == null)
+                    throw new ArgumentException(String.Format("User {0} is not associated with project {1}.", userInvoiceInfo.UserId, command.ProjectId));
 
-            yield return ev;
+                var maxBillableHours = State.MaxBillableHours(userInvoiceInfo.UserId);
+                if (maxBillableHours < userInvoiceInfo.Hours)
+                    throw new ArgumentException(String.Format("Max {0} hours could be billed for user {1}.", maxBillableHours, userInvoiceInfo.UserId));
+
+                var sum = State.CalculateInvoiceSum(userInvoiceInfo.UserId, userInvoiceInfo.Hours);
+
+                var ev = new InvoiceEvent
+                {
+                    At = DateTimeOffset.Now,
+                    EventType = InvoiceEventType.Billing,
+                    Hours = userInvoiceInfo.Hours,
+                    InvoiceSum = sum,
+                    ProjectId = command.ProjectId,
+                    UserId = userInvoiceInfo.UserId,
+                    RegisteredAt = DateTimeOffset.Now,
+                    RegisteredByUserId = command.ByUserId,
+                    InvoiceNum = invoiceNum
+                };
+
+                yield return ev;
+            }
         }
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(RecalculateInvoiceInfoCommand command)
         {
-            CheckUserBillingRights(command.ProjectId, command.UserId);
-            var maxBillableHours = State.MaxBillableHours(command.UserId);
-            var hours = Math.Min(command.BilledHours, maxBillableHours);
+            CheckUserBillingRights(command.ProjectId, command.ByUserId);
 
-            var sum = State.CalculateInvoiceSum(command.UserId, hours);
+            command.Result = new List<InvoiceRecalculationResult>();
 
-            command.Result = new InvoiceRecalculationResult
+            foreach (var userInvoiceInfo in command.InvoiceUserRequest)
             {
-                BillingHours = hours,
-                MaxHours = maxBillableHours,
-                Sum = sum
-            };
+                if (_projectService.GetProjectUserInfo(userInvoiceInfo.UserId, command.ProjectId) == null)
+                    throw new ArgumentException(String.Format("User {0} is not associated with project {1}.", userInvoiceInfo.UserId, command.ProjectId));
+
+                var maxBillableHours = State.MaxBillableHours(userInvoiceInfo.UserId);
+                var hours = Math.Min(userInvoiceInfo.Hours, maxBillableHours);
+
+                var sum = State.CalculateInvoiceSum(userInvoiceInfo.UserId, hours);
+
+                command.Result.Add(new InvoiceRecalculationResult
+                {
+                    BillingHours = hours,
+                    MaxHours = maxBillableHours,
+                    UserId = userInvoiceInfo.UserId,
+                    Sum = sum
+                });
+            }
 
             yield break;
         }
@@ -144,7 +162,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         private void CheckUserBillingRights(int projectId, int userId)
         {
-            var userData = _projectService.GetProjectUserData(userId, projectId);
+            var userData = _projectService.GetProjectUserInfo(userId, projectId);
             if (userData == null ||
                 (userData.UserPermissions & ProjectPermissions.BillProject) == 0)
                 throw new ArgumentException("User is not allowed to bill the project.");

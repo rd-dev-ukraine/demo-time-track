@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.Invoicing;
 using LanceTrack.Server.Cqrs.Infrastructure;
@@ -11,10 +12,10 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
     public class InvoiceReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
         IReadModelEventRecipient<InvoiceEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
-
     {
         private readonly IInvoiceStorage _invoiceStorage;
         private readonly Dictionary<string, Invoice> _invoices = new Dictionary<string, Invoice>();
+        private readonly Dictionary<string, Dictionary<int, InvoiceDetails>> _invoiceDetails = new Dictionary<string, Dictionary<int, InvoiceDetails>>();
 
         public InvoiceReadModelManager(IInvoiceStorage invoiceStorage)
         {
@@ -27,20 +28,45 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
         public void Save()
         {
             foreach (var invoice in _invoices.Values)
-                _invoiceStorage.Save(invoice);
+                _invoiceStorage.Save(
+                    invoice, 
+                    _invoiceDetails.GetOrDefault(invoice.InvoiceNum, new Dictionary<int, InvoiceDetails>()).Values.ToList());
         }
 
         public void On(InvoiceEvent e, ProjectTimeAggregateRootState state)
         {
-            var invoice = _invoices.GetOrAdd(e.InvoiceNum);
+            if (e.EventType == InvoiceEventType.Billing)
+                OnBilling(e);
+        }
 
-            invoice.At = e.At;
-            invoice.Hours = e.Hours;
-            invoice.InvoiceNum = e.InvoiceNum;
-            invoice.IsPaid = invoice.IsPaid || e.EventType == InvoiceEventType.Paid;
+        private void OnBilling(InvoiceEvent e)
+        {
+            var detailList = _invoiceDetails.GetOrAdd(e.InvoiceNum, new Dictionary<int, InvoiceDetails>());
+            var details = detailList.GetOrAdd(e.UserId, new InvoiceDetails());
+
+            details.InvoiceNum = e.InvoiceNum;
+            details.UserHours = e.Hours;
+            details.UserId = e.UserId;
+            details.UserSum = e.InvoiceSum;
+
+            var invoice = _invoices.GetOrAdd(e.InvoiceNum, new Invoice());
+            invoice.At = e.RegisteredAt;
+            invoice.BilledByUserId = e.RegisteredByUserId;
             invoice.ProjectId = e.ProjectId;
-            invoice.Sum = e.InvoiceSum;
-            invoice.UserId = e.UserId;
+
+            RecalculateInvoice(e.InvoiceNum);
+        }
+
+        private void RecalculateInvoice(string invoiceNum)
+        {
+            var details = _invoiceDetails.GetOrDefault(invoiceNum, new Dictionary<int, InvoiceDetails>()).Values;
+            if (details.Any())
+            {
+                var invoice = _invoices[invoiceNum];
+
+                invoice.Hours = details.Sum(d => d.UserHours);
+                invoice.Sum = details.Sum(d => d.UserSum);
+            }
         }
     }
 }

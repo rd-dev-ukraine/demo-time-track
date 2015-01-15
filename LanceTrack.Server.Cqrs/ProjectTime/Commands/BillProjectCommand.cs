@@ -1,4 +1,6 @@
-﻿using LanceTrack.Cqrs.Contract;
+﻿using System.Collections.Generic;
+using LanceTrack.Cqrs.Contract;
+using LanceTrack.Domain.Invoicing;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 {
@@ -6,15 +8,15 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
     {
         public int ProjectId { get; set; }
 
-        public int UserId { get; set; }
+        public int ByUserId { get; set; }
 
-        public decimal Hours { get; set; }
-
-        int ICommand<ProjectTimeAggregateRoot, int>.AggregateRootId { get { return ProjectId; } }
+        public List<InvoiceUserRequest> InvoiceUserRequest { get; set; }
 
         /// <summary>
         /// Gets new invoice number.
         /// </summary>
         public string Result { get; set; }
+
+        int ICommand<ProjectTimeAggregateRoot, int>.AggregateRootId { get { return ProjectId; } }
     }
 }

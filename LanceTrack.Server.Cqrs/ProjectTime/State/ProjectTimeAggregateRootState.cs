@@ -95,7 +95,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             var userHours = new List<UserBillingHours>();
             var restOfBilledHours = _userBilledHours.GetOrAdd(userId);
 
-
             foreach (var hrs in UserBillingHours(userId).ToList())
             {
                 restOfBilledHours -= hrs.Hours;

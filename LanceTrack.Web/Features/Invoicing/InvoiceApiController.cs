@@ -25,7 +25,8 @@ namespace LanceTrack.Web.Features.Invoicing
         [Route("recalculate", Name="RecalculateInvoice"), HttpPost]
         public InvoiceRecalculationResult Recalculate(PrepareInvoiceParams parameters)
         {
-            return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.Hours);
+            throw new NotImplementedException();
+            // return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.Hours);
         }
 
         public class PrepareInvoiceParams

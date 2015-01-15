@@ -12,16 +12,18 @@ namespace LanceTrack.Domain.Invoicing
 
         public int ProjectId { get; set; }
 
-        public int UserId { get; set; }
-
         public DateTimeOffset At { get; set; }
 
         public bool IsPaid { get; set; }
 
-        [MapField("InvoiceSum")]
+        [MapField("InvoiceTotalSum")]
         public decimal Sum { get; set; }
 
-        [MapField("InvoiceHours")]
+        [MapField("InvoiceTotalHours")]
         public decimal Hours { get; set; }
+
+        public decimal? ReceivedSum { get; set; }
+
+        public int BilledByUserId { get; set; }
     }
 }
