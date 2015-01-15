@@ -17,11 +17,12 @@
         </thead>
         <tbody>
         <tr ng-repeat="project in projectsForUser(user.id) track by project.id">
-            <td ng-bind="project.name"></td>
+            <td class="h4"
+                ng-bind="project.name"></td>
             <td ng-repeat="d in dates"
                 ng-init="project=project;cell=cell(project.id, d, user.id);"
                 ng-include="urls.templates.timeCell"></td>
-            <td class="time-sum">
+            <td class="text-muted">
                 {{totalHours({userId: user.id })}}hrs
             </td>
         </tr>
@@ -30,7 +31,7 @@
         <tfoot>
         <tr>
             <td></td>
-            <td class="time-sum"
+            <td class="text-muted"
                 ng-repeat="d in dates">
                 {{totalHoursAt({userId: user.id, at: d })}}hrs
             </td>
@@ -53,11 +54,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in usersForProject(project.id)">
-                <td ng-bind="user.displayName"></td>
+                <td class="h4"
+                    ng-bind="user.displayName"></td>
                 <td ng-repeat="d in dates"
                     ng-init="project=project;cell=cell(project.id, d, user.id);"
                     ng-include="urls.templates.timeCell"></td>
-                <td class="time-sum">
+                <td class="text-muted">
                     {{totalHours({projectId: project.id, userId: user.id })}}hrs
                 </td>
             </tr>
@@ -66,7 +68,7 @@
         <tfoot>
             <tr>
                 <td></td>
-                <td class="time-sum"
+                <td class="text-muted"
                     ng-repeat="d in dates">
                     {{totalHours({projectId: project.id, userId: user.id, at: d })}}hrs
                 </td>

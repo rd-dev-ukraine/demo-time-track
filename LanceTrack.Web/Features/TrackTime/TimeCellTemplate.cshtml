@@ -4,21 +4,21 @@
      ng-if="cell"
      ng-controller="timeCellController">
 
-    <div class="time-cell__state-indicator">
-        <span class="time-cell__glyph error glyphicon glyphicon-minus-sign"
-              ng-if="trackTime.isError"
-              title="{{trackTime.error.message}}">
-        </span>
-        <span class="time-cell__glyph glyphicon glyphicon-floppy-save"
-              ng-if="trackTime.isLoading">
-        </span>
-    </div>
-
-    <div class="time-cell__input-wrapper">
-        <input class="time-cell__input form-control"
+    <div class="input-group time-cell__inner">
+        <input class="form-control"
                ng-model="cell.totalHours"
                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                type="text"
                title="{{project.name}}" />
+        <div class="input-group-addon"
+             ng-show="trackTime.isError || trackTime.isLoading">
+            <span class="field-validation-error glyphicon glyphicon-minus-sign"
+                  ng-show="trackTime.isError"
+                  title="{{trackTime.error.message}}">
+            </span>
+            <span class="glyphicon glyphicon-floppy-save"
+                  ng-show="trackTime.isLoading">
+            </span>
+        </div>
     </div>
 </div>

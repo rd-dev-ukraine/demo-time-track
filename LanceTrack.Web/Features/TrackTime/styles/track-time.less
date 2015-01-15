@@ -1,61 +1,25 @@
 ﻿@import "../../Shared/styles/vars.less";
 
-.col-container {
-    overflow: hidden;
-}
-
-.col-weekday {
-    width: 14.1%;
-    float: left;
-    overflow: hidden;
-}
-
 .time-track-grid-header {
     font-weight: bold;
 }
 
 .time-cell {
-    overflow: hidden;
+    overflow: visible;
     display: block;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
 
-    &__input-wrapper {
-        display: block;
-        overflow: hidden;
-    }
-
-    &__input {
-        display: block;
-        width: 100%;
-        border: 0 none;
-
-
-        &:focus {
-            outline: none;
-        }
-    }
-
-    &__state-indicator {
-        float: right;
-    }
-
-    &__glyph {
-        &.error {
-            color: red;
-        }
+    .time-cell__inner {
     }
 }
-.time-sum {
-    font-weight :bold;
-    color: #6e6e6e;
-}
-
 
 @statSize: 1rem;
 
 .user-statistics {
     border-radius: @statSize;
     border: @statSize/2 solid #fa8719;
-    color: #cacaca;
     padding: @statSize;
     font-size: @statSize *2;
     position: absolute;

@@ -1,44 +1,16 @@
-﻿.col-container {
-  overflow: hidden;
-}
-.col-weekday {
-  width: 14.1%;
-  float: left;
-  overflow: hidden;
-}
-.time-track-grid-header {
+﻿.time-track-grid-header {
   font-weight: bold;
 }
 .time-cell {
-  overflow: hidden;
+  overflow: visible;
   display: block;
-}
-.time-cell__input-wrapper {
-  display: block;
-  overflow: hidden;
-}
-.time-cell__input {
-  display: block;
+  position: relative;
   width: 100%;
-  border: 0 none;
-}
-.time-cell__input:focus {
-  outline: none;
-}
-.time-cell__state-indicator {
-  float: right;
-}
-.time-cell__glyph.error {
-  color: red;
-}
-.time-sum {
-  font-weight: bold;
-  color: #6e6e6e;
+  max-width: 100%;
 }
 .user-statistics {
   border-radius: 1rem;
   border: 0.5rem solid #fa8719;
-  color: #cacaca;
   padding: 1rem;
   font-size: 2rem;
   position: absolute;
