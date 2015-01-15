@@ -56,12 +56,6 @@ namespace LanceTrack.Web.Features.TrackTime
             };
         }
 
-        [Route("recalculate", Name = "RecalculateAll"), HttpPost]
-        public void RecalculateAll()
-        {
-            _timeTrackingService.RecalculateAll();
-        }
-
         [Route("statistics", Name = "Statistics"), HttpGet]
         public StatisticsResult Statistics()
         {

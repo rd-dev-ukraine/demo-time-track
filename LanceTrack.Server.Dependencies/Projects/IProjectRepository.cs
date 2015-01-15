@@ -8,8 +8,8 @@ namespace LanceTrack.Server.Dependencies.Projects
     {
         IQueryable<Project> BillableProjects(int userId);
         Project GetById(int id);
-        IQueryable<ProjectDailyTime> GetProjectDailyTime(int userId, DateTime startDate, DateTime endDate);
-        ProjectUserData GetProjectPermissionsForUser(int userId, int projectId);
+        IQueryable<ProjectDailyTime> GetProjectDailyTime(DateTime startDate, DateTime endDate);
+        IQueryable<ProjectUserData> GetProjectUserData();
         IQueryable<ProjectUserSummary> ProjectUserSummary(int userId);
         IQueryable<Project> ReportableProjects(int userId);
     }

@@ -28,20 +28,18 @@ namespace LanceTrack.Server.DataAccess.Projects
             return DbManager.GetTable<Project>().SingleOrDefault(p => p.Id == id);
         }
 
-        public IQueryable<ProjectDailyTime> GetProjectDailyTime(int userId, DateTime startDate, DateTime endDate)
+        public IQueryable<ProjectDailyTime> GetProjectDailyTime(DateTime startDate, DateTime endDate)
         {
             startDate = startDate.Date;
             endDate = endDate.Date;
 
             return DbManager.GetTable<ProjectDailyTime>()
-                .Join(ReportableProjects(userId), t => t.ProjectId, p => p.Id, (t, p) => t)
-                .Where(t => startDate <= t.Date && t.Date <= endDate);
+                            .Where(t => startDate <= t.Date && t.Date <= endDate);
         }
 
-        public ProjectUserData GetProjectPermissionsForUser(int userId, int projectId)
+        public IQueryable<ProjectUserData> GetProjectUserData()
         {
-            return DbManager.GetTable<ProjectUserData>()
-                .SingleOrDefault(pp => pp.UserId == userId && pp.ProjectId == projectId);
+            return DbManager.GetTable<ProjectUserData>();
         }
 
         public IQueryable<ProjectUserSummary> ProjectUserSummary(int userId)
