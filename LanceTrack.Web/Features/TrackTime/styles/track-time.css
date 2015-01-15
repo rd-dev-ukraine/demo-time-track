@@ -2,11 +2,17 @@
   font-weight: bold;
 }
 .time-cell {
-  overflow: visible;
-  display: block;
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+}
+.time-cell__height-expander {
+  visibility: hidden;
+}
+.time-cell__td {
   position: relative;
-  width: 100%;
-  max-width: 100%;
 }
 .user-statistics {
   border-radius: 1rem;

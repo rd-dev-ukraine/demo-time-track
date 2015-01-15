@@ -5,13 +5,22 @@
 }
 
 .time-cell {
-    overflow: visible;
-    display: block;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    
+    &__height-expander {
+        visibility: hidden;
+    }    
 
-    .time-cell__inner {
+
+    &__td {
+        position: relative;
+    }
+
+    &__inner {
     }
 }
 

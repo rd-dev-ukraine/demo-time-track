@@ -13,7 +13,8 @@
         <tr ng-repeat="project in data.projects track by project.id">
             <td class="h4"
                 ng-bind="project.name"></td>
-            <td ng-repeat="d in dates"
+            <td class="time-cell__td"
+                ng-repeat="d in dates"
                 ng-init="project=project;cell=cell(project.id, d);"
                 ng-include="urls.templates.timeCell"></td>
             <td class="text-muted">

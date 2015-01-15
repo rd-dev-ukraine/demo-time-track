@@ -1,5 +1,6 @@
 ﻿@model dynamic
 
+<input class="form-control time-cell__height-expander" type="text"/>
 <div class="time-cell"
      ng-if="cell"
      ng-controller="timeCellController">
@@ -10,8 +11,8 @@
                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                type="text"
                title="{{project.name}}" />
-        <div class="input-group-addon"
-             ng-show="trackTime.isError || trackTime.isLoading">
+        <div class="input-group-addon">
+            <span ng-show="!trackTime.isError && !trackTime.isLoading">hrs</span>
             <span class="field-validation-error glyphicon glyphicon-minus-sign"
                   ng-show="trackTime.isError"
                   title="{{trackTime.error.message}}">
