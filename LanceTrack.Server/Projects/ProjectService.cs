@@ -45,6 +45,7 @@ namespace LanceTrack.Server.Projects
         public IEnumerable<ProjectDailyTime> ProjectDailyTime(DateTime startDate, DateTime endDate)
         {
             return _projectRepository.ReportableProjects(_currentUser.Id)
+                                     .ToArray()
                                      .SelectMany(p => ProjectDailyTime(p.Id, startDate, endDate))
                                      .ToList();
         }
@@ -91,7 +92,8 @@ namespace LanceTrack.Server.Projects
             var canReportForOtherUsers = (perms.UserPermissions & ProjectPermissions.TrackAsOtherUser) != 0;
 
             var projectUsers = _projectRepository.GetProjectUserData()
-                                                 .Where(p => p.ProjectId == projectId && (p.UserId == _currentUser.Id || canReportForOtherUsers));
+                                                 .Where(p => p.ProjectId == projectId && (p.UserId == _currentUser.Id || canReportForOtherUsers))
+                                                 .ToArray();
 
             var filledTime = _projectRepository.GetProjectDailyTime(startDate, endDate)
                                                .Where(p => p.ProjectId == projectId && (p.UserId == _currentUser.Id || canReportForOtherUsers))

@@ -61,11 +61,6 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.HttpRouteUrl("ProjectTimeInfo", new {}); }
             }
 
-            public string Recalculate
-            {
-                get { return Url.HttpRouteUrl("RecalculateAll", new {}); }
-            }
-
             public string RecalculateInvoice
             {
                 get { return Url.HttpRouteUrl("RecalculateInvoice", new {}); }
