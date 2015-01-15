@@ -1,8 +1,8 @@
 ﻿module LanceTrack {
     export module TrackTime {
 
-        export function trackMyTimeController(
-            $scope: TrackMyTimeScope,
+        export function usersTimeController(
+            $scope: UserTimeScope,
             $state: ng.ui.IStateService,
             $stateParams: { at: string },
             trackTimeService: TrackTimeService,
@@ -68,7 +68,7 @@
             });
         }
 
-        export interface TrackMyTimeScope extends ng.IScope {
+        export interface UserTimeScope extends ng.IScope {
             data: Api.ProjectTimeInfoResult;
 
             at: string;
@@ -83,4 +83,4 @@
         }
     }
 }
-LanceTrack.TrackTime.trackMyTimeController.$inject = ["$scope", "$state", "$stateParams", "trackTimeService", "dates", "deferredFunction"];
+LanceTrack.TrackTime.usersTimeController.$inject = ["$scope", "$state", "$stateParams", "trackTimeService", "dates", "deferredFunction"];

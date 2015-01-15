@@ -1,22 +1,7 @@
 ﻿@using LanceTrack.Web.Features.Shared.Models
 @using LanceTrack.Web.Infrastructure
 <script type="text/javascript">
-    var urls = @Html.JsonEncode(new Urls
-                        {
-                            Templates = new Urls.TemplatesUrls
-                            {
-                                TrackMyTime = Url.Action(MVC.TrackTimeTemplates.MyTimeTemplate()),
-                                TimeCell = Url.Action(MVC.TrackTimeTemplates.TimeCellTemplate()),
-                            },
-                            Data = new Urls.DataUrls
-                            {
-                                LoadProjectTime = Url.HttpRouteUrl("ProjectTimeInfo", new { }),
-                                Track = Url.HttpRouteUrl("TrackTime", new { }),
-                                Recalculate = Url.HttpRouteUrl("RecalculateAll", new { }),
-                                Statistics = Url.HttpRouteUrl("Statistics", new { }),
-                                RecalculateInvoice = Url.HttpRouteUrl("RecalculateInvoice", new { })
-                            }
-                        });
+    var urls = @Html.JsonEncode(new Urls(Url));
 </script>
 
 

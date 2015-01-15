@@ -190,6 +190,8 @@
     <Content Include="Features\TrackTime\Refs.cshtml" />
     <Content Include="Features\Shared\Refs.cshtml" />
     <Content Include="Features\TrackTime\TimeCellTemplate.cshtml" />
+    <Content Include="Features\TrackTime\UsersTimeTemplate.cshtml" />
+    <Content Include="Features\TrackTime\TrackTimeTemplate.cshtml" />
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
@@ -336,9 +338,11 @@
     <TypeScriptCompile Include="Features\Shared\scripts\deferredFunctionService.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
+    <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeBaseController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\statisticsController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
-    <TypeScriptCompile Include="Features\TrackTime\scripts\trackMyTimeController.ts" />
+    <TypeScriptCompile Include="Features\TrackTime\scripts\usersTimeController.ts" />
+    <TypeScriptCompile Include="Features\TrackTime\scripts\myTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
     <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="Typings\angular.d.ts" />

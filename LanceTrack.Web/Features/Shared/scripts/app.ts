@@ -3,14 +3,8 @@
     
 
     app.config(($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
-        $urlRouterProvider.otherwise("/my-time/");
-
-        $stateProvider
-            .state("my-time", {
-                url: "/my-time/:at",
-                templateUrl: urls.templates.trackMyTime, 
-                controller: "trackMyTimeController"
-            });
+        $urlRouterProvider.otherwise("/track-time/my/");
+        
     });
 
     app.run(["$rootScope", ($rootScope: IAppRootScope) => {
