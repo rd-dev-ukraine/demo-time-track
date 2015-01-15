@@ -49,7 +49,7 @@ when not matched by target then
 
 set identity_insert Project off;
 
-merge ProjectUserData as t 
+merge ProjectUserInfo as t 
 using 
 (
 	values (1, 1, 34, 20),

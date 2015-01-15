@@ -38,13 +38,13 @@ namespace LanceTrack.Server.Projects
 
         public ProjectUserInfo GetProjectUserInfo(int userId, int projectId)
         {
-            return _projectRepository.GetProjectUserData()
+            return _projectRepository.GetProjectUserInfo()
                                      .SingleOrDefault(d => d.UserId == userId && d.ProjectId == projectId);
         }
 
         public IEnumerable<ProjectUserInfo> GetProjectUserInfo(int projectId)
         {
-            return _projectRepository.GetProjectUserData()
+            return _projectRepository.GetProjectUserInfo()
                                      .Where(d => d.ProjectId == projectId)
                                      .ToList();
         }
@@ -85,7 +85,7 @@ namespace LanceTrack.Server.Projects
 
         private IEnumerable<ProjectDailyTime> ProjectDailyTime(int projectId, DateTime startDate, DateTime endDate)
         {
-            var perms = _projectRepository.GetProjectUserData().SingleOrDefault(d => d.UserId == _currentUser.Id && d.ProjectId == projectId);
+            var perms = _projectRepository.GetProjectUserInfo().SingleOrDefault(d => d.UserId == _currentUser.Id && d.ProjectId == projectId);
             if (perms == null)
                 return Enumerable.Empty<ProjectDailyTime>();
 
@@ -98,7 +98,7 @@ namespace LanceTrack.Server.Projects
 
             var canReportForOtherUsers = (perms.UserPermissions & ProjectPermissions.TrackAsOtherUser) != 0;
 
-            var projectUsers = _projectRepository.GetProjectUserData()
+            var projectUsers = _projectRepository.GetProjectUserInfo()
                                                  .Where(p => p.ProjectId == projectId && (p.UserId == _currentUser.Id || canReportForOtherUsers))
                                                  .ToArray();
 

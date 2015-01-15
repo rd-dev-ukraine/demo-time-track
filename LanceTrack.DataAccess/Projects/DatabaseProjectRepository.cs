@@ -37,7 +37,7 @@ namespace LanceTrack.Server.DataAccess.Projects
                             .Where(t => startDate <= t.Date && t.Date <= endDate);
         }
 
-        public IQueryable<ProjectUserInfo> GetProjectUserData()
+        public IQueryable<ProjectUserInfo> GetProjectUserInfo()
         {
             return DbManager.GetTable<ProjectUserInfo>();
         }
@@ -56,7 +56,7 @@ namespace LanceTrack.Server.DataAccess.Projects
 
         private IQueryable<Project> Projects(int userId, ProjectPermissions permissions)
         {
-            var pud = ProjectUserData();
+            var pud = ProjectUserInfo();
             return DbManager.GetTable<Project>()
                 .Where(p => pud.Any(perm => perm.ProjectId == p.Id &&
                                             perm.UserId == userId &&
@@ -64,7 +64,7 @@ namespace LanceTrack.Server.DataAccess.Projects
                 .Where(p => p.Status == ProjectStatus.Active);
         }
 
-        private IQueryable<ProjectUserInfo> ProjectUserData()
+        private IQueryable<ProjectUserInfo> ProjectUserInfo()
         {
             return DbManager.GetTable<ProjectUserInfo>();
         }

@@ -61,7 +61,8 @@ namespace LanceTrack.Server.Invoicing
             var recalculateInvocieInfoCommand = new RecalculateInvoiceInfoCommand
             {
                 ProjectId = projectId,
-                InvoiceUserRequest = invoiceUserRequest.ToList()
+                ByUserId = _currentUser.Id,
+                InvoiceUserRequest = (invoiceUserRequest ?? new List<InvoiceUserRequest>()).ToList()
             };
 
             _cqrs.Execute(recalculateInvocieInfoCommand);

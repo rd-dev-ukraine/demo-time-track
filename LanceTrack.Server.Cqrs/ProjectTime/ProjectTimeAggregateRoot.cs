@@ -127,12 +127,17 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             CheckUserBillingRights(command.ProjectId, command.ByUserId);
 
             command.Result = new List<InvoiceRecalculationResult>();
+            var projectUsers = _projectService.GetProjectUserInfo(command.ProjectId);
 
-            foreach (var userInvoiceInfo in command.InvoiceUserRequest)
+            foreach (var user in projectUsers)
             {
-                if (_projectService.GetProjectUserInfo(userInvoiceInfo.UserId, command.ProjectId) == null)
-                    throw new ArgumentException(String.Format("User {0} is not associated with project {1}.", userInvoiceInfo.UserId, command.ProjectId));
-
+                var userInvoiceInfo = command.InvoiceUserRequest.SingleOrDefault(r => r.UserId == user.Id) ??
+                                        new InvoiceUserRequest
+                                        {
+                                            UserId = user.Id,
+                                            Hours = 0
+                                        };
+                
                 var maxBillableHours = State.MaxBillableHours(userInvoiceInfo.UserId);
                 var hours = Math.Min(userInvoiceInfo.Hours, maxBillableHours);
 

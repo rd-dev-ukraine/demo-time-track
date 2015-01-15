@@ -2,7 +2,7 @@
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("ProjectUserData")]
+    [TableName("ProjectUserInfo")]
     public class ProjectUserInfo
     {
         [Identity]

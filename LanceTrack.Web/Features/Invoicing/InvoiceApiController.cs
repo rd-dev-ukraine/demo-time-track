@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using LanceTrack.Domain.Invoicing;
 using LanceTrack.Domain.UserAccounts;
@@ -23,17 +24,16 @@ namespace LanceTrack.Web.Features.Invoicing
         }
 
         [Route("recalculate", Name="RecalculateInvoice"), HttpPost]
-        public InvoiceRecalculationResult Recalculate(PrepareInvoiceParams parameters)
+        public List<InvoiceRecalculationResult> Recalculate(PrepareInvoiceParams parameters)
         {
-            throw new NotImplementedException();
-            // return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.Hours);
+            return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.InvoiceUserRequests);
         }
 
         public class PrepareInvoiceParams
         {
             public int ProjectId { get; set; }
 
-            public decimal Hours { get; set; }
+            public List<InvoiceUserRequest> InvoiceUserRequests { get; set; }
         }
     }
 }
