@@ -3,7 +3,7 @@
     (function (TrackTime) {
         function trackTimeBaseController($scope, $state, $stateParams, trackTimeService, dates) {
             function reload() {
-                trackTimeService.loadMyTime($scope.at).then(function (r) {
+                trackTimeService.loadTimeInfo($scope.at).then(function (r) {
                     $scope.data = r;
                     $scope.dates = dates.allDateInRange(r.startDate, r.endDate);
                 });
@@ -12,12 +12,14 @@
             $scope.dateService = dates;
             $scope.at = dates.format($stateParams.at || dates.now());
 
-            $scope.cell = function (projectId, date) {
+            $scope.cell = function (projectId, date, userId) {
                 if (!$scope.data)
                     return null;
 
+                userId = userId || $scope.data.currentUserId;
+
                 return _.find($scope.data.time, function (t) {
-                    return t.projectId == projectId && dates.eq(t.date, date);
+                    return t.projectId == projectId && dates.eq(t.date, date) && t.userId == userId;
                 });
             };
 

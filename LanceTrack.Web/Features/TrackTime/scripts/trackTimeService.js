@@ -12,30 +12,13 @@
                 this.$http = $http;
                 this.dates = dates;
             }
-            TrackTimeService.prototype.loadMyTime = function (date) {
-                var deferred = this.$q.defer();
-
-                this.loadTimeInfo(date).then(function (result) {
-                    result.time = _.filter(result.time, function (time) {
-                        return time.userId == result.currentUserId;
-                    });
-                    deferred.resolve(result);
-                }).catch(function (err) {
-                    return deferred.reject(err);
-                });
-
-                return deferred.promise;
-            };
-
             TrackTimeService.prototype.loadTimeInfo = function (date) {
-                var _this = this;
                 var deferred = this.$q.defer();
 
                 date = this.dates.parse(date);
                 var url = urls.data.loadProjectTime + "/" + this.dates.format(date);
 
                 this.$http.get(url).success(function (result) {
-                    _this.addEmptyTimeSlots(result);
                     deferred.resolve(result);
                 }).error(function (e) {
                     return deferred.reject(e);
@@ -83,30 +66,6 @@
                 });
 
                 return deferred.promise;
-            };
-
-            TrackTimeService.prototype.addEmptyTimeSlots = function (info) {
-                var _this = this;
-                var dateRange = this.dates.allDateInRange(info.startDate, info.endDate);
-
-                _.forEach(info.projects, function (project) {
-                    _.forEach(dateRange, function (date) {
-                        _.forEach(info.users, function (user) {
-                            var time = _.find(info.time, function (timeRecord) {
-                                return timeRecord.userId == user.id && timeRecord.projectId == project.id && _this.dates.eq(timeRecord.date, date);
-                            });
-
-                            if (!time) {
-                                info.time.push({
-                                    date: _this.dates.format(date),
-                                    projectId: project.id,
-                                    totalHours: null,
-                                    userId: user.id
-                                });
-                            }
-                        });
-                    });
-                });
             };
             return TrackTimeService;
         })();

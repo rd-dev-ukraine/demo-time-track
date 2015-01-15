@@ -14,19 +14,6 @@
                 private dates: LanceTrack.Dates) {
             }
 
-            loadMyTime(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
-                var deferred = this.$q.defer();
-
-                this.loadTimeInfo(date)
-                    .then((result: Api.ProjectTimeInfoResult) => {
-                        result.time = _.filter(result.time, time => time.userId == result.currentUserId);
-                        deferred.resolve(result);
-                    })
-                    .catch(err => deferred.reject(err));
-
-                return deferred.promise;
-            }
-
             loadTimeInfo(date: any): ng.IPromise<Api.ProjectTimeInfoResult> {
                 var deferred = this.$q.defer();
 
@@ -35,7 +22,6 @@
 
                 this.$http.get(url)
                     .success((result: Api.ProjectTimeInfoResult) => {
-                        this.addEmptyTimeSlots(result);
                         deferred.resolve(result);
                     })
                     .error(e => deferred.reject(e));
@@ -75,31 +61,6 @@
                     .error(err => deferred.reject(err));
 
                 return deferred.promise;
-            }
-
-            private addEmptyTimeSlots(info: Api.ProjectTimeInfoResult): void {
-                var dateRange = this.dates.allDateInRange(info.startDate, info.endDate);
-
-                _.forEach(info.projects, (project: Api.Project) => {
-                    _.forEach(dateRange, (date: Date) => {
-                        _.forEach(info.users, (user: Api.UserAccount) => {
-                            var time = _.find(info.time, (timeRecord: Api.ProjectDailyTime) => {
-                                return timeRecord.userId == user.id &&
-                                    timeRecord.projectId == project.id &&
-                                    this.dates.eq(timeRecord.date, date);
-                            });
-
-                            if (!time) {
-                                info.time.push({
-                                    date: this.dates.format(date),
-                                    projectId: project.id,
-                                    totalHours: null,
-                                    userId: user.id
-                                });
-                            }
-                        });
-                    });
-                });
             }
         }
     }

@@ -15,17 +15,17 @@
             $stateProvider
                 .state("track-time", {
                     abstract: true,
-                    url: "/track-time",
+                    url: "^/track-time/:at/",
                     templateUrl: urls.templates.trackTimeBase,
                     controller: "trackTimeBaseController"
                 })
                 .state("track-time.my", {
-                    url: "/my/:at",
+                    url: "^/track-time/:at/my/",
                     templateUrl: urls.templates.trackMyTime,
                     controller: "myTimeController"
                 })
                 .state("track-time.users", {
-                    url: "/users/:at",
+                    url: "^/track-time/:at/users/",
                     templateUrl: urls.templates.usersTime,
                     controller: "usersTimeController"
                 });

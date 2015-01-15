@@ -3,7 +3,9 @@
     var app = angular.module("lance-track", ["ui.router", "lance-track.shared", "lance-track.track-time"]);
 
     app.config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/track-time/my/");
+        var dates = new LanceTrack.Dates();
+
+        $urlRouterProvider.otherwise("/track-time/" + dates.format(dates.now()) + "/my/");
     });
 
     app.run([

@@ -9,7 +9,7 @@
             dates: LanceTrack.Dates) {
 
             function reload() {
-                trackTimeService.loadMyTime($scope.at)
+                trackTimeService.loadTimeInfo($scope.at)
                     .then(r => {
                         $scope.data = r;
                         $scope.dates = dates.allDateInRange(r.startDate, r.endDate);
@@ -19,13 +19,15 @@
             $scope.dateService = dates;
             $scope.at = dates.format($stateParams.at || dates.now());
 
-            $scope.cell = (projectId: number, date: any) : Api.ProjectDailyTime => {
+            $scope.cell = (projectId: number, date: any, userId?: number) : Api.ProjectDailyTime => {
                 if (!$scope.data)
                     return null;
 
+                userId = userId || $scope.data.currentUserId;
+
                 return _.find(
                     $scope.data.time,
-                    (t: Api.ProjectDailyTime) => t.projectId == projectId && dates.eq(t.date, date));
+                    (t: Api.ProjectDailyTime) => t.projectId == projectId && dates.eq(t.date, date) && t.userId == userId);
             };
 
             $scope.totalHoursAt = (date: any): number => {
@@ -71,7 +73,7 @@
             at: string;
             dates: Date[];
             
-            cell(projectId: number, date: any): Api.ProjectDailyTime;
+            cell(projectId: number, date: any, userId?: number): Api.ProjectDailyTime;
 
             totalHoursAt(date: any): number;
             totalHoursForProject(projectId: number): number;

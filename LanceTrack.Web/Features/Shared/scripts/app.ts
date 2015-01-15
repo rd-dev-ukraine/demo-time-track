@@ -3,7 +3,9 @@
     
 
     app.config(($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
-        $urlRouterProvider.otherwise("/track-time/my/");
+        var dates = new Dates();
+
+        $urlRouterProvider.otherwise("/track-time/" + dates.format(dates.now()) + "/my/");
         
     });
 
