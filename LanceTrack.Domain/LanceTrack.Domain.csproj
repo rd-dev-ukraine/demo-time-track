@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\DecimalZeroToEmtpyConverter.cs" />
     <Compile Include="Infrastructure\DateConverter.cs" />
     <Compile Include="Invoicing\IInvoiceService.cs" />
     <Compile Include="Invoicing\Invoice.cs" />
