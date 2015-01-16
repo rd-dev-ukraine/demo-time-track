@@ -17,11 +17,11 @@
 }
 .time-cell__editor:focus {
   border: 2px solid;
-  border-color: #fa8719;
+  border-color: #df691a;
 }
 .user-statistics {
   border-radius: 1rem;
-  border: 0.5rem solid #fa8719;
+  border: 0.5rem solid #df691a;
   padding: 1rem;
   font-size: 2rem;
   position: absolute;

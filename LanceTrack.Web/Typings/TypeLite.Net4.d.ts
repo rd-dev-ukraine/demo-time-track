@@ -12,7 +12,6 @@ declare module Api {
 	}
 	interface DataUrls {
 		loadProjectTime: string;
-		recalculate: string;
 		recalculateInvoice: string;
 		statistics: string;
 		track: string;

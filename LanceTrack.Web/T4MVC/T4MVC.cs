@@ -103,14 +103,8 @@ namespace Links
                 private const string URLPATH = "~/Libs/bootstrap/css";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
-                     
-                public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map");
-                public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
                 public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
                      
-                public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
-                public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -265,6 +259,11 @@ namespace Links
                      
                 public static readonly string app_css_map = Url("app.css.map");
                 public static readonly string app_min_css = Url("app.min.css");
+                public static readonly string vars_less = Url("vars.less");
+                public static readonly string vars_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/vars.min.css") ? Url("vars.min.css") : Url("vars.css");
+                     
+                public static readonly string vars_css_map = Url("vars.css.map");
+                public static readonly string vars_min_css = Url("vars.min.css");
             }
         
             public static readonly string ValidationMessages_resx = Url("ValidationMessages.resx");

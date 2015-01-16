@@ -52,17 +52,8 @@
 
                 return deferred.promise;
             }
-
-            recalculateAll(): ng.IPromise<any> {
-                var deferred = this.$q.defer();
-
-                this.$http.post(urls.data.recalculate, {})
-                    .success(() => deferred.resolve())
-                    .error(err => deferred.reject(err));
-
-                return deferred.promise;
-            }
         }
     }
 }
+
 LanceTrack.TrackTime.trackTimeServiceFactory.$inject = ["$q", "$http", "dates"];

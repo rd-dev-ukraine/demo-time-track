@@ -55,23 +55,12 @@
 
                 return deferred.promise;
             };
-
-            TrackTimeService.prototype.recalculateAll = function () {
-                var deferred = this.$q.defer();
-
-                this.$http.post(urls.data.recalculate, {}).success(function () {
-                    return deferred.resolve();
-                }).error(function (err) {
-                    return deferred.reject(err);
-                });
-
-                return deferred.promise;
-            };
             return TrackTimeService;
         })();
         TrackTime.TrackTimeService = TrackTimeService;
     })(LanceTrack.TrackTime || (LanceTrack.TrackTime = {}));
     var TrackTime = LanceTrack.TrackTime;
 })(LanceTrack || (LanceTrack = {}));
+
 LanceTrack.TrackTime.trackTimeServiceFactory.$inject = ["$q", "$http", "dates"];
 //# sourceMappingURL=trackTimeService.js.map
