@@ -39,7 +39,7 @@ namespace LanceTrack.Web.Features.Invoicing
             _userService = userService;
         }
 
-        [Route("prepare", Name = "PrepareInvoice"), HttpGet]
+        [Route("prepare/{projectId?}", Name = "PrepareInvoice"), HttpGet]
         public IHttpActionResult PrepareInvoice(int projectId)
         {
             var project = _projectService.BillableProject(projectId);

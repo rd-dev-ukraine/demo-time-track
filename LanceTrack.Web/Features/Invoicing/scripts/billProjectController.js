@@ -2,6 +2,10 @@
 (function (LanceTrack) {
     (function (Invoicing) {
         function billProjectController($scope, invoiceService, $state, $stateParams) {
+            $scope.projectId = $stateParams.projectId;
+            invoiceService.prepareInvoice($scope.projectId).then(function (r) {
+                return $scope.data = r;
+            });
         }
         Invoicing.billProjectController = billProjectController;
     })(LanceTrack.Invoicing || (LanceTrack.Invoicing = {}));

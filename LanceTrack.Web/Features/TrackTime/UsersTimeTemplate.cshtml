@@ -19,6 +19,12 @@
         <tr ng-repeat="project in projectsForUser(user.id) track by project.id">
             <td class="h4"
                 ng-bind="project.name"></td>
+            <td class="h4">
+                <a ui-sref="billProject({ projectId: project.id })"
+                   title="Bill project">
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                </a>
+            </td>
             <td class="time-cell__td"
                 ng-repeat="d in dates"
                 ng-init="project=project;cell=cell(project.id, d, user.id);"
@@ -32,6 +38,7 @@
         <tfoot>
         <tr>
             <td></td>
+            <td></td>
             <td class="text-muted"
                 ng-repeat="d in dates">
                 {{totalHoursAt({userId: user.id, at: d })}}hrs
@@ -44,7 +51,13 @@
 
 <div ng-repeat="project in data.projects"
      ng-if="!byUserMode">
-    <h3>{{project.name}}</h3>
+    <h3>
+        {{project.name}}
+        <a ui-sref="billProject({ projectId: project.id })"
+           title="Bill project">
+            <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
+    </h3>
     <table class="table table-bordered">
         <thead>
             <tr>
