@@ -27,6 +27,7 @@ public static partial class MVC
 {
     public static LanceTrack.Web.Features.Account.AccountController Account = new LanceTrack.Web.Features.Account.T4MVC_AccountController();
     public static LanceTrack.Web.Features.Home.HomeController Home = new LanceTrack.Web.Features.Home.T4MVC_HomeController();
+    public static LanceTrack.Web.Features.Invoicing.InvoiceTemplatesController InvoiceTemplates = new LanceTrack.Web.Features.Invoicing.T4MVC_InvoiceTemplatesController();
     public static LanceTrack.Web.Features.TrackTime.TrackTimeTemplatesController TrackTimeTemplates = new LanceTrack.Web.Features.TrackTime.T4MVC_TrackTimeTemplatesController();
     public static T4MVC.InvoicingController Invoicing = new T4MVC.InvoicingController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
@@ -224,6 +225,23 @@ namespace Links
             private const string URLPATH = "~/Features/Invoicing";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Models {
+                private const string URLPATH = "~/Features/Invoicing/Models";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class scripts {
+                private const string URLPATH = "~/Features/Invoicing/scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string billProjectController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/billProjectController.min.js") ? Url("billProjectController.min.js") : Url("billProjectController.js");
+                public static readonly string invoiceService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/invoiceService.min.js") ? Url("invoiceService.min.js") : Url("invoiceService.js");
+                public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
+            }
+        
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

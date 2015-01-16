@@ -25,5 +25,6 @@ namespace LanceTrack.Domain.Projects
         ProjectUserInfo GetProjectUserInfo(int userId, int projectId);
 
         IEnumerable<ProjectUserInfo> GetProjectUserInfo(int projectId);
+        Project BillableProject(int projectId);
     }
 }

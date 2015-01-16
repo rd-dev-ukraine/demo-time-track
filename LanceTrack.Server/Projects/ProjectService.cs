@@ -31,6 +31,12 @@ namespace LanceTrack.Server.Projects
             return _projectRepository.BillableProjects(_currentUser.Id).ToList();
         }
 
+        public Project BillableProject(int projectId)
+        {
+            return _projectRepository.BillableProjects(_currentUser.Id)
+                                     .SingleOrDefault(p => p.Id == projectId);
+        }
+
         public Project GetById(int id)
         {
             return _projectRepository.GetById(id);

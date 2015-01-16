@@ -13,6 +13,7 @@
 
     @Html.Partial(MVC.Shared.Views.Refs)
     @Html.Partial(MVC.TrackTime.Views.Refs)
+    @Html.Partial(MVC.Invoicing.Views.Refs)
 
     
     @* Angular application *@
@@ -28,10 +29,26 @@
                     LanceTrack
                 </a>
             </div>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a ui-sref="track-time.my" >Track Time</a>
+                </li>
+                <li >
+                    <a href="#">Invoicing</a>
+                </li>
+            </ul>
         </div>
     </header>
+<div class="container">
+    @RenderBody()
+</div>
+
+<footer class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
-        @RenderBody()
+        <div class="navbar-text">
+            Licensed under <a href="http://opensource.org/licenses/MIT" target="_blank">MIT</a> license, R&amp;D-Dev Company. 2015
+        </div>
     </div>
+</footer>
 </body>
 </html>

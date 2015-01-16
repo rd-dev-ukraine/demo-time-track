@@ -25,25 +25,17 @@ namespace LanceTrack.Web.Features.Shared.Models
                 Url = urlHelper;
             }
 
-            public string TrackTimeBase
-            {
-                get { return Url.Action(MVC.TrackTimeTemplates.TrackTimeTemplate()); }
-            }
+            public string TrackTimeBase { get { return Url.Action(MVC.TrackTimeTemplates.TrackTimeTemplate()); } }
 
-            public string TimeCell
-            {
-                get { return Url.Action(MVC.TrackTimeTemplates.TimeCellTemplate()); }
-            }
+            public string TimeCell { get { return Url.Action(MVC.TrackTimeTemplates.TimeCellTemplate()); } }
 
-            public string TrackMyTime
-            {
-                get { return Url.Action(MVC.TrackTimeTemplates.MyTimeTemplate()); }
-            }
+            public string TrackMyTime { get { return Url.Action(MVC.TrackTimeTemplates.MyTimeTemplate()); } }
 
-            public string UsersTime
-            {
-                get { return Url.Action(MVC.TrackTimeTemplates.UserTimeTemplate()); }
-            }
+            public string UsersTime { get { return Url.Action(MVC.TrackTimeTemplates.UserTimeTemplate()); } }
+
+            public string InvoiceBase { get { return Url.Action(MVC.InvoiceTemplates.InvoiceTemplateBase()); } }
+
+            public string BillProject { get { return Url.Action(MVC.InvoiceTemplates.BillProjectTemplate()); } }
 
             private UrlHelper Url { get; set; }
         }
@@ -58,22 +50,27 @@ namespace LanceTrack.Web.Features.Shared.Models
 
             public string LoadProjectTime
             {
-                get { return Url.HttpRouteUrl("ProjectTimeInfo", new {}); }
+                get { return Url.HttpRouteUrl("ProjectTimeInfo", new { }); }
             }
 
             public string RecalculateInvoice
             {
-                get { return Url.HttpRouteUrl("RecalculateInvoice", new {}); }
+                get { return Url.HttpRouteUrl("RecalculateInvoice", new { }); }
             }
 
             public string Statistics
             {
-                get { return Url.HttpRouteUrl("Statistics", new {}); }
+                get { return Url.HttpRouteUrl("Statistics", new { }); }
             }
 
             public string Track
             {
-                get { return Url.HttpRouteUrl("TrackTime", new {}); }
+                get { return Url.HttpRouteUrl("TrackTime", new { }); }
+            }
+
+            public string PrepareInvoice
+            {
+                get { return Url.HttpRouteUrl("PrepareInvoice", new { }); }
             }
 
             private UrlHelper Url { get; set; }

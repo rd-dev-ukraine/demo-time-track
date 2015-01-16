@@ -13,6 +13,12 @@
         <tr ng-repeat="project in data.projects track by project.id">
             <td class="h4"
                 ng-bind="project.name"></td>
+            <td class="h4">
+                <a ui-sref="billProject({ projectId: project.id })"
+                   title="Bill project">
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                </a>
+            </td>
             <td class="time-cell__td"
                 ng-repeat="d in dates"
                 ng-init="project=project;cell=cell(project.id, d);"
@@ -25,6 +31,7 @@
     </tbody>
     <tfoot>
         <tr>
+            <td></td>
             <td></td>
             <td class="text-muted"
                 ng-repeat="d in dates">

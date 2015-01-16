@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using LanceTrack.Domain.Invoicing;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.UserAccounts;
+using LanceTrack.Web.Features.Invoicing.Models;
+using TypeLite;
 
 namespace LanceTrack.Web.Features.Invoicing
 {
@@ -11,24 +15,56 @@ namespace LanceTrack.Web.Features.Invoicing
     {
         private readonly UserAccount _currentUser;
         private readonly IInvoiceService _invoiceService;
+        private readonly IProjectService _projectService;
+        private readonly IUserService _userService;
 
-        public InvoiceApiController(UserAccount currentUser, IInvoiceService invoiceService)
+        public InvoiceApiController(
+            UserAccount currentUser,
+            IInvoiceService invoiceService,
+            IProjectService projectService,
+            IUserService userService)
         {
             if (currentUser == null)
                 throw new ArgumentNullException("currentUser");
             if (invoiceService == null)
                 throw new ArgumentNullException("invoiceService");
+            if (projectService == null)
+                throw new ArgumentNullException("projectService");
+            if (userService == null)
+                throw new ArgumentNullException("userService");
 
             _currentUser = currentUser;
             _invoiceService = invoiceService;
+            _projectService = projectService;
+            _userService = userService;
         }
 
-        [Route("recalculate", Name="RecalculateInvoice"), HttpPost]
+        [Route("prepare", Name = "PrepareInvoice"), HttpGet]
+        public IHttpActionResult PrepareInvoice(int projectId)
+        {
+            var project = _projectService.BillableProject(projectId);
+            if (project == null)
+                return BadRequest("Project is not billable.");
+
+            var users = _userService.All();
+
+            var result = new InvoiceModel
+            {
+                Project = project,
+                Users = users.ToList(),
+                Invoice = _invoiceService.RecalculateInvoiceInfo(projectId, new List<InvoiceUserRequest>())
+            };
+
+            return Ok(result);
+        }
+
+        [Route("recalculate", Name = "RecalculateInvoice"), HttpPost]
         public List<InvoiceRecalculationResult> Recalculate(PrepareInvoiceParams parameters)
         {
             return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.InvoiceUserRequests);
         }
 
+        [TsClass(Module = "Api")]
         public class PrepareInvoiceParams
         {
             public int ProjectId { get; set; }

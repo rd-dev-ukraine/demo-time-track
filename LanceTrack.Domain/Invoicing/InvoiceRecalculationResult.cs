@@ -1,5 +1,8 @@
-﻿namespace LanceTrack.Domain.Invoicing
+﻿using TypeLite;
+
+namespace LanceTrack.Domain.Invoicing
 {
+    [TsClass(Module = "Api")]
     public class InvoiceRecalculationResult
     {
         public int UserId { get; set; }

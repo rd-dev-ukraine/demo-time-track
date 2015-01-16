@@ -199,6 +199,9 @@
     <Content Include="Features\Shared\styles\vars.css.map">
       <DependentUpon>vars.css</DependentUpon>
     </Content>
+    <Content Include="Features\Invoicing\InvoiceTemplateBase.cshtml" />
+    <Content Include="Features\Invoicing\Refs.cshtml" />
+    <Content Include="Features\Invoicing\BillProjectTemplate.cshtml" />
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
@@ -230,6 +233,8 @@
     </Compile>
     <Compile Include="Features\Home\HomeController.cs" />
     <Compile Include="Features\Invoicing\InvoiceApiController.cs" />
+    <Compile Include="Features\Invoicing\InvoiceTemplatesController.cs" />
+    <Compile Include="Features\Invoicing\Models\InvoiceModel.cs" />
     <Compile Include="Features\Shared\Models\Urls.cs" />
     <Compile Include="Features\Shared\ValidationMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -250,6 +255,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\InvoiceTemplatesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\InvoicingController.generated.cs">
@@ -292,6 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\InvoiceTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanceTrack.Cqrs\LanceTrack.Cqrs.csproj">
@@ -338,6 +347,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Features\Invoicing\scripts\billProjectController.ts" />
+    <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceService.ts" />
+    <TypeScriptCompile Include="Features\Invoicing\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\app.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\dateService.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\deferredFunctionService.ts" />

@@ -6,29 +6,20 @@
 
 
 declare module Api {
-	interface Urls {
-		data: Api.DataUrls;
-		templates: Api.TemplatesUrls;
+	interface PrepareInvoiceParams {
+		projectId: number;
+		invoiceUserRequests: LanceTrack.Domain.Invoicing.InvoiceUserRequest[];
 	}
-	interface DataUrls {
-		loadProjectTime: string;
-		recalculateInvoice: string;
-		statistics: string;
-		track: string;
-	}
-	interface TemplatesUrls {
-		trackTimeBase: string;
-		timeCell: string;
-		trackMyTime: string;
-		usersTime: string;
-	}
-	interface ProjectTimeInfoResult {
-		currentUserId: number;
-		startDate: string;
-		endDate: string;
-		projects: Api.Project[];
-		time: Api.ProjectDailyTime[];
+	interface InvoiceModel {
+		invoice: Api.InvoiceRecalculationResult[];
+		project: Api.Project;
 		users: Api.UserAccount[];
+	}
+	interface InvoiceRecalculationResult {
+		userId: number;
+		maxHours: number;
+		billingHours: number;
+		sum: number;
 	}
 	interface Project {
 		id: number;
@@ -39,16 +30,43 @@ declare module Api {
 		maxTotalHoursPerDay: number;
 		maxTotalHours: number;
 	}
+	interface UserAccount {
+		id: number;
+		email: string;
+		displayName: string;
+	}
+	interface Urls {
+		data: Api.DataUrls;
+		templates: Api.TemplatesUrls;
+	}
+	interface DataUrls {
+		loadProjectTime: string;
+		recalculateInvoice: string;
+		statistics: string;
+		track: string;
+		prepareInvoice: string;
+	}
+	interface TemplatesUrls {
+		trackTimeBase: string;
+		timeCell: string;
+		trackMyTime: string;
+		usersTime: string;
+		invoiceBase: string;
+		billProject: string;
+	}
+	interface ProjectTimeInfoResult {
+		currentUserId: number;
+		startDate: string;
+		endDate: string;
+		projects: Api.Project[];
+		time: Api.ProjectDailyTime[];
+		users: Api.UserAccount[];
+	}
 	interface ProjectDailyTime {
 		projectId: number;
 		userId: number;
 		date: string;
 		totalHours: number;
-	}
-	interface UserAccount {
-		id: number;
-		email: string;
-		displayName: string;
 	}
 	interface StatisticsResult {
 		totalHours: number;
@@ -63,6 +81,12 @@ declare module Api {
 		userTotalHoursReported: number;
 		projectTotalAmountEarned: number;
 		userTotalAmountEarned: number;
+	}
+}
+declare module LanceTrack.Domain.Invoicing {
+	interface InvoiceUserRequest {
+		userId: number;
+		hours: number;
 	}
 }
 
