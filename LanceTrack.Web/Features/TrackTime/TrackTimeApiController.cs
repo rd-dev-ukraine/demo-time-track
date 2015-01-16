@@ -9,7 +9,7 @@ using LanceTrack.Web.Features.TrackTime.Models;
 
 namespace LanceTrack.Web.Features.TrackTime
 {
-    [RoutePrefix("api/tracker")]
+    [RoutePrefix("api/tracker"), Authorize]
     public class TrackTimeApiController : ApiController
     {
         private readonly UserAccount _currentUser;

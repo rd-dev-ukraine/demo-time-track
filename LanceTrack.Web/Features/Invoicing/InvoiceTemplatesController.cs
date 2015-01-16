@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace LanceTrack.Web.Features.Invoicing
 {
+    [Authorize]
     public partial class InvoiceTemplatesController : Controller
     {
         public virtual ActionResult InvoiceTemplateBase()

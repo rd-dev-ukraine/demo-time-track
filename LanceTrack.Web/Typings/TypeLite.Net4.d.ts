@@ -8,7 +8,11 @@
 declare module Api {
 	interface PrepareInvoiceParams {
 		projectId: number;
-		invoiceUserRequests: LanceTrack.Domain.Invoicing.InvoiceUserRequest[];
+		invoiceUserRequests: Api.InvoiceUserRequest[];
+	}
+	interface InvoiceUserRequest {
+		userId: number;
+		hours: number;
 	}
 	interface InvoiceModel {
 		invoice: Api.InvoiceRecalculationResult[];
@@ -75,12 +79,6 @@ declare module Api {
 		userTotalHoursReported: number;
 		projectTotalAmountEarned: number;
 		userTotalAmountEarned: number;
-	}
-}
-declare module LanceTrack.Domain.Invoicing {
-	interface InvoiceUserRequest {
-		userId: number;
-		hours: number;
 	}
 }
 declare module LanceTrack.Domain.Projects {

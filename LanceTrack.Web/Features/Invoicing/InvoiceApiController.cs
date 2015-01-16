@@ -10,7 +10,7 @@ using TypeLite;
 
 namespace LanceTrack.Web.Features.Invoicing
 {
-    [RoutePrefix("api/invoice")]
+    [RoutePrefix("api/invoice"), Authorize]
     public class InvoiceApiController : ApiController
     {
         private readonly UserAccount _currentUser;
@@ -62,6 +62,12 @@ namespace LanceTrack.Web.Features.Invoicing
         public List<InvoiceRecalculationResult> Recalculate(PrepareInvoiceParams parameters)
         {
             return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.InvoiceUserRequests);
+        }
+
+        [Route("bill", Name = "Bill"), HttpPost]
+        public IHttpActionResult Bill(PrepareInvoiceParams parameters)
+        {
+            throw new NotImplementedException();
         }
 
         [TsClass(Module = "Api")]

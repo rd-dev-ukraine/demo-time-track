@@ -129,12 +129,12 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             command.Result = new List<InvoiceRecalculationResult>();
             var projectUsers = _projectService.GetProjectUserInfo(command.ProjectId);
 
-            foreach (var user in projectUsers)
+            foreach (var projectUserInfo in projectUsers)
             {
-                var userInvoiceInfo = command.InvoiceUserRequest.SingleOrDefault(r => r.UserId == user.Id) ??
+                var userInvoiceInfo = command.InvoiceUserRequest.SingleOrDefault(r => r.UserId == projectUserInfo.UserId) ??
                                         new InvoiceUserRequest
                                         {
-                                            UserId = user.Id,
+                                            UserId = projectUserInfo.UserId,
                                             Hours = 0
                                         };
                 

@@ -2,9 +2,54 @@
 
 <div class="clearfix">
     <h2 class="text-primary">
-        Prepare invoice for project {{data.project.name}}
+        Prepare invoice for project <strong> {{data.project.name}}</strong>
     </h2>
 </div>
 <div class="panel panel-default">
-    <div class="panel-body"></div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group"
+                 ng-repeat="userTime in data.invoice track by userTime.userId">
+                <p class="col-md-3 form-control-static text-right">
+                    {{user(userTime.userId).displayName}}
+                </p>
+                <div class="col-md-2">
+                    <input class="form-control"
+                           ng-model="userTime.billingHours"
+                           ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
+                           type="text"/>
+
+                </div>
+                <div class="col-md-2">
+                    <p class="form-control-static">
+                        hrs of {{userTime.maxHours}}hrs max
+                    </p>
+                </div>
+                <p class="col-md-2 form-control-static text-primary">
+                    {{userTime.sum ? '$' + userTime.sum: '-'}}
+                </p>
+            </div>
+            <div class="form-group h4">
+                <p class="col-md-offset-5 col-md-2">
+                    Total hours:
+                </p>
+                <p class="col-md-2">{{totalHours()}}hrs</p>
+            </div>
+            <div class="form-group h4 text-primary">
+                <p class="col-md-offset-5 col-md-2">
+                    Total sum:
+                </p>
+                <p class="col-md-2">${{totalSum()}}</p>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3">
+                    <button class="btn btn-lg btn-primary"
+                            type="button">
+                        Create invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </div>

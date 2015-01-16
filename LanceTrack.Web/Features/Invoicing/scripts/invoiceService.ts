@@ -19,6 +19,19 @@
 
                 return deferred.promise;
             }
+
+            recalculateInvoice(projectId: number, invoiceDetails: Api.InvoiceRecalculationResult[]): ng.IPromise<Api.InvoiceRecalculationResult[]> {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.recalculateInvoice, <Api.PrepareInvoiceParams>{
+                                    projectId: projectId,
+                                    invoiceUserRequests: _.map(invoiceDetails, d => <Api.InvoiceUserRequest>{ userId: d.userId, hours: d.billingHours })
+                                })
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
         }
     }
 } 

@@ -1,4 +1,6 @@
-﻿using TypeLite;
+﻿using LanceTrack.Domain.Infrastructure;
+using Newtonsoft.Json;
+using TypeLite;
 
 namespace LanceTrack.Domain.Invoicing
 {
@@ -9,6 +11,7 @@ namespace LanceTrack.Domain.Invoicing
 
         public decimal MaxHours { get; set; }
 
+        [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal BillingHours { get; set; }
 
         public decimal Sum { get; set; }
