@@ -15,6 +15,7 @@
                 ng-bind="project.name"></td>
             <td class="h4">
                 <a ui-sref="billProject({ projectId: project.id })"
+                   ng-if="canBillProject(project)"
                    title="Bill project">
                     <span class="glyphicon glyphicon-list-alt"></span>
                 </a>

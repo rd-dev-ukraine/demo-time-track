@@ -42,7 +42,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
         {
             var project = _projectService.GetById(command.ProjectId);
 
-            if (project.Status != ProjectStatus.Active)
+            if (project == null || project.Status != ProjectStatus.Active)
                 throw new ProjectNotReportableException();
 
             var targetUserProjectData = _projectService.GetProjectUserInfo(command.ForUserId, command.ProjectId);

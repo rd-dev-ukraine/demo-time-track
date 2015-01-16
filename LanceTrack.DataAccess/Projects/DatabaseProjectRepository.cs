@@ -56,12 +56,23 @@ namespace LanceTrack.Server.DataAccess.Projects
 
         private IQueryable<Project> Projects(int userId, ProjectPermissions permissions)
         {
-            var pud = ProjectUserInfo();
             return DbManager.GetTable<Project>()
-                .Where(p => pud.Any(perm => perm.ProjectId == p.Id &&
-                                            perm.UserId == userId &&
-                                            (perm.UserPermissions & permissions) != ProjectPermissions.None))
-                .Where(p => p.Status == ProjectStatus.Active);
+                            .Join(ProjectUserInfo().Where(i => i.UserId == userId),
+                                  p => p.Id,
+                                  i => i.ProjectId,
+                                  (p, i) => new Project
+                                    {
+                                        EndDate = p.EndDate,
+                                        Id = p.Id,
+                                        MaxTotalHours = p.MaxTotalHours,
+                                        MaxTotalHoursPerDay = p.MaxTotalHoursPerDay,
+                                        Name = p.Name,
+                                        Permissions = i.UserPermissions,
+                                        StartDate = p.StartDate,
+                                        Status = p.Status
+                                    })
+                            .Where(p => (p.Permissions & permissions) != ProjectPermissions.None)
+                            .Where(p => p.Status == ProjectStatus.Active);
         }
 
         private IQueryable<ProjectUserInfo> ProjectUserInfo()

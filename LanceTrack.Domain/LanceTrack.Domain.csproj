@@ -62,8 +62,9 @@
     <Compile Include="Invoicing\InvoiceRecalculationResult.cs" />
     <Compile Include="Invoicing\InvoiceUserRequest.cs" />
     <Compile Include="Projects\IProjectService.cs" />
-    <Compile Include="Projects\Project.cs" />
+    <Compile Include="Projects\ProjectBase.cs" />
     <Compile Include="Projects\ProjectDailyTime.cs" />
+    <Compile Include="Projects\Project.cs" />
     <Compile Include="Projects\ProjectPermissions.cs" />
     <Compile Include="Projects\ProjectStatus.cs" />
     <Compile Include="Projects\ProjectUserInfo.cs" />

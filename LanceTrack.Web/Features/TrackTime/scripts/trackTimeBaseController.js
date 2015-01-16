@@ -51,6 +51,10 @@
                 return result;
             };
 
+            $scope.canBillProject = function (project) {
+                return (project.permissions & 32 /* BillProject */) !== 0;
+            };
+
             reload();
 
             $scope.$watch("at", function (o, n) {

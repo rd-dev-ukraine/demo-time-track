@@ -1,8 +1,9 @@
 ﻿using System;
+using TypeLite;
 
 namespace LanceTrack.Domain.Projects
 {
-    [Flags]
+    [Flags, TsEnum(Module = "Api")]
     public enum ProjectPermissions
     {
         None = 0,

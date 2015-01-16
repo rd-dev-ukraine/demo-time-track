@@ -21,14 +21,8 @@ declare module Api {
 		billingHours: number;
 		sum: number;
 	}
-	interface Project {
-		id: number;
-		name: string;
-		status: Api.ProjectStatus;
-		startDate: Date;
-		endDate: Date;
-		maxTotalHoursPerDay: number;
-		maxTotalHours: number;
+	interface Project extends LanceTrack.Domain.Projects.ProjectBase {
+		permissions: Api.ProjectPermissions;
 	}
 	interface UserAccount {
 		id: number;
@@ -87,6 +81,17 @@ declare module LanceTrack.Domain.Invoicing {
 	interface InvoiceUserRequest {
 		userId: number;
 		hours: number;
+	}
+}
+declare module LanceTrack.Domain.Projects {
+	interface ProjectBase {
+		id: number;
+		name: string;
+		status: Api.ProjectStatus;
+		startDate: Date;
+		endDate: Date;
+		maxTotalHoursPerDay: number;
+		maxTotalHours: number;
 	}
 }
 

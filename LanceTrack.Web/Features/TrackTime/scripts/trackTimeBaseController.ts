@@ -51,6 +51,10 @@
                 return result;
             };
 
+            $scope.canBillProject = (project: Api.Project) => {
+                return (project.permissions & Api.ProjectPermissions.BillProject) !== 0;
+            };
+
             reload();
             
             $scope.$watch("at", (o, n) => {
@@ -67,8 +71,8 @@
             at: string;
             dates: Date[];
             
+            canBillProject(project: Api.Project): boolean;
             cell(projectId: number, date: any, userId?: number): Api.ProjectDailyTime;
-
             totalHours(of: { projectId?: number; userId?: number; at?: string; }): number;
 
             dateService: LanceTrack.Dates;

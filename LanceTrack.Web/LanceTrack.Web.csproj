@@ -300,7 +300,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\InvoiceTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LanceTrack.Cqrs\LanceTrack.Cqrs.csproj">
