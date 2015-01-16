@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.Invoicing;
@@ -15,7 +16,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
         ICommandHandler<TrackTimeCommand, ProjectTimeAggregateRoot, int>,
         ICommandHandler<BillProjectCommand, ProjectTimeAggregateRoot, int>,
         ICommandHandler<RecalculateInvoiceInfoCommand, ProjectTimeAggregateRoot, int>,
-        IEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>,
+        IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly IProjectService _projectService;
@@ -70,7 +71,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 (projectDailyHours.Sum(p => p.Hours) + command.Hours) > project.MaxTotalHours)
                 throw new IncorrectHoursException();
 
-            var @event = new ProjectTimeTrackedEvent
+            var @event = new TimeTrackedEvent
             {
                 At = command.At,
                 Hours = command.Hours,
@@ -139,6 +140,10 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                                         };
                 
                 var maxBillableHours = State.MaxBillableHours(userInvoiceInfo.UserId);
+
+                if (maxBillableHours == 0)
+                    continue; 
+
                 var hours = Math.Min(userInvoiceInfo.Hours, maxBillableHours);
 
                 var sum = State.CalculateInvoiceSum(userInvoiceInfo.UserId, hours);
@@ -155,7 +160,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             yield break;
         }
 
-        public void On(ProjectTimeTrackedEvent @event)
+        public void On(TimeTrackedEvent @event)
         {
             State.On(@event);
         }
@@ -175,7 +180,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         private string InvoiceNum(int projectId)
         {
-            return String.Format("INV{0:000000}-{1}/{2:yyyy-MMM-dd}", projectId, State.Invoices.Count + 1, DateTimeOffset.Now);
+            return String.Format(CultureInfo.GetCultureInfo("en"), "INV{0:0000}/{1}-{2:yyyyMMMdd}", projectId, State.Invoices.Count + 1, DateTimeOffset.Now);
         }
     }
 }

@@ -5,7 +5,8 @@
         Prepare invoice for project <strong> {{data.project.name}}</strong>
     </h2>
 </div>
-<div class="panel panel-default">
+<div class="panel panel-default"
+     ng-if="isBillable()">
     <div class="panel-body">
         <div class="alert alert-danger"
              ng-if="error">
@@ -57,4 +58,8 @@
         </div>
 
     </div>
+</div>
+<div class="alert alert-warning"
+     ng-if="!isBillable() && data">
+    All hours for the project has been billed. Go to <a class="text-primary" ui-sref="track-time.users">track time</a> and report more work.
 </div>

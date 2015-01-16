@@ -1,4 +1,6 @@
-﻿namespace LanceTrack.Cqrs.Contract
+﻿using System;
+
+namespace LanceTrack.Cqrs.Contract
 {
     /// <summary>
     /// Single domain knowlege fact expressed as element of append-only sequence.
@@ -11,5 +13,7 @@
         /// Gets identifier of aggregate root where event belongs to.
         /// </summary>
         TAggregateRootId AggregateRootId { get; }
+
+        DateTimeOffset RegisteredAt { get; }
     }
 }

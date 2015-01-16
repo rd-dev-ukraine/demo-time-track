@@ -10,7 +10,7 @@ using LanceTrack.Server.Cqrs.ProjectTime.Events;
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
     public class ProjectTimeAggregateRootEventStore : DataAccessor, IEventStore<ProjectTimeAggregateRoot, int>,
-        IEventStoreAppendMethod<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>,
+        IEventStoreAppendMethod<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventStoreAppendMethod<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
         public ProjectTimeAggregateRootEventStore(DbManager dbManager)
@@ -20,19 +20,19 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> ReadAggregateRootEvents(int aggregateRootId)
         {
-            return DbManager.GetTable<ProjectTimeTrackedEvent>()
+            return DbManager.GetTable<TimeTrackedEvent>()
                             .Where(e => e.ProjectId == aggregateRootId)
-                            .OrderBy(e => e.At)
                             .ToArray()
                             .Cast<IEvent<ProjectTimeAggregateRoot, int>>()
             .Concat(
                    DbManager.GetTable<InvoiceEvent>()
                             .Where(e => e.ProjectId == aggregateRootId)
                             .OrderBy(e => e.At)
-                            .ToArray());
+                            .ToArray())
+            .OrderBy(e => e.RegisteredAt);
         }
 
-        public void Append(ProjectTimeTrackedEvent @event)
+        public void Append(TimeTrackedEvent @event)
         {
             DbManager.InsertWithIdentity(@event);
         }

@@ -64,7 +64,7 @@
     <Compile Include="ProjectTime\ReadModels\ProjectDailyTimeReadModelManager.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRoot.cs" />
     <Compile Include="ProjectTime\ProjectTimeAggregateRootServer.cs" />
-    <Compile Include="ProjectTime\Events\ProjectTimeTrackedEvent.cs" />
+    <Compile Include="ProjectTime\Events\TimeTrackedEvent.cs" />
     <Compile Include="ProjectTime\Commands\TrackTimeCommand.cs" />
     <Compile Include="ProjectTime\ReadModels\ProjectUserSummaryReadModelManager.cs" />
     <Compile Include="ProjectTime\State\ProjectUserDailyTimeRecord.cs" />

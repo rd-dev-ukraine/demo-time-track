@@ -27,6 +27,8 @@
                     .catch(err => $scope.error = err);
             };
 
+            $scope.isBillable = () => !!$scope.data && !!$scope.data.invoice.length;
+
             $scope.totalHours = () => {
                 if (!$scope.data)
                     return null;
@@ -61,6 +63,7 @@
             user(id: number): Api.UserAccount;
             totalHours(): number;
             totalSum(): number;
+            isBillable(): boolean;
             bill(): void;
         }
     }

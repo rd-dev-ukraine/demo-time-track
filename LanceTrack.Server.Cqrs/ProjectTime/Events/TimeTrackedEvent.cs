@@ -6,7 +6,7 @@ using LanceTrack.Cqrs.Contract;
 namespace LanceTrack.Server.Cqrs.ProjectTime.Events
 {
     [TableName("TimeRegistrationEvents")]
-    public class ProjectTimeTrackedEvent : IEvent<ProjectTimeAggregateRoot, int>
+    public class TimeTrackedEvent : IEvent<ProjectTimeAggregateRoot, int>
     {
         [PrimaryKey, Identity]
         public int Id { get; set; }

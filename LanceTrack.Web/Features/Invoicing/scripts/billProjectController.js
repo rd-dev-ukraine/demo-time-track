@@ -26,6 +26,10 @@
                 });
             };
 
+            $scope.isBillable = function () {
+                return !!$scope.data && !!$scope.data.invoice.length;
+            };
+
             $scope.totalHours = function () {
                 if (!$scope.data)
                     return null;

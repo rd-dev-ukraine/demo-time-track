@@ -10,7 +10,7 @@ using LanceTrack.Server.Cqrs.ProjectTime.State;
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
     public class ProjectDailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
-        IReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
+        IReadModelEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         private readonly IDailyTimeStorage _storage;
         private readonly List<ProjectDailyTime> _readModels = new List<ProjectDailyTime>();
@@ -23,7 +23,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             _storage = storage;
         }
 
-        public void On(ProjectTimeTrackedEvent evt, ProjectTimeAggregateRootState state)
+        public void On(TimeTrackedEvent evt, ProjectTimeAggregateRootState state)
         {
             var dailyTime = _readModels.FirstOrDefault(m => m.Date == evt.At.Date &&
                                                             m.ProjectId == evt.ProjectId &&

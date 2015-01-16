@@ -11,7 +11,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
     ///     Helper class reacts on events and calculates user daily time.
     /// </summary>
     public class ProjectTimeAggregateRootState : IAggregateRootState<int>,
-        IEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRoot, int>,
+        IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
         private readonly Dictionary<Tuple<int, DateTime>, ProjectUserDailyTimeRecord> _projectUserDailyTimeData = new Dictionary<Tuple<int, DateTime>, ProjectUserDailyTimeRecord>();
@@ -64,7 +64,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             return sum;
         }
 
-        public void On(ProjectTimeTrackedEvent e)
+        public void On(TimeTrackedEvent e)
         {
             ProjectId = e.ProjectId;
 
@@ -104,7 +104,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
                     continue;
 
                 // Add non-billed hours
-                if (restOfBilledHours < 0)
+                if (restOfBilledHours <= 0)
                 {
                     hrs.Hours = Math.Abs(restOfBilledHours);
                     restOfBilledHours = 0;
@@ -118,7 +118,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             _userBillableHours[userId] = userHours;
         }
 
-        private void UpdateDailyTime(ProjectTimeTrackedEvent e)
+        private void UpdateDailyTime(TimeTrackedEvent e)
         {
             var date = e.At.ToUniversalTime().Date;
 
@@ -147,9 +147,10 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         private IEnumerable<UserBillingHours> UserBillingHours(int userId)
         {
-            var hoursBatches = ProjectUserTime.Where(a => a.UserId == userId).OrderBy(a => a.At)
-                .Batch(a => a.HourlyRate)
-                .ToArray();
+            var hoursBatches = ProjectUserTime.Where(a => a.UserId == userId)
+                                              .OrderBy(a => a.At)
+                                              .Batch(a => a.HourlyRate)
+                                              .ToArray();
 
             return hoursBatches.Select(a => new UserBillingHours
             {

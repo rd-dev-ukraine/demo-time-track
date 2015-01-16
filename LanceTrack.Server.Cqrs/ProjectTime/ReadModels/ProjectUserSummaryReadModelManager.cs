@@ -10,7 +10,7 @@ using LanceTrack.Server.Cqrs.ProjectTime.State;
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
     public class ProjectUserSummaryReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
-        IReadModelEventRecipient<ProjectTimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
+        IReadModelEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         // Key is projectId, userId
         private readonly Dictionary<Tuple<int, int>, ProjectUserSummary> _models = new Dictionary<Tuple<int, int>, ProjectUserSummary>();
@@ -25,7 +25,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             _storage = storage;
         }
 
-        public void On(ProjectTimeTrackedEvent @event, ProjectTimeAggregateRootState state)
+        public void On(TimeTrackedEvent @event, ProjectTimeAggregateRootState state)
         {
             var key = new Tuple<int, int>(@event.ProjectId, @event.UserId);
 
