@@ -1,10 +1,11 @@
 ﻿using System;
 using BLToolkit.DataAccess;
 using BLToolkit.Mapping;
+using TypeLite;
 
 namespace LanceTrack.Domain.Invoicing
 {
-    [TableName("InvoiceData")]
+    [TableName("InvoiceData"), TsClass(Module = "Api")]
     public class Invoice
     {
         [PrimaryKey]

@@ -175,7 +175,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         private string InvoiceNum(int projectId)
         {
-            return String.Format("INV{0:000000}-{1}/{2:yyyyMMdd}", projectId, State.Invoices.Count + 1, DateTimeOffset.Now);
+            return String.Format("INV{0:000000}-{1}/{2:yyyy-MMM-dd}", projectId, State.Invoices.Count + 1, DateTimeOffset.Now);
         }
     }
 }

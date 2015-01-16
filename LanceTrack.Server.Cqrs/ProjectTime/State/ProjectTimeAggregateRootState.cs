@@ -81,7 +81,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
             UpdateBillableHours(e.UserId);
 
-            var invoiceInfo = Invoices.GetOrAdd(e.InvoiceNum);
+            var invoiceInfo = Invoices.GetOrAdd(e.InvoiceNum, new InvoiceInfo());
             invoiceInfo.BilledAt = e.At;
             invoiceInfo.IsPaid = e.EventType == InvoiceEventType.Paid;
             invoiceInfo.Number = e.InvoiceNum;

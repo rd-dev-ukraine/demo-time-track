@@ -39,6 +39,23 @@
 
                 return deferred.promise;
             };
+
+            InvoiceService.prototype.bill = function (projectId, invoiceDetails) {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.bill, {
+                    projectId: projectId,
+                    invoiceUserRequests: _.map(invoiceDetails, function (d) {
+                        return { userId: d.userId, hours: d.billingHours };
+                    })
+                }).success(function (r) {
+                    return deferred.resolve(r);
+                }).error(function (err) {
+                    return deferred.reject(err);
+                });
+
+                return deferred.promise;
+            };
             return InvoiceService;
         })();
         Invoicing.InvoiceService = InvoiceService;

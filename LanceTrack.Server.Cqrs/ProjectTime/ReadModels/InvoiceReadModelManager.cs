@@ -53,6 +53,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             invoice.At = e.RegisteredAt;
             invoice.BilledByUserId = e.RegisteredByUserId;
             invoice.ProjectId = e.ProjectId;
+            invoice.InvoiceNum = e.InvoiceNum;
 
             RecalculateInvoice(e.InvoiceNum);
         }

@@ -25,17 +25,35 @@ namespace LanceTrack.Web.Features.Shared.Models
                 Url = urlHelper;
             }
 
-            public string TrackTimeBase { get { return Url.Action(MVC.TrackTimeTemplates.TrackTimeTemplate()); } }
+            public string BillProject
+            {
+                get { return Url.Action(MVC.InvoiceTemplates.BillProjectTemplate()); }
+            }
 
-            public string TimeCell { get { return Url.Action(MVC.TrackTimeTemplates.TimeCellTemplate()); } }
+            public string InvoiceBase
+            {
+                get { return Url.Action(MVC.InvoiceTemplates.InvoiceTemplateBase()); }
+            }
 
-            public string TrackMyTime { get { return Url.Action(MVC.TrackTimeTemplates.MyTimeTemplate()); } }
+            public string TimeCell
+            {
+                get { return Url.Action(MVC.TrackTimeTemplates.TimeCellTemplate()); }
+            }
 
-            public string UsersTime { get { return Url.Action(MVC.TrackTimeTemplates.UserTimeTemplate()); } }
+            public string TrackMyTime
+            {
+                get { return Url.Action(MVC.TrackTimeTemplates.MyTimeTemplate()); }
+            }
 
-            public string InvoiceBase { get { return Url.Action(MVC.InvoiceTemplates.InvoiceTemplateBase()); } }
+            public string TrackTimeBase
+            {
+                get { return Url.Action(MVC.TrackTimeTemplates.TrackTimeTemplate()); }
+            }
 
-            public string BillProject { get { return Url.Action(MVC.InvoiceTemplates.BillProjectTemplate()); } }
+            public string UsersTime
+            {
+                get { return Url.Action(MVC.TrackTimeTemplates.UserTimeTemplate()); }
+            }
 
             private UrlHelper Url { get; set; }
         }
@@ -50,27 +68,40 @@ namespace LanceTrack.Web.Features.Shared.Models
 
             public string LoadProjectTime
             {
-                get { return Url.HttpRouteUrl("ProjectTimeInfo", new { }); }
-            }
-
-            public string RecalculateInvoice
-            {
-                get { return Url.HttpRouteUrl("RecalculateInvoice", new { }); }
-            }
-
-            public string Statistics
-            {
-                get { return Url.HttpRouteUrl("Statistics", new { }); }
-            }
-
-            public string Track
-            {
-                get { return Url.HttpRouteUrl("TrackTime", new { }); }
+                get { return Url.HttpRouteUrl("ProjectTimeInfo", new {}); }
             }
 
             public string PrepareInvoice
             {
-                get { return Url.HttpRouteUrl("PrepareInvoice", new { }); }
+                get { return Url.HttpRouteUrl("PrepareInvoice", new {}); }
+            }
+
+            public string RecalculateInvoice
+            {
+                get { return Url.HttpRouteUrl("RecalculateInvoice", new {}); }
+            }
+
+            public string Statistics
+            {
+                get { return Url.HttpRouteUrl("Statistics", new {}); }
+            }
+
+            public string Track
+            {
+                get { return Url.HttpRouteUrl("TrackTime", new {}); }
+            }
+
+            public string Bill
+            {
+                get { return Url.HttpRouteUrl("Bill", new { }); }
+            }
+
+            public string InvoiceDetails
+            {
+                get
+                {
+                    return Url.HttpRouteUrl("InvoiceDetails", new { });
+                }
             }
 
             private UrlHelper Url { get; set; }

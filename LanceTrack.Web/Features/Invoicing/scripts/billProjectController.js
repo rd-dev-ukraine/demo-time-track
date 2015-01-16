@@ -16,6 +16,16 @@
                 return $scope.data = r;
             });
 
+            $scope.bill = function () {
+                $scope.error = null;
+
+                invoiceService.bill($scope.data.project.id, $scope.data.invoice).then(function (r) {
+                    return alert("Invoice created: " + r);
+                }).catch(function (err) {
+                    return $scope.error = err;
+                });
+            };
+
             $scope.totalHours = function () {
                 if (!$scope.data)
                     return null;
@@ -37,6 +47,8 @@
             $scope.$watch("data.invoice", function (o, n) {
                 if (o === undefined || o == n)
                     return;
+
+                $scope.error = null;
 
                 invoiceService.recalculateInvoice($scope.data.project.id, $scope.data.invoice).then(function (r) {
                     return $scope.data.invoice = r;

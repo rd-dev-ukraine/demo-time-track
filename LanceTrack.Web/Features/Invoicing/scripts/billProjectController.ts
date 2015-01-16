@@ -19,6 +19,14 @@
             invoiceService.prepareInvoice($scope.projectId)
                 .then(r => $scope.data = r);
 
+            $scope.bill = () => {
+                $scope.error = null;
+
+                invoiceService.bill($scope.data.project.id, $scope.data.invoice)
+                    .then((r) => alert("Invoice created: " + r))
+                    .catch(err => $scope.error = err);
+            };
+
             $scope.totalHours = () => {
                 if (!$scope.data)
                     return null;
@@ -39,6 +47,8 @@
                 if (o === undefined || o == n)
                     return;
 
+                $scope.error = null;
+
                 invoiceService.recalculateInvoice($scope.data.project.id, $scope.data.invoice)
                     .then(r => $scope.data.invoice = r);
             }, true);
@@ -47,9 +57,11 @@
         export interface BillingScope extends ng.IScope {
             projectId: number;
             data: Api.PrepareInvoiceModel;
+            error: string;
             user(id: number): Api.UserAccount;
             totalHours(): number;
             totalSum(): number;
+            bill(): void;
         }
     }
 }

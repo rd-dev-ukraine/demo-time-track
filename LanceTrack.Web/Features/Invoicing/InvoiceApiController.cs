@@ -39,6 +39,36 @@ namespace LanceTrack.Web.Features.Invoicing
             _userService = userService;
         }
 
+        [Route("bill", Name = "Bill"), HttpPost]
+        public IHttpActionResult Bill(PrepareInvoiceParams parameters)
+        {
+            try
+            {
+                var invoiceNum = _invoiceService.BillProject(parameters.ProjectId, parameters.InvoiceUserRequests);
+                return Created(Url.Link("InvoiceDetails", new {invoiceNumber = invoiceNum}), invoiceNum);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("details/{invoiceNumber}", Name = "InvoiceDetails")]
+        public IHttpActionResult Details(string invoiceNumber)
+        {
+            var invoice = _invoiceService.Get(invoiceNumber);
+            if (invoice == null)
+                return NotFound();
+
+            var details = _invoiceService.Details(invoiceNumber);
+
+            return Ok(new InvoiceModel
+            {
+                Invoice = invoice,
+                Details = details
+            });
+        }
+
         [Route("prepare/{projectId?}", Name = "PrepareInvoice"), HttpGet]
         public IHttpActionResult PrepareInvoice(int projectId)
         {
@@ -64,24 +94,11 @@ namespace LanceTrack.Web.Features.Invoicing
             return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.InvoiceUserRequests);
         }
 
-        [Route("bill", Name = "Bill"), HttpPost]
-        public IHttpActionResult Bill(PrepareInvoiceParams parameters)
-        {
-            //try
-            //{
-            //    var invoiceNum = _invoiceService.BillProject(parameters.ProjectId, parameters.InvoiceUserRequests);
-            //    return Cre
-            //}
-
-            throw new NotImplementedException();
-        }
-
         [TsClass(Module = "Api")]
         public class PrepareInvoiceParams
         {
-            public int ProjectId { get; set; }
-
             public List<InvoiceUserRequest> InvoiceUserRequests { get; set; }
+            public int ProjectId { get; set; }
         }
     }
 }

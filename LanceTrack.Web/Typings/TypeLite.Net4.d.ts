@@ -14,6 +14,27 @@ declare module Api {
 		userId: number;
 		hours: number;
 	}
+	interface InvoiceModel {
+		invoice: Api.Invoice;
+		details: Api.InvoiceDetails[];
+	}
+	interface Invoice {
+		invoiceNum: string;
+		projectId: number;
+		at: Date;
+		isPaid: boolean;
+		sum: number;
+		hours: number;
+		receivedSum: number;
+		billedByUserId: number;
+	}
+	interface InvoiceDetails {
+		invoiceNum: string;
+		userId: number;
+		userSum: number;
+		userHours: number;
+		userReceivedSum: number;
+	}
 	interface PrepareInvoiceModel {
 		invoice: Api.InvoiceRecalculationResult[];
 		project: Api.Project;
@@ -39,18 +60,20 @@ declare module Api {
 	}
 	interface DataUrls {
 		loadProjectTime: string;
+		prepareInvoice: string;
 		recalculateInvoice: string;
 		statistics: string;
 		track: string;
-		prepareInvoice: string;
+		bill: string;
+		invoiceDetails: string;
 	}
 	interface TemplatesUrls {
-		trackTimeBase: string;
+		billProject: string;
+		invoiceBase: string;
 		timeCell: string;
 		trackMyTime: string;
+		trackTimeBase: string;
 		usersTime: string;
-		invoiceBase: string;
-		billProject: string;
 	}
 	interface ProjectTimeInfoResult {
 		currentUserId: number;
