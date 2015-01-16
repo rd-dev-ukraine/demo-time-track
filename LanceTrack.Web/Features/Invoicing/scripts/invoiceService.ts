@@ -10,7 +10,7 @@
                 private $http: ng.IHttpService) {
             }
 
-            prepareInvoice(projectId: number): ng.IPromise<Api.InvoiceModel> {
+            prepareInvoice(projectId: number): ng.IPromise<Api.PrepareInvoiceModel> {
                 var deferred = this.$q.defer();
 
                 this.$http.get(urls.data.prepareInvoice + "/" + projectId)

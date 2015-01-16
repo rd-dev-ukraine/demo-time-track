@@ -14,7 +14,7 @@ declare module Api {
 		userId: number;
 		hours: number;
 	}
-	interface InvoiceModel {
+	interface PrepareInvoiceModel {
 		invoice: Api.InvoiceRecalculationResult[];
 		project: Api.Project;
 		users: Api.UserAccount[];

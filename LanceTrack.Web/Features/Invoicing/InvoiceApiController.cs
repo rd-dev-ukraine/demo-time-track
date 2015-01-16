@@ -48,7 +48,7 @@ namespace LanceTrack.Web.Features.Invoicing
 
             var users = _userService.All();
 
-            var result = new InvoiceModel
+            var result = new PrepareInvoiceModel
             {
                 Project = project,
                 Users = users.ToList(),
@@ -67,6 +67,12 @@ namespace LanceTrack.Web.Features.Invoicing
         [Route("bill", Name = "Bill"), HttpPost]
         public IHttpActionResult Bill(PrepareInvoiceParams parameters)
         {
+            //try
+            //{
+            //    var invoiceNum = _invoiceService.BillProject(parameters.ProjectId, parameters.InvoiceUserRequests);
+            //    return Cre
+            //}
+
             throw new NotImplementedException();
         }
 

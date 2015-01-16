@@ -46,7 +46,7 @@
 
         export interface BillingScope extends ng.IScope {
             projectId: number;
-            data: Api.InvoiceModel;
+            data: Api.PrepareInvoiceModel;
             user(id: number): Api.UserAccount;
             totalHours(): number;
             totalSum(): number;

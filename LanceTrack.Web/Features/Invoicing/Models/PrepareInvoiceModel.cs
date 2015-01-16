@@ -7,7 +7,7 @@ using TypeLite;
 namespace LanceTrack.Web.Features.Invoicing.Models
 {
     [TsClass(Module = "Api")]
-    public class InvoiceModel
+    public class PrepareInvoiceModel
     {
         public List<InvoiceRecalculationResult> Invoice { get; set; }
         public Project Project { get; set; }
