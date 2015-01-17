@@ -29,7 +29,8 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
                             .Where(e => e.ProjectId == aggregateRootId)
                             .OrderBy(e => e.At)
                             .ToArray())
-            .OrderBy(e => e.RegisteredAt);
+            .OrderBy(e => e.RegisteredAt)
+            .ToArray();
         }
 
         public void Append(TimeTrackedEvent @event)

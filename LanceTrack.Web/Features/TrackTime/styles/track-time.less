@@ -5,27 +5,40 @@
 }
 
 .time-cell {
-    position: absolute;
-    top: 8px;
-    bottom: 8px;
-    left: 8px;
-    right: 8px;
+    position: relative;
 
-    &__height-expander {
-        visibility: hidden;
-    }
-
-
-    &__td {
+    &__container {
         position: relative;
     }
 
     &__inner {
     }
 
-    &__editor:focus {
-        border: 2px solid;
-        border-color: @accent-color;
+    &__editor {
+        padding: 0.1em 0.1em 0.1em 0.3em;
+
+        &:focus {
+            border: 2px solid;
+            border-color: @accent-color;
+        }
+    }
+
+    &__indicator {
+        height: 1.4em;
+        right: 0.3em;
+    }
+}
+
+.date-range {
+    float: left;
+    overflow: hidden;
+
+    &.mon-wed {
+        width: 57.14%;
+    }
+
+    &.thu-sun {
+        width: 42.85%;
     }
 }
 

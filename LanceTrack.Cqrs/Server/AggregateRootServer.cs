@@ -73,18 +73,19 @@ namespace LanceTrack.Cqrs.Server
                                 _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)e, rm);
                         }
                 }
-            }
 
-            if (events.Any())
-            {
-                // Saves events in store
-                foreach (var e in events)
-                    _self.AppendEventToStore((dynamic)e);
 
-                // Update read models
-                foreach (var readModel in aggregateRootInstance.ReadModels)
-                    lock (readModel)
-                        readModel.Save();
+                if (events.Any())
+                {
+                    // Saves events in store
+                    foreach (var e in events)
+                        _self.AppendEventToStore((dynamic)e);
+
+                    // Update read models
+                    foreach (var readModel in aggregateRootInstance.ReadModels)
+                        lock (readModel)
+                            readModel.Save();
+                }
             }
         }
 
@@ -93,10 +94,10 @@ namespace LanceTrack.Cqrs.Server
         /// </summary>
         protected virtual TAggregateRoot RestoreAggregateRoot(TAggregateRootId id)
         {
-            var aggregateRootInstance = AggregateRootFactory();
-
-            lock (aggregateRootInstance)
+            lock (this)
             {
+                var aggregateRootInstance = AggregateRootFactory();
+
                 foreach (var evnt in EventStore.ReadAggregateRootEvents(id))
                 {
                     _self.DispatchEventOnAggregateRoot(aggregateRootInstance, (dynamic)evnt);
@@ -105,9 +106,9 @@ namespace LanceTrack.Cqrs.Server
                         lock (readModel)
                             _self.DispatchEventOnReadModel(aggregateRootInstance, (dynamic)evnt, (dynamic)readModel);
                 }
-            }
 
-            return aggregateRootInstance;
+                return aggregateRootInstance;
+            }
         }
 
         protected virtual IEnumerable<IEvent<TAggregateRoot, TAggregateRootId>> DispatchCommandOnAggregateRoot<TCommand>(TAggregateRoot aggregateRoot, TCommand command)

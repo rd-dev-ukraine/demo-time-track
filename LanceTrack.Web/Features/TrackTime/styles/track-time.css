@@ -3,21 +3,31 @@
   font-weight: bold;
 }
 .time-cell {
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-}
-.time-cell__height-expander {
-  visibility: hidden;
-}
-.time-cell__td {
   position: relative;
+}
+.time-cell__container {
+  position: relative;
+}
+.time-cell__editor {
+  padding: 0.1em 0.1em 0.1em 0.3em;
 }
 .time-cell__editor:focus {
   border: 2px solid;
   border-color: #df691a;
+}
+.time-cell__indicator {
+  height: 1.4em;
+  right: 0.3em;
+}
+.date-range {
+  float: left;
+  overflow: hidden;
+}
+.date-range.mon-wed {
+  width: 57.14%;
+}
+.date-range.thu-sun {
+  width: 42.85%;
 }
 .user-statistics {
   border-radius: 1rem;
