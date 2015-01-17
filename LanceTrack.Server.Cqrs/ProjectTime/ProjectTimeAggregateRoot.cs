@@ -68,7 +68,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             var projectDailyHours = State.ProjectUserTime.Where(p => p.ProjectId == command.ProjectId);
 
             if (projectDailyHours.Any() &&
-                (projectDailyHours.Sum(p => p.Hours) + command.Hours) > project.MaxTotalHours)
+                (projectDailyHours.Sum(p => p.TotalHours) + command.Hours) > project.MaxTotalHours)
                 throw new IncorrectHoursException();
 
             var @event = new TimeTrackedEvent

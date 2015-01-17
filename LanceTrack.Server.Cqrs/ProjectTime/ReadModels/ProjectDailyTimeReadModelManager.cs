@@ -13,7 +13,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
         IReadModelEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         private readonly IDailyTimeStorage _storage;
-        private readonly List<ProjectDailyTime> _readModels = new List<ProjectDailyTime>();
+        private List<ProjectDailyTime> _readModels = new List<ProjectDailyTime>();
 
         public ProjectDailyTimeReadModelManager(IDailyTimeStorage storage)
         {
@@ -25,22 +25,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 
         public void On(TimeTrackedEvent evt, ProjectTimeAggregateRootState state)
         {
-            var dailyTime = _readModels.FirstOrDefault(m => m.Date == evt.At.Date &&
-                                                            m.ProjectId == evt.ProjectId &&
-                                                            m.UserId == evt.UserId);
-
-            if (dailyTime == null)
-            {
-                dailyTime = new ProjectDailyTime
-                {
-                    Date = evt.At.Date,
-                    ProjectId = evt.ProjectId,
-                    UserId = evt.UserId
-                };
-                _readModels.Add(dailyTime);
-            }
-
-            dailyTime.TotalHours = evt.Hours;
+            _readModels = state.ProjectUserTime.ToList();
         }
 
         public void Save()

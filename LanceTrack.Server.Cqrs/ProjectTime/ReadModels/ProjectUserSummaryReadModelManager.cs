@@ -44,13 +44,13 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 
             foreach(var dt in state.ProjectUserTime.Where(e => e.ProjectId == @event.ProjectId))
             {
-                model.ProjectTotalHoursReported += dt.Hours;
-                model.ProjectTotalAmountEarned += dt.Hours * dt.HourlyRate;
+                model.ProjectTotalHoursReported += dt.TotalHours;
+                model.ProjectTotalAmountEarned += dt.TotalHours * dt.HourlyRate;
                 
                 if (dt.UserId == @event.UserId)
                 {
-                    model.UserTotalHoursReported += dt.Hours;
-                    model.UserTotalAmountEarned += dt.Hours * dt.HourlyRate;
+                    model.UserTotalHoursReported += dt.TotalHours;
+                    model.UserTotalAmountEarned += dt.TotalHours * dt.HourlyRate;
                 }
             }
         }

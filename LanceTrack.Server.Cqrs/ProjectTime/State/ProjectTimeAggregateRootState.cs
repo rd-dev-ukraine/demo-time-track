@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Cqrs.Contract;
+using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Cqrs.Infrastructure;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
 
@@ -14,7 +15,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
-        private readonly Dictionary<Tuple<int, DateTime>, ProjectUserDailyTimeRecord> _projectUserDailyTimeData = new Dictionary<Tuple<int, DateTime>, ProjectUserDailyTimeRecord>();
+        private readonly Dictionary<Tuple<int, DateTime>, ProjectDailyTime> _projectUserDailyTimeData = new Dictionary<Tuple<int, DateTime>, ProjectDailyTime>();
         private readonly Dictionary<int, List<UserBillingHours>> _userBillableHours = new Dictionary<int, List<UserBillingHours>>();
         private readonly Dictionary<int, decimal> _userBilledHours = new Dictionary<int, decimal>();
 
@@ -27,7 +28,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         public int ProjectId { get; private set; }
 
-        public IEnumerable<ProjectUserDailyTimeRecord> ProjectUserTime
+        public IEnumerable<ProjectDailyTime> ProjectUserTime
         {
             get { return _projectUserDailyTimeData.Values; }
         }
@@ -124,31 +125,25 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
             var key = new Tuple<int, DateTime>(e.UserId, date);
 
-            ProjectUserDailyTimeRecord record;
-            if (!_projectUserDailyTimeData.TryGetValue(key, out record))
-                _projectUserDailyTimeData.Add(key, record = new ProjectUserDailyTimeRecord
+            var isNewRecord = !_projectUserDailyTimeData.ContainsKey(key);
+
+            var record = _projectUserDailyTimeData.GetOrAdd(key, new ProjectDailyTime
                 {
                     ProjectId = e.ProjectId,
                     UserId = e.UserId,
-                    At = date
+                    Date = date
                 });
 
-            record.Hours = e.Hours;
+            record.TotalHours = e.Hours;
 
-            // Use hourly rate from most early date
-            // to prevent overriding it on changing later
-            if (record.HourlyRateDate == default(DateTimeOffset) ||
-                record.HourlyRateDate > e.At)
-            {
-                record.HourlyRateDate = e.At;
+            if (isNewRecord)
                 record.HourlyRate = e.HourlyRate;
-            }
         }
 
         private IEnumerable<UserBillingHours> UserBillingHours(int userId)
         {
             var hoursBatches = ProjectUserTime.Where(a => a.UserId == userId)
-                                              .OrderBy(a => a.At)
+                                              .OrderBy(a => a.Date)
                                               .Batch(a => a.HourlyRate)
                                               .ToArray();
 
@@ -156,7 +151,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             {
                 Rate = a.Max(r => r.HourlyRate),
                 UserId = userId,
-                Hours = a.Sum(r => r.Hours)
+                Hours = a.Sum(r => r.TotalHours)
             });
         }
     }

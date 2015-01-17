@@ -67,7 +67,6 @@
     <Compile Include="ProjectTime\Events\TimeTrackedEvent.cs" />
     <Compile Include="ProjectTime\Commands\TrackTimeCommand.cs" />
     <Compile Include="ProjectTime\ReadModels\ProjectUserSummaryReadModelManager.cs" />
-    <Compile Include="ProjectTime\State\ProjectUserDailyTimeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
