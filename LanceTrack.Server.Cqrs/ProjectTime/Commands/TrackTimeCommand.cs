@@ -11,7 +11,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 
         public int ByUserId { get; set; }
 
-        public DateTimeOffset At { get; set; }
+        public DateTime At { get; set; }
 
         public decimal Hours { get; set; }
 

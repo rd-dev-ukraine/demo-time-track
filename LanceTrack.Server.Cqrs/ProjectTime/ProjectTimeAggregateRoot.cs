@@ -61,19 +61,33 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             if (project.EndDate != null && project.EndDate < command.At.Date)
                 throw new ProjectNotReportableException();
 
+            var trackedTime = State.DailyTime.SingleOrDefault(t => t.Date == command.At.Date && t.UserId == command.ForUserId);
+            if (command.Hours < trackedTime.TotalHours)
+            {
+                if (command.Hours < trackedTime.PaidHours)
+                    throw new IncorrectHoursException(String.Format("{0} hours already paid for this day.", trackedTime.BilledHours));
+
+                // By decreasing time you will decrease number of billing hours available
+                // (because already billed hours will distribute on further time).
+                // So you couldn't decrease billing hours down zero.
+                var billingHoursAvailable = State.MaxBillableHours(command.ForUserId);
+                if (command.Hours - trackedTime.TotalHours + billingHoursAvailable < 0)
+                    throw new IncorrectHoursException("The hours already billed.");
+            }
+
             if (project.MaxTotalHoursPerDay != null &&
                 command.Hours > project.MaxTotalHoursPerDay.Value)
-                throw new IncorrectHoursException();
+                throw new IncorrectHoursException(String.Format("Max daily hours value {0} exceeded.", project.MaxTotalHoursPerDay));
 
-            var projectDailyHours = State.ProjectUserTime.Where(p => p.ProjectId == command.ProjectId);
+            var projectDailyHours = State.DailyTime.Where(p => p.ProjectId == command.ProjectId);
 
             if (projectDailyHours.Any() &&
                 (projectDailyHours.Sum(p => p.TotalHours) + command.Hours) > project.MaxTotalHours)
-                throw new IncorrectHoursException();
+                throw new IncorrectHoursException("Project maximum hours exceeded.");
 
             var @event = new TimeTrackedEvent
             {
-                At = command.At,
+                At = command.At.Date,
                 Hours = command.Hours,
                 ProjectId = project.Id,
                 RegisteredAt = DateTimeOffset.Now,
@@ -138,11 +152,11 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                                             UserId = projectUserInfo.UserId,
                                             Hours = 0
                                         };
-                
+
                 var maxBillableHours = State.MaxBillableHours(userInvoiceInfo.UserId);
 
                 if (maxBillableHours == 0)
-                    continue; 
+                    continue;
 
                 var hours = Math.Min(userInvoiceInfo.Hours, maxBillableHours);
 

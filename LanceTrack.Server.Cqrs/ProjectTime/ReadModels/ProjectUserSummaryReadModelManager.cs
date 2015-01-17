@@ -42,7 +42,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             model.UserTotalAmountEarned = 0;
             model.UserTotalHoursReported = 0;
 
-            foreach(var dt in state.ProjectUserTime.Where(e => e.ProjectId == @event.ProjectId))
+            foreach(var dt in state.DailyTime.Where(e => e.ProjectId == @event.ProjectId))
             {
                 model.ProjectTotalHoursReported += dt.TotalHours;
                 model.ProjectTotalAmountEarned += dt.TotalHours * dt.HourlyRate;

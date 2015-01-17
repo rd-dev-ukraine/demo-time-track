@@ -25,7 +25,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 
         public void On(TimeTrackedEvent evt, ProjectTimeAggregateRootState state)
         {
-            _readModels = state.ProjectUserTime.ToList();
+            _readModels = state.DailyTime.ToList();
         }
 
         public void Save()

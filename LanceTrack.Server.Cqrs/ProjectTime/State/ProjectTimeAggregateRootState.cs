@@ -17,9 +17,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
     {
         private readonly List<DailyTime> _dailyTime = new List<DailyTime>();
         private readonly List<UserInvoiceInfo> _invoices = new List<UserInvoiceInfo>();
-        private readonly List<UserBilling> _billing = new List<UserBilling>();
+        private readonly List<Billing> _billing = new List<Billing>();
 
-        public IEnumerable<DailyTime> ProjectUserTime
+        public IEnumerable<DailyTime> DailyTime
         {
             get { return _dailyTime; }
         }
@@ -126,7 +126,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         /// </summary>
         private void UpdateUserBilling(int userId)
         {
-            var result = new List<UserBilling>();
+            var result = new List<Billing>();
 
             var dailyTimeToBill = _dailyTime.Where(t => t.UserId == userId).OrderBy(t => t.Date).ToArray();
 
@@ -152,7 +152,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
                     while (hoursToBill > 0)
                     {
                         var billedHours = Math.Min(hoursToBill, invoiceHours);
-                        result.Add(new UserBilling
+                        result.Add(new Billing
                         {
                             At = time.Date,
                             Hours = billedHours,
@@ -189,16 +189,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         private static DateTime Date(DateTimeOffset value)
         {
-            return value.ToUniversalTime().Date;
-        }
-
-        private class UserInvoiceInfo
-        {
-            public DateTime At { get; set; }
-            public decimal Hours { get; set; }
-            public string InvoiceNum { get; set; }
-            public bool IsPaid { get; set; }
-            public int UserId { get; set; }
+            return value.Date;
         }
     }
 }
