@@ -62,7 +62,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 throw new ProjectNotReportableException();
 
             var trackedTime = State.DailyTime.SingleOrDefault(t => t.Date == command.At.Date && t.UserId == command.ForUserId);
-            if (command.Hours < trackedTime.TotalHours)
+            if (trackedTime != null && command.Hours < trackedTime.TotalHours)
             {
                 if (command.Hours < trackedTime.PaidHours)
                     throw new IncorrectHoursException(String.Format("{0} hours already paid for this day.", trackedTime.BilledHours));
