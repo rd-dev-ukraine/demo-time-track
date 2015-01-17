@@ -5,14 +5,15 @@
      ng-if="cell"
      ng-controller="timeCellController">
 
-    <div class="input-group time-cell__inner">
+    <div class="input-group">
         <input class="form-control time-cell__editor"
                ng-model="cell.totalHours"
                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                type="text"
                title="{{project.name}}" />
-        <div class="input-group-addon">
-            <span ng-show="!trackTime.isError && !trackTime.isLoading">hrs</span>
+        <div class="input-group-addon hidden-sm hidden-xs">
+            <span 
+                  ng-show="!trackTime.isError && !trackTime.isLoading">hrs</span>
             <span class="field-validation-error glyphicon glyphicon-minus-sign"
                   ng-show="trackTime.isError"
                   title="{{trackTime.error.message}}">
