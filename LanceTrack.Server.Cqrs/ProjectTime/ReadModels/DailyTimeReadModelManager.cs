@@ -9,13 +9,13 @@ using LanceTrack.Server.Cqrs.ProjectTime.State;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
-    public class ProjectDailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
+    public class DailyTimeReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
         IReadModelEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         private readonly IDailyTimeStorage _storage;
-        private List<ProjectDailyTime> _readModels = new List<ProjectDailyTime>();
+        private List<DailyTime> _readModels = new List<DailyTime>();
 
-        public ProjectDailyTimeReadModelManager(IDailyTimeStorage storage)
+        public DailyTimeReadModelManager(IDailyTimeStorage storage)
         {
             if (storage == null)
                 throw new ArgumentNullException("storage");

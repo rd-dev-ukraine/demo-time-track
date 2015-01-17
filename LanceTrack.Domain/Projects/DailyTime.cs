@@ -6,8 +6,8 @@ using TypeLite;
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("ProjectDailyTimeData"), TsClass(Module = "Api")]
-    public class ProjectDailyTime
+    [TableName("DailyTimeData"), TsClass(Module = "Api")]
+    public class DailyTime
     {
         [PrimaryKey]
         public int ProjectId { get;set; }

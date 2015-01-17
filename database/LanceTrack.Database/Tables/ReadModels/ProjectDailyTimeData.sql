@@ -3,7 +3,7 @@
  * Contains hours reported per day by project and user 
  *
  */
-create table ProjectDailyTimeData
+create table DailyTimeData
 (
 	Id int not null identity(1, 1),
 	ProjectId int not null,

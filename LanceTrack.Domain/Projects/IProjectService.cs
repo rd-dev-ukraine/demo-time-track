@@ -10,7 +10,7 @@ namespace LanceTrack.Domain.Projects
 
         IEnumerable<Project> BillableProjects();
 
-        IEnumerable<ProjectDailyTime> ProjectDailyTime(DateTime startDate, DateTime endDate);
+        IEnumerable<DailyTime> ProjectDailyTime(DateTime startDate, DateTime endDate);
 
         /// <summary>
         ///     Gets the project summary for projects where user could report time.

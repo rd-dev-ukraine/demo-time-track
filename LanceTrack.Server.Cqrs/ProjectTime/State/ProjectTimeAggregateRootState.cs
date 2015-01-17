@@ -15,7 +15,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
-        private readonly Dictionary<Tuple<int, DateTime>, ProjectDailyTime> _projectUserDailyTimeData = new Dictionary<Tuple<int, DateTime>, ProjectDailyTime>();
+        private readonly Dictionary<Tuple<int, DateTime>, DailyTime> _projectUserDailyTimeData = new Dictionary<Tuple<int, DateTime>, DailyTime>();
         private readonly Dictionary<int, List<UserBillingHours>> _userBillableHours = new Dictionary<int, List<UserBillingHours>>();
         private readonly Dictionary<int, decimal> _userBilledHours = new Dictionary<int, decimal>();
 
@@ -25,10 +25,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         }
 
         public Dictionary<string, InvoiceInfo> Invoices { get; private set; }
-
         public int ProjectId { get; private set; }
 
-        public IEnumerable<ProjectDailyTime> ProjectUserTime
+        public IEnumerable<DailyTime> ProjectUserTime
         {
             get { return _projectUserDailyTimeData.Values; }
         }
@@ -38,31 +37,28 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             get { return ProjectId; }
         }
 
-        public decimal MaxBillableHours(int userId)
-        {
-            return _userBillableHours.GetOrAdd(userId, new List<UserBillingHours>()).SumOrDefault(h => h.Hours);
-        }
-
         public decimal CalculateInvoiceSum(int userId, decimal hours)
         {
             var sum = 0M;
             var nonBilledHours = hours;
 
-            foreach(var hrs in _userBillableHours.GetOrAdd(userId, new List<UserBillingHours>()))
+            foreach (var hrs in _userBillableHours.GetOrAdd(userId, new List<UserBillingHours>()))
             {
                 if (nonBilledHours < hrs.Hours)
                 {
-                    sum += hrs.Rate * nonBilledHours;
-                    break; 
+                    sum += hrs.Rate*nonBilledHours;
+                    break;
                 }
-                else
-                {
-                    sum += hrs.Rate * hrs.Hours;
-                    nonBilledHours -= hrs.Hours;
-                }
+                sum += hrs.Rate*hrs.Hours;
+                nonBilledHours -= hrs.Hours;
             }
 
             return sum;
+        }
+
+        public decimal MaxBillableHours(int userId)
+        {
+            return _userBillableHours.GetOrAdd(userId, new List<UserBillingHours>()).SumOrDefault(h => h.Hours);
         }
 
         public void On(TimeTrackedEvent e)
@@ -127,12 +123,12 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
             var isNewRecord = !_projectUserDailyTimeData.ContainsKey(key);
 
-            var record = _projectUserDailyTimeData.GetOrAdd(key, new ProjectDailyTime
-                {
-                    ProjectId = e.ProjectId,
-                    UserId = e.UserId,
-                    Date = date
-                });
+            var record = _projectUserDailyTimeData.GetOrAdd(key, new DailyTime
+            {
+                ProjectId = e.ProjectId,
+                UserId = e.UserId,
+                Date = date
+            });
 
             record.TotalHours = e.Hours;
 
@@ -143,9 +139,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         private IEnumerable<UserBillingHours> UserBillingHours(int userId)
         {
             var hoursBatches = ProjectUserTime.Where(a => a.UserId == userId)
-                                              .OrderBy(a => a.Date)
-                                              .Batch(a => a.HourlyRate)
-                                              .ToArray();
+                .OrderBy(a => a.Date)
+                .Batch(a => a.HourlyRate)
+                .ToArray();
 
             return hoursBatches.Select(a => new UserBillingHours
             {

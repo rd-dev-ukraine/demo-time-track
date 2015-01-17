@@ -28,12 +28,12 @@ namespace LanceTrack.Server.DataAccess.Projects
             return DbManager.GetTable<Project>().SingleOrDefault(p => p.Id == id);
         }
 
-        public IQueryable<ProjectDailyTime> GetProjectDailyTime(DateTime startDate, DateTime endDate)
+        public IQueryable<DailyTime> GetProjectDailyTime(DateTime startDate, DateTime endDate)
         {
             startDate = startDate.Date;
             endDate = endDate.Date;
 
-            return DbManager.GetTable<ProjectDailyTime>()
+            return DbManager.GetTable<DailyTime>()
                             .Where(t => startDate <= t.Date && t.Date <= endDate);
         }
 

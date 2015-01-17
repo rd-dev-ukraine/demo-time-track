@@ -18,7 +18,7 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 
         private DbManager DbManager { get; set; }
 
-        public void SaveProjectDailyTime(ProjectDailyTime readModel)
+        public void SaveProjectDailyTime(DailyTime readModel)
         {
             DbManager.InsertOrReplace(readModel);
         }

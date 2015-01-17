@@ -55,7 +55,7 @@ namespace LanceTrack.Server.Projects
                                      .ToList();
         }
 
-        public IEnumerable<ProjectDailyTime> ProjectDailyTime(DateTime startDate, DateTime endDate)
+        public IEnumerable<DailyTime> ProjectDailyTime(DateTime startDate, DateTime endDate)
         {
             return _projectRepository.ReportableProjects(_currentUser.Id)
                                      .ToArray()
@@ -89,15 +89,15 @@ namespace LanceTrack.Server.Projects
             return _projectRepository.ReportableProjects(_currentUser.Id).ToList();
         }
 
-        private IEnumerable<ProjectDailyTime> ProjectDailyTime(int projectId, DateTime startDate, DateTime endDate)
+        private IEnumerable<DailyTime> ProjectDailyTime(int projectId, DateTime startDate, DateTime endDate)
         {
             var perms = _projectRepository.GetProjectUserInfo().SingleOrDefault(d => d.UserId == _currentUser.Id && d.ProjectId == projectId);
             if (perms == null)
-                return Enumerable.Empty<ProjectDailyTime>();
+                return Enumerable.Empty<DailyTime>();
 
             var project = _projectRepository.ReportableProjects(_currentUser.Id).SingleOrDefault(p => p.Id == projectId);
             if (project == null)
-                return Enumerable.Empty<ProjectDailyTime>();
+                return Enumerable.Empty<DailyTime>();
 
             startDate = project.StartDate.Date > startDate.Date ? project.StartDate.Date : startDate.Date;
             endDate = project.EndDate.HasValue && project.EndDate.Value.Date < endDate ? project.EndDate.Value.Date : endDate.Date;
@@ -116,7 +116,7 @@ namespace LanceTrack.Server.Projects
             return projectUsers.SelectMany(pu => dates.Select(d => filledTime.SingleOrDefault(time => time.ProjectId == pu.ProjectId && 
                                                                                                       time.Date.Date == d.Date && 
                                                                                                       time.UserId == pu.UserId) ??
-                                                                  new ProjectDailyTime 
+                                                                  new DailyTime 
                                                                   {
                                                                       Date = d.Date,
                                                                       ProjectId = pu.ProjectId,

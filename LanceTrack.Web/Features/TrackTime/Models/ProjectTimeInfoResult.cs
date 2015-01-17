@@ -21,7 +21,7 @@ namespace LanceTrack.Web.Features.TrackTime.Models
 
         public List<Project> Projects { get; set; }
 
-        public List<ProjectDailyTime> Time { get; set; }
+        public List<DailyTime> Time { get; set; }
 
         public List<UserAccount> Users { get; set; } 
     }
