@@ -180,7 +180,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
         private string InvoiceNum(int projectId)
         {
-            return String.Format(CultureInfo.GetCultureInfo("en"), "INV{0:0000}/{1}-{2:yyyyMMMdd}", projectId, State.Invoices.Count + 1, DateTimeOffset.Now);
+            return String.Format(CultureInfo.GetCultureInfo("en"), "INV{0:0000}/{1}-{2:yyyyMMMdd}", projectId, State.InvoiceCount() + 1, DateTime.Now);
         }
     }
 }

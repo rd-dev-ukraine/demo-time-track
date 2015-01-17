@@ -15,26 +15,13 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
-        private readonly Dictionary<Tuple<int, DateTime>, DailyTime> _projectUserDailyTimeData = new Dictionary<Tuple<int, DateTime>, DailyTime>();
-        private readonly Dictionary<int, List<UserBillingHours>> _userBillableHours = new Dictionary<int, List<UserBillingHours>>();
-        private readonly Dictionary<int, decimal> _userBilledHours = new Dictionary<int, decimal>();
-
-        public ProjectTimeAggregateRootState()
-        {
-            Invoices = new Dictionary<string, InvoiceInfo>();
-        }
-
-        public Dictionary<string, InvoiceInfo> Invoices { get; private set; }
-        public int ProjectId { get; private set; }
+        private readonly List<DailyTime> _dailyTime = new List<DailyTime>();
+        private readonly List<UserInvoiceInfo> _invoices = new List<UserInvoiceInfo>();
+        private readonly List<UserBilling> _billing = new List<UserBilling>();
 
         public IEnumerable<DailyTime> ProjectUserTime
         {
-            get { return _projectUserDailyTimeData.Values; }
-        }
-
-        int IAggregateRootState<int>.AggregateRootId
-        {
-            get { return ProjectId; }
+            get { return _dailyTime; }
         }
 
         public decimal CalculateInvoiceSum(int userId, decimal hours)
@@ -42,15 +29,20 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             var sum = 0M;
             var nonBilledHours = hours;
 
-            foreach (var hrs in _userBillableHours.GetOrAdd(userId, new List<UserBillingHours>()))
+            var dailyTime = _dailyTime.Where(t => t.UserId == userId)
+                                      .Where(t => t.TotalHours - t.BilledHours > 0)
+                                      .OrderBy(t => t.Date);
+
+            foreach (var time in dailyTime)
             {
-                if (nonBilledHours < hrs.Hours)
-                {
-                    sum += hrs.Rate*nonBilledHours;
+                var billingHours = Math.Min(nonBilledHours, time.TotalHours - time.BilledHours);
+
+                sum += billingHours * time.HourlyRate;
+
+                nonBilledHours -= billingHours;
+
+                if (nonBilledHours == 0)
                     break;
-                }
-                sum += hrs.Rate*hrs.Hours;
-                nonBilledHours -= hrs.Hours;
             }
 
             return sum;
@@ -58,97 +50,155 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         public decimal MaxBillableHours(int userId)
         {
-            return _userBillableHours.GetOrAdd(userId, new List<UserBillingHours>()).SumOrDefault(h => h.Hours);
+            return _dailyTime.Where(b => b.UserId == userId).SumOrDefault(b => b.TotalHours - b.BilledHours);
+        }
+
+        public int InvoiceCount()
+        {
+            return _invoices.GroupBy(i => i.InvoiceNum).Count();
         }
 
         public void On(TimeTrackedEvent e)
         {
-            ProjectId = e.ProjectId;
+            var date = Date(e.At);
 
-            UpdateDailyTime(e);
+            if (e.Hours == 0)
+            {
+                _dailyTime.RemoveAll(t => t.Date == date && t.UserId == e.UserId);
+            }
+            else
+            {
+                var dailyTime = _dailyTime.SingleOrDefault(t => t.Date == date && t.UserId == e.UserId);
 
-            UpdateBillableHours(e.UserId);
+                if (dailyTime == null)
+                {
+                    dailyTime = new DailyTime
+                    {
+                        Date = date,
+                        HourlyRate = e.HourlyRate,
+                        ProjectId = e.ProjectId,
+                        UserId = e.UserId
+                    };
+                    _dailyTime.Add(dailyTime);
+                }
+
+                dailyTime.TotalHours = e.Hours;
+            }
+
+            UpdateUserBilling(e.UserId);
         }
 
         public void On(InvoiceEvent e)
         {
-            var userHours = _userBilledHours.GetOrAdd(e.UserId);
-            if (e.EventType == InvoiceEventType.Billing)
-                _userBilledHours[e.UserId] = userHours + e.Hours;
+            var at = Date(e.At);
 
-            UpdateBillableHours(e.UserId);
+            if (e.EventType == InvoiceEventType.Cancel)
+            {
+                _invoices.RemoveAll(i => i.UserId == e.UserId &&
+                                         i.InvoiceNum == e.InvoiceNum &&
+                                         i.At == at);
+            }
+            else
+            {
+                var invoice = _invoices.SingleOrDefault(i => i.UserId == e.UserId &&
+                                                             i.InvoiceNum == e.InvoiceNum &&
+                                                             i.At == at);
+                if (invoice == null)
+                {
+                    invoice = new UserInvoiceInfo
+                    {
+                        UserId = e.UserId,
+                        At = at,
+                        InvoiceNum = e.InvoiceNum
+                    };
+                    _invoices.Add(invoice);
+                }
 
-            var invoiceInfo = Invoices.GetOrAdd(e.InvoiceNum, new InvoiceInfo());
-            invoiceInfo.BilledAt = e.At;
-            invoiceInfo.IsPaid = e.EventType == InvoiceEventType.Paid;
-            invoiceInfo.Number = e.InvoiceNum;
+                invoice.Hours = e.Hours;
+                invoice.IsPaid = e.EventType == InvoiceEventType.Paid;
+            }
+
+            UpdateUserBilling(e.UserId);
         }
 
         /// <summary>
         ///     Recalculate billable hours for one user.
         /// </summary>
-        private void UpdateBillableHours(int userId)
+        private void UpdateUserBilling(int userId)
         {
-            var userHours = new List<UserBillingHours>();
-            var restOfBilledHours = _userBilledHours.GetOrAdd(userId);
+            var result = new List<UserBilling>();
 
-            foreach (var hrs in UserBillingHours(userId).ToList())
+            var dailyTimeToBill = _dailyTime.Where(t => t.UserId == userId).OrderBy(t => t.Date).ToArray();
+
+            // reset hours info
+            foreach (var time in dailyTimeToBill)
             {
-                restOfBilledHours -= hrs.Hours;
-
-                // There are billed hours 
-                if (restOfBilledHours > 0)
-                    continue;
-
-                // Add non-billed hours
-                if (restOfBilledHours <= 0)
-                {
-                    hrs.Hours = Math.Abs(restOfBilledHours);
-                    restOfBilledHours = 0;
-                }
-
-                if (restOfBilledHours == 0)
-                    userHours.Add(hrs);
+                time.BilledHours = 0;
+                time.PaidHours = 0;
             }
 
+            using (var invoices = _invoices.Where(i => i.UserId == userId).OrderBy(i => i.At).GetEnumerator())
+            {
+                if (!invoices.MoveNext())
+                    return;
 
-            _userBillableHours[userId] = userHours;
+                var invoiceHours = invoices.Current.Hours;
+
+                foreach (var time in dailyTimeToBill)
+                {
+                    var hoursToBill = time.TotalHours;
+                    var lastInvoice = false;
+
+                    while (hoursToBill > 0)
+                    {
+                        var billedHours = Math.Min(hoursToBill, invoiceHours);
+                        result.Add(new UserBilling
+                        {
+                            At = time.Date,
+                            Hours = billedHours,
+                            InvoiceNum = invoices.Current.InvoiceNum,
+                            IsPaid = invoices.Current.IsPaid,
+                            Rate = time.HourlyRate,
+                            UserId = userId
+                        });
+                        time.BilledHours += billedHours;
+                        time.PaidHours += invoices.Current.IsPaid ? billedHours : 0;
+
+                        hoursToBill -= billedHours;
+                        invoiceHours -= billedHours;
+
+                        if (invoiceHours == 0)
+                            if (invoices.MoveNext())
+                                invoiceHours = invoices.Current.Hours;
+                            else
+                            {
+                                lastInvoice = true;
+                                break;
+                            }
+                    }
+
+                    if (lastInvoice)
+                        break;
+                }
+            }
+
+            // replace user billing with new result
+            _billing.RemoveAll(b => b.UserId == userId);
+            _billing.AddRange(result);
         }
 
-        private void UpdateDailyTime(TimeTrackedEvent e)
+        private static DateTime Date(DateTimeOffset value)
         {
-            var date = e.At.ToUniversalTime().Date;
-
-            var key = new Tuple<int, DateTime>(e.UserId, date);
-
-            var isNewRecord = !_projectUserDailyTimeData.ContainsKey(key);
-
-            var record = _projectUserDailyTimeData.GetOrAdd(key, new DailyTime
-            {
-                ProjectId = e.ProjectId,
-                UserId = e.UserId,
-                Date = date
-            });
-
-            record.TotalHours = e.Hours;
-
-            if (isNewRecord)
-                record.HourlyRate = e.HourlyRate;
+            return value.ToUniversalTime().Date;
         }
 
-        private IEnumerable<UserBillingHours> UserBillingHours(int userId)
+        private class UserInvoiceInfo
         {
-            var hoursBatches = ProjectUserTime.Where(a => a.UserId == userId)
-                .OrderBy(a => a.Date)
-                .Batch(a => a.HourlyRate)
-                .ToArray();
-
-            return hoursBatches.Select(a => new UserBillingHours
-            {
-                Rate = a.Max(r => r.HourlyRate),
-                UserId = userId,
-                Hours = a.Sum(r => r.TotalHours)
-            });
+            public DateTime At { get; set; }
+            public decimal Hours { get; set; }
+            public string InvoiceNum { get; set; }
+            public bool IsPaid { get; set; }
+            public int UserId { get; set; }
         }
     }
 }

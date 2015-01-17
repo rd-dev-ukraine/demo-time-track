@@ -26,6 +26,9 @@ namespace LanceTrack.Domain.Projects
         public decimal BilledHours { get; set; }
 
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
+        public decimal PaidHours { get; set; }
+
+        [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal HourlyRate { get; set; }
     }
 }

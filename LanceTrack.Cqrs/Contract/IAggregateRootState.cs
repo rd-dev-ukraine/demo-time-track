@@ -2,6 +2,5 @@
 {
     public interface IAggregateRootState<TAggregateRootId>
     {
-        TAggregateRootId AggregateRootId { get; }
     }
 }

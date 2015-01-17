@@ -10,7 +10,8 @@ create table DailyTimeData
 	UserId int not null,
 	Date date not null,
 	TotalHours decimal(18, 2) not null,
-	BilledHours decimal(18, 2) not null constraint DF_ProjectDailyTimeData_BilledHours default(0),
+	BilledHours decimal(18, 2) not null,
+	PaidHours decimal(18, 2) not null,
 	HourlyRate decimal(18, 2) not null default (0),
 
 	constraint PK_ProjectTimeData primary key (Id)

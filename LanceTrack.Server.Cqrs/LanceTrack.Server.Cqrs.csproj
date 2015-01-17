@@ -57,7 +57,7 @@
     <Compile Include="ProjectTime\Events\InvoiceEventType.cs" />
     <Compile Include="ProjectTime\ReadModels\InvoiceReadModelManager.cs" />
     <Compile Include="ProjectTime\State\InvoiceInfo.cs" />
-    <Compile Include="ProjectTime\State\UserBillingHours.cs" />
+    <Compile Include="ProjectTime\State\UserBilling.cs" />
     <Compile Include="ProjectTime\State\ProjectTimeAggregateRootState.cs" />
     <Compile Include="ProjectTime\Dependencies\IDailyTimeStorage.cs" />
     <Compile Include="ProjectTime\Dependencies\IProjectUserSummaryStorage.cs" />
