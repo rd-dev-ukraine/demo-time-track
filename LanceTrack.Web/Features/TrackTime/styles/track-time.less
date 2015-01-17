@@ -4,14 +4,22 @@
     font-weight: bold;
 }
 
-.time-cell {
-    position: relative;
-
+.time-cell {    
     &__container {
         position: relative;
     }
 
-    &__inner {
+    &__status-container {
+        float: right;
+        margin-left: 0.2em;
+        
+        & * {
+            vertical-align: middle;
+        }
+    }
+
+    &__editor-container {
+        overflow: hidden;
     }
 
     &__editor {

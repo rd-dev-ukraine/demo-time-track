@@ -2,11 +2,18 @@
 .time-track-grid-header {
   font-weight: bold;
 }
-.time-cell {
-  position: relative;
-}
 .time-cell__container {
   position: relative;
+}
+.time-cell__status-container {
+  float: right;
+  margin-left: 0.2em;
+}
+.time-cell__status-container * {
+  vertical-align: middle;
+}
+.time-cell__editor-container {
+  overflow: hidden;
 }
 .time-cell__editor {
   padding: 0.1em 0.1em 0.1em 0.3em;

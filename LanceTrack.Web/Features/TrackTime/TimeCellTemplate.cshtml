@@ -2,24 +2,27 @@
 <div class="time-cell"
      ng-if="cell"
      ng-controller="timeCellController">
-    <div class="input-group">
-        <input class="form-control time-cell__editor"
+
+    <div class="time-cell__status-container">
+        <span class="text-muted hidden-sm hidden-xs"
+              ng-show="!trackTime.isError && !trackTime.isLoading">
+            hrs
+        </span>
+        <span class="field-validation-error glyphicon glyphicon-minus-sign"
+              ng-show="trackTime.isError"
+              title="{{trackTime.error.message}}">
+        </span>
+        <span class="glyphicon glyphicon-floppy-save"
+              ng-show="trackTime.isLoading">
+        </span>
+    </div>
+
+    <div class="time-cell__editor-container">
+        <input class="time-cell__editor"
                ng-model="cell.totalHours"
                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
                type="text"
                title="{{project.name}}"/>
-        <div class="input-group-addon visible-lg visible-md">
-            <span class="text-muted "
-                  ng-show="!trackTime.isError && !trackTime.isLoading">
-                hrs
-            </span>
-            <span class="field-validation-error glyphicon glyphicon-minus-sign"
-                  ng-show="trackTime.isError"
-                  title="{{trackTime.error.message}}">
-            </span>
-            <span class="glyphicon glyphicon-floppy-save"
-                  ng-show="trackTime.isLoading">
-            </span>
-        </div>
     </div>
+
 </div>
