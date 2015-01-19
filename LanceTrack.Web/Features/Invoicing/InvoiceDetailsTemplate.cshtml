@@ -3,6 +3,8 @@
     var rowClass = "clearfix h4";
     var labelClass = "col-lg-2 col-sm-2 text-muted";
     var valueClass = "col-lg-10 col-sm-10";
+
+    var userColClass = "";
 }
 
 <div class="clearfix">
@@ -21,7 +23,7 @@
         </div>
         <div class="@rowClass">
             <div class="@labelClass">Date</div>
-            <div class="@valueClass">{{dates.format(model.invoice.at)}}</div>
+            <div class="@valueClass">{{dates.format(model.invoice.at, 'YYYY MMMM DD')}}</div>
         </div>
         <div class="@rowClass">
             <div class="@labelClass">Total hours</div>
@@ -30,6 +32,10 @@
         <div class="@rowClass">
             <div class="@labelClass">Invoice sum</div>
             <div class="@valueClass text-primary">${{model.invoice.sum}}</div>
+        </div>
+        <div class="@rowClass">
+            <div class="@labelClass">Is Paid</div>
+            <div class="@valueClass text-primary">{{model.invoice.isPaid | yesNo}}</div>
         </div>
 
         <div class="@rowClass">
