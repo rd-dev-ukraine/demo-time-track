@@ -4,6 +4,8 @@
     <label class="btn btn-primary" ng-model="byUserMode" btn-radio=" true ">By User</label>
     <label class="btn btn-primary" ng-model="byUserMode" btn-radio=" false ">By Project</label>
 </div>
+@* By User *@
+
 <div ng-repeat="user in data.users"
      ng-if="byUserMode">
     <h3>{{user.displayName}}</h3>
@@ -62,6 +64,7 @@
   
 </div>
 
+@* By Project *@
 <div ng-repeat="project in data.projects"
      ng-if="!byUserMode">
     <h3>
@@ -80,11 +83,6 @@
          ng-repeat="user in usersForProject(project.id)">
         <div class="col-lg-2 col-sm-2">
             {{user.displayName}}
-            <a ui-sref="billProject({ projectId: project.id })"
-               ng-if="canBillProject(project)"
-               title="Bill project">
-                <span class="glyphicon glyphicon-list-alt"></span>
-            </a>
         </div>
         <div class="col-lg-9 col-sm-9 hours-row">
             <div class="date-range mon-wed">
