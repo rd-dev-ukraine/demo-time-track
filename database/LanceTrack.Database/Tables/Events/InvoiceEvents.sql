@@ -20,4 +20,4 @@
 
 go
 
-create clustered index IDX_InvoiceEvents on InvoiceEvents (ProjectId asc, At asc);
+create clustered index IDX_InvoiceEvents on InvoiceEvents (ProjectId asc, Id asc);

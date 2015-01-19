@@ -27,9 +27,8 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
             .Concat(
                    DbManager.GetTable<InvoiceEvent>()
                             .Where(e => e.ProjectId == aggregateRootId)
-                            .OrderBy(e => e.At)
                             .ToArray())
-            .OrderBy(e => e.RegisteredAt)
+            .OrderBy(e => e.Id)
             .ToArray();
         }
 

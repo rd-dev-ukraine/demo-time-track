@@ -220,6 +220,7 @@
     <Content Include="Features\TrackTime\MyTimeTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CqrsConfig.cs" />
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -387,7 +388,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63314</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

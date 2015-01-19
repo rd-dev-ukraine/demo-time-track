@@ -17,4 +17,4 @@
 
 go
 
-create clustered index IDX_TimeRegistrationEvents on TimeRegistrationEvents (ProjectId asc, At asc);
+create clustered index IDX_TimeRegistrationEvents on TimeRegistrationEvents (ProjectId asc, Id asc);

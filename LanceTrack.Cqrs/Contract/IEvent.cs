@@ -14,6 +14,6 @@ namespace LanceTrack.Cqrs.Contract
         /// </summary>
         TAggregateRootId AggregateRootId { get; }
 
-        DateTimeOffset RegisteredAt { get; }
+        int Id { get; }
     }
 }

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web;
 using BLToolkit.Data;
 using BLToolkit.Data.DataProvider;
+using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
 using LanceTrack.Server.Cqrs;
@@ -24,6 +25,7 @@ namespace LanceTrack.Web
     public static class DependencyConfig
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static IKernel _cqrsKernel;
 
         /// <summary>
         ///     Starts the application
@@ -32,6 +34,7 @@ namespace LanceTrack.Web
         {
             DynamicModuleUtility.RegisterModule(typeof (OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof (NinjectHttpModule));
+
             bootstrapper.Initialize(CreateKernel);
         }
 
@@ -40,6 +43,9 @@ namespace LanceTrack.Web
         /// </summary>
         public static void Stop()
         {
+            if (_cqrsKernel != null)
+                _cqrsKernel.Dispose();
+
             bootstrapper.ShutDown();
         }
 
@@ -49,18 +55,21 @@ namespace LanceTrack.Web
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel(new ServerDependencyModule(), new DataAccessDependencyModule(), new CqrsDependencyModule(), new CqrsDataAccessDependencyModule());
+            var cqrsKernel = CqrsConfig.Configure();
+            var kernel = new StandardKernel(new ServerDependencyModule(), new DataAccessDependencyModule());
+
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                RegisterServices(kernel);
+                RegisterServices(kernel, cqrsKernel);
                 return kernel;
             }
             catch
             {
                 kernel.Dispose();
+                cqrsKernel.Dispose();
                 throw;
             }
         }
@@ -69,17 +78,11 @@ namespace LanceTrack.Web
         ///     Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
+        private static void RegisterServices(IKernel kernel, IKernel cqrsKernel)
         {
-            kernel.Bind<DbManager>()
-                .ToSelf()
-                .WhenAnyAncestorMatches(c =>
-                {
-                    var result = c.Request.Service.Namespace.StartsWith(typeof(CqrsDependencyModule).Namespace) ||
-                                 c.Request.Service.Namespace.StartsWith("LanceTrack.Cqrs");
-                    return result;
-                })
-                .InTransientScope();
+            kernel.Bind<ICqrs>()
+                  .ToMethod(ctx => cqrsKernel.Get<ICqrs>())
+                  .InSingletonScope();
 
             kernel.Bind<DbManager>()
                   .ToSelf()
