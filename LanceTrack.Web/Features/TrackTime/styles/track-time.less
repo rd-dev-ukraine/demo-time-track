@@ -4,7 +4,15 @@
     font-weight: bold;
 }
 
-.time-cell {    
+.time-row {
+    margin-bottom: 1em;
+}
+
+.hours-row {
+    overflow: hidden;
+}
+
+.time-cell {
     &__container {
         position: relative;
     }
@@ -12,7 +20,7 @@
     &__status-container {
         float: right;
         margin-left: 0.2em;
-        
+
         & * {
             vertical-align: middle;
         }
@@ -78,4 +86,12 @@
     &__value {
         white-space: nowrap;
     }
+}
+
+@media (max-width:1170px) {
+
+    .col-mixin({
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    });
 }

@@ -7,8 +7,8 @@
         static DateFormat: string = "YYYY-MM-DD";
         static DayFormat: string = "ddd, DD MMM";
 
-        format(date: any): string {
-            return this.parseMoment(date).format(Dates.DateFormat);
+        format(date: any, format?: string): string {
+            return this.parseMoment(date).format(format || Dates.DateFormat);
         }
 
         formatDay(date: any): string {

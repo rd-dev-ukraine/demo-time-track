@@ -4,3 +4,10 @@
 
 /* Colors */
 @accent-color: #df691a;
+
+.col-mixin(@rules, @i: 1) when (@i =< 12) {
+   .col-xs-@{i}, .col-sm-@{i} {
+    @rules();
+  }
+  .col-mixin(@rules, (@i + 1));
+}

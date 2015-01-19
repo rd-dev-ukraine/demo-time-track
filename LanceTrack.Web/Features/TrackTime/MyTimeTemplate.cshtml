@@ -1,25 +1,10 @@
 ﻿@model dynamic
 
-<div class="clearfix">
-    <div class="col-lg-9 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
-        <div class="date-range mon-wed">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 h5"
-                 ng-repeat="d in dates.slice(0, 4)"
-                 ng-bind="dateService.formatDay(d)">
-            </div>
-        </div>
-        <div class="date-range thu-sun">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 h5"
-                 ng-repeat="d in dates.slice(4, 7)"
-                 ng-bind="dateService.formatDay(d)">
-            </div>
-        </div>
-    </div>
+<div class="clearfix" ng-include="'dates-header'">
 </div>
-
-<div class="clearfix"
+<div class="clearfix time-row"
      ng-repeat="project in data.projects track by project.id">
-    <div class="col-lg-2 h4">
+    <div class="col-lg-2 col-sm-2">
         {{project.name}}
         <a ui-sref="billProject({ projectId: project.id })"
            ng-if="canBillProject(project)"
@@ -27,7 +12,7 @@
             <span class="glyphicon glyphicon-list-alt"></span>
         </a>
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-sm-9 hours-row">
         <div class="date-range mon-wed">
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 time-cell__container"
                  ng-repeat="d in dates.slice(0, 4)"
@@ -44,14 +29,14 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-1 text-muted">
+    <div class="col-lg-1 col-sm-1 text-muted">
         {{totalHours({projectId: project.id, userId: data.currentUserId })}}hrs
     </div>
 </div>
 
 
 <div class="clearfix hidden-md hidden-sm hidden-xs">
-    <div class="col-lg-offset-2 col-lg-9">
+    <div class="col-lg-offset-2 col-lg-9 col-sm-offset-2 col-sm-9">
         <div class="date-range mon-wed">
             <div class="col-lg-3 text-muted"
                  ng-repeat="d in dates.slice(0, 4)">
@@ -59,7 +44,7 @@
             </div>
         </div>
         <div class="date-range thu-sun">
-            <div class="col-lg-4 text-muted"
+            <div class="col-lg-4 col-sm-4 text-muted"
                  ng-repeat="d in dates.slice(4, 7)">
                 {{totalHours({userId: data.currentUserId, at: d })}}hrs
             </div>
