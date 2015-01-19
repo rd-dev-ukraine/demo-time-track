@@ -55,7 +55,7 @@ namespace LanceTrack.Web
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var cqrsKernel = CqrsConfig.Configure();
+            _cqrsKernel = CqrsConfig.Configure();
             var kernel = new StandardKernel(new ServerDependencyModule(), new DataAccessDependencyModule());
 
             try
@@ -63,13 +63,13 @@ namespace LanceTrack.Web
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                RegisterServices(kernel, cqrsKernel);
+                RegisterServices(kernel, _cqrsKernel);
                 return kernel;
             }
             catch
             {
                 kernel.Dispose();
-                cqrsKernel.Dispose();
+                _cqrsKernel.Dispose();
                 throw;
             }
         }

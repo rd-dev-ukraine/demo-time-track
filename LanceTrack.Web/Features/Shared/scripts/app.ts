@@ -9,12 +9,14 @@
 
     });
 
-    app.run(["$rootScope", ($rootScope: IAppRootScope) => {
+    app.run(["$rootScope", ($rootScope: AppRootScope) => {
         $rootScope.urls = urls;
+        $rootScope.modelOptions = { updateOn: "default blur", debounce: { "default": 1000, "blur": 0 } };
     }]);
 
-    export interface IAppRootScope extends ng.IScope {
+    export interface AppRootScope extends ng.IScope {
         urls: Api.Urls;
+        modelOptions: any;
     }
 }
 

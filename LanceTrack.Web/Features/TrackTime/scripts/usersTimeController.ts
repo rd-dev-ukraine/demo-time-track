@@ -13,7 +13,7 @@
                 return _.filter(
                     $scope.data.projects,
                     (p: Api.Project) => _.any($scope.data.time,
-                                             (t: Api.ProjectDailyTime) => t.userId == userId && t.projectId == p.id));
+                                             (t: Api.DailyTime) => t.userId == userId && t.projectId == p.id));
             };
 
             $scope.usersForProject = (projectId: number) => {
@@ -23,7 +23,7 @@
                 return _.filter(
                     $scope.data.users,
                     (u: Api.UserAccount) => _.any($scope.data.time,
-                                                  (t: Api.ProjectDailyTime) => t.userId == u.id && t.projectId == projectId));
+                                                  (t: Api.DailyTime) => t.userId == u.id && t.projectId == projectId));
             };
 
         }

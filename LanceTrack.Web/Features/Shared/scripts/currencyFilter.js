@@ -1,12 +1,12 @@
 var LanceTrack;
 (function (LanceTrack) {
-    function hoursFilter() {
+    function currencyFilter() {
         return function (value) {
             if (!value)
                 return "-";
-            return value + " hrs";
+            return "$" + value;
         };
     }
-    LanceTrack.hoursFilter = hoursFilter;
+    LanceTrack.currencyFilter = currencyFilter;
 })(LanceTrack || (LanceTrack = {}));
-//# sourceMappingURL=hoursFilter.js.map
+//# sourceMappingURL=currencyFilter.js.map

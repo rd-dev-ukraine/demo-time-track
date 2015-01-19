@@ -45,7 +45,7 @@ namespace LanceTrack.Web.Features.Invoicing
             try
             {
                 var invoiceNum = _invoiceService.BillProject(parameters.ProjectId, parameters.InvoiceUserRequests);
-                return Created(Url.Link("InvoiceDetails", new {invoiceNumber = invoiceNum}), invoiceNum);
+                return Created(Url.Link("InvoiceDetails", new { invoiceNumber = invoiceNum }), invoiceNum);
             }
             catch (Exception ex)
             {
@@ -60,10 +60,10 @@ namespace LanceTrack.Web.Features.Invoicing
             if (invoice == null)
                 return NotFound();
 
-            var project =_projectService.BillableProject(invoice.ProjectId);
+            var project = _projectService.BillableProject(invoice.ProjectId);
             if (project == null)
                 return NotFound();
-            
+
 
             var details = _invoiceService.Details(invoiceNumber);
 
@@ -104,9 +104,19 @@ namespace LanceTrack.Web.Features.Invoicing
         [Route("distribute-earnings", Name = "DistributeInvoiceEarnings"), HttpPost]
         public IHttpActionResult DistributeInvoiceEarnings(DistributeInvoiceEarningsParam parameters)
         {
-            _invoiceService.DistributeInvoiceEarnings(parameters.ProjectId, parameters.InvoiceNum, parameters.EarningsSum);
+            try
+            {
+                _invoiceService.DistributeInvoiceEarnings(
+                    parameters.ProjectId, 
+                    parameters.InvoiceNum,
+                    parameters.EarningsSum);
 
-            return Details(parameters.InvoiceNum);
+                return Details(parameters.InvoiceNum);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [TsClass(Module = "Api")]

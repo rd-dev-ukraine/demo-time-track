@@ -1,4 +1,4 @@
-﻿var LanceTrack;
+var LanceTrack;
 (function (LanceTrack) {
     function yesNoFilter() {
         return function (value) {

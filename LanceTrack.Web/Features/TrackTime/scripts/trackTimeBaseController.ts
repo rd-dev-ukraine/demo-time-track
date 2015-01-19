@@ -19,7 +19,7 @@
             $scope.dateService = dates;
             $scope.at = dates.format($stateParams.at || dates.now());
 
-            $scope.cell = (projectId: number, date: any, userId?: number) : Api.ProjectDailyTime => {
+            $scope.cell = (projectId: number, date: any, userId?: number) : Api.DailyTime => {
                 if (!$scope.data)
                     return null;
 
@@ -27,7 +27,7 @@
 
                 return _.find(
                     $scope.data.time,
-                    (t: Api.ProjectDailyTime) => t.projectId == projectId && dates.eq(t.date, date) && t.userId == userId);
+                    (t: Api.DailyTime) => t.projectId == projectId && dates.eq(t.date, date) && t.userId == userId);
             };
 
             $scope.totalHours = (of: { projectId?: number; userId?: number; at?: string; }): number => {
@@ -43,7 +43,7 @@
                     time = _.filter(time, t => dates.eq(t.date, of.at));
 
 
-                var result = <number>_.reduce(time, (acc: number, t: Api.ProjectDailyTime) => acc + (+t.totalHours), 0);
+                var result = <number>_.reduce(time, (acc: number, t: Api.DailyTime) => acc + (+t.totalHours), 0);
 
                 if (!result)
                     return null;
@@ -72,7 +72,7 @@
             dates: Date[];
             
             canBillProject(project: Api.Project): boolean;
-            cell(projectId: number, date: any, userId?: number): Api.ProjectDailyTime;
+            cell(projectId: number, date: any, userId?: number): Api.DailyTime;
             totalHours(of: { projectId?: number; userId?: number; at?: string; }): number;
 
             dateService: LanceTrack.Dates;

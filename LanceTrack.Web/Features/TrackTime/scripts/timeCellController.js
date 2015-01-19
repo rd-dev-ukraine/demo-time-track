@@ -1,5 +1,6 @@
-﻿var LanceTrack;
+var LanceTrack;
 (function (LanceTrack) {
+    var TrackTime;
     (function (TrackTime) {
         function timeCellController($scope, trackTimeService, deferredFunction) {
             $scope.trackTime = deferredFunction.decorate(function () {
@@ -7,17 +8,14 @@
                     $scope.$root.$broadcast("TimeTracked");
                 });
             });
-
             $scope.$watch("cell.totalHours", function (oldVal, newVal) {
                 if (oldVal == undefined || oldVal == newVal || newVal == $scope.cell.totalHours)
                     return;
-
                 $scope.trackTime();
             });
         }
         TrackTime.timeCellController = timeCellController;
-    })(LanceTrack.TrackTime || (LanceTrack.TrackTime = {}));
-    var TrackTime = LanceTrack.TrackTime;
+    })(TrackTime = LanceTrack.TrackTime || (LanceTrack.TrackTime = {}));
 })(LanceTrack || (LanceTrack = {}));
 LanceTrack.TrackTime.timeCellController.$inject = ["$scope", "trackTimeService", "deferredFunction"];
 //# sourceMappingURL=timeCellController.js.map

@@ -275,6 +275,7 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string app_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/app.min.js") ? Url("app.min.js") : Url("app.js");
+                public static readonly string currencyFilter_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/currencyFilter.min.js") ? Url("currencyFilter.min.js") : Url("currencyFilter.js");
                 public static readonly string dateService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/dateService.min.js") ? Url("dateService.min.js") : Url("dateService.js");
                 public static readonly string deferredFunctionService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/deferredFunctionService.min.js") ? Url("deferredFunctionService.min.js") : Url("deferredFunctionService.js");
                 public static readonly string hoursFilter_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/hoursFilter.min.js") ? Url("hoursFilter.min.js") : Url("hoursFilter.js");

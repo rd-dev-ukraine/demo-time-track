@@ -20,7 +20,7 @@
     <div class="time-cell__editor-container">
         <input class="time-cell__editor"
                ng-model="cell.totalHours"
-               ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
+               ng-model-options="modelOptions"
                type="text"
                title="{{project.name}}"/>
     </div>

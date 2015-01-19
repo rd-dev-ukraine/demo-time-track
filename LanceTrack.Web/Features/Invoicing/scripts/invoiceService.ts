@@ -1,4 +1,4 @@
-﻿module  LanceTrack {
+﻿module LanceTrack {
     export module Invoicing {
         export function invoiceServiceFactory($q: ng.IQService, $http: ng.IHttpService) {
             return new InvoiceService($q, $http);
@@ -24,9 +24,9 @@
                 var deferred = this.$q.defer();
 
                 this.$http.post(urls.data.recalculateInvoice, <Api.PrepareInvoiceParams>{
-                                    projectId: projectId,
-                                    invoiceUserRequests: _.map(invoiceDetails, d => <Api.InvoiceUserRequest>{ userId: d.userId, hours: d.billingHours })
-                                })
+                    projectId: projectId,
+                    invoiceUserRequests: _.map(invoiceDetails, d => <Api.InvoiceUserRequest>{ userId: d.userId, hours: d.billingHours })
+                })
                     .success(r => deferred.resolve(r))
                     .error(err => deferred.reject(err));
 
@@ -46,6 +46,20 @@
                 return deferred.promise;
             }
 
+            distributeEarnings(projectId: number, invoiceNum: string, earningsSum: number): ng.IPromise<Api.InvoiceModel> {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.distributeInvoiceEarnings, <Api.DistributeInvoiceEarningsParam>{
+                    earningsSum: earningsSum,
+                    invoiceNum: invoiceNum,
+                    projectId: projectId
+                })
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
+
             details(invoiceNum: string): ng.IPromise<Api.InvoiceModel> {
                 var deferred = this.$q.defer();
 
@@ -57,5 +71,5 @@
             }
         }
     }
-} 
+}
 LanceTrack.Invoicing.invoiceServiceFactory.$inject = ["$q", "$http"];

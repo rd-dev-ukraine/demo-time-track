@@ -42,8 +42,17 @@ declare module Api {
 		userHours: number;
 		userReceivedSum: number;
 	}
-	interface Project extends LanceTrack.Domain.Projects.ProjectBase {
+	interface Project extends Api.ProjectBase {
 		permissions: Api.ProjectPermissions;
+	}
+	interface ProjectBase {
+		id: number;
+		name: string;
+		status: Api.ProjectStatus;
+		startDate: Date;
+		endDate: Date;
+		maxTotalHoursPerDay: number;
+		maxTotalHours: number;
 	}
 	interface UserAccount {
 		id: number;
@@ -114,17 +123,6 @@ declare module Api {
 		userTotalHoursReported: number;
 		projectTotalAmountEarned: number;
 		userTotalAmountEarned: number;
-	}
-}
-declare module LanceTrack.Domain.Projects {
-	interface ProjectBase {
-		id: number;
-		name: string;
-		status: Api.ProjectStatus;
-		startDate: Date;
-		endDate: Date;
-		maxTotalHoursPerDay: number;
-		maxTotalHours: number;
 	}
 }
 

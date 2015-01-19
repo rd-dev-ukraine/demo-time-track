@@ -27,7 +27,7 @@
         }
 
         export interface TimeCellScope extends ng.IScope {
-            cell: Api.ProjectDailyTime;
+            cell: Api.DailyTime;
 
             trackTime: LanceTrack.DeferredDecoratedFunction<any>;
         }
