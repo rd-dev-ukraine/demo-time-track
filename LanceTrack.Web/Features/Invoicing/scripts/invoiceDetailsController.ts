@@ -9,6 +9,7 @@
 
             $scope.dates = dates;
 
+            $scope.isLoading = true;
             invoiceService.details($stateParams.invoiceNum)
                 .then(invoice => {
                 $scope.model = invoice;
@@ -17,15 +18,18 @@
                     if (oldVal == undefined || newVal == undefined || oldVal == newVal)
                         return;
 
+                    $scope.isEarningsDistributing = true;
                     $scope.error = null;
                     invoiceService.distributeEarnings(
                             $scope.model.project.id,
                             $scope.model.invoice.invoiceNum,
                             $scope.model.invoice.receivedSum)
                         .then(r => $scope.model = r)
-                        .catch(err => $scope.error = err);
+                        .catch(err => $scope.error = err)
+                        .finally(() => $scope.isEarningsDistributing = false);
                 });
-            });
+                })
+            .finally(() => $scope.isLoading = false);
 
             $scope.user = (id: number) => {
                 if (!$scope.model)
@@ -39,6 +43,8 @@
             model: Api.InvoiceModel;
             user(id: number): Api.UserAccount;
             dates: Dates;
+            isLoading: boolean;
+            isEarningsDistributing: boolean;
             error: { message: string };
         }
     }

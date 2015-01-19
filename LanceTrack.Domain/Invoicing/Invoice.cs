@@ -1,6 +1,8 @@
 ﻿using System;
 using BLToolkit.DataAccess;
 using BLToolkit.Mapping;
+using LanceTrack.Domain.Infrastructure;
+using Newtonsoft.Json;
 using TypeLite;
 
 namespace LanceTrack.Domain.Invoicing
@@ -17,12 +19,13 @@ namespace LanceTrack.Domain.Invoicing
 
         public bool IsPaid { get; set; }
 
-        [MapField("InvoiceTotalSum")]
+        [MapField("InvoiceTotalSum"), JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal Sum { get; set; }
 
-        [MapField("InvoiceTotalHours")]
+        [MapField("InvoiceTotalHours"), JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal Hours { get; set; }
 
+        [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal? ReceivedSum { get; set; }
 
         public int BilledByUserId { get; set; }

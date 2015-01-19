@@ -1,4 +1,6 @@
 ﻿using BLToolkit.DataAccess;
+using LanceTrack.Domain.Infrastructure;
+using Newtonsoft.Json;
 using TypeLite;
 
 namespace LanceTrack.Domain.Invoicing
@@ -12,10 +14,13 @@ namespace LanceTrack.Domain.Invoicing
         [PrimaryKey]
         public int UserId { get; set; }
 
+        [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal UserSum { get; set; }
 
+        [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal UserHours { get; set; }
 
+        [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal? UserReceivedSum { get; set; }
     }
 }

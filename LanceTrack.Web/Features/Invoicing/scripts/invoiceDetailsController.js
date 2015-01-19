@@ -4,15 +4,17 @@ var LanceTrack;
     (function (Invoicing) {
         function invoiceDetailsController($scope, invoiceService, $state, $stateParams, dates) {
             $scope.dates = dates;
+            $scope.isLoading = true;
             invoiceService.details($stateParams.invoiceNum).then(function (invoice) {
                 $scope.model = invoice;
                 $scope.$watch("model.invoice.receivedSum", function (oldVal, newVal) {
                     if (oldVal == undefined || newVal == undefined || oldVal == newVal)
                         return;
+                    $scope.isEarningsDistributing = true;
                     $scope.error = null;
-                    invoiceService.distributeEarnings($scope.model.project.id, $scope.model.invoice.invoiceNum, $scope.model.invoice.receivedSum).then(function (r) { return $scope.model = r; }).catch(function (err) { return $scope.error = err; });
+                    invoiceService.distributeEarnings($scope.model.project.id, $scope.model.invoice.invoiceNum, $scope.model.invoice.receivedSum).then(function (r) { return $scope.model = r; }).catch(function (err) { return $scope.error = err; }).finally(function () { return $scope.isEarningsDistributing = false; });
                 });
-            });
+            }).finally(function () { return $scope.isLoading = false; });
             $scope.user = function (id) {
                 if (!$scope.model)
                     return null;
