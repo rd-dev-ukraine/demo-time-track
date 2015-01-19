@@ -23,7 +23,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             DailyTime = new List<DailyTime>();
         }
 
-        public List<DailyTime> DailyTime {get;private set;}
+        public List<DailyTime> DailyTime { get; private set; }
 
         public List<UserInvoiceInfo> Invoices { get; private set; }
 
@@ -93,36 +93,39 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         public void On(InvoiceEvent e)
         {
-            var at = Date(e.At);
+            if (e.EventType == InvoiceEventType.Billing)
+            {
+                var at = Date(e.At);
 
-            if (e.EventType == InvoiceEventType.Cancel)
-            {
-                Invoices.RemoveAll(i => i.UserId == e.UserId &&
-                                         i.InvoiceNum == e.InvoiceNum &&
-                                         i.At == at);
-            }
-            else
-            {
-                var invoice = Invoices.SingleOrDefault(i => i.UserId == e.UserId &&
-                                                             i.InvoiceNum == e.InvoiceNum &&
-                                                             i.At == at);
-                if (invoice == null)
+                if (e.EventType == InvoiceEventType.Cancel)
                 {
-                    invoice = new UserInvoiceInfo
+                    Invoices.RemoveAll(i => i.UserId == e.UserId &&
+                                             i.InvoiceNum == e.InvoiceNum &&
+                                             i.At == at);
+                }
+                else
+                {
+                    var invoice = Invoices.SingleOrDefault(i => i.UserId == e.UserId &&
+                                                                 i.InvoiceNum == e.InvoiceNum &&
+                                                                 i.At == at);
+                    if (invoice == null)
                     {
-                        UserId = e.UserId,
-                        At = at,
-                        InvoiceNum = e.InvoiceNum
-                    };
-                    Invoices.Add(invoice);
+                        invoice = new UserInvoiceInfo
+                        {
+                            UserId = e.UserId,
+                            At = at,
+                            InvoiceNum = e.InvoiceNum
+                        };
+                        Invoices.Add(invoice);
+                    }
+
+                    invoice.Hours = e.Hours;
+                    invoice.IsPaid = e.EventType == InvoiceEventType.Paid;
+                    invoice.Sum = e.InvoiceSum;
                 }
 
-                invoice.Hours = e.Hours;
-                invoice.IsPaid = e.EventType == InvoiceEventType.Paid;
-                invoice.Sum = e.InvoiceSum;
+                UpdateUserBilling(e.UserId);
             }
-
-            UpdateUserBilling(e.UserId);
         }
 
         /// <summary>

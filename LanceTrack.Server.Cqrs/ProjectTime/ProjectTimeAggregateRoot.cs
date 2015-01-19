@@ -201,7 +201,28 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                     Sum = command.EarningSum * ui.Sum / totalSum
                 }).ToList();
 
-            yield break;
+            var events = userInvoices.Select(ui => new InvoiceEvent
+            {
+                At = DateTimeOffset.Now,
+                EventType = InvoiceEventType.EarningDistribution,
+                Hours = ui.Hours,
+                InvoiceNum = ui.InvoiceNum,
+                InvoiceSum = command.EarningSum * ui.Sum / totalSum,
+                ProjectId = command.ProjectId,
+                UserId = ui.UserId,
+                RegisteredAt = DateTimeOffset.Now,
+                RegisteredByUserId = command.ByUserId
+            });
+
+            command.Result = events.Select(e => new InvoiceRecalculationResult
+            {
+                UserId = e.UserId,
+                BillingHours = e.Hours,
+                MaxHours = e.Hours,
+                Sum = e.InvoiceSum
+            }).ToList();
+
+            return events;
         }
 
         public void On(TimeTrackedEvent @event)

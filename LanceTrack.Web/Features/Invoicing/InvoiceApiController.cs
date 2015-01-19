@@ -102,9 +102,11 @@ namespace LanceTrack.Web.Features.Invoicing
         }
 
         [Route("distribute-earnings", Name = "DistributeInvoiceEarnings"), HttpPost]
-        public List<InvoiceRecalculationResult> DistributeInvoiceEarnings(DistributeInvoiceEarningsParam parameters)
+        public IHttpActionResult DistributeInvoiceEarnings(DistributeInvoiceEarningsParam parameters)
         {
-            return _invoiceService.DistributeInvoiceEarnings(parameters.ProjectId, parameters.InvoiceNum, parameters.EarningsSum);
+            _invoiceService.DistributeInvoiceEarnings(parameters.ProjectId, parameters.InvoiceNum, parameters.EarningsSum);
+
+            return Details(parameters.InvoiceNum);
         }
 
         [TsClass(Module = "Api")]

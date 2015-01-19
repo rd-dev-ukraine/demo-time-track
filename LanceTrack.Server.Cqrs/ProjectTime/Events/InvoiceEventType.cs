@@ -3,7 +3,8 @@
     public enum InvoiceEventType
     {
         Billing = 1,
-        Paid = 2,
-        Cancel = 3
+        EarningDistribution = 2,
+        Paid = 3,
+        Cancel = 4
     }
 }

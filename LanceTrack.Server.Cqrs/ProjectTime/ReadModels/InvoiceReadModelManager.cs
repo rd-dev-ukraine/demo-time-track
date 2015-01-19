@@ -37,12 +37,13 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
         {
             if (e.EventType == InvoiceEventType.Billing)
                 OnBilling(e);
+            if (e.EventType == InvoiceEventType.EarningDistribution)
+                OnDistributeEarnings(e);
         }
 
         private void OnBilling(InvoiceEvent e)
         {
-            var detailList = _invoiceDetails.GetOrAdd(e.InvoiceNum, new Dictionary<int, InvoiceDetails>());
-            var details = detailList.GetOrAdd(e.UserId, new InvoiceDetails());
+            var details = GetOrCreateInvoiceDetails(e);
 
             details.InvoiceNum = e.InvoiceNum;
             details.UserHours = e.Hours;
@@ -58,6 +59,14 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
             RecalculateInvoice(e.InvoiceNum);
         }
 
+        private void OnDistributeEarnings(InvoiceEvent e)
+        {
+            var details = GetOrCreateInvoiceDetails(e);
+            details.UserReceivedSum = e.InvoiceSum;
+
+            RecalculateInvoice(e.InvoiceNum);
+        }
+
         private void RecalculateInvoice(string invoiceNum)
         {
             var details = _invoiceDetails.GetOrDefault(invoiceNum, new Dictionary<int, InvoiceDetails>()).Values;
@@ -67,7 +76,15 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 
                 invoice.Hours = details.Sum(d => d.UserHours);
                 invoice.Sum = details.Sum(d => d.UserSum);
+                invoice.ReceivedSum = details.Sum(d => d.UserReceivedSum);
             }
+        }
+
+        private InvoiceDetails GetOrCreateInvoiceDetails(InvoiceEvent e)
+        {
+            var detailList = _invoiceDetails.GetOrAdd(e.InvoiceNum, new Dictionary<int, InvoiceDetails>());
+            var details = detailList.GetOrAdd(e.UserId, new InvoiceDetails());
+            return details;
         }
     }
 }
