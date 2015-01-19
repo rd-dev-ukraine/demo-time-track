@@ -20,18 +20,28 @@ var LanceTrack;
             $scope.totalHours = function () {
                 if (!$scope.data)
                     return null;
-                return _.reduce($scope.data.invoice, function (acc, i) { return ((+i.billingHours) + acc); }, 0);
+                var result = _.reduce($scope.data.invoice, function (acc, i) { return ((+i.billingHours) + acc); }, 0);
+                return Math.round(result * 100) / 100;
             };
             $scope.totalSum = function () {
                 if (!$scope.data)
                     return null;
                 return _.reduce($scope.data.invoice, function (acc, i) { return ((+i.sum) + acc); }, 0);
             };
-            $scope.$watch("data.invoice", function (o, n) {
-                if (o === undefined || o == n)
+            $scope.$watch("data.invoice", function (oldVal, newVal) {
+                if (oldVal === undefined || newVal === undefined || oldVal == newVal)
                     return;
-                $scope.error = null;
-                invoiceService.recalculateInvoice($scope.data.project.id, $scope.data.invoice).then(function (r) { return $scope.data.invoice = r; });
+                var recalculate = false;
+                _.forEach(oldVal, function (oldLine) {
+                    var newLine = _.find(newVal, function (newLine) { return oldLine.userId == newLine.userId; });
+                    if (!newLine)
+                        recalculate = true;
+                    recalculate = recalculate || oldLine.billingHours != newLine.billingHours;
+                });
+                if (recalculate) {
+                    $scope.error = null;
+                    invoiceService.recalculateInvoice($scope.data.project.id, $scope.data.invoice).then(function (r) { return $scope.data.invoice = r; });
+                }
             }, true);
         }
         Invoicing.billProjectController = billProjectController;

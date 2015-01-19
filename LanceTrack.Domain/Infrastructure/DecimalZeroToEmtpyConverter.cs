@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Security;
 using Newtonsoft.Json;
 
 namespace LanceTrack.Domain.Infrastructure
@@ -16,7 +14,7 @@ namespace LanceTrack.Domain.Infrastructure
             else
             {
                 var val = (decimal)value;
-                writer.WriteValue(val == 0 ? String.Empty : val.ToString("0.##"));
+                writer.WriteValue(val == 0 ? String.Empty : val.ToString("0.##").Replace(",", "."));
             }
         }
 
@@ -26,7 +24,7 @@ namespace LanceTrack.Domain.Infrastructure
                 return null;
 
             var value = Convert.ToString(existingValue);
-            return String.IsNullOrWhiteSpace(value) ? 0M : Decimal.Parse(value);
+            return String.IsNullOrWhiteSpace(value) ? 0M : Math.Round(Decimal.Parse(value.Replace(",", ".")), 2);
         }
 
         public override bool CanConvert(Type objectType)

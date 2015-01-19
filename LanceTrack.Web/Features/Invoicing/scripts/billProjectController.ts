@@ -24,8 +24,8 @@
 
                 invoiceService.bill($scope.data.project.id, $scope.data.invoice)
                     .then((r) => {
-                        $state.go(routes.invoiceDetails, { invoiceNum: r });
-                    })
+                    $state.go(routes.invoiceDetails, { invoiceNum: r });
+                })
                     .catch(err => $scope.error = err);
             };
 
@@ -35,8 +35,10 @@
                 if (!$scope.data)
                     return null;
 
-                return <number>_.reduce($scope.data.invoice,
+                var result = <number>_.reduce($scope.data.invoice,
                     (acc: number, i: Api.InvoiceRecalculationResult) => ((+i.billingHours) + acc), 0);
+
+                return Math.round(result * 100) / 100;
             };
 
             $scope.totalSum = () => {
@@ -47,15 +49,27 @@
                     (acc: number, i: Api.InvoiceRecalculationResult) => ((+i.sum) + acc), 0);
             };
 
-            $scope.$watch("data.invoice",(o, n) => {
-                if (o === undefined || o == n)
-                    return;
+            $scope.$watch("data.invoice",
+                (oldVal: Api.InvoiceRecalculationResult[], newVal: Api.InvoiceRecalculationResult[]) => {
+                    if (oldVal === undefined || newVal === undefined || oldVal == newVal)
+                        return;
 
-                $scope.error = null;
+                    var recalculate = false;
 
-                invoiceService.recalculateInvoice($scope.data.project.id, $scope.data.invoice)
-                    .then(r => $scope.data.invoice = r);
-            }, true);
+                    _.forEach(oldVal,(oldLine: Api.InvoiceRecalculationResult) => {
+                        var newLine = _.find(newVal,(newLine: Api.InvoiceRecalculationResult) => oldLine.userId == newLine.userId);
+                        if (!newLine)
+                            recalculate = true;
+
+                        recalculate = recalculate || oldLine.billingHours != newLine.billingHours;
+                    });
+
+                    if (recalculate) {
+                        $scope.error = null;
+                        invoiceService.recalculateInvoice($scope.data.project.id, $scope.data.invoice)
+                            .then(r => $scope.data.invoice = r);
+                    }
+                }, true);
         }
 
         export interface BillingScope extends ng.IScope {
