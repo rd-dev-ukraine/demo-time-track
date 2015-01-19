@@ -14,6 +14,8 @@ namespace LanceTrack.Domain.Invoicing
 
         List<InvoiceRecalculationResult> RecalculateInvoiceInfo(int projectId, List<InvoiceUserRequest> invoiceUserRequest);
 
+        List<InvoiceRecalculationResult> DistributeInvoiceEarnings(int projectId, string invoiceNum, decimal earningsSum);
+
         /// <summary>
         /// Bill specified project for user for specified amount of hours and returns new invoice number.
         /// </summary>

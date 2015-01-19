@@ -109,6 +109,14 @@ namespace LanceTrack.Web.Features.Shared.Models
                 }
             }
 
+            public string DistributeInvoiceEarnings
+            {
+                get
+                {
+                    return Url.HttpRouteUrl("DistributeInvoiceEarnings", new { });
+                }
+            }
+
             private UrlHelper Url { get; set; }
         }
     }

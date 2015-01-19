@@ -14,6 +14,11 @@ declare module Api {
 		userId: number;
 		hours: number;
 	}
+	interface DistributeInvoiceEarningsParam {
+		projectId: number;
+		invoiceNum: string;
+		earningsSum: number;
+	}
 	interface InvoiceModel {
 		invoice: Api.Invoice;
 		details: Api.InvoiceDetails[];
@@ -68,6 +73,7 @@ declare module Api {
 		track: string;
 		bill: string;
 		invoiceDetails: string;
+		distributeInvoiceEarnings: string;
 	}
 	interface TemplatesUrls {
 		billProject: string;

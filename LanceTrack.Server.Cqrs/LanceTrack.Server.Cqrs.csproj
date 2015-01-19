@@ -51,6 +51,7 @@
     <Compile Include="Infrastructure\DictionaryExtensions.cs" />
     <Compile Include="Infrastructure\EnumerableExtension.cs" />
     <Compile Include="ProjectTime\Commands\BillProjectCommand.cs" />
+    <Compile Include="ProjectTime\Commands\DistributeEarningCommand.cs" />
     <Compile Include="ProjectTime\Commands\RecalculateInvoiceInfoCommand.cs" />
     <Compile Include="ProjectTime\Dependencies\IInvoiceStorage.cs" />
     <Compile Include="ProjectTime\Events\InvoiceEvent.cs" />

@@ -13,7 +13,7 @@ namespace LanceTrack.Server.Invoicing
     {
         private readonly ICqrs _cqrs;
         private readonly UserAccount _currentUser;
-        private readonly IInvoiceRepository _invoiceRepository; 
+        private readonly IInvoiceRepository _invoiceRepository;
 
         public InvoiceService(ICqrs cqrs, UserAccount currentUser, IInvoiceRepository invoiceRepository)
         {
@@ -49,7 +49,7 @@ namespace LanceTrack.Server.Invoicing
 
         public List<InvoiceDetails> Details(string invoiceNumber)
         {
-            if(String.IsNullOrWhiteSpace(invoiceNumber))
+            if (String.IsNullOrWhiteSpace(invoiceNumber))
                 throw new ArgumentNullException("invoiceNumber");
 
             return _invoiceRepository.Details(invoiceNumber, _currentUser.Id)
@@ -68,6 +68,21 @@ namespace LanceTrack.Server.Invoicing
             _cqrs.Execute(recalculateInvocieInfoCommand);
 
             return recalculateInvocieInfoCommand.Result;
+        }
+
+        public List<InvoiceRecalculationResult> DistributeInvoiceEarnings(int projectId, string invoiceNum, decimal earningsSum)
+        {
+            var command = new DistributeEarningCommand
+            {
+                ByUserId = _currentUser.Id,
+                EarningSum = earningsSum,
+                InvoiceNum = invoiceNum,
+                ProjectId = projectId
+            };
+
+            _cqrs.Execute(command);
+
+            return command.Result;
         }
 
         public string BillProject(int projectId, List<InvoiceUserRequest> invoiceUserRequest)

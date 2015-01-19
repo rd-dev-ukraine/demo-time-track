@@ -101,11 +101,25 @@ namespace LanceTrack.Web.Features.Invoicing
             return _invoiceService.RecalculateInvoiceInfo(parameters.ProjectId, parameters.InvoiceUserRequests);
         }
 
+        [Route("distribute-earnings", Name = "DistributeInvoiceEarnings"), HttpPost]
+        public List<InvoiceRecalculationResult> DistributeInvoiceEarnings(DistributeInvoiceEarningsParam parameters)
+        {
+            return _invoiceService.DistributeInvoiceEarnings(parameters.ProjectId, parameters.InvoiceNum, parameters.EarningsSum);
+        }
+
         [TsClass(Module = "Api")]
         public class PrepareInvoiceParams
         {
             public List<InvoiceUserRequest> InvoiceUserRequests { get; set; }
             public int ProjectId { get; set; }
+        }
+
+        [TsClass(Module = "Api")]
+        public class DistributeInvoiceEarningsParam
+        {
+            public int ProjectId { get; set; }
+            public string InvoiceNum { get; set; }
+            public decimal EarningsSum { get; set; }
         }
     }
 }

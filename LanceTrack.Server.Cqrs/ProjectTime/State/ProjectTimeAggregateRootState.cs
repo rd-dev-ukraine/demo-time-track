@@ -15,21 +15,24 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
-        private readonly List<DailyTime> _dailyTime = new List<DailyTime>();
-        private readonly List<UserInvoiceInfo> _invoices = new List<UserInvoiceInfo>();
         private readonly List<Billing> _billing = new List<Billing>();
 
-        public IEnumerable<DailyTime> DailyTime
+        public ProjectTimeAggregateRootState()
         {
-            get { return _dailyTime; }
+            Invoices = new List<UserInvoiceInfo>();
+            DailyTime = new List<DailyTime>();
         }
+
+        public List<DailyTime> DailyTime {get;private set;}
+
+        public List<UserInvoiceInfo> Invoices { get; private set; }
 
         public decimal CalculateInvoiceSum(int userId, decimal hours)
         {
             var sum = 0M;
             var nonBilledHours = hours;
 
-            var dailyTime = _dailyTime.Where(t => t.UserId == userId)
+            var dailyTime = DailyTime.Where(t => t.UserId == userId)
                                       .Where(t => t.TotalHours - t.BilledHours > 0)
                                       .OrderBy(t => t.Date);
 
@@ -50,12 +53,12 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         public decimal MaxBillableHours(int userId)
         {
-            return _dailyTime.Where(b => b.UserId == userId).SumOrDefault(b => b.TotalHours - b.BilledHours);
+            return DailyTime.Where(b => b.UserId == userId).SumOrDefault(b => b.TotalHours - b.BilledHours);
         }
 
         public int InvoiceCount()
         {
-            return _invoices.GroupBy(i => i.InvoiceNum).Count();
+            return Invoices.GroupBy(i => i.InvoiceNum).Count();
         }
 
         public void On(TimeTrackedEvent e)
@@ -64,11 +67,11 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
             if (e.Hours == 0)
             {
-                _dailyTime.RemoveAll(t => t.Date == date && t.UserId == e.UserId);
+                DailyTime.RemoveAll(t => t.Date == date && t.UserId == e.UserId);
             }
             else
             {
-                var dailyTime = _dailyTime.SingleOrDefault(t => t.Date == date && t.UserId == e.UserId);
+                var dailyTime = DailyTime.SingleOrDefault(t => t.Date == date && t.UserId == e.UserId);
 
                 if (dailyTime == null)
                 {
@@ -79,7 +82,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
                         ProjectId = e.ProjectId,
                         UserId = e.UserId
                     };
-                    _dailyTime.Add(dailyTime);
+                    DailyTime.Add(dailyTime);
                 }
 
                 dailyTime.TotalHours = e.Hours;
@@ -94,13 +97,13 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
             if (e.EventType == InvoiceEventType.Cancel)
             {
-                _invoices.RemoveAll(i => i.UserId == e.UserId &&
+                Invoices.RemoveAll(i => i.UserId == e.UserId &&
                                          i.InvoiceNum == e.InvoiceNum &&
                                          i.At == at);
             }
             else
             {
-                var invoice = _invoices.SingleOrDefault(i => i.UserId == e.UserId &&
+                var invoice = Invoices.SingleOrDefault(i => i.UserId == e.UserId &&
                                                              i.InvoiceNum == e.InvoiceNum &&
                                                              i.At == at);
                 if (invoice == null)
@@ -111,11 +114,12 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
                         At = at,
                         InvoiceNum = e.InvoiceNum
                     };
-                    _invoices.Add(invoice);
+                    Invoices.Add(invoice);
                 }
 
                 invoice.Hours = e.Hours;
                 invoice.IsPaid = e.EventType == InvoiceEventType.Paid;
+                invoice.Sum = e.InvoiceSum;
             }
 
             UpdateUserBilling(e.UserId);
@@ -128,7 +132,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         {
             var result = new List<Billing>();
 
-            var dailyTimeToBill = _dailyTime.Where(t => t.UserId == userId).OrderBy(t => t.Date).ToArray();
+            var dailyTimeToBill = DailyTime.Where(t => t.UserId == userId).OrderBy(t => t.Date).ToArray();
 
             // reset hours info
             foreach (var time in dailyTimeToBill)
@@ -137,7 +141,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
                 time.PaidHours = 0;
             }
 
-            using (var invoices = _invoices.Where(i => i.UserId == userId).OrderBy(i => i.At).GetEnumerator())
+            using (var invoices = Invoices.Where(i => i.UserId == userId).OrderBy(i => i.At).GetEnumerator())
             {
                 if (!invoices.MoveNext())
                     return;

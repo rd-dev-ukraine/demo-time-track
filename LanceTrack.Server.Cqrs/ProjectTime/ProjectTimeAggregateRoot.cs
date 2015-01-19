@@ -16,6 +16,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
         ICommandHandler<TrackTimeCommand, ProjectTimeAggregateRoot, int>,
         ICommandHandler<BillProjectCommand, ProjectTimeAggregateRoot, int>,
         ICommandHandler<RecalculateInvoiceInfoCommand, ProjectTimeAggregateRoot, int>,
+        ICommandHandler<DistributeEarningCommand, ProjectTimeAggregateRoot, int>,
         IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
@@ -147,11 +148,11 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
             foreach (var projectUserInfo in projectUsers)
             {
                 var userInvoiceInfo = command.InvoiceUserRequest.SingleOrDefault(r => r.UserId == projectUserInfo.UserId) ??
-                                        new InvoiceUserRequest
-                                        {
-                                            UserId = projectUserInfo.UserId,
-                                            Hours = 0
-                                        };
+                                      new InvoiceUserRequest
+                                      {
+                                          UserId = projectUserInfo.UserId,
+                                          Hours = 0
+                                      };
 
                 var maxBillableHours = State.MaxBillableHours(userInvoiceInfo.UserId);
 
@@ -170,6 +171,35 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                     Sum = sum
                 });
             }
+
+            yield break;
+        }
+
+        public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(DistributeEarningCommand command)
+        {
+            CheckUserBillingRights(command.ProjectId, command.ByUserId);
+
+            if (command.EarningSum < 0)
+                throw new ArgumentException("Earning sum must be greater than zero.");
+
+            command.Result = new List<InvoiceRecalculationResult>();
+
+            var userInvoices = State.Invoices.Where(i => i.InvoiceNum == command.InvoiceNum);
+            if (!userInvoices.Any())
+                throw new ArgumentException("Invoice number is not valid.");
+
+            var totalSum = userInvoices.Sum(i => i.Sum);
+
+            if (command.EarningSum > totalSum)
+                throw new ArgumentException(String.Format("Sum must be less than or equal to {0}", totalSum));
+
+            command.Result = userInvoices.Select(ui => new InvoiceRecalculationResult
+                {
+                    UserId = ui.UserId,
+                    BillingHours = ui.Hours,
+                    MaxHours = ui.Hours,
+                    Sum = command.EarningSum * ui.Sum / totalSum
+                }).ToList();
 
             yield break;
         }

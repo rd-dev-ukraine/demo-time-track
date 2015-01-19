@@ -9,5 +9,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         public string InvoiceNum { get; set; }
         public bool IsPaid { get; set; }
         public int UserId { get; set; }
+        public decimal Sum { get; set; }
     }
 }

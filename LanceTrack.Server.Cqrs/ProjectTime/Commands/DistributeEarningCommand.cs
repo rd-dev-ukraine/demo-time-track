@@ -4,15 +4,13 @@ using LanceTrack.Domain.Invoicing;
 
 namespace LanceTrack.Server.Cqrs.ProjectTime.Commands
 {
-    public class DistributeEarningCommand : ICommandWithResult<List<InvoiceRecalculationResult>, ProjectTimeAggregateRoot, int>
+    public class RecalculateInvoiceInfoCommand : ICommandWithResult<List<InvoiceRecalculationResult>, ProjectTimeAggregateRoot, int>
     {
         public int ProjectId { get; set; }
 
         public int ByUserId { get; set; }
 
-        public string InvoiceNum { get; set; }
-
-        public decimal EarningSum { get; set; }
+        public List<InvoiceUserRequest> InvoiceUserRequest { get; set; }
 
         public List<InvoiceRecalculationResult> Result { get; set; }
 
