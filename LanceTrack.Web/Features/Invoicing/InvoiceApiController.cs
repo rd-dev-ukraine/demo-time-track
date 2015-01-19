@@ -53,17 +53,24 @@ namespace LanceTrack.Web.Features.Invoicing
             }
         }
 
-        [Route("details/{invoiceNumber}", Name = "InvoiceDetails")]
+        [Route("details/{*invoiceNumber}", Name = "InvoiceDetails"), HttpGet]
         public IHttpActionResult Details(string invoiceNumber)
         {
             var invoice = _invoiceService.Get(invoiceNumber);
             if (invoice == null)
                 return NotFound();
 
+            var project =_projectService.BillableProject(invoice.ProjectId);
+            if (project == null)
+                return NotFound();
+            
+
             var details = _invoiceService.Details(invoiceNumber);
 
             return Ok(new InvoiceModel
             {
+                Project = project,
+                Users = _userService.All().ToList(),
                 Invoice = invoice,
                 Details = details
             });

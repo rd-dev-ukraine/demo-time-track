@@ -23,7 +23,9 @@
                 $scope.error = null;
 
                 invoiceService.bill($scope.data.project.id, $scope.data.invoice)
-                    .then((r) => alert("Invoice created: " + r))
+                    .then((r) => {
+                        $state.go(routes.invoiceDetails, { invoiceNum: r });
+                    })
                     .catch(err => $scope.error = err);
             };
 
@@ -34,7 +36,7 @@
                     return null;
 
                 return <number>_.reduce($scope.data.invoice,
-                                (acc: number, i: Api.InvoiceRecalculationResult) => ((+i.billingHours) + acc), 0);
+                    (acc: number, i: Api.InvoiceRecalculationResult) => ((+i.billingHours) + acc), 0);
             };
 
             $scope.totalSum = () => {
@@ -45,7 +47,7 @@
                     (acc: number, i: Api.InvoiceRecalculationResult) => ((+i.sum) + acc), 0);
             };
 
-            $scope.$watch("data.invoice", (o, n) => {
+            $scope.$watch("data.invoice",(o, n) => {
                 if (o === undefined || o == n)
                     return;
 

@@ -56,6 +56,18 @@
 
                 return deferred.promise;
             };
+
+            InvoiceService.prototype.details = function (invoiceNum) {
+                var deferred = this.$q.defer();
+
+                this.$http.get(urls.data.invoiceDetails + "/" + invoiceNum).success(function (r) {
+                    return deferred.resolve(r);
+                }).error(function (err) {
+                    return deferred.reject(err);
+                });
+
+                return deferred.promise;
+            };
             return InvoiceService;
         })();
         Invoicing.InvoiceService = InvoiceService;

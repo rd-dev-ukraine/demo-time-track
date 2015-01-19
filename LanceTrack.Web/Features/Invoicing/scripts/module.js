@@ -5,12 +5,17 @@
 
         app.service("invoiceService", Invoicing.invoiceServiceFactory);
         app.controller("billProjectController", Invoicing.billProjectController);
+        app.controller("invoiceDetailsController", Invoicing.invoiceDetailsController);
 
         app.config(function ($stateProvider) {
-            $stateProvider.state("billProject", {
+            $stateProvider.state(Invoicing.routes.billProject, {
                 url: "/bill-project/{projectId:int}",
                 templateUrl: urls.templates.billProject,
                 controller: "billProjectController"
+            }).state(Invoicing.routes.invoiceDetails, {
+                url: "/invoices/{invoiceNum}",
+                templateUrl: urls.templates.invoiceDetails,
+                controller: "invoiceDetailsController"
             }).state("invoices", {
                 abstract: true,
                 url: "/invoices/",
@@ -26,6 +31,11 @@
                 controller: "usersTimeController"
             });
         });
+
+        Invoicing.routes = {
+            invoiceDetails: "invoiceDetails",
+            billProject: "billProject"
+        };
     })(LanceTrack.Invoicing || (LanceTrack.Invoicing = {}));
     var Invoicing = LanceTrack.Invoicing;
 })(LanceTrack || (LanceTrack = {}));

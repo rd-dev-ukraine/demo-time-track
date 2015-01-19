@@ -238,6 +238,7 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string billProjectController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/billProjectController.min.js") ? Url("billProjectController.min.js") : Url("billProjectController.js");
+                public static readonly string invoiceDetailsController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/invoiceDetailsController.min.js") ? Url("invoiceDetailsController.min.js") : Url("invoiceDetailsController.js");
                 public static readonly string invoiceService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/invoiceService.min.js") ? Url("invoiceService.min.js") : Url("invoiceService.js");
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
             }
@@ -266,6 +267,7 @@ namespace Links
                 public static readonly string deferredFunctionService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/deferredFunctionService.min.js") ? Url("deferredFunctionService.min.js") : Url("deferredFunctionService.js");
                 public static readonly string hoursFilter_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/hoursFilter.min.js") ? Url("hoursFilter.min.js") : Url("hoursFilter.js");
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
+                public static readonly string yesNoFilter_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/yesNoFilter.min.js") ? Url("yesNoFilter.min.js") : Url("yesNoFilter.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

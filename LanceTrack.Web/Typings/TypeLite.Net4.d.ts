@@ -17,6 +17,8 @@ declare module Api {
 	interface InvoiceModel {
 		invoice: Api.Invoice;
 		details: Api.InvoiceDetails[];
+		project: Api.Project;
+		users: Api.UserAccount[];
 	}
 	interface Invoice {
 		invoiceNum: string;
@@ -35,6 +37,14 @@ declare module Api {
 		userHours: number;
 		userReceivedSum: number;
 	}
+	interface Project extends LanceTrack.Domain.Projects.ProjectBase {
+		permissions: Api.ProjectPermissions;
+	}
+	interface UserAccount {
+		id: number;
+		email: string;
+		displayName: string;
+	}
 	interface PrepareInvoiceModel {
 		invoice: Api.InvoiceRecalculationResult[];
 		project: Api.Project;
@@ -45,14 +55,6 @@ declare module Api {
 		maxHours: number;
 		billingHours: number;
 		sum: number;
-	}
-	interface Project extends LanceTrack.Domain.Projects.ProjectBase {
-		permissions: Api.ProjectPermissions;
-	}
-	interface UserAccount {
-		id: number;
-		email: string;
-		displayName: string;
 	}
 	interface Urls {
 		data: Api.DataUrls;
@@ -70,6 +72,7 @@ declare module Api {
 	interface TemplatesUrls {
 		billProject: string;
 		invoiceBase: string;
+		invoiceDetails: string;
 		timeCell: string;
 		trackMyTime: string;
 		trackTimeBase: string;

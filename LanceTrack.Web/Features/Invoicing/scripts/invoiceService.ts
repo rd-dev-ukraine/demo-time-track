@@ -45,6 +45,16 @@
 
                 return deferred.promise;
             }
+
+            details(invoiceNum: string): ng.IPromise<Api.InvoiceModel> {
+                var deferred = this.$q.defer();
+
+                this.$http.get(urls.data.invoiceDetails + "/" + invoiceNum)
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
         }
     }
 } 

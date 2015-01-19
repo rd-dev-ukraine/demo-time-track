@@ -18,5 +18,10 @@ namespace LanceTrack.Web.Features.Invoicing
         {
             return PartialView(MVC.Invoicing.Views.BillProjectTemplate);
         }
+
+        public virtual ActionResult InvoiceDetailsTemplate()
+        {
+            return PartialView(MVC.Invoicing.Views.InvoiceDetailsTemplate);
+        }
     }
 }

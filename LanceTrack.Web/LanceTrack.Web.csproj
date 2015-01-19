@@ -202,6 +202,7 @@
     <Content Include="Features\Invoicing\InvoiceTemplateBase.cshtml" />
     <Content Include="Features\Invoicing\Refs.cshtml" />
     <Content Include="Features\Invoicing\BillProjectTemplate.cshtml" />
+    <Content Include="Features\Invoicing\InvoiceDetailsTemplate.cshtml" />
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
@@ -349,11 +350,13 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Features\Invoicing\scripts\billProjectController.ts" />
+    <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceDetailsController.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceService.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\app.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\dateService.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\deferredFunctionService.ts" />
+    <TypeScriptCompile Include="Features\Shared\scripts\yesNoFilter.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\hoursFilter.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />

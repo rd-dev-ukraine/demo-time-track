@@ -37,10 +37,12 @@ namespace T4MVC
             public class _ViewNamesClass
             {
                 public readonly string BillProjectTemplate = "BillProjectTemplate";
+                public readonly string InvoiceDetailsTemplate = "InvoiceDetailsTemplate";
                 public readonly string InvoiceTemplateBase = "InvoiceTemplateBase";
                 public readonly string Refs = "Refs";
             }
             public readonly string BillProjectTemplate = "~/Features/Invoicing/BillProjectTemplate.cshtml";
+            public readonly string InvoiceDetailsTemplate = "~/Features/Invoicing/InvoiceDetailsTemplate.cshtml";
             public readonly string InvoiceTemplateBase = "~/Features/Invoicing/InvoiceTemplateBase.cshtml";
             public readonly string Refs = "~/Features/Invoicing/Refs.cshtml";
             static readonly _ModelsClass s_Models = new _ModelsClass();

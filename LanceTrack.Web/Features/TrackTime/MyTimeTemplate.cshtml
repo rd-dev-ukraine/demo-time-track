@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="col-lg-1 col-sm-1 text-muted">
-        {{ totalHours({projectId: project.id, userId: data.currentUserId } | hours) }}
+        {{ totalHours({projectId: project.id, userId: data.currentUserId }) | hours}}
     </div>
 </div>
 
@@ -40,13 +40,13 @@
         <div class="date-range mon-wed">
             <div class="col-lg-3 text-muted"
                  ng-repeat="d in dates.slice(0, 4)">
-                {{ totalHours({userId: data.currentUserId, at: d } | hours ) }}
+                {{ totalHours({userId: data.currentUserId, at: d }) | hours }}
             </div>
         </div>
         <div class="date-range thu-sun">
             <div class="col-lg-4 col-sm-4 text-muted"
                  ng-repeat="d in dates.slice(4, 7)">
-                {{ totalHours({userId: data.currentUserId, at: d } | hours ) }}
+                {{ totalHours({userId: data.currentUserId, at: d }) | hours  }}
             </div>
         </div>
     </div>

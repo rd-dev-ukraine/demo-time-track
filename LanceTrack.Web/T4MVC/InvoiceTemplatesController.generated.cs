@@ -75,6 +75,7 @@ namespace LanceTrack.Web.Features.Invoicing
         {
             public readonly string InvoiceTemplateBase = "InvoiceTemplateBase";
             public readonly string BillProjectTemplate = "BillProjectTemplate";
+            public readonly string InvoiceDetailsTemplate = "InvoiceDetailsTemplate";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,6 +83,7 @@ namespace LanceTrack.Web.Features.Invoicing
         {
             public const string InvoiceTemplateBase = "InvoiceTemplateBase";
             public const string BillProjectTemplate = "BillProjectTemplate";
+            public const string InvoiceDetailsTemplate = "InvoiceDetailsTemplate";
         }
 
 
@@ -123,6 +125,17 @@ namespace LanceTrack.Web.Features.Invoicing
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.BillProjectTemplate);
             BillProjectTemplateOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void InvoiceDetailsTemplateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult InvoiceDetailsTemplate()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.InvoiceDetailsTemplate);
+            InvoiceDetailsTemplateOverride(callInfo);
             return callInfo;
         }
 

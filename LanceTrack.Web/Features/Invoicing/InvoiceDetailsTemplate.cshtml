@@ -1,0 +1,101 @@
+﻿@model dynamic
+@{
+    var rowClass = "clearfix h4";
+    var labelClass = "col-lg-2 col-sm-2 text-muted";
+    var valueClass = "col-lg-10 col-sm-10";
+}
+
+<div class="clearfix">
+    <h2 class="text-primary">
+        Invoice {{model.invoice.invoiceNum}}
+    </h2>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="@rowClass text-primary">
+            <div class="col-lg-12 col-sm-2">{{model.invoice.invoiceNum}}</div>
+        </div>
+        <div class="@rowClass">
+            <div class="@labelClass">Project</div>
+            <div class="@valueClass">{{model.project.name}}</div>
+        </div>
+        <div class="@rowClass">
+            <div class="@labelClass">Date</div>
+            <div class="@valueClass">{{dates.format(model.invoice.at)}}</div>
+        </div>
+        <div class="@rowClass">
+            <div class="@labelClass">Total hours</div>
+            <div class="@valueClass">{{model.invoice.hours | hours}}</div>
+        </div>
+        <div class="@rowClass">
+            <div class="@labelClass">Invoice sum</div>
+            <div class="@valueClass text-primary">${{model.invoice.sum}}</div>
+        </div>
+
+        <div class="@rowClass">
+            <div class="@labelClass">Billed by</div>
+            <div class="@valueClass">{{user(model.invoice.billedByUserId).displayName}}</div>
+        </div>
+
+
+        @*<div class="form-horizontal">
+            <div class="form-group h4">
+                <p class="@userColumn form-control-static">
+                    Project
+                </p>
+                <div class="@hoursColumn form-control-static text-primary">
+                    {{data.project.name}}
+                </div>
+            </div>
+            <div class="form-group small visible-lg visible-md">
+                <p class="@userColumn form-control-static text-right text-muted">User</p>
+                <p class="@hoursColumn form-control-static text-muted">Hours</p>
+                <p class="@maxHoursColumn form-control-static text-muted">Max hours</p>
+                <p class="@sumColumn form-control-static text-muted">Sum</p>
+            </div>
+            <div class="form-group"
+                 ng-repeat="userTime in data.invoice track by userTime.userId">
+                <p class="@userColumn form-control-static">
+                    {{user(userTime.userId).displayName}}
+                </p>
+                <div class="@hoursColumn">
+                    <input class="form-control"
+                           ng-model="userTime.billingHours"
+                           ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
+                           type="text"/>
+
+                </div>
+                <div class="@maxHoursColumn">
+                    <p class="form-control-static">
+                        hrs of {{userTime.maxHours}}hrs max
+                    </p>
+                </div>
+                <p class="@sumColumn form-control-static text-primary">
+                    {{userTime.sum ? '$' + userTime.sum: '-'}}
+                </p>
+            </div>
+            <div class="form-group h4">
+                <p class="col-md-offset-5 col-md-2 col-md-2 col-sm-5 col-xs-5">
+                    Total hours:
+                </p>
+                <p class="col-md-2 col-sm-5 col-xs-5">{{totalHours() | hours}}</p>
+            </div>
+            <div class="form-group h4 text-primary">
+                <p class="col-md-offset-5 col-md-2 col-sm-5 col-xs-5">
+                    Total sum:
+                </p>
+                <p class="col-md-2 col-sm-5 col-xs-5">${{totalSum()}}</p>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3">
+                    <button class="btn btn-lg btn-primary"
+                            ng-click="bill()"
+                            type="button">
+                        Create invoice
+                    </button>
+                </div>
+            </div>
+        </div>*@
+
+    </div>
+</div>

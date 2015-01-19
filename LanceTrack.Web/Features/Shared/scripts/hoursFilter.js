@@ -1,4 +1,4 @@
-var LanceTrack;
+﻿var LanceTrack;
 (function (LanceTrack) {
     function hoursFilter() {
         return function (value) {

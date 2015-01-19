@@ -4,31 +4,42 @@
 
         app.service("invoiceService", invoiceServiceFactory);
         app.controller("billProjectController", billProjectController);
+        app.controller("invoiceDetailsController", invoiceDetailsController);
 
         app.config(($stateProvider: ng.ui.IStateProvider) => {
 
             $stateProvider
-                .state("billProject", {
-                    url: "/bill-project/{projectId:int}",
-                    templateUrl: urls.templates.billProject,
-                    controller: "billProjectController"
-                })
+                .state(routes.billProject, {
+                url: "/bill-project/{projectId:int}",
+                templateUrl: urls.templates.billProject,
+                controller: "billProjectController"
+            })
+                .state(routes.invoiceDetails, {
+                url: "/invoices/{invoiceNum}",
+                templateUrl: urls.templates.invoiceDetails,
+                controller: "invoiceDetailsController"
+            })
                 .state("invoices", {
-                    abstract: true,
-                    url: "/invoices/",
-                    templateUrl: urls.templates.invoiceBase,
-                    controller: "invoiceBaseController"
-                })
+                abstract: true,
+                url: "/invoices/",
+                templateUrl: urls.templates.invoiceBase,
+                controller: "invoiceBaseController"
+            })
                 .state("invoices.pending", {
-                    url: "/pending",
-                    templateUrl: urls.templates.trackMyTime,
-                    controller: "myTimeController"
-                })
+                url: "/pending",
+                templateUrl: urls.templates.trackMyTime,
+                controller: "myTimeController"
+            })
                 .state("invoices.archive", {
-                    url: "/archive",
-                    templateUrl: urls.templates.usersTime,
-                    controller: "usersTimeController"
-                });
+                url: "/archive",
+                templateUrl: urls.templates.usersTime,
+                controller: "usersTimeController"
+            });
         });
+
+        export var routes = {
+            invoiceDetails: "invoiceDetails",
+            billProject: "billProject"
+        };
     }
 }
