@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="col-lg-1 col-sm-1 text-muted">
-            {{totalHours({userId: user.id, projectId: project.id })}}hrs
+            {{totalHours({userId: user.id, projectId: project.id }) | hours }}
         </div>
     </div>
 
@@ -48,13 +48,13 @@
             <div class="date-range mon-wed">
                 <div class="col-lg-3 text-muted"
                      ng-repeat="d in dates.slice(0, 4)">
-                    {{totalHours({userId: user.id, at: d })}}hrs
+                    {{totalHours({userId: user.id, at: d }) | hours}}
                 </div>
             </div>
             <div class="date-range thu-sun">
                 <div class="col-lg-4 text-muted"
                      ng-repeat="d in dates.slice(4, 7)">
-                    {{totalHours({userId: user.id, at: d })}}hrs
+                    {{totalHours({userId: user.id, at: d }) | hours}}
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
             </div>
         </div>
         <div class="col-lg-1 col-sm-1 text-muted">
-            {{totalHours({userId: user.id, projectId: project.id })}}hrs
+            {{totalHours({userId: user.id, projectId: project.id }) | hours }}
         </div>
     </div>
 
@@ -113,13 +113,13 @@
             <div class="date-range mon-wed">
                 <div class="col-lg-3 text-muted"
                      ng-repeat="d in dates.slice(0, 4)">
-                    {{totalHours({projectId: project.id, at: d })}}hrs
+                    {{totalHours({projectId: project.id, at: d }) | hours }}
                 </div>
             </div>
             <div class="date-range thu-sun">
                 <div class="col-lg-4 col-sm-4 text-muted"
                      ng-repeat="d in dates.slice(4, 7)">
-                    {{totalHours({projectId: project.id, at: d })}}hrs
+                    {{totalHours({projectId: project.id, at: d }) | hours }}
                 </div>
             </div>
         </div>

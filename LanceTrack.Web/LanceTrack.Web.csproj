@@ -355,6 +355,7 @@
     <TypeScriptCompile Include="Features\Shared\scripts\dateService.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\deferredFunctionService.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
+    <TypeScriptCompile Include="Features\Shared\scripts\hoursFilter.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeBaseController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\statisticsController.ts" />

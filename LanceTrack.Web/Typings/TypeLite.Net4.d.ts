@@ -7,8 +7,8 @@
 
 declare module Api {
 	interface PrepareInvoiceParams {
-		projectId: number;
 		invoiceUserRequests: Api.InvoiceUserRequest[];
+		projectId: number;
 	}
 	interface InvoiceUserRequest {
 		userId: number;
@@ -80,14 +80,17 @@ declare module Api {
 		startDate: string;
 		endDate: string;
 		projects: Api.Project[];
-		time: Api.ProjectDailyTime[];
+		time: Api.DailyTime[];
 		users: Api.UserAccount[];
 	}
-	interface ProjectDailyTime {
+	interface DailyTime {
 		projectId: number;
 		userId: number;
 		date: string;
 		totalHours: number;
+		billedHours: number;
+		paidHours: number;
+		hourlyRate: number;
 	}
 	interface StatisticsResult {
 		totalHours: number;
