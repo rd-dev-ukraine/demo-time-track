@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Newtonsoft.Json;
 
 namespace LanceTrack.Domain.Infrastructure
@@ -23,8 +24,13 @@ namespace LanceTrack.Domain.Infrastructure
             if (objectType == typeof (decimal?) && existingValue == null)
                 return null;
 
-            var value = Convert.ToString(existingValue);
-            return String.IsNullOrWhiteSpace(value) ? 0M : Math.Round(Decimal.Parse(value.Replace(",", ".")), 2);
+            var value = Convert.ToString(reader.Value);
+
+            var parsedValue = String.IsNullOrWhiteSpace(value)
+                                    ? 0M :
+                                    Decimal.Parse(value.Replace(",", "."), CultureInfo.GetCultureInfo("en-US"));
+
+            return Math.Round(parsedValue, 2);
         }
 
         public override bool CanConvert(Type objectType)

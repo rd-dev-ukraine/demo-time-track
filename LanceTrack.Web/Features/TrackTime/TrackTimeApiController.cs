@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
+using LanceTrack.Domain.Infrastructure;
 using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.TimeTracking;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
 using LanceTrack.Web.Features.TrackTime.Models;
+using Newtonsoft.Json;
 
 namespace LanceTrack.Web.Features.TrackTime
 {
@@ -80,14 +82,10 @@ namespace LanceTrack.Web.Features.TrackTime
         {
             try
             {
-                decimal hours;
-                if (String.IsNullOrWhiteSpace(parameters.Hours))
-                    hours = 0;
-                else
-                    if (!Decimal.TryParse(parameters.Hours, out hours))
-                        return BadRequest("Hours value invalid.");
-
-                _timeTrackingService.TrackTime(parameters.ProjectId, parameters.UserId, parameters.At, hours);
+                _timeTrackingService.TrackTime(
+                    parameters.ProjectId,
+                    parameters.UserId,
+                    parameters.At, parameters.Hours);
                 return Ok();
             }
             catch (Exception ex)
@@ -96,12 +94,15 @@ namespace LanceTrack.Web.Features.TrackTime
             }
         }
 
-        public class TrackTimeParams
-        {
-            public DateTime At { get; set; }
-            public string Hours { get; set; }
-            public int ProjectId { get; set; }
-            public int UserId { get; set; }
-        }
+
+    }
+
+    public class TrackTimeParams
+    {
+        public DateTime At { get; set; }
+        [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
+        public decimal Hours { get; set; }
+        public int ProjectId { get; set; }
+        public int UserId { get; set; }
     }
 }
