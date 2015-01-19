@@ -4,7 +4,10 @@
     var labelClass = "col-lg-2 col-sm-2 text-muted";
     var valueClass = "col-lg-10 col-sm-10";
 
-    var userColClass = "";
+    var userColClass = "col-lg-2 col-sm-2";
+    var hoursColClass = "col-lg-1 col-sm-1";
+    var sumColClass = "col-lg-1 col-sm-1 text-primary";
+
 }
 
 <div class="clearfix">
@@ -42,66 +45,20 @@
             <div class="@labelClass">Billed by</div>
             <div class="@valueClass">{{user(model.invoice.billedByUserId).displayName}}</div>
         </div>
-
-
-        @*<div class="form-horizontal">
-            <div class="form-group h4">
-                <p class="@userColumn form-control-static">
-                    Project
-                </p>
-                <div class="@hoursColumn form-control-static text-primary">
-                    {{data.project.name}}
+        <div class="clearfix invoice-details-part">
+            <div class="clearfix"
+                 ng-repeat="detail in model.details">
+                <div class="@userColClass">
+                    {{user(detail.userId).displayName}}
+                </div>
+                <div class="@hoursColClass">
+                    {{detail.userHours | hours}}
+                </div>
+                <div class="@sumColClass">
+                    ${{detail.userSum}}
                 </div>
             </div>
-            <div class="form-group small visible-lg visible-md">
-                <p class="@userColumn form-control-static text-right text-muted">User</p>
-                <p class="@hoursColumn form-control-static text-muted">Hours</p>
-                <p class="@maxHoursColumn form-control-static text-muted">Max hours</p>
-                <p class="@sumColumn form-control-static text-muted">Sum</p>
-            </div>
-            <div class="form-group"
-                 ng-repeat="userTime in data.invoice track by userTime.userId">
-                <p class="@userColumn form-control-static">
-                    {{user(userTime.userId).displayName}}
-                </p>
-                <div class="@hoursColumn">
-                    <input class="form-control"
-                           ng-model="userTime.billingHours"
-                           ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
-                           type="text"/>
-
-                </div>
-                <div class="@maxHoursColumn">
-                    <p class="form-control-static">
-                        hrs of {{userTime.maxHours}}hrs max
-                    </p>
-                </div>
-                <p class="@sumColumn form-control-static text-primary">
-                    {{userTime.sum ? '$' + userTime.sum: '-'}}
-                </p>
-            </div>
-            <div class="form-group h4">
-                <p class="col-md-offset-5 col-md-2 col-md-2 col-sm-5 col-xs-5">
-                    Total hours:
-                </p>
-                <p class="col-md-2 col-sm-5 col-xs-5">{{totalHours() | hours}}</p>
-            </div>
-            <div class="form-group h4 text-primary">
-                <p class="col-md-offset-5 col-md-2 col-sm-5 col-xs-5">
-                    Total sum:
-                </p>
-                <p class="col-md-2 col-sm-5 col-xs-5">${{totalSum()}}</p>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-3">
-                    <button class="btn btn-lg btn-primary"
-                            ng-click="bill()"
-                            type="button">
-                        Create invoice
-                    </button>
-                </div>
-            </div>
-        </div>*@
+        </div>
 
     </div>
 </div>

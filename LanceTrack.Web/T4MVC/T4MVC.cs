@@ -243,6 +243,18 @@ namespace Links
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
             }
         
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class styles {
+                private const string URLPATH = "~/Features/Invoicing/styles";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string invoice_less = Url("invoice.less");
+                public static readonly string invoice_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/invoice.min.css") ? Url("invoice.min.css") : Url("invoice.css");
+                     
+                public static readonly string invoice_css_map = Url("invoice.css.map");
+                public static readonly string invoice_min_css = Url("invoice.min.css");
+            }
+        
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

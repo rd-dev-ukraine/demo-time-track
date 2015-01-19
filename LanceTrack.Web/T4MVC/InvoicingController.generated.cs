@@ -67,6 +67,17 @@ namespace T4MVC
                 {
                 }
             }
+            static readonly _stylesClass s_styles = new _stylesClass();
+            public _stylesClass styles { get { return s_styles; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _stylesClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                }
+            }
         }
     }
 

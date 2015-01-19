@@ -1,6 +1,6 @@
 ﻿@model dynamic
 @{
-    var userColumn = "col-md-3 col-sm-5 col-xs-5";
+    var userColumn = "col-md-3 col-sm-5 col-xs-5 ";
     var hoursColumn = "col-md-2 col-sm-4 col-xs-4";
     var maxHoursColumn = "col-md-2 col-sm-3 col-xs-3";
     var sumColumn = "col-md-2 col-sm-12 col-xs-12";
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="form-group small visible-lg visible-md">
-                <p class="@userColumn form-control-static text-right text-muted">User</p>
+                <p class="@userColumn form-control-static text-muted">User</p>
                 <p class="@hoursColumn form-control-static text-muted">Hours</p>
                 <p class="@maxHoursColumn form-control-static text-muted">Max hours</p>
                 <p class="@sumColumn form-control-static text-muted">Sum</p>
@@ -67,7 +67,7 @@
                 <p class="col-md-2 col-sm-5 col-xs-5">${{totalSum()}}</p>
             </div>
             <div class="form-group">
-                <div class="col-md-offset-3">
+                <div class="col-lg-12 col-sm-12">
                     <button class="btn btn-lg btn-primary"
                             ng-click="bill()"
                             type="button">

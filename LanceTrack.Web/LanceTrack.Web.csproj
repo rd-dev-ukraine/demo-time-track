@@ -139,6 +139,12 @@
     <Content Include="Features\Account\styles\login.min.css">
       <DependentUpon>login.css</DependentUpon>
     </Content>
+    <Content Include="Features\Invoicing\styles\invoice.css">
+      <DependentUpon>invoice.less</DependentUpon>
+    </Content>
+    <Content Include="Features\Invoicing\styles\invoice.min.css">
+      <DependentUpon>invoice.css</DependentUpon>
+    </Content>
     <Content Include="Features\Shared\styles\app.css">
       <DependentUpon>app.less</DependentUpon>
     </Content>
@@ -203,6 +209,10 @@
     <Content Include="Features\Invoicing\Refs.cshtml" />
     <Content Include="Features\Invoicing\BillProjectTemplate.cshtml" />
     <Content Include="Features\Invoicing\InvoiceDetailsTemplate.cshtml" />
+    <Content Include="Features\Invoicing\styles\invoice.less" />
+    <Content Include="Features\Invoicing\styles\invoice.css.map">
+      <DependentUpon>invoice.css</DependentUpon>
+    </Content>
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
