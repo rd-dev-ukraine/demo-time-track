@@ -39,6 +39,24 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
                 OnBilling(e);
             if (e.EventType == InvoiceEventType.EarningDistribution)
                 OnDistributeEarnings(e);
+            if (e.EventType == InvoiceEventType.Cancel)
+                OnCancelInvoice(e);
+            if (e.EventType == InvoiceEventType.Paid)
+                OnPaidInvoice(e);
+        }
+
+        private void OnPaidInvoice(InvoiceEvent e)
+        {
+            var invoice = _invoices.GetOrDefault(e.InvoiceNum);
+            if (invoice != null)
+                invoice.IsPaid = true;
+        }
+
+        private void OnCancelInvoice(InvoiceEvent e)
+        {
+            var invoice = _invoices.GetOrDefault(e.InvoiceNum);
+            if (invoice != null)
+                invoice.IsCancelld = true;
         }
 
         private void OnBilling(InvoiceEvent e)

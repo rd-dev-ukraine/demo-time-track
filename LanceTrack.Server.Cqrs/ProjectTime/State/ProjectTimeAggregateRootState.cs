@@ -24,7 +24,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
         }
 
         public List<DailyTime> DailyTime { get; private set; }
-
         public List<UserInvoiceInfo> Invoices { get; private set; }
 
         public decimal CalculateInvoiceSum(int userId, decimal hours)
@@ -33,14 +32,14 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             var nonBilledHours = hours;
 
             var dailyTime = DailyTime.Where(t => t.UserId == userId)
-                                      .Where(t => t.TotalHours - t.BilledHours > 0)
-                                      .OrderBy(t => t.Date);
+                .Where(t => t.TotalHours - t.BilledHours > 0)
+                .OrderBy(t => t.Date);
 
             foreach (var time in dailyTime)
             {
                 var billingHours = Math.Min(nonBilledHours, time.TotalHours - time.BilledHours);
 
-                sum += billingHours * time.HourlyRate;
+                sum += billingHours*time.HourlyRate;
 
                 nonBilledHours -= billingHours;
 
@@ -51,14 +50,14 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
             return sum;
         }
 
-        public decimal MaxBillableHours(int userId)
-        {
-            return DailyTime.Where(b => b.UserId == userId).SumOrDefault(b => b.TotalHours - b.BilledHours);
-        }
-
         public int InvoiceCount()
         {
             return Invoices.GroupBy(i => i.InvoiceNum).Count();
+        }
+
+        public decimal MaxBillableHours(int userId)
+        {
+            return DailyTime.Where(b => b.UserId == userId).SumOrDefault(b => b.TotalHours - b.BilledHours);
         }
 
         public void On(TimeTrackedEvent e)
@@ -93,39 +92,43 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
         public void On(InvoiceEvent e)
         {
+            var at = Date(e.At);
+
+            if (e.EventType == InvoiceEventType.Cancel)
+            {
+                Invoices.RemoveAll(i => i.UserId == e.UserId &&
+                                        i.InvoiceNum == e.InvoiceNum &&
+                                        i.At == at);
+            }
             if (e.EventType == InvoiceEventType.Billing)
             {
-                var at = Date(e.At);
-
-                if (e.EventType == InvoiceEventType.Cancel)
+                var invoice = Invoices.SingleOrDefault(i => i.UserId == e.UserId &&
+                                                            i.InvoiceNum == e.InvoiceNum &&
+                                                            i.At == at);
+                if (invoice == null)
                 {
-                    Invoices.RemoveAll(i => i.UserId == e.UserId &&
-                                             i.InvoiceNum == e.InvoiceNum &&
-                                             i.At == at);
-                }
-                else
-                {
-                    var invoice = Invoices.SingleOrDefault(i => i.UserId == e.UserId &&
-                                                                 i.InvoiceNum == e.InvoiceNum &&
-                                                                 i.At == at);
-                    if (invoice == null)
+                    invoice = new UserInvoiceInfo
                     {
-                        invoice = new UserInvoiceInfo
-                        {
-                            UserId = e.UserId,
-                            At = at,
-                            InvoiceNum = e.InvoiceNum
-                        };
-                        Invoices.Add(invoice);
-                    }
-
-                    invoice.Hours = e.Hours;
-                    invoice.IsPaid = e.EventType == InvoiceEventType.Paid;
-                    invoice.Sum = e.InvoiceSum;
+                        UserId = e.UserId,
+                        At = at,
+                        InvoiceNum = e.InvoiceNum
+                    };
+                    Invoices.Add(invoice);
                 }
 
-                UpdateUserBilling(e.UserId);
+                invoice.Hours = e.Hours;
+                invoice.Sum = e.InvoiceSum;
             }
+            if (e.EventType == InvoiceEventType.Paid)
+            {
+                var invoice = Invoices.SingleOrDefault(i => i.UserId == e.UserId &&
+                                                            i.InvoiceNum == e.InvoiceNum &&
+                                                            i.At == at);
+                if (invoice != null)
+                    invoice.IsPaid = true;
+            }
+
+            UpdateUserBilling(e.UserId);
         }
 
         /// <summary>

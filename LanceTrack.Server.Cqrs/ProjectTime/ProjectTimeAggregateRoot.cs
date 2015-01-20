@@ -16,7 +16,9 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
         ICommandHandler<TrackTimeCommand, ProjectTimeAggregateRoot, int>,
         ICommandHandler<BillProjectCommand, ProjectTimeAggregateRoot, int>,
         ICommandHandler<RecalculateInvoiceInfoCommand, ProjectTimeAggregateRoot, int>,
+        ICommandHandler<MarkInvoiceAsPaidCommand, ProjectTimeAggregateRoot, int>,
         ICommandHandler<DistributeEarningCommand, ProjectTimeAggregateRoot, int>,
+        ICommandHandler<CancelInvoiceCommand, ProjectTimeAggregateRoot, int>,
         IEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventRecipient<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
@@ -37,7 +39,6 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
         }
 
         public IEnumerable<IReadModelManager<int>> ReadModels { get; private set; }
-
         public ProjectTimeAggregateRootState State { get; private set; }
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(TrackTimeCommand command)
@@ -186,7 +187,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
 
             var userInvoices = State.Invoices.Where(i => i.InvoiceNum == command.InvoiceNum);
             if (!userInvoices.Any())
-                throw new ArgumentException("Invoice number is not valid.");
+                throw new ArgumentException("Invoice number is not valid: invoice either cancelled or not exists.");
 
             var totalSum = userInvoices.Sum(i => i.Sum);
 
@@ -194,12 +195,12 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 throw new ArgumentException(String.Format("Sum must be less than or equal to {0}", totalSum));
 
             command.Result = userInvoices.Select(ui => new InvoiceRecalculationResult
-                {
-                    UserId = ui.UserId,
-                    BillingHours = ui.Hours,
-                    MaxHours = ui.Hours,
-                    Sum = command.EarningSum * ui.Sum / totalSum
-                }).ToList();
+            {
+                UserId = ui.UserId,
+                BillingHours = ui.Hours,
+                MaxHours = ui.Hours,
+                Sum = command.EarningSum*ui.Sum/totalSum
+            }).ToList();
 
             var events = userInvoices.Select(ui => new InvoiceEvent
             {
@@ -207,7 +208,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 EventType = InvoiceEventType.EarningDistribution,
                 Hours = ui.Hours,
                 InvoiceNum = ui.InvoiceNum,
-                InvoiceSum = command.EarningSum * ui.Sum / totalSum,
+                InvoiceSum = command.EarningSum*ui.Sum/totalSum,
                 ProjectId = command.ProjectId,
                 UserId = ui.UserId,
                 RegisteredAt = DateTimeOffset.Now,
@@ -221,6 +222,54 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                 MaxHours = e.Hours,
                 Sum = e.InvoiceSum
             }).ToList();
+
+            return events;
+        }
+
+        public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(MarkInvoiceAsPaidCommand command)
+        {
+            CheckUserBillingRights(command.ProjectId, command.ByUserId);
+
+            var userInvoices = State.Invoices.Where(i => i.InvoiceNum == command.InvoiceNum);
+            if (!userInvoices.Any())
+                throw new ArgumentException("Invoice number is not valid: invoice either cancelled or not exists.");
+
+            var events = userInvoices.Select(ui => new InvoiceEvent
+            {
+                At = DateTimeOffset.Now,
+                EventType = InvoiceEventType.Paid,
+                Hours = ui.Hours,
+                InvoiceNum = ui.InvoiceNum,
+                InvoiceSum = ui.Sum,
+                ProjectId = command.ProjectId,
+                UserId = ui.UserId,
+                RegisteredAt = DateTimeOffset.Now,
+                RegisteredByUserId = command.ByUserId
+            });
+
+            return events;
+        }
+
+        public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> Execute(CancelInvoiceCommand command)
+        {
+            CheckUserBillingRights(command.ProjectId, command.ByUserId);
+
+            var userInvoices = State.Invoices.Where(i => i.InvoiceNum == command.InvoiceNum);
+            if (!userInvoices.Any())
+                throw new ArgumentException("Invoice number is not valid: invoice either cancelled or not exists.");
+
+            var events = userInvoices.Select(ui => new InvoiceEvent
+            {
+                At = DateTimeOffset.Now,
+                EventType = InvoiceEventType.Cancel,
+                Hours = ui.Hours,
+                InvoiceNum = ui.InvoiceNum,
+                InvoiceSum = ui.Sum,
+                ProjectId = command.ProjectId,
+                UserId = ui.UserId,
+                RegisteredAt = DateTimeOffset.Now,
+                RegisteredByUserId = command.ByUserId
+            });
 
             return events;
         }
