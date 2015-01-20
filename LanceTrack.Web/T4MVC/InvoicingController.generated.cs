@@ -38,12 +38,12 @@ namespace T4MVC
             {
                 public readonly string BillProjectTemplate = "BillProjectTemplate";
                 public readonly string InvoiceDetailsTemplate = "InvoiceDetailsTemplate";
-                public readonly string InvoiceTemplateBase = "InvoiceTemplateBase";
+                public readonly string InvoiceListTemplate = "InvoiceListTemplate";
                 public readonly string Refs = "Refs";
             }
             public readonly string BillProjectTemplate = "~/Features/Invoicing/BillProjectTemplate.cshtml";
             public readonly string InvoiceDetailsTemplate = "~/Features/Invoicing/InvoiceDetailsTemplate.cshtml";
-            public readonly string InvoiceTemplateBase = "~/Features/Invoicing/InvoiceTemplateBase.cshtml";
+            public readonly string InvoiceListTemplate = "~/Features/Invoicing/InvoiceListTemplate.cshtml";
             public readonly string Refs = "~/Features/Invoicing/Refs.cshtml";
             static readonly _ModelsClass s_Models = new _ModelsClass();
             public _ModelsClass Models { get { return s_Models; } }

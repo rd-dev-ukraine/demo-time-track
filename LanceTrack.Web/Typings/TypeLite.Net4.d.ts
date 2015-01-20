@@ -19,7 +19,7 @@ declare module Api {
 		invoiceNum: string;
 		earningsSum: number;
 	}
-	interface MarkInvoiceAsPaidParam {
+	interface InvoiceIdParam {
 		projectId: number;
 		invoiceNum: string;
 	}
@@ -90,10 +90,12 @@ declare module Api {
 		distributeInvoiceEarnings: string;
 		markInvoiceAsPaid: string;
 		cancelInvoice: string;
+		pendingInvoices: string;
+		archiveInvoices: string;
 	}
 	interface TemplatesUrls {
 		billProject: string;
-		invoiceBase: string;
+		invoiceList: string;
 		invoiceDetails: string;
 		timeCell: string;
 		trackMyTime: string;

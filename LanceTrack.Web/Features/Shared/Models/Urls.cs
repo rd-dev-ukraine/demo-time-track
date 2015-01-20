@@ -30,9 +30,9 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.Action(MVC.InvoiceTemplates.BillProjectTemplate()); }
             }
 
-            public string InvoiceBase
+            public string InvoiceList
             {
-                get { return Url.Action(MVC.InvoiceTemplates.InvoiceTemplateBase()); }
+                get { return Url.Action(MVC.InvoiceTemplates.InvoiceListTemplate()); }
             }
 
             public string InvoiceDetails
@@ -73,27 +73,27 @@ namespace LanceTrack.Web.Features.Shared.Models
 
             public string LoadProjectTime
             {
-                get { return Url.HttpRouteUrl("ProjectTimeInfo", new {}); }
+                get { return Url.HttpRouteUrl("ProjectTimeInfo", new { }); }
             }
 
             public string PrepareInvoice
             {
-                get { return Url.HttpRouteUrl("PrepareInvoice", new {}); }
+                get { return Url.HttpRouteUrl("PrepareInvoice", new { }); }
             }
 
             public string RecalculateInvoice
             {
-                get { return Url.HttpRouteUrl("RecalculateInvoice", new {}); }
+                get { return Url.HttpRouteUrl("RecalculateInvoice", new { }); }
             }
 
             public string Statistics
             {
-                get { return Url.HttpRouteUrl("Statistics", new {}); }
+                get { return Url.HttpRouteUrl("Statistics", new { }); }
             }
 
             public string Track
             {
-                get { return Url.HttpRouteUrl("TrackTime", new {}); }
+                get { return Url.HttpRouteUrl("TrackTime", new { }); }
             }
 
             public string Bill
@@ -119,12 +119,22 @@ namespace LanceTrack.Web.Features.Shared.Models
 
             public string MarkInvoiceAsPaid
             {
-                get { return Url.HttpRouteUrl("MarkInvoiceAsPaid", new {});  }
+                get { return Url.HttpRouteUrl("MarkInvoiceAsPaid", new { }); }
             }
 
             public string CancelInvoice
             {
                 get { return Url.HttpRouteUrl("CancelInvoice", new { }); }
+            }
+
+            public string PendingInvoices
+            {
+                get { return Url.HttpRouteUrl("PendingInvoices", new { }); }
+            }
+
+            public string ArchiveInvoices
+            {
+                get { return Url.HttpRouteUrl("ArchiveInvoices", new { }); }
             }
 
             private UrlHelper Url { get; set; }

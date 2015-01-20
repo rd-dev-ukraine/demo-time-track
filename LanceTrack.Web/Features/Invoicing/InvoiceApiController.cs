@@ -53,6 +53,18 @@ namespace LanceTrack.Web.Features.Invoicing
             }
         }
 
+        [Route("pending", Name = "PendingInvoices"), HttpGet]
+        public List<InvoiceInfo> PendingInvoices()
+        {
+            return _invoiceService.MyPendingInvoices().ToList();
+        }
+
+        [Route("archive", Name = "ArchiveInvoices"), HttpGet]
+        public List<InvoiceInfo> ArchiveInvoices()
+        {
+            return _invoiceService.Archive().ToList();
+        }
+
         [Route("details/{*invoiceNumber}", Name = "InvoiceDetails"), HttpGet]
         public IHttpActionResult Details(string invoiceNumber)
         {
@@ -107,7 +119,7 @@ namespace LanceTrack.Web.Features.Invoicing
             try
             {
                 _invoiceService.DistributeInvoiceEarnings(
-                    parameters.ProjectId, 
+                    parameters.ProjectId,
                     parameters.InvoiceNum,
                     parameters.EarningsSum);
 

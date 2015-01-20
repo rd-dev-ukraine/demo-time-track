@@ -5,11 +5,11 @@ namespace LanceTrack.Server.Dependencies.Invoicing
 {
     public interface IInvoiceRepository
     {
-        IEnumerable<Invoice> UserPendingInvoices(int userId);
+        IEnumerable<InvoiceInfo> UserPendingInvoices(int userId);
 
-        IEnumerable<Invoice> UserArchiveInvoices(int userId);
+        IEnumerable<InvoiceInfo> UserArchiveInvoices(int userId);
 
-        Invoice GetByNumber(string invoiceNumber, int userId);
+        InvoiceInfo GetByNumber(string invoiceNumber, int userId);
 
         List<InvoiceDetails> Details(string invoiceNumber, int userId);
     }

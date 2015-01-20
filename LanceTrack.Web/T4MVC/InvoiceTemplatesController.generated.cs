@@ -73,7 +73,7 @@ namespace LanceTrack.Web.Features.Invoicing
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string InvoiceTemplateBase = "InvoiceTemplateBase";
+            public readonly string InvoiceListTemplate = "InvoiceListTemplate";
             public readonly string BillProjectTemplate = "BillProjectTemplate";
             public readonly string InvoiceDetailsTemplate = "InvoiceDetailsTemplate";
         }
@@ -81,7 +81,7 @@ namespace LanceTrack.Web.Features.Invoicing
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string InvoiceTemplateBase = "InvoiceTemplateBase";
+            public const string InvoiceListTemplate = "InvoiceListTemplate";
             public const string BillProjectTemplate = "BillProjectTemplate";
             public const string InvoiceDetailsTemplate = "InvoiceDetailsTemplate";
         }
@@ -107,13 +107,13 @@ namespace LanceTrack.Web.Features.Invoicing
         public T4MVC_InvoiceTemplatesController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void InvoiceTemplateBaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void InvoiceListTemplateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult InvoiceTemplateBase()
+        public override System.Web.Mvc.ActionResult InvoiceListTemplate()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.InvoiceTemplateBase);
-            InvoiceTemplateBaseOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.InvoiceListTemplate);
+            InvoiceListTemplateOverride(callInfo);
             return callInfo;
         }
 

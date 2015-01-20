@@ -29,17 +29,17 @@ namespace LanceTrack.Server.Invoicing
             _invoiceRepository = invoiceRepository;
         }
 
-        public IEnumerable<Invoice> MyPendingInvoices()
+        public IEnumerable<InvoiceInfo> MyPendingInvoices()
         {
             return _invoiceRepository.UserPendingInvoices(_currentUser.Id).ToList();
         }
 
-        public IEnumerable<Invoice> Archive()
+        public IEnumerable<InvoiceInfo> Archive()
         {
             return _invoiceRepository.UserArchiveInvoices(_currentUser.Id).ToList();
         }
 
-        public Invoice Get(string number)
+        public InvoiceInfo Get(string number)
         {
             if (String.IsNullOrWhiteSpace(number))
                 throw new ArgumentNullException("number");

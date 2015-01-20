@@ -89,6 +89,26 @@
 
                 return deferred.promise;
             }
+
+            pendingInvoices(): ng.IPromise<Api.Invoice[]> {
+                var deferred = this.$q.defer();
+
+                this.$http.get(urls.data.pendingInvoices)
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
+
+            archiveInvoices(): ng.IPromise<Api.Invoice[]> {
+                var deferred = this.$q.defer();
+
+                this.$http.get(urls.data.archiveInvoices)
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
         }
     }
 }

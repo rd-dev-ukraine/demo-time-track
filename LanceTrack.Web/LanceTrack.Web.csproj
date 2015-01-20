@@ -205,7 +205,7 @@
     <Content Include="Features\Shared\styles\vars.css.map">
       <DependentUpon>vars.css</DependentUpon>
     </Content>
-    <Content Include="Features\Invoicing\InvoiceTemplateBase.cshtml" />
+    <Content Include="Features\Invoicing\InvoiceListTemplate.cshtml" />
     <Content Include="Features\Invoicing\Refs.cshtml" />
     <Content Include="Features\Invoicing\BillProjectTemplate.cshtml" />
     <Content Include="Features\Invoicing\InvoiceDetailsTemplate.cshtml" />
@@ -361,6 +361,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Features\Invoicing\scripts\billProjectController.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceDetailsController.ts" />
+    <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceListController.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceService.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\app.ts" />

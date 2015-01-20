@@ -56,6 +56,16 @@ var LanceTrack;
                 this.$http.post(urls.data.markInvoiceAsPaid, { projectId: projectId, invoiceNum: invoiceNum }).success(function (r) { return deferred.resolve(r); }).error(function (err) { return deferred.reject(err); });
                 return deferred.promise;
             };
+            InvoiceService.prototype.pendingInvoices = function () {
+                var deferred = this.$q.defer();
+                this.$http.get(urls.data.pendingInvoices).success(function (r) { return deferred.resolve(r); }).error(function (err) { return deferred.reject(err); });
+                return deferred.promise;
+            };
+            InvoiceService.prototype.archiveInvoices = function () {
+                var deferred = this.$q.defer();
+                this.$http.get(urls.data.archiveInvoices).success(function (r) { return deferred.resolve(r); }).error(function (err) { return deferred.reject(err); });
+                return deferred.promise;
+            };
             return InvoiceService;
         })();
         Invoicing.InvoiceService = InvoiceService;

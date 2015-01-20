@@ -239,6 +239,7 @@ namespace Links
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string billProjectController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/billProjectController.min.js") ? Url("billProjectController.min.js") : Url("billProjectController.js");
                 public static readonly string invoiceDetailsController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/invoiceDetailsController.min.js") ? Url("invoiceDetailsController.min.js") : Url("invoiceDetailsController.js");
+                public static readonly string invoiceListController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/invoiceListController.min.js") ? Url("invoiceListController.min.js") : Url("invoiceListController.js");
                 public static readonly string invoiceService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/invoiceService.min.js") ? Url("invoiceService.min.js") : Url("invoiceService.js");
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
             }

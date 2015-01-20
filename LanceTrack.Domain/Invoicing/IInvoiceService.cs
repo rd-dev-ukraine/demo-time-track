@@ -4,11 +4,11 @@ namespace LanceTrack.Domain.Invoicing
 {
     public interface IInvoiceService
     {
-        IEnumerable<Invoice> MyPendingInvoices();
+        IEnumerable<InvoiceInfo> MyPendingInvoices();
 
-        IEnumerable<Invoice> Archive();
+        IEnumerable<InvoiceInfo> Archive();
 
-        Invoice Get(string number);
+        InvoiceInfo Get(string number);
 
         List<InvoiceDetails> Details(string invoiceNumber);
 

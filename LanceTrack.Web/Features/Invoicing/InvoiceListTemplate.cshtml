@@ -1,0 +1,60 @@
+﻿@model dynamic
+@{
+    var colInvoiceNum = "col-lg-3 col-sm-3";
+    var colDate = "col-lg-2 col-sm-2";
+    var colProject = "col-lg-3 col-sm-3";
+    var colState = "col-lg-1 col-sm-1";
+    var colHours = "col-lg-1 col-sm-1";
+    var colSum = "col-lg-1 col-sm-1";
+}
+<div class="clearfix">
+    <h2>Invoices</h2>
+</div>
+<ul class="nav nav-pills section">
+    <li ui-sref-active="active">
+        <a ui-sref="invoiceList({ mode: 'pending' })">Pending invoices</a>
+    </li>
+    <li ui-sref-active="active">
+        <a ui-sref="invoiceList({ mode: 'archive' })">Archive</a>
+    </li>
+</ul>
+<div class="clearfix text-muted">
+    <div class="@colInvoiceNum">
+        Invoice #
+    </div>
+    <div class="@colDate">Date</div>
+    <div class="@colProject">Project</div>
+    <div class="@colHours">Hours</div>
+    <div class="@colSum">Sum</div>
+    <div class="@colSum">Received</div>
+    <div ng-if="displayStatus"
+         class="@colState">State</div>
+</div>
+<div class="clearfix h4 invoice-list-row"
+     ng-class="{ 'text-muted' : inv.isCancelled }"
+     ui-sref="invoiceDetails({ invoiceNum: inv.invoiceNum })"
+     ng-if="data"
+     ng-repeat="inv in data">
+    <div class="@colInvoiceNum">
+        {{inv.invoiceNum}}
+    </div>
+    <div class="@colDate">
+        {{dates.format(inv.at)}}
+    </div>
+    <div class="@colProject">
+        {{inv.projectTitle}}
+    </div>
+    <div class="@colHours">
+        {{inv.hours | hours}}
+    </div>
+    <div class="@colSum text-primary">
+        {{inv.sum | currency}}
+    </div>
+    <div class="@colSum text-success">
+        {{inv.receivedSum | currency}}
+    </div>
+    <div ng-if="displayStatus"
+         class="@colState">
+        {{ inv.isPaid ? "Paid" : "Cancelled" }}
+    </div>
+</div>

@@ -5,6 +5,7 @@
         app.service("invoiceService", invoiceServiceFactory);
         app.controller("billProjectController", billProjectController);
         app.controller("invoiceDetailsController", invoiceDetailsController);
+        app.controller("invoiceListController", invoiceListController);
 
         app.config(($stateProvider: ng.ui.IStateProvider) => {
 
@@ -15,31 +16,21 @@
                 controller: "billProjectController"
             })
                 .state(routes.invoiceDetails, {
-                url: "/invoices/{invoiceNum}",
+                url: "/invoice/{invoiceNum}",
                 templateUrl: urls.templates.invoiceDetails,
                 controller: "invoiceDetailsController"
             })
-                .state("invoices", {
-                abstract: true,
-                url: "/invoices/",
-                templateUrl: urls.templates.invoiceBase,
-                controller: "invoiceBaseController"
-            })
-                .state("invoices.pending", {
-                url: "/pending",
-                templateUrl: urls.templates.trackMyTime,
-                controller: "myTimeController"
-            })
-                .state("invoices.archive", {
-                url: "/archive",
-                templateUrl: urls.templates.usersTime,
-                controller: "usersTimeController"
+                .state(routes.invoiceList, {
+                url: "/invoices/{mode}",
+                templateUrl: urls.templates.invoiceList,
+                controller: "invoiceListController"
             });
         });
 
         export var routes = {
             invoiceDetails: "invoiceDetails",
-            billProject: "billProject"
+            billProject: "billProject",
+            invoiceList: "invoiceList"
         };
     }
 }

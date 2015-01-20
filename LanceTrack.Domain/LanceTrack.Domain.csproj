@@ -59,6 +59,7 @@
     <Compile Include="Invoicing\IInvoiceService.cs" />
     <Compile Include="Invoicing\Invoice.cs" />
     <Compile Include="Invoicing\InvoiceDetails.cs" />
+    <Compile Include="Invoicing\InvoiceInfo.cs" />
     <Compile Include="Invoicing\InvoiceRecalculationResult.cs" />
     <Compile Include="Invoicing\InvoiceUserRequest.cs" />
     <Compile Include="Projects\IProjectService.cs" />
