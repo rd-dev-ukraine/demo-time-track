@@ -115,7 +115,7 @@
         <div ng-if="!model.invoice.isPaid && !model.invoice.isCancelled"
              class="col-lg-10 col-sm-10">
             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#markAsPaidConfirm">Mark as paid</button>
-            <button class="btn btn-danger btn-lg">Cancel invoice</button>
+            <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#cancelInvoiceConfirm">Cancel invoice</button>
         </div>
     </div>
 </div>
@@ -138,9 +138,36 @@
                         data-dismiss="modal">
                     Mark as paid
                 </button>
-                <button class="btn btn-default" 
+                <button class="btn btn-default"
                         data-dismiss="modal">
                     Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade"
+     id="cancelInvoiceConfirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4>Confirm operation</h4>
+            </div>
+            <div class="modal-body h4">
+                Cancel invoice {{model.invoice.invoiceNum}}? <br />
+                Warning: invoice will be deleted, hours returned back to pool.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-primary"
+                        ng-click="cancelInvoice()"
+                        data-dismiss="modal">
+                    Mark as cancelled
+                </button>
+                <button class="btn btn-default"
+                        data-dismiss="modal">
+                    Keep invoice
                 </button>
             </div>
         </div>

@@ -96,9 +96,11 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
 
             if (e.EventType == InvoiceEventType.Cancel)
             {
-                Invoices.RemoveAll(i => i.UserId == e.UserId &&
-                                        i.InvoiceNum == e.InvoiceNum &&
-                                        i.At == at);
+                Invoices.Where(i => i.UserId == e.UserId &&
+                                    i.InvoiceNum == e.InvoiceNum &&
+                                    i.At == at)
+                        .ToList()
+                        .ForEach(i => i.IsCancelled = true);
             }
             if (e.EventType == InvoiceEventType.Billing)
             {
@@ -147,7 +149,10 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.State
                 time.PaidHours = 0;
             }
 
-            using (var invoices = Invoices.Where(i => i.UserId == userId).OrderBy(i => i.At).GetEnumerator())
+            using (var invoices = Invoices.Where(i => !i.IsCancelled)
+                                          .Where(i => i.UserId == userId)
+                                          .OrderBy(i => i.At)
+                                          .GetEnumerator())
             {
                 if (!invoices.MoveNext())
                     return;

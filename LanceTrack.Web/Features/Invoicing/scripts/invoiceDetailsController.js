@@ -21,12 +21,17 @@ var LanceTrack;
                 return _.find($scope.model.users, function (u) { return u.id == id; });
             };
             $scope.canDistributeEarnings = function () {
-                return $scope.model && !$scope.model.invoice.isPaid;
+                return $scope.model && !$scope.model.invoice.isPaid && !$scope.model.invoice.isCancelled;
             };
             $scope.markAsPaid = function () {
                 $scope.isLoading = true;
                 $scope.error = null;
                 invoiceService.markInvoiceAsPaid($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum).then(function (result) { return $scope.model = result; }).catch(function (err) { return $scope.error = err; });
+            };
+            $scope.cancelInvoice = function () {
+                $scope.isLoading = true;
+                $scope.error = null;
+                invoiceService.cancelInvoice($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum).then(function (result) { return $scope.model = result; }).catch(function (err) { return $scope.error = err; });
             };
         }
         Invoicing.invoiceDetailsController = invoiceDetailsController;

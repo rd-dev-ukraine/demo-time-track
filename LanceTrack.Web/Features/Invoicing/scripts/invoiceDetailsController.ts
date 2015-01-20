@@ -39,7 +39,7 @@
             };
 
             $scope.canDistributeEarnings = () => {
-                return $scope.model && !$scope.model.invoice.isPaid;
+                return $scope.model && !$scope.model.invoice.isPaid && !$scope.model.invoice.isCancelled;
             };
 
             $scope.markAsPaid = () => {
@@ -47,6 +47,15 @@
                 $scope.error = null;
 
                 invoiceService.markInvoiceAsPaid($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum)
+                    .then(result => $scope.model = result)
+                    .catch(err => $scope.error = err);
+            };
+
+            $scope.cancelInvoice = () => {
+                $scope.isLoading = true;
+                $scope.error = null;
+
+                invoiceService.cancelInvoice($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum)
                     .then(result => $scope.model = result)
                     .catch(err => $scope.error = err);
             };
@@ -61,7 +70,7 @@
 
             canDistributeEarnings(): boolean;
             error: { message: string };
-            cancel(): void;
+            cancelInvoice(): void;
             markAsPaid(): void;
         }
     }
