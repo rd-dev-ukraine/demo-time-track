@@ -36,11 +36,18 @@
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </button>    
                 </div>
-
-                <input class="form-control"
-                       ng-model="at"
-                       ng-model-options="modelOptions"
-                       type="text"/>
+                <div class="dropdown">
+                    <div class="dropdown-toggle" data-toggle="dropdown" id="dateSelector">
+                        <input class="form-control"
+                               ng-model="at"
+                               ng-model-options="modelOptions"
+                               type="text"/>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="dropdown-menu">
+                        <datetimepicker ng-model="at" datetimepicker-config="{ dropdownSelector: '#dateSelector', minView: 'day' }" />
+                    </div>
+                </div>
                 <div class="input-group-btn">
                     <button class="btn btn-default"
                             ng-click="nextWeek()"

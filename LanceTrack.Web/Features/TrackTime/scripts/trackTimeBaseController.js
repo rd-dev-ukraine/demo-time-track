@@ -45,7 +45,7 @@ var LanceTrack;
             $scope.$watch("at", function (o, n) {
                 if (o == undefined || o == n)
                     return;
-                $state.go($state.current.name, { at: $scope.at });
+                $state.go($state.current.name, { at: dates.format($scope.at) });
             });
         }
         TrackTime.trackTimeBaseController = trackTimeBaseController;

@@ -1,5 +1,5 @@
 ﻿module LanceTrack {
-    var app = angular.module("lance-track", ["ui.router", "ui.bootstrap", "lance-track.shared", "lance-track.track-time", "lance-track.invoicing"]);
+    var app = angular.module("lance-track", ["ui.router", "ui.bootstrap", "ui.bootstrap.datetimepicker", "lance-track.shared", "lance-track.track-time", "lance-track.invoicing"]);
 
 
     app.config(($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
