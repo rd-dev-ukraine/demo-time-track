@@ -19,6 +19,10 @@ declare module Api {
 		invoiceNum: string;
 		earningsSum: number;
 	}
+	interface MarkInvoiceAsPaidParam {
+		projectId: number;
+		invoiceNum: string;
+	}
 	interface InvoiceModel {
 		invoice: Api.Invoice;
 		details: Api.InvoiceDetails[];
@@ -30,6 +34,7 @@ declare module Api {
 		projectId: number;
 		at: Date;
 		isPaid: boolean;
+		isCancelled: boolean;
 		sum: number;
 		hours: number;
 		receivedSum: number;
@@ -83,6 +88,8 @@ declare module Api {
 		bill: string;
 		invoiceDetails: string;
 		distributeInvoiceEarnings: string;
+		markInvoiceAsPaid: string;
+		cancelInvoice: string;
 	}
 	interface TemplatesUrls {
 		billProject: string;

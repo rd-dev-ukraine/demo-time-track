@@ -56,7 +56,7 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
         {
             var invoice = _invoices.GetOrDefault(e.InvoiceNum);
             if (invoice != null)
-                invoice.IsCancelld = true;
+                invoice.IsCancelled = true;
         }
 
         private void OnBilling(InvoiceEvent e)

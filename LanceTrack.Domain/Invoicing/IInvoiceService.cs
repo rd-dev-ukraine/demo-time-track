@@ -16,6 +16,10 @@ namespace LanceTrack.Domain.Invoicing
 
         List<InvoiceRecalculationResult> DistributeInvoiceEarnings(int projectId, string invoiceNum, decimal earningsSum);
 
+        void MarkInvoiceAsPaid(int projectId, string invoiceNum);
+
+        void CancelInvoice(int projectId, string invoiceNum);
+
         /// <summary>
         /// Bill specified project for user for specified amount of hours and returns new invoice number.
         /// </summary>

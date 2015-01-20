@@ -19,7 +19,7 @@ namespace LanceTrack.Domain.Invoicing
 
         public bool IsPaid { get; set; }
 
-        public bool IsCancelld { get; set; }
+        public bool IsCancelled { get; set; }
 
         [MapField("InvoiceTotalSum"), JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal Sum { get; set; }

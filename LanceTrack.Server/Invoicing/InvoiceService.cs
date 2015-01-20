@@ -85,6 +85,36 @@ namespace LanceTrack.Server.Invoicing
             return command.Result;
         }
 
+        public void MarkInvoiceAsPaid(int projectId, string invoiceNum)
+        {
+            if (String.IsNullOrWhiteSpace(invoiceNum))
+                throw new ArgumentNullException("invoiceNum");
+
+            var command = new MarkInvoiceAsPaidCommand
+            {
+                ByUserId = _currentUser.Id,
+                InvoiceNum = invoiceNum,
+                ProjectId = projectId
+            };
+
+            _cqrs.Execute(command);
+        }
+
+        public void CancelInvoice(int projectId, string invoiceNum)
+        {
+            if (String.IsNullOrWhiteSpace(invoiceNum))
+                throw new ArgumentNullException("invoiceNum");
+
+            var command = new CancelInvoiceCommand
+            {
+                ByUserId = _currentUser.Id,
+                InvoiceNum = invoiceNum,
+                ProjectId = projectId
+            };
+
+            _cqrs.Execute(command);
+        }
+
         public string BillProject(int projectId, List<InvoiceUserRequest> invoiceUserRequest)
         {
             var billProjectCommand = new BillProjectCommand

@@ -69,6 +69,26 @@
 
                 return deferred.promise;
             }
+
+            cancelInvoice(projectId: number, invoiceNum: string): ng.IPromise<Api.InvoiceModel> {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.cancelInvoice, { projectId: projectId, invoiceNum: invoiceNum })
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
+
+            markInvoiceAsPaid(projectId: number, invoiceNum: string): ng.IPromise<Api.InvoiceModel> {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.markInvoiceAsPaid, { projectId: projectId, invoiceNum: invoiceNum })
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
         }
     }
 }

@@ -117,6 +117,16 @@ namespace LanceTrack.Web.Features.Shared.Models
                 }
             }
 
+            public string MarkInvoiceAsPaid
+            {
+                get { return Url.HttpRouteUrl("MarkInvoiceAsPaid", new {});  }
+            }
+
+            public string CancelInvoice
+            {
+                get { return Url.HttpRouteUrl("CancelInvoice", new { }); }
+            }
+
             private UrlHelper Url { get; set; }
         }
     }

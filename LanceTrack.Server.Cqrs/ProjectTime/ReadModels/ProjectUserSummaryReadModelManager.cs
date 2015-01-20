@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.Projects;
+using LanceTrack.Server.Cqrs.Infrastructure;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
 using LanceTrack.Server.Cqrs.ProjectTime.State;
@@ -10,10 +11,11 @@ using LanceTrack.Server.Cqrs.ProjectTime.State;
 namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 {
     public class ProjectUserSummaryReadModelManager : IAggregateRootReadModelManager<ProjectTimeAggregateRoot, int>,
-        IReadModelEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
+        IReadModelEventRecipient<TimeTrackedEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>,
+        IReadModelEventRecipient<InvoiceEvent, ProjectTimeAggregateRootState, ProjectTimeAggregateRoot, int>
     {
         // Key is projectId, userId
-        private readonly Dictionary<Tuple<int, int>, ProjectUserSummary> _models = new Dictionary<Tuple<int, int>, ProjectUserSummary>();
+        private readonly Dictionary<int, ProjectUserSummary> _models = new Dictionary<int, ProjectUserSummary>();
 
         private readonly IProjectUserSummaryStorage _storage;
 
@@ -27,30 +29,36 @@ namespace LanceTrack.Server.Cqrs.ProjectTime.ReadModels
 
         public void On(TimeTrackedEvent @event, ProjectTimeAggregateRootState state)
         {
-            var key = new Tuple<int, int>(@event.ProjectId, @event.UserId);
+            RecalculateSummary(@event.UserId, @event.ProjectId, state);
+        }
 
-            ProjectUserSummary model;
-            if (!_models.TryGetValue(key, out model))
-                _models.Add(key, model = new ProjectUserSummary
-                                {
-                                    ProjectId = @event.ProjectId,
-                                    UserId = @event.UserId
-                                });
+        public void On(InvoiceEvent @event, ProjectTimeAggregateRootState state)
+        {
+            RecalculateSummary(@event.UserId, @event.ProjectId, state);
+        }
+
+        private void RecalculateSummary(int userId, int projectId, ProjectTimeAggregateRootState state)
+        {
+            var model = _models.GetOrAdd(userId, new ProjectUserSummary
+            {
+                ProjectId = projectId,
+                UserId = userId
+            });
 
             model.ProjectTotalAmountEarned = 0;
             model.ProjectTotalHoursReported = 0;
             model.UserTotalAmountEarned = 0;
             model.UserTotalHoursReported = 0;
 
-            foreach(var dt in state.DailyTime.Where(e => e.ProjectId == @event.ProjectId))
+            foreach (var dt in state.DailyTime)
             {
                 var hoursReported = dt.TotalHours - dt.PaidHours;
-                var amountEarned = (dt.TotalHours - dt.PaidHours) * dt.HourlyRate;
+                var amountEarned = hoursReported * dt.HourlyRate;
 
                 model.ProjectTotalHoursReported += hoursReported;
                 model.ProjectTotalAmountEarned += amountEarned;
-                
-                if (dt.UserId == @event.UserId)
+
+                if (dt.UserId == userId)
                 {
                     model.UserTotalHoursReported += hoursReported;
                     model.UserTotalAmountEarned += amountEarned;

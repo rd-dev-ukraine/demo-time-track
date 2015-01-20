@@ -119,6 +119,37 @@ namespace LanceTrack.Web.Features.Invoicing
             }
         }
 
+        [Route("mark-as-paid", Name = "MarkInvoiceAsPaid"), HttpPost]
+        public IHttpActionResult MarkInvoiceAsPaid(InvoiceIdParam parameters)
+        {
+            try
+            {
+                _invoiceService.MarkInvoiceAsPaid(parameters.ProjectId, parameters.InvoiceNum);
+
+                return Details(parameters.InvoiceNum);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("cancel", Name = "CancelInvoice"), HttpPost]
+        public IHttpActionResult CancelInvoice(InvoiceIdParam parameters)
+        {
+            try
+            {
+                _invoiceService.CancelInvoice(parameters.ProjectId, parameters.InvoiceNum);
+
+                return Details(parameters.InvoiceNum);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [TsClass(Module = "Api")]
         public class PrepareInvoiceParams
         {
@@ -132,6 +163,13 @@ namespace LanceTrack.Web.Features.Invoicing
             public int ProjectId { get; set; }
             public string InvoiceNum { get; set; }
             public decimal EarningsSum { get; set; }
+        }
+
+        [TsClass(Module = "Api")]
+        public class InvoiceIdParam
+        {
+            public int ProjectId { get; set; }
+            public string InvoiceNum { get; set; }
         }
     }
 }

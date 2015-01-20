@@ -16,11 +16,20 @@
         Invoice {{model.invoice.invoiceNum}}
     </h2>
 </div>
-<div class="panel panel-default">
+<div class="panel panel-default"
+     ng-if="model">
     <div class="panel-body">
         <div class="alert alert-danger"
              ng-if="error">
             {{error.message}}
+        </div>
+        <div class="alert alert-success"
+             ng-if="model.invoice.isPaid">
+            Invoice has been paid.
+        </div>
+        <div class="alert alert-warning"
+             ng-if="model.invoice.isCancelled">
+            Invoice has been cancelled.
         </div>
         <div class="@rowClass text-primary">
             <div class="col-lg-12 col-sm-2">{{model.invoice.invoiceNum}}</div>
@@ -43,23 +52,25 @@
         </div>
 
         <div class="@rowClass">
-            <div class="@labelClass">Is Paid</div>
-            <div class="@valueClass text-primary">{{model.invoice.isPaid | yesNo}}</div>
-        </div>
-
-        <div class="@rowClass">
             <div class="@labelClass">Billed by</div>
             <div class="@valueClass">{{user(model.invoice.billedByUserId).displayName}}</div>
         </div>
 
-        <div class="@rowClass ">
+        <div class="@rowClass" 
+             ng-if="!canDistributeEarnings()">
+            <div class="@labelClass">Received amount</div>
+            <div class="@valueClass text-success">{{model.invoice.receivedSum | currency}}</div>
+        </div>
+
+        <div class="@rowClass "
+             ng-if="canDistributeEarnings()">
             <div class="@labelClass text-success">Received amount, $</div>
             <div class="col-lg-3 col-sm-3">
                 <div class="input-group">
                     <input class="form-control"
                            ng-model="model.invoice.receivedSum"
                            ng-model-options="modelOptions"
-                           type="text"/>
+                           type="text" />
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-floppy-save"
                               ng-show="isEarningsDistributing">
@@ -101,5 +112,38 @@
             </div>
         </div>
 
+        <div ng-if="!model.invoice.isPaid && !model.invoice.isCancelled"
+             class="col-lg-10 col-sm-10">
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#markAsPaidConfirm">Mark as paid</button>
+            <button class="btn btn-danger btn-lg">Cancel invoice</button>
+        </div>
     </div>
 </div>
+
+<div class="modal fade"
+     id="markAsPaidConfirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                <h4 >Confirm operation</h4>
+            </div>
+            <div class="modal-body h4">
+                Mark invoice {{model.invoice.invoiceNum}} as paid? <br/>
+                Warning: this operation can't be cancelled.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-primary"
+                        ng-click="markAsPaid()"
+                        data-dismiss="modal">
+                    Mark as paid
+                </button>
+                <button class="btn btn-default" 
+                        data-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
