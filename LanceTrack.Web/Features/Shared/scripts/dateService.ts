@@ -31,15 +31,25 @@
             return this.format(this.parseMoment(date).startOf("week"));
         }
 
+        previousWeek(date: any): string {
+            var d = this.parseMoment(date).add(-1, "week");
+            return this.format(d);
+        }
+
+        nextWeek(date: any): string {
+            var d = this.parseMoment(date).add(1, "week");
+            return this.format(d);
+        }
+
         endOfWeek(date: any): string {
             return this.format(this.parseMoment(date).endOf("week"));
         }
 
-        allDateInWeek(date: any): Date[]{
+        allDateInWeek(date: any): Date[] {
             return this.allDateInRange(this.startOfWeek(date), this.endOfWeek(date));
         }
 
-        allDateInRange(startDate: any, endDate: any): Date[]{
+        allDateInRange(startDate: any, endDate: any): Date[] {
             var range = this.getValidRange(startDate, endDate);
 
             var start = moment(range.start);

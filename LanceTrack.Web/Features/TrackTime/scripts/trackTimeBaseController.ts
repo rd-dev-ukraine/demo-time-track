@@ -55,6 +55,14 @@
                 return (project.permissions & Api.ProjectPermissions.BillProject) !== 0;
             };
 
+            $scope.previousWeek = () => {
+                $scope.at = dates.previousWeek($scope.at);
+            };
+
+            $scope.nextWeek = () => {
+                $scope.at = dates.nextWeek($scope.at);
+            };
+
             reload();
             
             $scope.$watch("at", (o, n) => {
@@ -76,6 +84,9 @@
             totalHours(of: { projectId?: number; userId?: number; at?: string; }): number;
 
             dateService: LanceTrack.Dates;
+
+            previousWeek(): void;
+            nextWeek(): void;
         }
     }
 }

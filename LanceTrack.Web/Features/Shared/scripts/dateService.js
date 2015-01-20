@@ -25,6 +25,14 @@ var LanceTrack;
         Dates.prototype.startOfWeek = function (date) {
             return this.format(this.parseMoment(date).startOf("week"));
         };
+        Dates.prototype.previousWeek = function (date) {
+            var d = this.parseMoment(date).add(-1, "week");
+            return this.format(d);
+        };
+        Dates.prototype.nextWeek = function (date) {
+            var d = this.parseMoment(date).add(1, "week");
+            return this.format(d);
+        };
         Dates.prototype.endOfWeek = function (date) {
             return this.format(this.parseMoment(date).endOf("week"));
         };

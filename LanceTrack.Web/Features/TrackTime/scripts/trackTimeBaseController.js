@@ -33,7 +33,13 @@ var LanceTrack;
                 return result;
             };
             $scope.canBillProject = function (project) {
-                return (project.permissions & 32 /* BillProject */) !== 0;
+                return (project.permissions & Api.ProjectPermissions.BillProject) !== 0;
+            };
+            $scope.previousWeek = function () {
+                $scope.at = dates.previousWeek($scope.at);
+            };
+            $scope.nextWeek = function () {
+                $scope.at = dates.nextWeek($scope.at);
             };
             reload();
             $scope.$watch("at", function (o, n) {
