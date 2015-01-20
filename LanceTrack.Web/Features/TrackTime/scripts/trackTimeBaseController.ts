@@ -52,7 +52,7 @@
             };
 
             $scope.canBillProject = (project: Api.Project) => {
-                return (project.permissions & Api.ProjectPermissions.BillProject) !== 0;
+                return (project.permissions & 32 /* Bill project */) !== 0;
             };
 
             $scope.previousWeek = () => {
