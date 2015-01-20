@@ -20,7 +20,9 @@ namespace LanceTrack.Domain.Projects
         /// <summary>
         /// Get the set of project where user could report time.
         /// </summary>
-        IEnumerable<Project> ReportableProjects();
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        IEnumerable<Project> ReportableProjects(DateTime startDate, DateTime endDate);
 
         ProjectUserInfo GetProjectUserInfo(int userId, int projectId);
 

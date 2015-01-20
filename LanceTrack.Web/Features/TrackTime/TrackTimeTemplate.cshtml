@@ -25,52 +25,52 @@
 </ul>
 <div class="panel panel-default">
     <div class="panel-body">
-        <form class="form-inline">
-            <div class="form-group">
-                <label >Date</label>
+        <div class="clearfix">
+            <div class="col-lg-1 col-sm-1 h4">Date</div>
+            <div class="col-lg-3 col-sm-3">
                 <input class="form-control"
                        ng-model="at"
-                       ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }"
+                       ng-model-options="modelOptions"
                        type="text" />
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <ui-view/>
+        <ui-view />
     </div>
 </div>
 <script type="text/ng-template" id="dates-header">
-    
-        <div class="col-lg-9 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
-            <div class="date-range mon-wed">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 h5"
-                     ng-repeat="d in dates.slice(0, 4)">
-                    <span class="visible-lg">
-                        {{dateService.formatDay(d)}}
-                    </span>
-                    <span class="visible-md visible-sm">
-                        {{dateService.format(d,'DD MMM')}}
-                    </span>
-                    <span class="visible-xs">
-                        {{dateService.format(d,'DD')}}
-                    </span>
-                </div>
+
+    <div class="col-lg-9 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
+        <div class="date-range mon-wed">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 h5"
+                 ng-repeat="d in dates.slice(0, 4)">
+                <span class="visible-lg">
+                    {{dateService.formatDay(d)}}
+                </span>
+                <span class="visible-md visible-sm">
+                    {{dateService.format(d,'DD MMM')}}
+                </span>
+                <span class="visible-xs">
+                    {{dateService.format(d,'DD')}}
+                </span>
             </div>
-            <div class="date-range thu-sun">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 h5"
-                     ng-repeat="d in dates.slice(4, 7)">
-                    <span class="visible-lg">
-                        {{dateService.formatDay(d)}}
-                    </span>
-                    <span class="visible-md visible-sm">
-                        {{dateService.format(d,'DD MMM')}}
-                    </span>
-                    <span class="visible-xs">
-                        {{dateService.format(d,'DD')}}
-                    </span>
-                </div>
+        </div>
+        <div class="date-range thu-sun">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 h5"
+                 ng-repeat="d in dates.slice(4, 7)">
+                <span class="visible-lg">
+                    {{dateService.formatDay(d)}}
+                </span>
+                <span class="visible-md visible-sm">
+                    {{dateService.format(d,'DD MMM')}}
+                </span>
+                <span class="visible-xs">
+                    {{dateService.format(d,'DD')}}
+                </span>
             </div>
-        </div>    
+        </div>
+    </div>
 </script>

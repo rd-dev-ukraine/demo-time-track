@@ -84,9 +84,13 @@ namespace LanceTrack.Server.Projects
             return data;
         }
 
-        public IEnumerable<Project> ReportableProjects()
+        public IEnumerable<Project> ReportableProjects(DateTime startDate, DateTime endDate)
         {
-            return _projectRepository.ReportableProjects(_currentUser.Id).ToList();
+            startDate = startDate.Date;
+            endDate = endDate.Date;
+            return _projectRepository.ReportableProjects(_currentUser.Id)
+                                     .Where(p => p.StartDate <= endDate && (p.EndDate == null || p.EndDate >= startDate))
+                                     .ToList();
         }
 
         private IEnumerable<DailyTime> ProjectDailyTime(int projectId, DateTime startDate, DateTime endDate)

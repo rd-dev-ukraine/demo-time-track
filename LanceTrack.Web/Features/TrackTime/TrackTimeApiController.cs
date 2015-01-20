@@ -52,7 +52,7 @@ namespace LanceTrack.Web.Features.TrackTime
                 CurrentUserId = _currentUser.Id,
                 StartDate = startDateVal,
                 EndDate = endDateVal,
-                Projects = _projectService.ReportableProjects().ToList(),
+                Projects = _projectService.ReportableProjects(startDateVal, endDateVal).ToList(),
                 Time = _projectService.ProjectDailyTime(startDateVal, endDateVal).ToList(),
                 Users = _userService.All().ToList()
             };
