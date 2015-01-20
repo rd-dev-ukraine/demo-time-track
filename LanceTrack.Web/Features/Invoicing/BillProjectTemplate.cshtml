@@ -1,5 +1,10 @@
 ﻿@model dynamic
 @{
+    var rowClass = "clearfix h4";
+    var labelClass = "col-lg-3 col-sm-3 text-muted";
+    var valueClass = "col-lg-9 col-sm-9";
+
+
     var userColumn = "col-md-3 col-sm-5 col-xs-5 ";
     var hoursColumn = "col-md-2 col-sm-4 col-xs-4";
     var maxHoursColumn = "col-md-2 col-sm-3 col-xs-3";
@@ -18,63 +23,62 @@
              ng-if="error">
             {{error.message}}
         </div>
-        <div class="form-horizontal">
-            <div class="form-group h4">
-                <p class="@userColumn form-control-static">
-                    Project
-                </p>
-                <div class="@hoursColumn form-control-static text-primary">
-                    {{data.project.name}}
-                </div>
+        <div class="@rowClass">
+            <div class="@labelClass">Project</div>
+            <div class="@valueClass text-primary">
+                {{data.project.name}}
             </div>
-            <div class="form-group small visible-lg visible-md">
-                <p class="@userColumn form-control-static text-muted">User</p>
-                <p class="@hoursColumn form-control-static text-muted">Hours</p>
-                <p class="@maxHoursColumn form-control-static text-muted">Max hours</p>
-                <p class="@sumColumn form-control-static text-muted">Sum</p>
+        </div>
+
+        <div class="@rowClass">
+            <div class="@labelClass">
+                Total hours:
             </div>
-            <div class="form-group"
+            <div class="@valueClass">
+                {{totalHours() | hours}}
+            </div>
+        </div>
+        <div class="@rowClass">
+            <div class="@labelClass">
+                Total sum:
+            </div>
+            <div class="@valueClass text-primary">{{totalSum() | currency}}</div>
+        </div>
+
+        <div class="clearfix invoice-details-part">
+            <div class="clearfix visible-lg visible-md text-muted">
+                <div class="@userColumn text-muted">User</div>
+                <div class="@hoursColumn text-muted">Hours</div>
+                <div class="@maxHoursColumn text-muted">Max hours</div>
+                <div class="@sumColumn text-muted">Sum</div>
+            </div>
+            <div class="clearfix h4"
                  ng-repeat="userTime in data.invoice track by userTime.userId">
-                <p class="@userColumn form-control-static">
+                <div class="@userColumn">
                     {{user(userTime.userId).displayName}}
-                </p>
+                </div>
                 <div class="@hoursColumn">
                     <input class="form-control"
                            ng-model="userTime.billingHours"
                            ng-model-options="modelOptions"
-                           type="text"/>
-
+                           type="text" />
                 </div>
                 <div class="@maxHoursColumn">
-                    <p class="form-control-static">
-                        hrs of {{userTime.maxHours}}hrs max
-                    </p>
+                    hrs of {{userTime.maxHours}}hrs max
                 </div>
-                <p class="@sumColumn form-control-static text-primary">
+                <p class="@sumColumn text-primary">
                     {{userTime.sum | currency }}
                 </p>
             </div>
-            <div class="form-group h4">
-                <p class="col-md-offset-5 col-md-2 col-md-2 col-sm-5 col-xs-5">
-                    Total hours:
-                </p>
-                <p class="col-md-2 col-sm-5 col-xs-5">{{totalHours() | hours}}</p>
+
+            <div class="clearfix">
+                <button class="btn btn-lg btn-primary"
+                        ng-click="bill()"
+                        type="button">
+                    Create invoice
+                </button>
             </div>
-            <div class="form-group h4 text-primary">
-                <p class="col-md-offset-5 col-md-2 col-sm-5 col-xs-5">
-                    Total sum:
-                </p>
-                <p class="col-md-2 col-sm-5 col-xs-5">{{totalSum() | currency}}</p>
-            </div>
-            <div class="form-group">
-                <div class="col-lg-12 col-sm-12">
-                    <button class="btn btn-lg btn-primary"
-                            ng-click="bill()"
-                            type="button">
-                        Create invoice
-                    </button>
-                </div>
-            </div>
+
         </div>
 
     </div>
