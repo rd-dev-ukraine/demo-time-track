@@ -74,14 +74,12 @@ namespace LanceTrack.Web.Features.TrackTime
         public class ActionNamesClass
         {
             public readonly string TrackTimeTemplate = "TrackTimeTemplate";
-            public readonly string TimeCellTemplate = "TimeCellTemplate";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string TrackTimeTemplate = "TrackTimeTemplate";
-            public const string TimeCellTemplate = "TimeCellTemplate";
         }
 
 
@@ -112,17 +110,6 @@ namespace LanceTrack.Web.Features.TrackTime
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TrackTimeTemplate);
             TrackTimeTemplateOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void TimeCellTemplateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult TimeCellTemplate()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TimeCellTemplate);
-            TimeCellTemplateOverride(callInfo);
             return callInfo;
         }
 

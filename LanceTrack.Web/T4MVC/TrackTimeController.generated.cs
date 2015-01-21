@@ -36,17 +36,11 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string MyTimeTemplate = "MyTimeTemplate";
                 public readonly string Refs = "Refs";
-                public readonly string TimeCellTemplate = "TimeCellTemplate";
                 public readonly string TrackTimeTemplate = "TrackTimeTemplate";
-                public readonly string UsersTimeTemplate = "UsersTimeTemplate";
             }
-            public readonly string MyTimeTemplate = "~/Features/TrackTime/MyTimeTemplate.cshtml";
             public readonly string Refs = "~/Features/TrackTime/Refs.cshtml";
-            public readonly string TimeCellTemplate = "~/Features/TrackTime/TimeCellTemplate.cshtml";
             public readonly string TrackTimeTemplate = "~/Features/TrackTime/TrackTimeTemplate.cshtml";
-            public readonly string UsersTimeTemplate = "~/Features/TrackTime/UsersTimeTemplate.cshtml";
             static readonly _ModelsClass s_Models = new _ModelsClass();
             public _ModelsClass Models { get { return s_Models; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

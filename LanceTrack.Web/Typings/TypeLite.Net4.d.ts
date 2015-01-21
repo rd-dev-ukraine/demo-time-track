@@ -96,7 +96,6 @@ declare module Api {
 		billProject: string;
 		invoiceList: string;
 		invoiceDetails: string;
-		timeCell: string;
 		trackTime: string;
 	}
 	interface ProjectTimeInfoResult {

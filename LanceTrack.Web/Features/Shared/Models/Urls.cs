@@ -40,11 +40,6 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.Action(MVC.InvoiceTemplates.InvoiceDetailsTemplate()); }
             }
 
-            public string TimeCell
-            {
-                get { return Url.Action(MVC.TrackTimeTemplates.TimeCellTemplate()); }
-            }
-
             public string TrackTime
             {
                 get { return Url.Action(MVC.TrackTimeTemplates.TrackTimeTemplate()); }

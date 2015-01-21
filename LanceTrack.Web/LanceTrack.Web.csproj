@@ -200,8 +200,6 @@
     </Content>
     <Content Include="Features\TrackTime\Refs.cshtml" />
     <Content Include="Features\Shared\Refs.cshtml" />
-    <Content Include="Features\TrackTime\TimeCellTemplate.cshtml" />
-    <Content Include="Features\TrackTime\UsersTimeTemplate.cshtml" />
     <Content Include="Features\TrackTime\TrackTimeTemplate.cshtml" />
     <Content Include="Features\Shared\styles\vars.less" />
     <Content Include="Features\Shared\styles\vars.css.map">
@@ -230,7 +228,6 @@
     <Content Include="Libs\underscore\underscore.js" />
     <None Include="T4MVC\T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
-    <Content Include="Features\TrackTime\MyTimeTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\CqrsConfig.cs" />

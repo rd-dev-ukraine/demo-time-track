@@ -185,15 +185,14 @@
             <div class="@datesMonWed time-cell__container"
                  ng-repeat="d in dates.slice(0, 4)"
                  ng-init="project=project;cell=cell(project.id, d, user.id);"
-                 ng-include="urls.templates.timeCell">
-
+                 ng-include="'time-cell'">
             </div>
         </div>
         <div class="date-range thu-sun">
             <div class="@datesThuSun time-cell__container"
                  ng-repeat="d in dates.slice(4, 7)"
                  ng-init="project=project;cell=cell(project.id, d, user.id);"
-                 ng-include="urls.templates.timeCell">
+                 ng-include="'time-cell'">
             </div>
         </div>
     </div>
@@ -220,5 +219,34 @@
         </div>
     </div>
     <div class="@rowSummary">
+    </div>
+</script>
+
+<script type="text/ng-template" id="time-cell">
+    <div class="time-cell"
+         ng-if="cell"
+         ng-controller="timeCellController">
+
+        <div class="time-cell__status-container">
+            <span class="text-muted hidden-sm hidden-xs"
+                  ng-show="!trackTime.isError && !trackTime.isLoading">
+                hrs
+            </span>
+            <span class="field-validation-error glyphicon glyphicon-minus-sign"
+                  ng-show="trackTime.isError"
+                  title="{{trackTime.error.message}}">
+            </span>
+            <span class="glyphicon glyphicon-floppy-save"
+                  ng-show="trackTime.isLoading">
+            </span>
+        </div>
+
+        <div class="time-cell__editor-container">
+            <input class="time-cell__editor"
+                   ng-model="cell.totalHours"
+                   ng-model-options="modelOptions"
+                   type="text"
+                   title="{{project.name}}" />
+        </div>
     </div>
 </script>
