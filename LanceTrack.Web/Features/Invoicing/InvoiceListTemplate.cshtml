@@ -18,7 +18,8 @@
         <a ui-sref="invoiceList({ mode: 'archive' })">Archive</a>
     </li>
 </ul>
-<div class="clearfix text-muted">
+<div class="clearfix text-muted"
+     ng-if="data.length">
     <div class="@colInvoiceNum">
         Invoice #
     </div>
@@ -33,7 +34,7 @@
 <div class="clearfix h4 invoice-list-row"
      ng-class="{ 'text-muted' : inv.isCancelled }"
      ui-sref="invoiceDetails({ invoiceNum: inv.invoiceNum })"
-     ng-if="data"
+     ng-if="data.length"
      ng-repeat="inv in data">
     <div class="@colInvoiceNum">
         {{inv.invoiceNum}}
@@ -57,4 +58,8 @@
          class="@colState">
         {{ inv.isPaid ? "Paid" : "Cancelled" }}
     </div>
+</div>
+<div class="alert alert-info"
+     ng-if="!data.length">
+    No invoices yet. <a ui-sref="track-time">Track time</a> and bill some project to make invoice.
 </div>
