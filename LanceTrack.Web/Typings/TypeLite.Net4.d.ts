@@ -56,7 +56,6 @@ declare module Api {
 		status: Api.ProjectStatus;
 		startDate: Date;
 		endDate: Date;
-		maxTotalHoursPerDay: number;
 		maxTotalHours: number;
 	}
 	interface UserAccount {
@@ -98,9 +97,7 @@ declare module Api {
 		invoiceList: string;
 		invoiceDetails: string;
 		timeCell: string;
-		trackMyTime: string;
-		trackTimeBase: string;
-		usersTime: string;
+		trackTime: string;
 	}
 	interface ProjectTimeInfoResult {
 		currentUserId: number;

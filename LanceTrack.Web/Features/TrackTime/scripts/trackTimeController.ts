@@ -1,10 +1,10 @@
 ﻿module LanceTrack {
     export module TrackTime {
 
-        export function trackTimeBaseController(
-            $scope: TrackTimeBaseScope,
+        export function trackTimeController(
+            $scope: TrackTimeScope,
             $state: ng.ui.IStateService,
-            $stateParams: { at: string },
+            $stateParams: { at: string; mode: string },
             trackTimeService: TrackTimeService,
             dates: LanceTrack.Dates) {
 
@@ -16,6 +16,7 @@
                     });
             }
 
+            $scope.mode = $stateParams.mode || TrackTimeMode.MyTime;
             $scope.dateService = dates;
             $scope.at = dates.format($stateParams.at || dates.now());
 
@@ -63,31 +64,75 @@
                 $scope.at = dates.nextWeek($scope.at);
             };
 
-            reload();
-            
-            $scope.$watch("at", (o, n) => {
-                if (o == undefined || o == n)
-                    return;
+            $scope.projectsForUser = (userId: number) => {
+                if (!$scope.data)
+                    return null;
 
-                $state.go($state.current.name, { at: dates.format($scope.at) });
+                return _.filter(
+                    $scope.data.projects,
+                    (p: Api.Project) => _.any($scope.data.time,
+                        (t: Api.DailyTime) => t.userId == userId && t.projectId == p.id));
+            };
+
+            $scope.usersForProject = (projectId: number) => {
+                if (!$scope.data)
+                    return null;
+
+                return _.filter(
+                    $scope.data.users,
+                    (u: Api.UserAccount) => _.any($scope.data.time,
+                        (t: Api.DailyTime) => t.userId == u.id && t.projectId == projectId));
+            };
+
+            $scope.users = () => {
+                if (!$scope.data)
+                    return null;
+
+                return _.filter($scope.data.users, u=> $scope.mode != TrackTimeMode.MyTime || u.id == $scope.data.currentUserId);
+            };
+
+            reload();
+
+            _.forEach(["at", "mode"], property => {
+
+                $scope.$watch(property,(o, n) => {
+                    if (o == undefined || o == n)
+                        return;
+
+                    $state.go($state.current.name, {
+                        at: dates.format($scope.at),
+                        mode: $scope.mode
+                    });
+                });
             });
         }
 
-        export interface TrackTimeBaseScope extends ng.IScope {
-            data: Api.ProjectTimeInfoResult;
-
+        export interface TrackTimeScope extends ng.IScope {
             at: string;
+            mode: string;
+
+            data: Api.ProjectTimeInfoResult;
             dates: Date[];
+            dateService: LanceTrack.Dates;
             
+            previousWeek(): void;
+            nextWeek(): void;
+
             canBillProject(project: Api.Project): boolean;
             cell(projectId: number, date: any, userId?: number): Api.DailyTime;
             totalHours(of: { projectId?: number; userId?: number; at?: string; }): number;
 
-            dateService: LanceTrack.Dates;
+            projectsForUser(userId: number): Api.Project[];
+            usersForProject(projectId: number): Api.UserAccount[];
 
-            previousWeek(): void;
-            nextWeek(): void;
+            users(): Api.UserAccount[];
+        }
+
+        export class TrackTimeMode {
+            static MyTime = "my-time";
+            static ByProject = "by-project";
+            static ByUser = "by-user";
         }
     }
 }
-LanceTrack.TrackTime.trackTimeBaseController.$inject = ["$scope", "$state", "$stateParams", "trackTimeService", "dates"];
+LanceTrack.TrackTime.trackTimeController.$inject = ["$scope", "$state", "$stateParams", "trackTimeService", "dates"];

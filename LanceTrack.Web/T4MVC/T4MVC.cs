@@ -346,12 +346,10 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
-                public static readonly string myTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/myTimeController.min.js") ? Url("myTimeController.min.js") : Url("myTimeController.js");
                 public static readonly string statisticsController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/statisticsController.min.js") ? Url("statisticsController.min.js") : Url("statisticsController.js");
                 public static readonly string timeCellController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/timeCellController.min.js") ? Url("timeCellController.min.js") : Url("timeCellController.js");
-                public static readonly string trackTimeBaseController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeBaseController.min.js") ? Url("trackTimeBaseController.min.js") : Url("trackTimeBaseController.js");
+                public static readonly string trackTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeController.min.js") ? Url("trackTimeController.min.js") : Url("trackTimeController.js");
                 public static readonly string trackTimeService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeService.min.js") ? Url("trackTimeService.min.js") : Url("trackTimeService.js");
-                public static readonly string usersTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/usersTimeController.min.js") ? Url("usersTimeController.min.js") : Url("usersTimeController.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

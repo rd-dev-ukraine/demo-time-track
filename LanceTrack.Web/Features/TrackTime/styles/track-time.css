@@ -22,7 +22,10 @@
   overflow: hidden;
 }
 .time-cell__editor {
-  padding: 0.1em 0.1em 0.1em 0.3em;
+  border: 0 none !important;
+  border-radius: 0.3em !important;
+  padding: 0.3em;
+  margin: 2px;
 }
 .time-cell__editor:focus {
   border: 2px solid;

@@ -45,19 +45,9 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.Action(MVC.TrackTimeTemplates.TimeCellTemplate()); }
             }
 
-            public string TrackMyTime
-            {
-                get { return Url.Action(MVC.TrackTimeTemplates.MyTimeTemplate()); }
-            }
-
-            public string TrackTimeBase
+            public string TrackTime
             {
                 get { return Url.Action(MVC.TrackTimeTemplates.TrackTimeTemplate()); }
-            }
-
-            public string UsersTime
-            {
-                get { return Url.Action(MVC.TrackTimeTemplates.UserTimeTemplate()); }
             }
 
             private UrlHelper Url { get; set; }

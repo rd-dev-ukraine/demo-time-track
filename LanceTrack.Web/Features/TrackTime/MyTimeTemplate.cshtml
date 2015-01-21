@@ -6,11 +6,7 @@
      ng-repeat="project in data.projects track by project.id">
     <div class="col-lg-2 col-sm-2">
         {{project.name}}
-        <a ui-sref="billProject({ projectId: project.id })"
-           ng-if="canBillProject(project)"
-           title="Bill project">
-            <span class="glyphicon glyphicon-list-alt"></span>
-        </a>
+        
     </div>
     <div class="col-lg-9 col-sm-9 hours-row">
         <div class="date-range mon-wed">
@@ -29,8 +25,15 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-1 col-sm-1 text-muted">
-        {{ totalHours({projectId: project.id, userId: data.currentUserId }) | hours}}
+    <div class="col-lg-1 col-sm-1 ">
+        <span class="text-muted">
+            {{ totalHours({projectId: project.id, userId: data.currentUserId }) | hours}}
+        </span>
+        <a ui-sref="billProject({ projectId: project.id })"
+           ng-if="canBillProject(project)"
+           title="Bill project">
+            Bill
+        </a>
     </div>
 </div>
 

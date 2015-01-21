@@ -1,4 +1,12 @@
 ﻿@model dynamic
+@{
+    var rowLabel = "col-lg-2 col-md-2";
+    var rowContent = "col-lg-9 col-md-9";
+    var rowSummary = "col-lg-1 col-md-1";
+
+    var datesMonWed = "col-lg-3 col-md-3 col-sm-3 col-xs-3";
+    var datesThuSun = "col-lg-4 col-md-4 col-sm-4 col-xs-4";
+}
 
 <div class="clearfix user-statistics__container">
     <div class="user-statistics"
@@ -15,15 +23,20 @@
         Track time
     </h2>
 </div>
+@* Mode switching *@
 <ul class="nav nav-pills section">
     <li ui-sref-active="active">
-        <a ui-sref="track-time.my({ at: at })">My Time</a>
+        <a ui-sref="track-time({ at: at, mode: 'my-time' })">My Time</a>
     </li>
     <li ui-sref-active="active">
-        <a ui-sref="track-time.users({ at: at })">Report for other users</a>
+        <a ui-sref="track-time({ at: at, mode: 'by-user' })">By User</a>
     </li>
-
+    <li ui-sref-active="active">
+        <a ui-sref="track-time({ at: at, mode: 'by-project' })">By project</a>
+    </li>
 </ul>
+
+@* Date navigation *@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="clearfix">
@@ -34,14 +47,14 @@
                             ng-click="previousWeek()"
                             title="Previous week">
                         <span class="glyphicon glyphicon-chevron-left"></span>
-                    </button>    
+                    </button>
                 </div>
                 <div class="dropdown">
                     <div class="dropdown-toggle" data-toggle="dropdown" id="dateSelector">
                         <input class="form-control"
                                ng-model="at"
                                ng-model-options="modelOptions"
-                               type="text"/>
+                               type="text" />
                     </div>
                     <div class="clearfix"></div>
                     <div class="dropdown-menu">
@@ -59,16 +72,83 @@
         </div>
     </div>
 </div>
+
+@* Time tracking *@
 <div class="panel panel-default">
     <div class="panel-body">
-        <ui-view />
+        @* By User *@
+        <div ng-repeat="user in users()"
+             ng-if="mode != 'by-project'"
+             ng-init="totalHoursParam={ projectId: null, userId: user.id }">
+            <h3 ng-if="mode != 'my-time'">
+                {{user.displayName}}
+            </h3>
+
+            <div class="clearfix" ng-include="'dates-header'">
+            </div>
+
+            <div class="clearfix time-row"
+                 ng-repeat="project in projectsForUser(user.id) track by project.id">
+
+                <div class="@rowLabel">
+                    {{project.name}}
+                    <a ui-sref="billProject({ projectId: project.id })"
+                       ng-if="canBillProject(project)"
+                       title="Bill project">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>
+                </div>
+
+                <ng-include src="'hours-row'"/>
+
+            </div>
+
+            <div class="clearfix"
+                 ng-include="'total-hours-row'">
+            </div>
+        </div>
+
+        @* By Project *@
+        <div ng-repeat="project in data.projects"
+             ng-if="mode == 'by-project' "
+             ng-init="totalHoursParam={ projectId: project.id, userId: null }">
+            <h3>
+                {{project.name}}
+                <a ui-sref="billProject({ projectId: project.id })"
+                   ng-if="canBillProject(project)"
+                   title="Bill project">
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                </a>
+            </h3>
+
+            <div class="clearfix" ng-include="'dates-header'">
+            </div>
+
+            <div class="clearfix time-row"
+                 ng-repeat="user in usersForProject(project.id)">
+                <div class="@rowLabel">
+                    {{user.displayName}}
+                </div>
+
+                <ng-include src="'hours-row'"/>
+
+            </div>
+
+            <div class="clearfix"
+                  ng-include="'total-hours-row'">
+            </div>
+        </div>
+
     </div>
 </div>
-<script type="text/ng-template" id="dates-header">
 
-    <div class="col-lg-9 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
+<script type="text/ng-template" id="dates-header">
+    <div class="@rowLabel">
+
+    </div>
+    <div class="@rowContent">
         <div class="date-range mon-wed">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 h5"
+            <div class="@datesMonWed h5"
                  ng-repeat="d in dates.slice(0, 4)">
                 <span class="visible-lg">
                     {{dateService.formatDay(d)}}
@@ -82,7 +162,7 @@
             </div>
         </div>
         <div class="date-range thu-sun">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 h5"
+            <div class="@datesThuSun h5"
                  ng-repeat="d in dates.slice(4, 7)">
                 <span class="visible-lg">
                     {{dateService.formatDay(d)}}
@@ -95,5 +175,50 @@
                 </span>
             </div>
         </div>
+    </div>
+    <div class="@rowSummary"></div>
+</script>
+
+<script type="text/ng-template" id="hours-row">
+    <div class="@rowContent">
+        <div class="date-range mon-wed">
+            <div class="@datesMonWed time-cell__container"
+                 ng-repeat="d in dates.slice(0, 4)"
+                 ng-init="project=project;cell=cell(project.id, d, user.id);"
+                 ng-include="urls.templates.timeCell">
+
+            </div>
+        </div>
+        <div class="date-range thu-sun">
+            <div class="@datesThuSun time-cell__container"
+                 ng-repeat="d in dates.slice(4, 7)"
+                 ng-init="project=project;cell=cell(project.id, d, user.id);"
+                 ng-include="urls.templates.timeCell">
+            </div>
+        </div>
+    </div>
+    <div class="@rowSummary text-muted">
+        {{totalHours({userId: user.id, projectId: project.id }) | hours }}
+    </div>
+</script>
+
+<script type="text/ng-template" id="total-hours-row">
+    <div class="@rowLabel"></div>
+
+    <div class="@rowContent hidden-xs hidden-sm">
+        <div class="date-range mon-wed">
+            <div class="@datesMonWed text-muted"
+                 ng-repeat="d in dates.slice(0, 4)">
+                {{totalHours({projectId: totalHoursParam.projectId, userId: totalHoursParam.userId, at: d }) | hours }}
+            </div>
+        </div>
+        <div class="date-range thu-sun">
+            <div class="@datesThuSun text-muted"
+                 ng-repeat="d in dates.slice(4, 7)">
+                {{totalHours({projectId: totalHoursParam.projectId, userId: totalHoursParam.userId, at: d }) | hours }}
+            </div>
+        </div>
+    </div>
+    <div class="@rowSummary">
     </div>
 </script>

@@ -374,11 +374,9 @@
     <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\hoursFilter.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
-    <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeBaseController.ts" />
+    <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\statisticsController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
-    <TypeScriptCompile Include="Features\TrackTime\scripts\usersTimeController.ts" />
-    <TypeScriptCompile Include="Features\TrackTime\scripts\myTimeController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
     <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="Typings\angular.d.ts" />

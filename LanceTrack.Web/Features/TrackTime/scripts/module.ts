@@ -4,31 +4,23 @@
 
         app.service("trackTimeService", trackTimeServiceFactory);
 
-        app.controller("trackTimeBaseController", trackTimeBaseController);
-        app.controller("myTimeController", myTimeController);
-        app.controller("usersTimeController", usersTimeController);
+        app.controller("trackTimeController", trackTimeController);
+        app.controller("timeCellController", timeCellController);
         app.controller("timeCellController", timeCellController);
         app.controller("statisticsController", statisticsController);
 
         app.config(($stateProvider: ng.ui.IStateProvider) => {
 
             $stateProvider
-                .state("track-time", {
-                    abstract: true,
-                    url: "^/track-time/:at/",
-                    templateUrl: urls.templates.trackTimeBase,
-                    controller: "trackTimeBaseController"
-                })
-                .state("track-time.my", {
-                    url: "^/track-time/:at/my/",
-                    templateUrl: urls.templates.trackMyTime,
-                    controller: "myTimeController"
-                })
-                .state("track-time.users", {
-                    url: "^/track-time/:at/users/",
-                    templateUrl: urls.templates.usersTime,
-                    controller: "usersTimeController"
-                });
+                .state(routes.trackTime, {
+                url: "/track-time/{at}/{mode}",
+                templateUrl: urls.templates.trackTime,
+                controller: "trackTimeController"
+            });
         });
+
+        export var routes = {
+            trackTime: "track-time"
+        };
     }
 }
