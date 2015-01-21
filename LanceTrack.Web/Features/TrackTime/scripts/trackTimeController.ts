@@ -63,7 +63,8 @@
             $scope.nextWeek = () => {
                 $scope.at = dates.nextWeek($scope.at);
             };
-
+            
+            
             $scope.projectsForUser = (userId: number) => {
                 if (!$scope.data)
                     return null;

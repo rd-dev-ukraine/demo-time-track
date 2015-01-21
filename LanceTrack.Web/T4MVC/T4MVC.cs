@@ -306,6 +306,7 @@ namespace Links
                 public static readonly string deferredFunctionService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/deferredFunctionService.min.js") ? Url("deferredFunctionService.min.js") : Url("deferredFunctionService.js");
                 public static readonly string hoursFilter_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/hoursFilter.min.js") ? Url("hoursFilter.min.js") : Url("hoursFilter.js");
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
+                public static readonly string uiStateActiveExt_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/uiStateActiveExt.min.js") ? Url("uiStateActiveExt.min.js") : Url("uiStateActiveExt.js");
                 public static readonly string yesNoFilter_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/yesNoFilter.min.js") ? Url("yesNoFilter.min.js") : Url("yesNoFilter.js");
             }
         
