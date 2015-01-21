@@ -2,7 +2,7 @@ var LanceTrack;
 (function (LanceTrack) {
     var TrackTime;
     (function (TrackTime) {
-        var app = angular.module("lance-track.track-time", ["ui.router", "ui.bootstrap.datetimepicker", "lance-track.shared"]);
+        var app = angular.module("lance-track.track-time", ["ui.router", "ui.bootstrap.datetimepicker", "lance-track.shared", "ngAnimate"]);
         app.service("trackTimeService", TrackTime.trackTimeServiceFactory);
         app.controller("trackTimeController", TrackTime.trackTimeController);
         app.controller("timeCellController", TrackTime.timeCellController);

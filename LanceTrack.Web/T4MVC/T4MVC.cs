@@ -78,6 +78,7 @@ namespace Links
             private const string URLPATH = "~/Libs/angular";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string angular_animate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular-animate.min.js") ? Url("angular-animate.min.js") : Url("angular-animate.js");
             public static readonly string angular_ui_router_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular-ui-router.min.js") ? Url("angular-ui-router.min.js") : Url("angular-ui-router.js");
             public static readonly string angular_ui_router_min_js = Url("angular-ui-router.min.js");
             public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");

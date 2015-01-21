@@ -166,6 +166,7 @@
     <Content Include="Global.asax" />
     <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap.js" />
     <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="Libs\angular\angular-animate.js" />
     <Content Include="Libs\angular\angular-ui-router.js" />
     <Content Include="Libs\angular\angular-ui-router.min.js" />
     <Content Include="Libs\angular\angular.js" />

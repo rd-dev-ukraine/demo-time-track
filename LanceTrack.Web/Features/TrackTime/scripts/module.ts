@@ -1,6 +1,7 @@
 ﻿module LanceTrack {
     export module TrackTime {
-        var app = angular.module("lance-track.track-time", ["ui.router", "ui.bootstrap.datetimepicker", "lance-track.shared"]);
+        var app = angular.module("lance-track.track-time",
+            ["ui.router", "ui.bootstrap.datetimepicker", "lance-track.shared", "ngAnimate"]);
 
         app.service("trackTimeService", trackTimeServiceFactory);
 

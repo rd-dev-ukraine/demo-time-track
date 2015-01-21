@@ -9,8 +9,9 @@
 }
 
 <div class="clearfix user-statistics__container">
-    <div class="user-statistics"
-         ng-controller="statisticsController">
+    <div class="user-statistics animate-show"
+         ng-controller="statisticsController"
+         ng-show="statistics.value">
         <h3>Your results:</h3>
         <div class="user-statistics__value">
             Total hours: {{statistics.value.totalHours}}
@@ -23,6 +24,7 @@
         Track time
     </h2>
 </div>
+
 @* Mode switching *@
 <ul class="nav nav-pills section">
     <li ui-sref-active="active">
@@ -74,8 +76,10 @@
 </div>
 
 @* Time tracking *@
-<div class="panel panel-default">
+<div class="panel panel-default animate-show"
+     ng-show="data">
     <div class="panel-body">
+        
         @* By User *@
         <div ng-repeat="user in users()"
              ng-if="mode != 'by-project'"
@@ -97,7 +101,7 @@
                        ui-sref="billProject({ projectId: project.id })"
                        ng-if="canBillProject(project)"
                        title="Bill project">
-                        Bill 
+                        Bill
                     </a>
                 </div>
 
@@ -138,7 +142,7 @@
             </div>
 
             <div class="clearfix"
-                  ng-include="'total-hours-row'">
+                 ng-include="'total-hours-row'">
             </div>
         </div>
 
