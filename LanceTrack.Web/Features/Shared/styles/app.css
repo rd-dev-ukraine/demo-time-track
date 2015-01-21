@@ -13,6 +13,9 @@
 .section {
   margin: 1em 0;
 }
+.wrap-content {
+  overflow: hidden;
+}
 .disappear {
   visibility: hidden;
 }

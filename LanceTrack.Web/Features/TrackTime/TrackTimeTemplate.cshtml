@@ -80,7 +80,8 @@
         <div ng-repeat="user in users()"
              ng-if="mode != 'by-project'"
              ng-init="totalHoursParam={ projectId: null, userId: user.id }">
-            <h3 ng-if="mode != 'my-time'">
+            <h3 class="clearfix"
+                ng-if="mode != 'my-time'">
                 {{user.displayName}}
             </h3>
 
@@ -90,12 +91,13 @@
             <div class="clearfix time-row"
                  ng-repeat="project in projectsForUser(user.id) track by project.id">
 
-                <div class="@rowLabel">
+                <div class="@rowLabel wrap-content">
                     {{project.name}}
-                    <a ui-sref="billProject({ projectId: project.id })"
+                    <a class="pull-right btn btn-xs btn-success"
+                       ui-sref="billProject({ projectId: project.id })"
                        ng-if="canBillProject(project)"
                        title="Bill project">
-                        <span class="glyphicon glyphicon-list-alt"></span>
+                        Bill 
                     </a>
                 </div>
 
@@ -112,12 +114,13 @@
         <div ng-repeat="project in data.projects"
              ng-if="mode == 'by-project' "
              ng-init="totalHoursParam={ projectId: project.id, userId: null }">
-            <h3>
+            <h3 class="clearfix">
                 {{project.name}}
-                <a ui-sref="billProject({ projectId: project.id })"
+                <a class="pull-right btn btn-xs btn-success"
+                   ui-sref="billProject({ projectId: project.id })"
                    ng-if="canBillProject(project)"
                    title="Bill project">
-                    <span class="glyphicon glyphicon-list-alt"></span>
+                    Bill project
                 </a>
             </h3>
 
