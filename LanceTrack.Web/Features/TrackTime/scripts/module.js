@@ -7,7 +7,6 @@ var LanceTrack;
         app.controller("trackTimeController", TrackTime.trackTimeController);
         app.controller("timeCellController", TrackTime.timeCellController);
         app.controller("timeCellController", TrackTime.timeCellController);
-        app.controller("statisticsController", TrackTime.statisticsController);
         app.config(function ($stateProvider) {
             $stateProvider.state(TrackTime.routes.trackTime, {
                 url: "/track-time/{at}/{mode}",

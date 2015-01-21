@@ -58,25 +58,6 @@ namespace LanceTrack.Web.Features.TrackTime
             };
         }
 
-        [Route("statistics", Name = "Statistics"), HttpGet]
-        public StatisticsResult Statistics()
-        {
-            var stats = _projectService.ProjectUserSummary();
-
-            var result = new StatisticsResult
-            {
-                ProjectStatistics = stats.ToList()
-            };
-
-            if (stats.Any())
-            {
-                result.TotalEarnings = stats.Sum(p => p.UserTotalAmountEarned);
-                result.TotalHours = stats.Sum(p => p.UserTotalHoursReported);
-            }
-
-            return result;
-        }
-
         [Route("track", Name = "TrackTime"), HttpPost]
         public IHttpActionResult TrackTime(TrackTimeParams parameters)
         {
@@ -93,8 +74,6 @@ namespace LanceTrack.Web.Features.TrackTime
                 return BadRequest(ex.Message);
             }
         }
-
-
     }
 
     public class TrackTimeParams

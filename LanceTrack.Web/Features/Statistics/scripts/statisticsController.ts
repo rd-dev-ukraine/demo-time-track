@@ -1,13 +1,13 @@
 ﻿module LanceTrack {
-    export module TrackTime {
+    export module Statistics {
         export function statisticsController(
             $scope: StatisticsScope,
-            trackTimeService: TrackTimeService,
+            statisticsService: StatisticsService,
             deferredFunction: LanceTrack.DeferredFunctionService) {
 
-            $scope.statistics = deferredFunction.decorate(() => trackTimeService.statistic());
+            $scope.statistics = deferredFunction.decorate(() => statisticsService.statistic());
 
-            $scope.$on("TimeTracked", () => $scope.statistics());
+            $scope.$on("StatisticsUpdated", () => $scope.statistics());
 
             $scope.statistics();
         }
@@ -17,4 +17,4 @@
         }
     }
 } 
-LanceTrack.TrackTime.statisticsController.$inject = ["$scope", "trackTimeService", "deferredFunction"];
+LanceTrack.Statistics.statisticsController.$inject = ["$scope", "statisticsService", "deferredFunction"];

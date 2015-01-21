@@ -13,6 +13,7 @@ var LanceTrack;
             $scope.bill = function () {
                 $scope.error = null;
                 invoiceService.bill($scope.data.project.id, $scope.data.invoice).then(function (r) {
+                    $scope.$root.$broadcast("StatisticsUpdated");
                     $state.go(Invoicing.routes.invoiceDetails, { invoiceNum: r });
                 }).catch(function (err) { return $scope.error = err; });
             };

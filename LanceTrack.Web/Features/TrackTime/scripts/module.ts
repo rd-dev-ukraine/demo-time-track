@@ -8,7 +8,6 @@
         app.controller("trackTimeController", trackTimeController);
         app.controller("timeCellController", timeCellController);
         app.controller("timeCellController", timeCellController);
-        app.controller("statisticsController", statisticsController);
 
         app.config(($stateProvider: ng.ui.IStateProvider) => {
 

@@ -45,6 +45,11 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.Action(MVC.TrackTimeTemplates.TrackTimeTemplate()); }
             }
 
+            public string UserStatisticsTemplate
+            {
+                get { return Url.Action(MVC.StatisticsTemplates.UserStatisticsTemplate()); }
+            }
+
             private UrlHelper Url { get; set; }
         }
 

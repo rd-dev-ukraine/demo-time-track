@@ -1,0 +1,15 @@
+﻿@model dynamic
+
+<div class="clearfix user-statistics__container">
+    <div class="user-statistics animate-show"
+         ng-controller="statisticsController"
+         ng-show="statistics.value">
+        <h3>Your results:</h3>
+        <div class="user-statistics__value">
+            Total hours: {{statistics.value.totalHours}}
+        </div>
+        <div class="user-statistics__value">
+            Total earnings: ${{statistics.value.totalEarnings}}
+        </div>
+    </div>
+</div>

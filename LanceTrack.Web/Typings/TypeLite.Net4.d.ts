@@ -97,6 +97,7 @@ declare module Api {
 		invoiceList: string;
 		invoiceDetails: string;
 		trackTime: string;
+		userStatisticsTemplate: string;
 	}
 	interface ProjectTimeInfoResult {
 		currentUserId: number;

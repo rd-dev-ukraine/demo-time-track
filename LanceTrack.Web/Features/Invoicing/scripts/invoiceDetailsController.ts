@@ -47,7 +47,10 @@
                 $scope.error = null;
 
                 invoiceService.markInvoiceAsPaid($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum)
-                    .then(result => $scope.model = result)
+                    .then(result => {
+                        $scope.model = result;
+                        $scope.$root.$broadcast("StatisticsUpdated");
+                    })
                     .catch(err => $scope.error = err);
             };
 
@@ -56,7 +59,10 @@
                 $scope.error = null;
 
                 invoiceService.cancelInvoice($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum)
-                    .then(result => $scope.model = result)
+                    .then(result => {
+                        $scope.model = result;
+                        $scope.$root.$broadcast("StatisticsUpdated");
+                    })
                     .catch(err => $scope.error = err);
             };
         }

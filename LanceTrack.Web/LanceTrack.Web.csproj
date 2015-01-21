@@ -157,6 +157,12 @@
     <Content Include="Features\Shared\styles\vars.min.css">
       <DependentUpon>vars.css</DependentUpon>
     </Content>
+    <Content Include="Features\Statistics\styles\statistics.css">
+      <DependentUpon>statistics.less</DependentUpon>
+    </Content>
+    <Content Include="Features\Statistics\styles\statistics.min.css">
+      <DependentUpon>statistics.css</DependentUpon>
+    </Content>
     <Content Include="Features\TrackTime\styles\track-time.css">
       <DependentUpon>track-time.less</DependentUpon>
     </Content>
@@ -214,6 +220,12 @@
     <Content Include="Features\Invoicing\styles\invoice.css.map">
       <DependentUpon>invoice.css</DependentUpon>
     </Content>
+    <Content Include="Features\Statistics\Refs.cshtml" />
+    <Content Include="Features\Statistics\styles\statistics.less" />
+    <Content Include="Features\Statistics\styles\statistics.css.map">
+      <DependentUpon>statistics.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Statistics\UserStatistics.cshtml" />
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
@@ -254,6 +266,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Features\Statistics\StatisticsController.cs" />
+    <Compile Include="Features\Statistics\StatisticsTemplatesController.cs" />
     <Compile Include="Features\TrackTime\Models\ProjectTimeInfoResult.cs" />
     <Compile Include="Features\TrackTime\Models\StatisticsResult.cs" />
     <Compile Include="Features\TrackTime\TrackTimeApiController.cs" />
@@ -277,6 +291,12 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\StatisticsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\StatisticsTemplatesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\T4MVC.cs">
@@ -372,9 +392,11 @@
     <TypeScriptCompile Include="Features\Shared\scripts\yesNoFilter.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Shared\scripts\hoursFilter.ts" />
+    <TypeScriptCompile Include="Features\Statistics\scripts\module.ts" />
+    <TypeScriptCompile Include="Features\Statistics\scripts\statisticsService.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\module.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeController.ts" />
-    <TypeScriptCompile Include="Features\TrackTime\scripts\statisticsController.ts" />
+    <TypeScriptCompile Include="Features\Statistics\scripts\statisticsController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
     <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />

@@ -12,7 +12,7 @@
                     $scope.cell.userId,
                     $scope.cell.date,
                     $scope.cell.totalHours).then(() => {
-                        $scope.$root.$broadcast("TimeTracked");
+                        $scope.$root.$broadcast("StatisticsUpdated");
                     });
 
             });

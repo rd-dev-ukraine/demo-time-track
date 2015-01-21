@@ -28,9 +28,11 @@ public static partial class MVC
     public static LanceTrack.Web.Features.Account.AccountController Account = new LanceTrack.Web.Features.Account.T4MVC_AccountController();
     public static LanceTrack.Web.Features.Home.HomeController Home = new LanceTrack.Web.Features.Home.T4MVC_HomeController();
     public static LanceTrack.Web.Features.Invoicing.InvoiceTemplatesController InvoiceTemplates = new LanceTrack.Web.Features.Invoicing.T4MVC_InvoiceTemplatesController();
+    public static LanceTrack.Web.Features.Statistics.StatisticsTemplatesController StatisticsTemplates = new LanceTrack.Web.Features.Statistics.T4MVC_StatisticsTemplatesController();
     public static LanceTrack.Web.Features.TrackTime.TrackTimeTemplatesController TrackTimeTemplates = new LanceTrack.Web.Features.TrackTime.T4MVC_TrackTimeTemplatesController();
     public static T4MVC.InvoicingController Invoicing = new T4MVC.InvoicingController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
+    public static T4MVC.StatisticsController Statistics = new T4MVC.StatisticsController();
     public static T4MVC.TrackTimeController TrackTime = new T4MVC.TrackTimeController();
 }
 
@@ -331,6 +333,35 @@ namespace Links
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Statistics {
+            private const string URLPATH = "~/Features/Statistics";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class scripts {
+                private const string URLPATH = "~/Features/Statistics/scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
+                public static readonly string statisticsController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/statisticsController.min.js") ? Url("statisticsController.min.js") : Url("statisticsController.js");
+                public static readonly string statisticsService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/statisticsService.min.js") ? Url("statisticsService.min.js") : Url("statisticsService.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class styles {
+                private const string URLPATH = "~/Features/Statistics/styles";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string statistics_less = Url("statistics.less");
+                public static readonly string statistics_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/statistics.min.css") ? Url("statistics.min.css") : Url("statistics.css");
+                     
+                public static readonly string statistics_css_map = Url("statistics.css.map");
+                public static readonly string statistics_min_css = Url("statistics.min.css");
+            }
+        
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class TrackTime {
             private const string URLPATH = "~/Features/TrackTime";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -348,7 +379,6 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
-                public static readonly string statisticsController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/statisticsController.min.js") ? Url("statisticsController.min.js") : Url("statisticsController.js");
                 public static readonly string timeCellController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/timeCellController.min.js") ? Url("timeCellController.min.js") : Url("timeCellController.js");
                 public static readonly string trackTimeController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeController.min.js") ? Url("trackTimeController.min.js") : Url("trackTimeController.js");
                 public static readonly string trackTimeService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/trackTimeService.min.js") ? Url("trackTimeService.min.js") : Url("trackTimeService.js");

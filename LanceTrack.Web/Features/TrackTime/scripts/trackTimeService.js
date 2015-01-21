@@ -21,11 +21,6 @@ var LanceTrack;
                 }).error(function (e) { return deferred.reject(e); });
                 return deferred.promise;
             };
-            TrackTimeService.prototype.statistic = function () {
-                var deferred = this.$q.defer();
-                this.$http.get(urls.data.statistics).success(function (result) { return deferred.resolve(result); }).error(function (err) { return deferred.reject(err); });
-                return deferred.promise;
-            };
             TrackTimeService.prototype.trackTime = function (projectId, userId, at, hours) {
                 var deferred = this.$q.defer();
                 this.$http.post(urls.data.track, {

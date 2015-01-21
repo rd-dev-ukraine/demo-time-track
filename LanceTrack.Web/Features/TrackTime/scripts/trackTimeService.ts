@@ -29,16 +29,6 @@
                 return deferred.promise;
             }
 
-            statistic(): ng.IPromise<Api.StatisticsResult> {
-                var deferred = this.$q.defer();
-
-                this.$http.get(urls.data.statistics)
-                    .success(result => deferred.resolve(result))
-                    .error(err => deferred.reject(err));
-
-                return deferred.promise;
-            }
-
             trackTime(projectId: number, userId: number, at: any, hours: number): ng.IPromise<any> {
                 var deferred = this.$q.defer();
 

@@ -24,8 +24,9 @@
 
                 invoiceService.bill($scope.data.project.id, $scope.data.invoice)
                     .then((r) => {
-                    $state.go(routes.invoiceDetails, { invoiceNum: r });
-                })
+                        $scope.$root.$broadcast("StatisticsUpdated");
+                        $state.go(routes.invoiceDetails, { invoiceNum: r });
+                    })
                     .catch(err => $scope.error = err);
             };
 

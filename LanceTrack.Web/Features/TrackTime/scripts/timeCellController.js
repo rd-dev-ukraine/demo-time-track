@@ -5,7 +5,7 @@ var LanceTrack;
         function timeCellController($scope, trackTimeService, deferredFunction) {
             $scope.trackTime = deferredFunction.decorate(function () {
                 return trackTimeService.trackTime($scope.cell.projectId, $scope.cell.userId, $scope.cell.date, $scope.cell.totalHours).then(function () {
-                    $scope.$root.$broadcast("TimeTracked");
+                    $scope.$root.$broadcast("StatisticsUpdated");
                 });
             });
             $scope.$watch("cell.totalHours", function (oldVal, newVal) {

@@ -26,12 +26,18 @@ var LanceTrack;
             $scope.markAsPaid = function () {
                 $scope.isLoading = true;
                 $scope.error = null;
-                invoiceService.markInvoiceAsPaid($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum).then(function (result) { return $scope.model = result; }).catch(function (err) { return $scope.error = err; });
+                invoiceService.markInvoiceAsPaid($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum).then(function (result) {
+                    $scope.model = result;
+                    $scope.$root.$broadcast("StatisticsUpdated");
+                }).catch(function (err) { return $scope.error = err; });
             };
             $scope.cancelInvoice = function () {
                 $scope.isLoading = true;
                 $scope.error = null;
-                invoiceService.cancelInvoice($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum).then(function (result) { return $scope.model = result; }).catch(function (err) { return $scope.error = err; });
+                invoiceService.cancelInvoice($scope.model.invoice.projectId, $scope.model.invoice.invoiceNum).then(function (result) {
+                    $scope.model = result;
+                    $scope.$root.$broadcast("StatisticsUpdated");
+                }).catch(function (err) { return $scope.error = err; });
             };
         }
         Invoicing.invoiceDetailsController = invoiceDetailsController;
