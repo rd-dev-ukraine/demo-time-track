@@ -14,7 +14,7 @@
 @media (max-width: 1920px) {
   .user-statistics {
     position: static;
-    float: right;
+    float: left;
   }
   .user-statistics__value {
     float: left;

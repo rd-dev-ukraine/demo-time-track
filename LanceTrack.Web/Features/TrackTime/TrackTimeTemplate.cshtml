@@ -13,13 +13,13 @@
 
 @* Mode switching *@
 <ul class="nav nav-pills section">
-    <li ui-sref-active="active">
+    <li ui-state-active-ext="classes: 'active', states: { 'track-time': [{ mode: 'my-time' }, { mode: null }]  }">
         <a ui-sref="track-time({ at: at, mode: 'my-time' })">My Time</a>
     </li>
-    <li ui-sref-active="active">
+    <li ui-state-active-ext="classes: 'active', states: { 'track-time': { mode: 'by-user' }  }">
         <a ui-sref="track-time({ at: at, mode: 'by-user' })">By User</a>
     </li>
-    <li ui-sref-active="active">
+    <li ui-state-active-ext="classes: 'active', states: { 'track-time': { mode: 'by-project' }  }">
         <a ui-sref="track-time({ at: at, mode: 'by-project' })">By project</a>
     </li>
 </ul>

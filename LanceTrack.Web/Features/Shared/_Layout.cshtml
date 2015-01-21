@@ -31,12 +31,10 @@
                 </a>
             </div>
             <ul class="nav navbar-nav">
-                <li ui-state-active-ext="active"
-                    ui-state-match="track-time">
+                <li ui-state-active-ext="classes: 'active', states: { 'track-time': ''  }">
                     <a ui-sref="track-time">Track Time</a>
                 </li>
-                <li ui-state-active-ext="active"
-                    ui-state-match="invoiceList invoice billProject">
+                <li ui-state-active-ext="classes: 'active', states: { 'invoice': '', invoiceList:'', billProject: ''  }">
                     <a ui-sref="invoiceList({ mode: 'pending' })">Invoicing</a>
                 </li>
             </ul>
