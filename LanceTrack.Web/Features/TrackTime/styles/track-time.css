@@ -5,9 +5,6 @@
 .time-row {
   margin-bottom: 1em;
 }
-.hours-row {
-  overflow: hidden;
-}
 .time-cell__container {
   position: relative;
 }
@@ -20,12 +17,17 @@
 }
 .time-cell__editor-container {
   overflow: hidden;
+  padding: 2px;
+  position: relative;
+  top: -5px;
 }
 .time-cell__editor {
   border: 0 none !important;
   border-radius: 0.3em !important;
   padding: 0.3em;
   margin: 2px;
+  display: block;
+  width: 100% !important;
 }
 .time-cell__editor:focus {
   border: 2px solid;
@@ -37,7 +39,6 @@
 }
 .date-range {
   float: left;
-  overflow: hidden;
 }
 .date-range.mon-wed {
   width: 57.14%;
