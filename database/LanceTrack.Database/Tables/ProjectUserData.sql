@@ -5,6 +5,8 @@
 	UserId int not null,
 	UserPermissions int not null, 
 	HourlyRate numeric(18, 2) not null default(1),
+	MaxDailyHours numeric(18, 2) null,
+	MaxProjectHours numeric(18, 2) null,
 
 	constraint PK_ProjectUserInfo primary key (ProjectId, UserId),
 	constraint FK_ProjectUserInfo_Project foreign key (ProjectId) references Project(Id),

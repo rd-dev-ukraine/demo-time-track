@@ -17,5 +17,9 @@ namespace LanceTrack.Domain.Projects
         public ProjectPermissions UserPermissions { get; set; }
 
         public decimal HourlyRate { get; set; }
+
+        public decimal? MaxDailyHours { get; set; }
+
+        public decimal? MaxProjectHours { get; set; }
     }
 }

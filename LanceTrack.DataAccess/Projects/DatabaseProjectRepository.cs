@@ -65,7 +65,6 @@ namespace LanceTrack.Server.DataAccess.Projects
                                         EndDate = p.EndDate,
                                         Id = p.Id,
                                         MaxTotalHours = p.MaxTotalHours,
-                                        MaxTotalHoursPerDay = p.MaxTotalHoursPerDay,
                                         Name = p.Name,
                                         Permissions = i.UserPermissions,
                                         StartDate = p.StartDate,

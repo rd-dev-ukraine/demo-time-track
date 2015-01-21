@@ -6,6 +6,7 @@ using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.Invoicing;
 using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.TimeTracking;
+using LanceTrack.Server.Cqrs.Infrastructure;
 using LanceTrack.Server.Cqrs.ProjectTime.Commands;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
 using LanceTrack.Server.Cqrs.ProjectTime.State;
@@ -77,15 +78,30 @@ namespace LanceTrack.Server.Cqrs.ProjectTime
                     throw new IncorrectHoursException("The hours already billed.");
             }
 
-            if (project.MaxTotalHoursPerDay != null &&
-                command.Hours > project.MaxTotalHoursPerDay.Value)
-                throw new IncorrectHoursException(String.Format("Max daily hours value {0} exceeded.", project.MaxTotalHoursPerDay));
+            var maxDailyHours = targetUserProjectData.MaxDailyHours ?? 24;
 
-            var projectDailyHours = State.DailyTime.Where(p => p.ProjectId == command.ProjectId);
+            if (command.Hours > maxDailyHours)
+                throw new IncorrectHoursException(String.Format("Max daily hours value {0} exceeded.", maxDailyHours));
 
-            if (projectDailyHours.Any() &&
-                (projectDailyHours.Sum(p => p.TotalHours) + command.Hours) > project.MaxTotalHours)
-                throw new IncorrectHoursException("Project maximum hours exceeded.");
+            if (targetUserProjectData.MaxProjectHours != null)
+            {
+                var userProjectHours = State.DailyTime
+                                            .Where(p => p.Date != command.At.Date) /* Exclude reported hours */
+                                            .Where(p => p.UserId == command.ForUserId)
+                                            .SumOrDefault(p => p.TotalHours);
+                if (userProjectHours + command.Hours > targetUserProjectData.MaxProjectHours)
+                    throw new IncorrectHoursException("All your hours available for the project are exceeded.");
+            }
+
+            if (project.MaxTotalHours != null)
+            {
+                var totalProjectHours = State.DailyTime
+                                            .Where(p => p.Date != command.At.Date) /* Exclude reported hours */
+                                            .SumOrDefault(p => p.TotalHours);
+
+                if (totalProjectHours + command.Hours > project.MaxTotalHours)
+                    throw new IncorrectHoursException("Project maximum hours exceeded.");
+            }
 
             var @event = new TimeTrackedEvent
             {
