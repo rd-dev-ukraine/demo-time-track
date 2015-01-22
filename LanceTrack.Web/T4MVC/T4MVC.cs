@@ -211,6 +211,7 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string authorizationController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/authorizationController.min.js") ? Url("authorizationController.min.js") : Url("authorizationController.js");
+                public static readonly string authorizationHttpInterceptor_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/authorizationHttpInterceptor.min.js") ? Url("authorizationHttpInterceptor.min.js") : Url("authorizationHttpInterceptor.js");
                 public static readonly string authorizationService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/authorizationService.min.js") ? Url("authorizationService.min.js") : Url("authorizationService.js");
                 public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
             }

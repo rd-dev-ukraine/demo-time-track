@@ -12,19 +12,31 @@
          ng-if="error && error.modelState['']"
          ng-bind="error.modelState['']">
     </div>
-    
-    <div class="form-group">
+
+    <div class="form-group"
+         ng-class="{ 'has-error' : error.modelState.login }">
         <label class="@labelClass">
             Email
         </label>
         <div class="@editorClass">
             <input class="form-control" ng-model="model.login" type="text"/>
+            <p class="help-block text-danger"
+               ng-if="error.modelState.login"
+               ng-bind="error.modelState.login">
+                
+            </p>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group"
+         ng-class="{ 'has-error' : error.modelState.password }">
         <label class="@labelClass">Password</label>
         <div class="@editorClass">
             <input class="form-control" ng-model="model.password" type="password"/>
+            <p class="help-block text-danger"
+               ng-if="error.modelState.password"
+               ng-bind="error.modelState.password">
+
+            </p>
         </div>
     </div>
     <div class="form-group">

@@ -3,12 +3,13 @@
         var app = angular.module("lance-track.authorization", ["ui.router", "ui.bootstrap", "lance-track.shared"]);
 
 
+        app.factory("authorizationHttpInterceptor", authorizationHttpInterceptor);
         app.service("authorizationService", authorizationServiceFactory);
         app.controller("authorizationController", authorizationController);
 
-        app.config(($stateProvider: ng.ui.IStateProvider) => {
+        app.config(($stateProvider: ng.ui.IStateProvider, $httpProvider: ng.IHttpProvider) => {
 
-            $stateProvider.state("login", {
+            $stateProvider.state(routes.login, {
                 url: "^/login",
                 onEnter: [
                     "$state",
@@ -23,6 +24,12 @@
                           .finally(() => $state.go(TrackTime.routes.trackTime));
                     }]
             });
+
+            $httpProvider.interceptors.push("authorizationHttpInterceptor");
         });
+
+        export var routes = {
+            login: "login"
+        };
     }
 } 

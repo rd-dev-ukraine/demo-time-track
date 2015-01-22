@@ -375,6 +375,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Features\Authorization\scripts\authorizationController.ts" />
+    <TypeScriptCompile Include="Features\Authorization\scripts\authorizationHttpInterceptor.ts" />
     <TypeScriptCompile Include="Features\Authorization\scripts\authorizationService.ts" />
     <TypeScriptCompile Include="Features\Authorization\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\billProjectController.ts" />
