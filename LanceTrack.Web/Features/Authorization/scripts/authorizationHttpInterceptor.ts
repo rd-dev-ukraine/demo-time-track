@@ -4,10 +4,13 @@
 
             return {
                 responseError: (rejection: JQueryXHR) => {
-                    
+                     
                     if (rejection.status == 401) {
+
                         var $state: ng.ui.IStateService = $injector.get("$state");
-                        $state.go(routes.login);
+
+                        if ($state.current.name != routes.login)
+                            $state.go(routes.login);
                     }
 
                     return $q.reject(rejection);

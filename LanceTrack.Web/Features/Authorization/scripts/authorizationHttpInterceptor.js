@@ -7,7 +7,8 @@ var LanceTrack;
                 responseError: function (rejection) {
                     if (rejection.status == 401) {
                         var $state = $injector.get("$state");
-                        $state.go(Authorization.routes.login);
+                        if ($state.current.name != Authorization.routes.login)
+                            $state.go(Authorization.routes.login);
                     }
                     return $q.reject(rejection);
                 }
