@@ -25,11 +25,12 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
-    public static LanceTrack.Web.Features.Account.AccountController Account = new LanceTrack.Web.Features.Account.T4MVC_AccountController();
+    public static LanceTrack.Web.Features.Authorization.AuthorizationTemplateController AuthorizationTemplate = new LanceTrack.Web.Features.Authorization.T4MVC_AuthorizationTemplateController();
     public static LanceTrack.Web.Features.Home.HomeController Home = new LanceTrack.Web.Features.Home.T4MVC_HomeController();
     public static LanceTrack.Web.Features.Invoicing.InvoiceTemplatesController InvoiceTemplates = new LanceTrack.Web.Features.Invoicing.T4MVC_InvoiceTemplatesController();
     public static LanceTrack.Web.Features.Statistics.StatisticsTemplatesController StatisticsTemplates = new LanceTrack.Web.Features.Statistics.T4MVC_StatisticsTemplatesController();
     public static LanceTrack.Web.Features.TrackTime.TrackTimeTemplatesController TrackTimeTemplates = new LanceTrack.Web.Features.TrackTime.T4MVC_TrackTimeTemplatesController();
+    public static T4MVC.AuthorizationController Authorization = new T4MVC.AuthorizationController();
     public static T4MVC.InvoicingController Invoicing = new T4MVC.InvoicingController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
     public static T4MVC.StatisticsController Statistics = new T4MVC.StatisticsController();
@@ -93,8 +94,8 @@ namespace Links
             private const string URLPATH = "~/Libs/angular-ui-bootstrap";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string ui_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ui-bootstrap.min.js") ? Url("ui-bootstrap.min.js") : Url("ui-bootstrap.js");
-            public static readonly string ui_bootstrap_min_js = Url("ui-bootstrap.min.js");
+            public static readonly string ui_bootstrap_tpls_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ui-bootstrap-tpls.min.js") ? Url("ui-bootstrap-tpls.min.js") : Url("ui-bootstrap-tpls.js");
+            public static readonly string ui_bootstrap_tpls_min_js = Url("ui-bootstrap-tpls.min.js");
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -200,37 +201,21 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class Account {
-            private const string URLPATH = "~/Features/Account";
+        public static class Authorization {
+            private const string URLPATH = "~/Features/Authorization";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Models {
-                private const string URLPATH = "~/Features/Account/Models";
+            public static class scripts {
+                private const string URLPATH = "~/Features/Authorization/scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class styles {
-                private const string URLPATH = "~/Features/Account/styles";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string login_less = Url("login.less");
-                public static readonly string login_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/login.min.css") ? Url("login.min.css") : Url("login.css");
-                     
-                public static readonly string login_css_map = Url("login.css.map");
-                public static readonly string login_min_css = Url("login.min.css");
+                public static readonly string authorizationController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/authorizationController.min.js") ? Url("authorizationController.min.js") : Url("authorizationController.js");
+                public static readonly string authorizationService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/authorizationService.min.js") ? Url("authorizationService.min.js") : Url("authorizationService.js");
+                public static readonly string module_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/module.min.js") ? Url("module.min.js") : Url("module.js");
             }
         
             public static readonly string UI_resx = Url("UI.resx");
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Views {
-                private const string URLPATH = "~/Features/Account/Views";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

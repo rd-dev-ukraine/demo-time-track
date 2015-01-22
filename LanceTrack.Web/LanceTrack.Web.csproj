@@ -133,12 +133,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Features\Account\styles\login.css">
-      <DependentUpon>login.less</DependentUpon>
-    </Content>
-    <Content Include="Features\Account\styles\login.min.css">
-      <DependentUpon>login.css</DependentUpon>
-    </Content>
     <Content Include="Features\Invoicing\styles\invoice.css">
       <DependentUpon>invoice.less</DependentUpon>
     </Content>
@@ -170,8 +164,8 @@
       <DependentUpon>track-time.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap.js" />
-    <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap-tpls.js" />
+    <Content Include="Libs\angular-ui-bootstrap\ui-bootstrap-tpls.min.js" />
     <Content Include="Libs\angular\angular-animate.js" />
     <Content Include="Libs\angular\angular-ui-router.js" />
     <Content Include="Libs\angular\angular-ui-router.min.js" />
@@ -188,14 +182,9 @@
     <Content Include="Libs\jquery\jquery.min.js" />
     <Content Include="Features\Shared\_Layout.cshtml" />
     <Content Include="Features\_ViewStart.cshtml" />
-    <Content Include="Features\Account\Views\Login.cshtml" />
     <Content Include="Features\Shared\styles\app.less" />
     <Content Include="Features\Shared\styles\app.css.map">
       <DependentUpon>app.css</DependentUpon>
-    </Content>
-    <Content Include="Features\Account\styles\login.less" />
-    <Content Include="Features\Account\styles\login.css.map">
-      <DependentUpon>login.css</DependentUpon>
     </Content>
     <Content Include="Features\Shared\Libs.cshtml" />
     <Content Include="Features\Shared\Urls.cshtml" />
@@ -226,6 +215,8 @@
       <DependentUpon>statistics.css</DependentUpon>
     </Content>
     <Content Include="Features\Statistics\UserStatistics.cshtml" />
+    <Content Include="Features\Authorization\LoginTemplate.cshtml" />
+    <Content Include="Features\Authorization\Refs.cshtml" />
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
@@ -247,10 +238,11 @@
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Features\Account\AccountController.cs" />
-    <Compile Include="Features\Account\Models\LoginModel.cs" />
-    <Compile Include="Features\Account\Models\LoginModelValidator.cs" />
-    <Compile Include="Features\Account\UI.Designer.cs">
+    <Compile Include="Features\Authorization\AuthorizationApiController.cs" />
+    <Compile Include="Features\Authorization\AuthorizationTemplateController.cs" />
+    <Compile Include="Features\Authorization\LoginModel.cs" />
+    <Compile Include="Features\Authorization\LoginModelValidator.cs" />
+    <Compile Include="Features\Authorization\UI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UI.resx</DependentUpon>
@@ -266,7 +258,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValidationMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Features\Statistics\StatisticsController.cs" />
+    <Compile Include="Features\Statistics\StatisticsApiController.cs" />
     <Compile Include="Features\Statistics\StatisticsTemplatesController.cs" />
     <Compile Include="Features\TrackTime\Models\ProjectTimeInfoResult.cs" />
     <Compile Include="Features\TrackTime\Models\StatisticsResult.cs" />
@@ -278,7 +270,10 @@
     <Compile Include="Infrastructure\HtmlHelperExtension.cs" />
     <Compile Include="Infrastructure\NinjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="T4MVC\AccountController.generated.cs">
+    <Compile Include="T4MVC\AuthorizationController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\AuthorizationTemplateController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\HomeController.generated.cs">
@@ -368,7 +363,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Features\Account\UI.resx">
+    <EmbeddedResource Include="Features\Authorization\UI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UI.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -379,6 +374,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Features\Authorization\scripts\authorizationController.ts" />
+    <TypeScriptCompile Include="Features\Authorization\scripts\authorizationService.ts" />
+    <TypeScriptCompile Include="Features\Authorization\scripts\module.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\billProjectController.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceDetailsController.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceListController.ts" />
@@ -399,6 +397,7 @@
     <TypeScriptCompile Include="Features\Statistics\scripts\statisticsController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\timeCellController.ts" />
     <TypeScriptCompile Include="Features\TrackTime\scripts\trackTimeService.ts" />
+    <TypeScriptCompile Include="Typings\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="Typings\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="Typings\angular.d.ts" />
     <TypeScriptCompile Include="Typings\Enums.ts">

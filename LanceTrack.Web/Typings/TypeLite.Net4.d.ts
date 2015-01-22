@@ -6,6 +6,11 @@
 
 
 declare module Api {
+	interface LoginModel {
+		login: string;
+		password: string;
+		rememberMe: boolean;
+	}
 	interface PrepareInvoiceParams {
 		invoiceUserRequests: Api.InvoiceUserRequest[];
 		projectId: number;
@@ -91,6 +96,7 @@ declare module Api {
 		cancelInvoice: string;
 		pendingInvoices: string;
 		archiveInvoices: string;
+		login: string;
 	}
 	interface TemplatesUrls {
 		billProject: string;
@@ -98,6 +104,7 @@ declare module Api {
 		invoiceDetails: string;
 		trackTime: string;
 		userStatisticsTemplate: string;
+		loginTemplate: string;
 	}
 	interface ProjectTimeInfoResult {
 		currentUserId: number;

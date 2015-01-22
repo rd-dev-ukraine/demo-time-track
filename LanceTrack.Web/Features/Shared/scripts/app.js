@@ -1,6 +1,6 @@
 var LanceTrack;
 (function (LanceTrack) {
-    var app = angular.module("lance-track", ["ui.router", "ui.bootstrap", "ui.bootstrap.datetimepicker", "lance-track.shared", "lance-track.track-time", "lance-track.statistics", "lance-track.invoicing"]);
+    var app = angular.module("lance-track", ["ui.router", "ui.bootstrap", "ui.bootstrap.datetimepicker", "lance-track.shared", "lance-track.authorization", "lance-track.track-time", "lance-track.statistics", "lance-track.invoicing"]);
     app.config(function ($stateProvider, $urlRouterProvider) {
         var dates = new LanceTrack.Dates();
         $urlRouterProvider.otherwise("/track-time/" + dates.format(dates.now()) + "/my-time");

@@ -7,12 +7,12 @@ using LanceTrack.Web.Features.TrackTime.Models;
 namespace LanceTrack.Web.Features.Statistics
 {
     [Authorize, RoutePrefix("api/statistics")]
-    public class StatisticsController : ApiController
+    public class StatisticsApiController : ApiController
     {
         private readonly UserAccount _currentUser;
         private readonly IProjectService _projectService;
 
-        public StatisticsController(UserAccount currentUser, IProjectService projectService)
+        public StatisticsApiController(UserAccount currentUser, IProjectService projectService)
         {
             _currentUser = currentUser;
             _projectService = projectService;

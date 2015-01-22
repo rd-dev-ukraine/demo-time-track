@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LanceTrack.Web.Features.Account {
+namespace LanceTrack.Web.Features.Authorization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace LanceTrack.Web.Features.Account {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LanceTrack.Web.Features.Account.UI", typeof(UI).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LanceTrack.Web.Features.Authorization.UI", typeof(UI).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

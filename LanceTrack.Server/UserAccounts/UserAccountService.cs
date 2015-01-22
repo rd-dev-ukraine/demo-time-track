@@ -33,7 +33,8 @@ namespace LanceTrack.Server.UserAccounts
         public UserAccount FindByEmail(string email)
         {
             if (String.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException("email");
+                // throw new ArgumentNullException("email");
+                return new UserAccount();
 
             return _userAccountRepository.FindByEmail(email);
         }

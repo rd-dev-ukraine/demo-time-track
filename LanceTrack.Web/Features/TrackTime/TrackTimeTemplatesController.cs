@@ -2,7 +2,6 @@
 
 namespace LanceTrack.Web.Features.TrackTime
 {
-    [Authorize]
     public partial class TrackTimeTemplatesController : Controller
     {
         public virtual ActionResult TrackTimeTemplate()

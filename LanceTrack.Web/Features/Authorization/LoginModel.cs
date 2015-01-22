@@ -1,5 +1,8 @@
-﻿namespace LanceTrack.Web.Features.Account.Models
+﻿using TypeLite;
+
+namespace LanceTrack.Web.Features.Authorization
 {
+    [TsClass(Module = "Api")]
     public class LoginModel
     {
         public string Login { get; set; }

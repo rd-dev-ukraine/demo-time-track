@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Rx = LanceTrack.Web.Features.Shared.ValidationMessages;
 
-namespace LanceTrack.Web.Features.Account.Models
+namespace LanceTrack.Web.Features.Authorization
 {
     public class LoginModelValidator : AbstractValidator<LoginModel>
     {

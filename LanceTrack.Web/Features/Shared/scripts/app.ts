@@ -3,6 +3,7 @@
         "ui.bootstrap",
         "ui.bootstrap.datetimepicker",
         "lance-track.shared",
+        "lance-track.authorization",
         "lance-track.track-time",
         "lance-track.statistics",
         "lance-track.invoicing"]);

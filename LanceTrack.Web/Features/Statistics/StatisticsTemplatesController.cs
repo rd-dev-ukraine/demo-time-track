@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace LanceTrack.Web.Features.Statistics
 {
-    [Authorize]
     public partial class StatisticsTemplatesController : Controller
     {
         // GET: StatisticsTemplates

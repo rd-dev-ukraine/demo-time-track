@@ -50,6 +50,14 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.Action(MVC.StatisticsTemplates.UserStatisticsTemplate()); }
             }
 
+            public string LoginTemplate
+            {
+                get
+                {
+                    return Url.Action(MVC.AuthorizationTemplate.LoginTemplate());
+                }
+            }
+
             private UrlHelper Url { get; set; }
         }
 
@@ -125,6 +133,11 @@ namespace LanceTrack.Web.Features.Shared.Models
             public string ArchiveInvoices
             {
                 get { return Url.HttpRouteUrl("ArchiveInvoices", new { }); }
+            }
+
+            public string Login
+            {
+                get { return Url.HttpRouteUrl("Login", new { }); }
             }
 
             private UrlHelper Url { get; set; }
