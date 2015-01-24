@@ -39,13 +39,14 @@
                     <a ui-sref="invoiceList({ mode: 'pending' })">Invoicing</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right"
+                ng-controller="currentUserController"
+                ng-cloak>
                 <li class="dropdown"
-                    ng-controller="currentUserController"
-                    ng-cloak>
+                    ng-if="currentUser">
                     <a class="dropdown-toggle"
                        href="javascript:void(0)"
-                       data-toggle="dropdown" 
+                       data-toggle="dropdown"
                        role="button">
                         Welcome, {{currentUser.displayName}}! <span class="caret"></span>
                     </a>

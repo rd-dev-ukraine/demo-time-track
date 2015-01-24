@@ -227,6 +227,7 @@
     <Content Include="Features\Statistics\UserStatistics.cshtml" />
     <Content Include="Features\Authorization\LoginTemplate.cshtml" />
     <Content Include="Features\Authorization\Refs.cshtml" />
+    <None Include="Properties\PublishProfiles\file-sys.pubxml" />
     <None Include="Typings\TypeLite.Net4.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
