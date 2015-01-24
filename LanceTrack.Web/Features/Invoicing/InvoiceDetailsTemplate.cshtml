@@ -16,6 +16,10 @@
         Invoice {{model.invoice.invoiceNum}}
     </h2>
 </div>
+<div ng-include=" 'loading' "
+     ng-if="!model">
+
+</div>
 <div class="panel panel-default"
      ng-if="model">
     <div class="panel-body">

@@ -16,6 +16,10 @@
         Prepare invoice
     </h2>
 </div>
+<div ng-include=" 'loading' "
+     ng-if="!data">
+
+</div>
 <div class="panel panel-default"
      ng-if="isBillable()">
     <div class="panel-body">
