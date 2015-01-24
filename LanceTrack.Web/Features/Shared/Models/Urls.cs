@@ -140,6 +140,14 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.HttpRouteUrl("Login", new { }); }
             }
 
+            public string LogJavascriptError
+            {
+                get
+                {
+                    return Url.HttpRouteUrl("LogJavascriptError", new { });
+                }
+            }
+
             private UrlHelper Url { get; set; }
         }
     }

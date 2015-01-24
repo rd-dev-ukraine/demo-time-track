@@ -31,6 +31,7 @@ public static partial class MVC
     public static LanceTrack.Web.Features.Statistics.StatisticsTemplatesController StatisticsTemplates = new LanceTrack.Web.Features.Statistics.T4MVC_StatisticsTemplatesController();
     public static LanceTrack.Web.Features.TrackTime.TrackTimeTemplatesController TrackTimeTemplates = new LanceTrack.Web.Features.TrackTime.T4MVC_TrackTimeTemplatesController();
     public static T4MVC.AuthorizationController Authorization = new T4MVC.AuthorizationController();
+    public static T4MVC.ErrorLoggingController ErrorLogging = new T4MVC.ErrorLoggingController();
     public static T4MVC.InvoicingController Invoicing = new T4MVC.InvoicingController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
     public static T4MVC.StatisticsController Statistics = new T4MVC.StatisticsController();
@@ -217,6 +218,21 @@ namespace Links
             }
         
             public static readonly string UI_resx = Url("UI.resx");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class ErrorLogging {
+            private const string URLPATH = "~/Features/ErrorLogging";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class scripts {
+                private const string URLPATH = "~/Features/ErrorLogging/scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string errorLogger_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/errorLogger.min.js") ? Url("errorLogger.min.js") : Url("errorLogger.js");
+            }
+        
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

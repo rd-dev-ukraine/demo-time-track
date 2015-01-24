@@ -259,6 +259,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UI.resx</DependentUpon>
     </Compile>
+    <Compile Include="Features\ErrorLogging\JavascriptErrorLoggingController.cs" />
+    <Compile Include="Features\ErrorLogging\JavascriptException.cs" />
+    <Compile Include="Features\ErrorLogging\LogJavascriptErrorParams.cs" />
     <Compile Include="Features\Home\HomeController.cs" />
     <Compile Include="Features\Invoicing\InvoiceApiController.cs" />
     <Compile Include="Features\Invoicing\InvoiceTemplatesController.cs" />
@@ -286,6 +289,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\AuthorizationTemplateController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\ErrorLoggingController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\HomeController.generated.cs">
@@ -390,6 +396,7 @@
     <TypeScriptCompile Include="Features\Authorization\scripts\authorizationHttpInterceptor.ts" />
     <TypeScriptCompile Include="Features\Authorization\scripts\authorizationService.ts" />
     <TypeScriptCompile Include="Features\Authorization\scripts\module.ts" />
+    <TypeScriptCompile Include="Features\ErrorLogging\scripts\errorLogger.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\billProjectController.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceDetailsController.ts" />
     <TypeScriptCompile Include="Features\Invoicing\scripts\invoiceListController.ts" />

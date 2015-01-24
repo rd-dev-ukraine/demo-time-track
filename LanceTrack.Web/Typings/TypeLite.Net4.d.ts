@@ -11,6 +11,12 @@ declare module Api {
 		password: string;
 		rememberMe: boolean;
 	}
+	interface LogJavascriptErrorParams {
+		message: string;
+		scriptFileUrl: string;
+		lineNumber: number;
+		columnNumber: number;
+	}
 	interface PrepareInvoiceParams {
 		invoiceUserRequests: Api.InvoiceUserRequest[];
 		projectId: number;
@@ -97,6 +103,7 @@ declare module Api {
 		pendingInvoices: string;
 		archiveInvoices: string;
 		login: string;
+		logJavascriptError: string;
 	}
 	interface TemplatesUrls {
 		billProject: string;
