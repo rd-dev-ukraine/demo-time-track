@@ -19,7 +19,7 @@
                 Email
             </label>
             <div class="@editorClass">
-                <input class="form-control" ng-model="model.login" type="text" />
+                <input class="form-control" ng-model="model.login" type="text" name="login" />
                 <p class="help-block text-danger"
                    ng-if="error.modelState.login"
                    ng-bind="error.modelState.login">
@@ -31,7 +31,7 @@
              ng-class="{ 'has-error' : error.modelState.password }">
             <label class="@labelClass">Password</label>
             <div class="@editorClass">
-                <input class="form-control" ng-model="model.password" type="password" />
+                <input class="form-control" ng-model="model.password" type="password" name="password" />
                 <p class="help-block text-danger"
                    ng-if="error.modelState.password"
                    ng-bind="error.modelState.password">
