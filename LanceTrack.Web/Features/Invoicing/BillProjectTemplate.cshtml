@@ -1,14 +1,14 @@
 ﻿@model dynamic
 @{
     var rowClass = "clearfix h4";
-    var labelClass = "col-lg-3 col-sm-3 text-muted";
-    var valueClass = "col-lg-9 col-sm-9";
+    var labelClass = "col-lg-3 col-md-3 col-sm-3 col-xs-3 text-muted";
+    var valueClass = "col-lg-9 col-md-9 col-sm-9 col-xs-9";
 
 
-    var userColumn = "col-md-3 col-sm-5 col-xs-5 ";
-    var hoursColumn = "col-md-2 col-sm-4 col-xs-4";
-    var maxHoursColumn = "col-md-2 col-sm-3 col-xs-3";
-    var sumColumn = "col-md-2 col-sm-12 col-xs-12";
+    var userColumn = "col-lg-3 col-md-3 col-sm-3 col-xs-12 ";
+    var hoursColumn = "col-lg-2 col-md-2 col-sm-2 col-xs-6";
+    var maxHoursColumn = "col-lg-2 col-md-2 col-sm-3 col-xs-6";
+    var sumColumn = "col-lg-2 col-md-2 col-sm-12 col-xs-12";
 }
 
 <div class="clearfix">
@@ -58,10 +58,12 @@
                     {{user(userTime.userId).displayName}}
                 </div>
                 <div class="@hoursColumn">
-                    <input class="form-control"
-                           ng-model="userTime.billingHours"
-                           ng-model-options="modelOptions"
-                           type="text" />
+                    <div class="time-cell__editor-container">
+                        <input class="time-cell__editor"
+                               ng-model="userTime.billingHours"
+                               ng-model-options="modelOptions"
+                               type="text" />
+                    </div>
                 </div>
                 <div class="@maxHoursColumn">
                     hrs of {{userTime.maxHours}}hrs max
