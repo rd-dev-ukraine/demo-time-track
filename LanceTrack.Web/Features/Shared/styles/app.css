@@ -1,14 +1,5 @@
-﻿.field-validation-error {
-  color: red;
-}
-.validation-summary-errors {
-  color: red;
-}
-.validation-summary-errors ul,
-.validation-summary-errors li {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+﻿.main-content {
+  padding-bottom: 50px;
 }
 .section {
   margin: 1em 0;
@@ -26,9 +17,6 @@
 .align-vertically__content {
   position: relative;
   top: -50%;
-}
-.no-overflow {
-  overflow: hidden;
 }
 .animate-show {
   opacity: 1;

@@ -62,13 +62,13 @@
             </ul>
         </div>
     </header>
-<div class="container">
-    <div ng-include=" urls.templates.userStatisticsTemplate "
-         ng-controller="statisticsController">
+    <div class="container main-content">
+        <div ng-include=" urls.templates.userStatisticsTemplate "
+             ng-controller="statisticsController">
 
+        </div>
+        @RenderBody()
     </div>
-    @RenderBody()
-</div>
 
     <footer class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
