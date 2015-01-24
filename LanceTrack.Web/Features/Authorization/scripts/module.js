@@ -6,6 +6,7 @@ var LanceTrack;
         app.factory("authorizationHttpInterceptor", Authorization.authorizationHttpInterceptor);
         app.service("authorizationService", Authorization.authorizationServiceFactory);
         app.controller("authorizationController", Authorization.authorizationController);
+        app.controller("currentUserController", Authorization.currentUserController);
         app.config(function ($stateProvider, $httpProvider) {
             $stateProvider.state(Authorization.routes.login, {
                 url: "^/login",

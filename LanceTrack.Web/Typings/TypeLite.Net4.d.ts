@@ -103,6 +103,8 @@ declare module Api {
 		pendingInvoices: string;
 		archiveInvoices: string;
 		login: string;
+		logout: string;
+		currentUser: string;
 		logJavascriptError: string;
 	}
 	interface TemplatesUrls {

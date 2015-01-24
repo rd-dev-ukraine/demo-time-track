@@ -140,6 +140,20 @@ namespace LanceTrack.Web.Features.Shared.Models
                 get { return Url.HttpRouteUrl("Login", new { }); }
             }
 
+            public string Logout
+            {
+                get { return Url.HttpRouteUrl("Logout", new { }); }
+            }
+
+            public string CurrentUser
+            {
+                get
+                {
+                    return Url.HttpRouteUrl("CurrentUser", new { });
+
+                }
+            }
+
             public string LogJavascriptError
             {
                 get

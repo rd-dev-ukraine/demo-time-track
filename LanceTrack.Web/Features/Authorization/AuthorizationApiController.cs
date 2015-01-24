@@ -39,5 +39,19 @@ namespace LanceTrack.Web.Features.Authorization
 
             return BadRequest(ModelState);
         }
+
+        [Route("logout", Name="Logout"), HttpPost, Authorize]
+        public virtual void Logout()
+        {
+            FormsAuthentication.SignOut();
+        }
+
+        [Route("current-user", Name="CurrentUser"), HttpGet, Authorize]
+        public virtual UserAccount CurrentUser()
+        {
+            return _userAccountService.FindByEmail(RequestContext.Principal.Identity.Name);
+        }
+
+
     }
 }

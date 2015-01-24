@@ -20,6 +20,26 @@
 
                 return deferred.promise;
             }
+
+            logout(): ng.IPromise<any> {
+                var deferred = this.$q.defer();
+
+                this.$http.post(urls.data.logout, {})
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
+
+            currentUser(): ng.IPromise<Api.UserAccount> {
+                var deferred = this.$q.defer();
+
+                this.$http.get(urls.data.currentUser)
+                    .success(r => deferred.resolve(r))
+                    .error(err => deferred.reject(err));
+
+                return deferred.promise;
+            }
         }
     }
 }

@@ -16,6 +16,16 @@ var LanceTrack;
                 this.$http.post(urls.data.login, loginData).success(function (r) { return deferred.resolve(r); }).error(function (err) { return deferred.reject(err); });
                 return deferred.promise;
             };
+            AuthorizationService.prototype.logout = function () {
+                var deferred = this.$q.defer();
+                this.$http.post(urls.data.logout, {}).success(function (r) { return deferred.resolve(r); }).error(function (err) { return deferred.reject(err); });
+                return deferred.promise;
+            };
+            AuthorizationService.prototype.currentUser = function () {
+                var deferred = this.$q.defer();
+                this.$http.get(urls.data.currentUser).success(function (r) { return deferred.resolve(r); }).error(function (err) { return deferred.reject(err); });
+                return deferred.promise;
+            };
             return AuthorizationService;
         })();
         Authorization.AuthorizationService = AuthorizationService;

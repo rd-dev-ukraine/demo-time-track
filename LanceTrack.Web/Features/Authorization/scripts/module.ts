@@ -6,6 +6,7 @@
         app.factory("authorizationHttpInterceptor", authorizationHttpInterceptor);
         app.service("authorizationService", authorizationServiceFactory);
         app.controller("authorizationController", authorizationController);
+        app.controller("currentUserController", currentUserController);
 
         app.config(($stateProvider: ng.ui.IStateProvider, $httpProvider: ng.IHttpProvider) => {
 

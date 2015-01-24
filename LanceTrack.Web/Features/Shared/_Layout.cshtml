@@ -39,6 +39,26 @@
                     <a ui-sref="invoiceList({ mode: 'pending' })">Invoicing</a>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown"
+                    ng-controller="currentUserController"
+                    ng-cloak>
+                    <a class="dropdown-toggle"
+                       href="javascript:void(0)"
+                       data-toggle="dropdown" 
+                       role="button">
+                        Welcome, {{currentUser.displayName}}! <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="col-lg-12">
+                            <a href="javascript:void(0)"
+                               ng-click="logout()">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </header>
 <div class="container">
