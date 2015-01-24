@@ -27,6 +27,9 @@
   position: relative;
   top: -50%;
 }
+.no-overflow {
+  overflow: hidden;
+}
 .animate-show {
   opacity: 1;
 }
