@@ -61,6 +61,7 @@
     <Folder Include="_publish" />
     <Folder Include="Tables\Events" />
     <Folder Include="Tables\ReadModels" />
+    <Folder Include="ELMAH" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\UserAccount.sql" />
@@ -76,5 +77,6 @@
   <ItemGroup>
     <None Include="_publish\lance-track.publish.xml" />
     <None Include="DemoData.sql" />
+    <None Include="ELMAH\ELMAH-db-1.2.sql" />
   </ItemGroup>
 </Project>

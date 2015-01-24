@@ -1,4 +1,8 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+
+using Elmah.Contrib.WebApi;
+
 using Newtonsoft.Json.Serialization;
 
 namespace LanceTrack.Web
@@ -10,6 +14,7 @@ namespace LanceTrack.Web
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             config.MapHttpAttributeRoutes();
+            config.Services.Add(typeof(IExceptionLogger), new ElmahExceptionLogger());
         }
     }
 }
