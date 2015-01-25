@@ -112,7 +112,7 @@ namespace LanceTrack.Server.Projects
                                                  .Where(p => p.ProjectId == projectId && (p.UserId == _currentUser.Id || canReportForOtherUsers))
                                                  .ToArray();
 
-            var filledTime = _projectRepository.GetProjectDailyTime(startDate, endDate)
+            var filledTime = _projectRepository.GetDailyTime(startDate, endDate)
                                                .Where(p => p.ProjectId == projectId && (p.UserId == _currentUser.Id || canReportForOtherUsers))
                                                .ToList();
 

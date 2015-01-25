@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Linq;
-using BLToolkit.Data;
 using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Dependencies.Projects;
+using LinqToDB.Data;
 
 namespace LanceTrack.Server.DataAccess.Projects
 {
     public class DatabaseProjectRepository : IProjectRepository
     {
-        public DatabaseProjectRepository(DbManager dbManager)
+        public DatabaseProjectRepository(DataConnection dataConnection)
         {
-            if (dbManager == null)
-                throw new ArgumentNullException("dbManager");
-
-            DbManager = dbManager;
+            Db = dataConnection;
         }
 
-        private DbManager DbManager { get; set; }
+        private DataConnection Db { get; set; }
+
 
         public IQueryable<Project> BillableProjects(int userId)
         {
@@ -25,26 +23,26 @@ namespace LanceTrack.Server.DataAccess.Projects
 
         public Project GetById(int id)
         {
-            return DbManager.GetTable<Project>().SingleOrDefault(p => p.Id == id);
+            return Db.GetTable<Project>().SingleOrDefault(p => p.Id == id);
         }
 
-        public IQueryable<DailyTime> GetProjectDailyTime(DateTime startDate, DateTime endDate)
+        public IQueryable<DailyTime> GetDailyTime(DateTime startDate, DateTime endDate)
         {
             startDate = startDate.Date;
             endDate = endDate.Date;
 
-            return DbManager.GetTable<DailyTime>()
+            return Db.GetTable<DailyTime>()
                             .Where(t => startDate <= t.Date && t.Date <= endDate);
         }
 
         public IQueryable<ProjectUserInfo> GetProjectUserInfo()
         {
-            return DbManager.GetTable<ProjectUserInfo>();
+            return Db.GetTable<ProjectUserInfo>();
         }
 
         public IQueryable<ProjectUserSummary> ProjectUserSummary(int userId)
         {
-            return DbManager.GetTable<ProjectUserSummary>()
+            return Db.GetTable<ProjectUserSummary>()
                 .Where(a => a.UserId == userId)
                 .Join(Projects(userId, ProjectPermissions.TrackSelf), a => a.ProjectId, p => p.Id, (a, p) => a);
         }
@@ -56,7 +54,7 @@ namespace LanceTrack.Server.DataAccess.Projects
 
         private IQueryable<Project> Projects(int userId, ProjectPermissions permissions)
         {
-            return DbManager.GetTable<Project>()
+            return Db.GetTable<Project>()
                             .Join(ProjectUserInfo().Where(i => i.UserId == userId),
                                   p => p.Id,
                                   i => i.ProjectId,
@@ -76,7 +74,7 @@ namespace LanceTrack.Server.DataAccess.Projects
 
         private IQueryable<ProjectUserInfo> ProjectUserInfo()
         {
-            return DbManager.GetTable<ProjectUserInfo>();
+            return Db.GetTable<ProjectUserInfo>();
         }
     }
 }

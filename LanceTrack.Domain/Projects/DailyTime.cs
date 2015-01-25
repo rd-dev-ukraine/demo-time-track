@@ -1,12 +1,12 @@
 ﻿using System;
-using BLToolkit.DataAccess;
 using LanceTrack.Domain.Infrastructure;
+using LinqToDB.Mapping;
 using Newtonsoft.Json;
 using TypeLite;
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("DailyTimeData"), TsClass(Module = "Api")]
+    [Table("DailyTimeData"), TsClass(Module = "Api")]
     public class DailyTime
     {
         [PrimaryKey]
@@ -19,15 +19,19 @@ namespace LanceTrack.Domain.Projects
         [JsonConverter(typeof(DateConverter))]
         public DateTime Date { get; set; }
 
+        [Column]
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal TotalHours { get; set; }
 
+        [Column]
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal BilledHours { get; set; }
 
+        [Column]
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal PaidHours { get; set; }
 
+        [Column]
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal HourlyRate { get; set; }
     }

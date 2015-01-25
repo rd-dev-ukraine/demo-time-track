@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BLToolkit.4">
-      <HintPath>..\packages\BLToolkit.4.2.0\lib\net40-full\BLToolkit.4.dll</HintPath>
+    <Reference Include="linq2db">
+      <HintPath>..\packages\linq2db.1.0.6\lib\net45\linq2db.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>

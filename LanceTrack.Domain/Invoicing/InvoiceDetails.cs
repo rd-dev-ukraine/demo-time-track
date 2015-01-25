@@ -1,11 +1,11 @@
-﻿using BLToolkit.DataAccess;
-using LanceTrack.Domain.Infrastructure;
+﻿using LanceTrack.Domain.Infrastructure;
+using LinqToDB.Mapping;
 using Newtonsoft.Json;
 using TypeLite;
 
 namespace LanceTrack.Domain.Invoicing
 {
-    [TableName("InvoiceDetailsData"), TsClass(Module = "Api")]
+    [Table("InvoiceDetailsData"), TsClass(Module = "Api")]
     public class InvoiceDetails
     {
         [PrimaryKey]
@@ -14,12 +14,15 @@ namespace LanceTrack.Domain.Invoicing
         [PrimaryKey]
         public int UserId { get; set; }
 
+        [Column]
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal UserSum { get; set; }
 
+        [Column]
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal UserHours { get; set; }
 
+        [Column]
         [JsonConverter(typeof(DecimalZeroToEmptyConverter))]
         public decimal? UserReceivedSum { get; set; }
     }

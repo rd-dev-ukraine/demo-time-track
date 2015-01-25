@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BLToolkit.Data;
 using LanceTrack.Domain.Invoicing;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server.Dependencies.Invoicing;
 using LanceTrack.Server.Dependencies.Projects;
+using LinqToDB.Data;
 
 namespace LanceTrack.Server.DataAccess.Invoicing
 {
@@ -13,7 +13,7 @@ namespace LanceTrack.Server.DataAccess.Invoicing
     {
         private readonly IProjectRepository _projectRepository;
 
-        public DatabaseInvoiceRepository(DbManager dbManager, IProjectRepository projectRepository)
+        public DatabaseInvoiceRepository(DataConnection dbManager, IProjectRepository projectRepository)
         {
             if (dbManager == null)
                 throw new ArgumentNullException("dbManager");
@@ -25,7 +25,7 @@ namespace LanceTrack.Server.DataAccess.Invoicing
 
         }
 
-        private DbManager DbManager { get; set; }
+        private DataConnection DbManager { get; set; }
 
         public InvoiceInfo GetByNumber(string invoiceNumber, int userId)
         {

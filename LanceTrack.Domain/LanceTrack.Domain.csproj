@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BLToolkit.4">
-      <HintPath>..\packages\BLToolkit.4.2.0\lib\net40-full\BLToolkit.4.dll</HintPath>
+    <Reference Include="linq2db">
+      <HintPath>..\packages\linq2db.1.0.6\lib\net45\linq2db.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

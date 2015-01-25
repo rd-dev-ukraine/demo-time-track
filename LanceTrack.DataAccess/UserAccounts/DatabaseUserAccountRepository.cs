@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using BLToolkit.Data;
 using LanceTrack.Domain.Projects;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server.Dependencies.Projects;
 using LanceTrack.Server.Dependencies.UserAccounts;
+using LinqToDB.Data;
 
 namespace LanceTrack.Server.DataAccess.UserAccounts
 {
@@ -13,7 +13,7 @@ namespace LanceTrack.Server.DataAccess.UserAccounts
         private readonly IProjectRepository _projectRepository;
 
         public DatabaseUserAccountRepository(
-            DbManager dbManager, 
+            DataConnection dbManager, 
             IProjectRepository projectRepository)
         {
             if (dbManager == null)
@@ -25,7 +25,7 @@ namespace LanceTrack.Server.DataAccess.UserAccounts
             _projectRepository = projectRepository;
         }
 
-        private DbManager DbManager { get; set; }
+        private DataConnection DbManager { get; set; }
 
         public UserAccount FindByCredentials(string email, string password)
         {

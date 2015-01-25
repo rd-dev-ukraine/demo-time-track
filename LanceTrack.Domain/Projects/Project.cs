@@ -1,4 +1,4 @@
-﻿using BLToolkit.Mapping;
+﻿using LinqToDB.Mapping;
 using TypeLite;
 
 namespace LanceTrack.Domain.Projects
@@ -6,7 +6,7 @@ namespace LanceTrack.Domain.Projects
     [TsClass(Module = "Api", Name = "Project")]
     public class Project : ProjectBase
     {
-        [MapIgnore]
+        [NotColumn]
         public ProjectPermissions Permissions { get; set; }
     }
 }

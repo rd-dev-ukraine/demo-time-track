@@ -1,22 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using BLToolkit.Data;
-using BLToolkit.Data.Linq;
-using BLToolkit.DataAccess;
 using LanceTrack.Cqrs.Contract;
 using LanceTrack.Server.Cqrs.ProjectTime;
 using LanceTrack.Server.Cqrs.ProjectTime.Events;
+using LinqToDB;
+using LinqToDB.Data;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
-    public class ProjectTimeAggregateRootEventStore : DataAccessor, IEventStore<ProjectTimeAggregateRoot, int>,
+    public class ProjectTimeAggregateRootEventStore : IEventStore<ProjectTimeAggregateRoot, int>,
         IEventStoreAppendMethod<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventStoreAppendMethod<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
-        public ProjectTimeAggregateRootEventStore(DbManager dbManager)
-            : base(dbManager)
+        public ProjectTimeAggregateRootEventStore(DataConnection dbManager)
         {
+            if (dbManager == null)
+                throw new ArgumentNullException("dbManager");
+
+            DbManager = dbManager;
         }
+
+        private DataConnection DbManager { get; set; }
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> ReadAggregateRootEvents(int aggregateRootId)
         {

@@ -1,9 +1,9 @@
-﻿using BLToolkit.DataAccess;
+﻿using LinqToDB.Mapping;
 using TypeLite;
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("ProjectUserSummaryData"), TsClass(Module = "Api")]
+    [Table("ProjectUserSummaryData"), TsClass(Module = "Api")]
     public class ProjectUserSummary
     {
         [Identity]
@@ -15,12 +15,16 @@ namespace LanceTrack.Domain.Projects
         [PrimaryKey]
         public int UserId { get; set; }
 
+        [Column]
         public decimal ProjectTotalHoursReported { get; set; }
 
+        [Column]
         public decimal UserTotalHoursReported { get; set; }
 
+        [Column]
         public decimal ProjectTotalAmountEarned { get; set; }
 
+        [Column]
         public decimal UserTotalAmountEarned { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Web;
-using BLToolkit.Data;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
 using LanceTrack.Server.Cqrs;
 using LanceTrack.Server.Cqrs.DataAccess;
 using LanceTrack.Server.DataAccess;
 using LanceTrack.Web.Infrastructure;
+using LinqToDB.Data;
 using Ninject;
 using Ninject.Web.Common;
 
@@ -25,8 +25,8 @@ namespace LanceTrack.Web
                   .ConstructUsing((IUserAccountService svc) => svc.FindByEmail(HttpContext.Current.User.Identity.Name))
                   .InRequestScope();
 
-            kernel.Bind<DbManager>()
-                  .ToSelf()
+            kernel.Bind<DataConnection>()
+                  .ToMethod(ctx => new DataConnection("ConnectionString"))
                   .InTransientScope();
 
             return kernel;

@@ -1,24 +1,19 @@
 using System;
-using System.Configuration;
 using System.Web;
-using BLToolkit.Data;
-using BLToolkit.Data.DataProvider;
 using LanceTrack.Cqrs.Contract;
 using LanceTrack.Domain.UserAccounts;
 using LanceTrack.Server;
-using LanceTrack.Server.Cqrs;
-using LanceTrack.Server.Cqrs.DataAccess;
 using LanceTrack.Server.DataAccess;
 using LanceTrack.Web;
 using LanceTrack.Web.Infrastructure;
+using LinqToDB.Data;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
-using Ninject.Extensions.NamedScope;
 using Ninject.Web.Common;
 using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof (DependencyConfig), "Start")]
-[assembly: ApplicationShutdownMethod(typeof (DependencyConfig), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DependencyConfig), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(DependencyConfig), "Stop")]
 
 namespace LanceTrack.Web
 {
@@ -32,8 +27,8 @@ namespace LanceTrack.Web
         /// </summary>
         public static void Start()
         {
-            DynamicModuleUtility.RegisterModule(typeof (OnePerRequestHttpModule));
-            DynamicModuleUtility.RegisterModule(typeof (NinjectHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
 
             bootstrapper.Initialize(CreateKernel);
         }
@@ -84,13 +79,14 @@ namespace LanceTrack.Web
                   .ToMethod(ctx => cqrsKernel.Get<ICqrs>())
                   .InSingletonScope();
 
-            kernel.Bind<DbManager>()
-                  .ToSelf()
-                  .InRequestScope();
-
+            
             kernel.Bind<UserAccount>()
                   .ConstructUsing((IUserAccountService svc) => svc.FindByEmail(HttpContext.Current.User.Identity.Name))
                   .InRequestScope();
+
+            kernel.Bind<DataConnection>()
+                .ToMethod(ctx => new DataConnection( "ConnectionString"))
+                .InRequestScope();
         }
     }
 }

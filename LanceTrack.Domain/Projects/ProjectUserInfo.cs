@@ -1,8 +1,9 @@
-﻿using BLToolkit.DataAccess;
+﻿
+using LinqToDB.Mapping;
 
 namespace LanceTrack.Domain.Projects
 {
-    [TableName("ProjectUserInfo")]
+    [Table("ProjectUserInfo")]
     public class ProjectUserInfo
     {
         [Identity]
@@ -14,12 +15,16 @@ namespace LanceTrack.Domain.Projects
         [PrimaryKey]
         public int UserId { get; set; }
 
+        [Column]
         public ProjectPermissions UserPermissions { get; set; }
 
+        [Column]
         public decimal HourlyRate { get; set; }
 
+        [Column]
         public decimal? MaxDailyHours { get; set; }
 
+        [Column]
         public decimal? MaxProjectHours { get; set; }
     }
 }

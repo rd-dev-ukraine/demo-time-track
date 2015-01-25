@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
-using BLToolkit.Data;
-using BLToolkit.Data.Linq;
 using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Cqrs.ProjectTime.Dependencies;
+using LinqToDB;
+using LinqToDB.Data;
 
 namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
     public class DatabaseProjectUserSummaryStorage : IProjectUserSummaryStorage
     {
-        public DatabaseProjectUserSummaryStorage(DbManager dbManager)
+        public DatabaseProjectUserSummaryStorage(DataConnection dbManager)
         {
             if (dbManager == null)
                 throw new ArgumentNullException("dbManager");
@@ -17,7 +17,7 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
             DbManager = dbManager;
         }
 
-        private DbManager DbManager { get; set; }
+        private DataConnection DbManager { get; set; }
 
         public void Save(ProjectUserSummary entity)
         {
