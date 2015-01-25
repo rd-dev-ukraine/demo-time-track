@@ -13,23 +13,23 @@ namespace LanceTrack.Server.DataAccess.UserAccounts
         private readonly IProjectRepository _projectRepository;
 
         public DatabaseUserAccountRepository(
-            DataConnection dbManager, 
+            DataConnection db, 
             IProjectRepository projectRepository)
         {
-            if (dbManager == null)
-                throw new ArgumentNullException("dbManager");
+            if (db == null)
+                throw new ArgumentNullException("db");
             if (projectRepository == null)
                 throw new ArgumentNullException("projectRepository");
 
-            DbManager = dbManager;
+            Db = db;
             _projectRepository = projectRepository;
         }
 
-        private DataConnection DbManager { get; set; }
+        private DataConnection Db { get; set; }
 
         public UserAccount FindByCredentials(string email, string password)
         {
-            var account = DbManager.GetTable<UserAccountData>().SingleOrDefault(ua => ua.Email == email && ua.Password == password);
+            var account = Db.GetTable<UserAccountData>().SingleOrDefault(ua => ua.Email == email && ua.Password == password);
 
             if (account == null)
                 return null;
@@ -39,16 +39,16 @@ namespace LanceTrack.Server.DataAccess.UserAccounts
 
         public UserAccount FindByEmail(string email)
         {
-            return DbManager.GetTable<UserAccount>().SingleOrDefault(ua => ua.Email == email);
+            return Db.GetTable<UserAccount>().SingleOrDefault(ua => ua.Email == email);
         }
 
         public IQueryable<UserAccount> All(int userId)
         {
             var projectWhereUserCouldSeeOtherUsers = _projectRepository.BillableProjects(userId).Union(_projectRepository.ReportableProjects(userId))
                                                                        .Select(d => d.Id);
-            var projectUserData = DbManager.GetTable<ProjectUserInfo>();
+            var projectUserData = Db.GetTable<ProjectUserInfo>();
 
-            return DbManager.GetTable<UserAccount>()
+            return Db.GetTable<UserAccount>()
                             .Where(ua => ua.Id == userId || 
                                          projectUserData.Any(d => d.UserId == ua.Id && 
                                                                   projectWhereUserCouldSeeOtherUsers.Contains(d.ProjectId)));
@@ -56,7 +56,7 @@ namespace LanceTrack.Server.DataAccess.UserAccounts
 
         public UserAccount GetById(int id)
         {
-            return DbManager.GetTable<UserAccount>().SingleOrDefault(u => u.Id == id);
+            return Db.GetTable<UserAccount>().SingleOrDefault(u => u.Id == id);
         }
     }
 }

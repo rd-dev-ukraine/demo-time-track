@@ -8,19 +8,19 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
     public class DatabaseDailyTimeStorage : IDailyTimeStorage
     {
-        public DatabaseDailyTimeStorage(DataConnection dbManager)
+        public DatabaseDailyTimeStorage(DataConnection db)
         {
-            if (dbManager == null)
-                throw new ArgumentNullException("dbManager");
+            if (db == null)
+                throw new ArgumentNullException("db");
 
-            DbManager = dbManager;
+            Db = db;
         }
 
-        private DataConnection DbManager { get; set; }
+        private DataConnection Db { get; set; }
 
         public void SaveProjectDailyTime(DailyTime readModel)
         {
-            DbManager.InsertOrReplace(readModel);
+            Db.InsertOrReplace(readModel);
         }
     }
 }

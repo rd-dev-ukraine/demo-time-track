@@ -9,26 +9,26 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
     public class DatabaseInvoiceStorage : IInvoiceStorage
     {
-        public DatabaseInvoiceStorage(DataConnection dbManager)
+        public DatabaseInvoiceStorage(DataConnection db)
         {
-            if (dbManager == null)
-                throw new ArgumentNullException("dbManager");
+            if (db == null)
+                throw new ArgumentNullException("db");
 
-            DbManager = dbManager;
+            Db = db;
         }
 
-        private DataConnection DbManager { get; set; }
+        private DataConnection Db { get; set; }
         
         public void Save(Invoice invoice, List<InvoiceDetails> invoiceDetails)
         {
-            DbManager.InsertOrReplace(invoice);
-            DbManager.GetTable<InvoiceDetails>()
+            Db.InsertOrReplace(invoice);
+            Db.GetTable<InvoiceDetails>()
                      .Delete(d => d.InvoiceNum == invoice.InvoiceNum);
 
             foreach (var d in invoiceDetails)
             {
                 d.InvoiceNum = invoice.InvoiceNum;
-                DbManager.InsertOrReplace(d);
+                Db.InsertOrReplace(d);
             }
         }
     }

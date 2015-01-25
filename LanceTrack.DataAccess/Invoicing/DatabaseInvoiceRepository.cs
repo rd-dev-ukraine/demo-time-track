@@ -13,19 +13,19 @@ namespace LanceTrack.Server.DataAccess.Invoicing
     {
         private readonly IProjectRepository _projectRepository;
 
-        public DatabaseInvoiceRepository(DataConnection dbManager, IProjectRepository projectRepository)
+        public DatabaseInvoiceRepository(DataConnection db, IProjectRepository projectRepository)
         {
-            if (dbManager == null)
-                throw new ArgumentNullException("dbManager");
+            if (db == null)
+                throw new ArgumentNullException("db");
             if (projectRepository == null)
                 throw new ArgumentNullException("projectRepository");
 
-            DbManager = dbManager;
+            Db = db;
             _projectRepository = projectRepository;
 
         }
 
-        private DataConnection DbManager { get; set; }
+        private DataConnection Db { get; set; }
 
         public InvoiceInfo GetByNumber(string invoiceNumber, int userId)
         {
@@ -50,11 +50,11 @@ namespace LanceTrack.Server.DataAccess.Invoicing
 
         private IQueryable<InvoiceInfo> Invoices(int userId)
         {
-            return DbManager.GetTable<Invoice>()
+            return Db.GetTable<Invoice>()
                             .Join(_projectRepository.BillableProjects(userId),
                                   i => i.ProjectId, p => p.Id,
                                   (i, p) => new { Invoice = i, Project = p })
-                            .Join(DbManager.GetTable<UserAccount>(),
+                            .Join(Db.GetTable<UserAccount>(),
                                   a => a.Invoice.BilledByUserId,
                                   u => u.Id,
                                   (a, u) => new InvoiceInfo
@@ -75,7 +75,7 @@ namespace LanceTrack.Server.DataAccess.Invoicing
 
         private IQueryable<InvoiceDetails> InvoiceDetails(int userId)
         {
-            return DbManager.GetTable<InvoiceDetails>()
+            return Db.GetTable<InvoiceDetails>()
                             .Join(Invoices(userId), i => i.InvoiceNum, i => i.InvoiceNum, (d, i) => d);
         }
     }

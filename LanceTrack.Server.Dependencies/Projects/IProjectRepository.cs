@@ -7,7 +7,7 @@ namespace LanceTrack.Server.Dependencies.Projects
     public interface IProjectRepository
     {
         IQueryable<Project> BillableProjects(int userId);
-        Project GetById(int id);
+        ProjectBase GetById(int id);
         IQueryable<DailyTime> GetDailyTime(DateTime startDate, DateTime endDate);
         IQueryable<ProjectUserInfo> GetProjectUserInfo();
         IQueryable<ProjectUserSummary> ProjectUserSummary(int userId);

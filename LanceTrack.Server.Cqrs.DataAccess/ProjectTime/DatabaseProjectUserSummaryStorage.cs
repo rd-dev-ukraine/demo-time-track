@@ -9,26 +9,26 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 {
     public class DatabaseProjectUserSummaryStorage : IProjectUserSummaryStorage
     {
-        public DatabaseProjectUserSummaryStorage(DataConnection dbManager)
+        public DatabaseProjectUserSummaryStorage(DataConnection db)
         {
-            if (dbManager == null)
-                throw new ArgumentNullException("dbManager");
+            if (db == null)
+                throw new ArgumentNullException("db");
 
-            DbManager = dbManager;
+            Db = db;
         }
 
-        private DataConnection DbManager { get; set; }
+        private DataConnection Db { get; set; }
 
         public void Save(ProjectUserSummary entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
 
-            if (DbManager.GetTable<ProjectUserSummary>()
+            if (Db.GetTable<ProjectUserSummary>()
                          .Any(e => e.ProjectId == entity.ProjectId && e.UserId == entity.UserId))
-                DbManager.Update(entity);
+                Db.Update(entity);
             else
-                entity.Id = Convert.ToInt32(DbManager.InsertWithIdentity(entity));
+                entity.Id = Convert.ToInt32(Db.InsertWithIdentity(entity));
         }
     }
 }

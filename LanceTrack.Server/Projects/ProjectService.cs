@@ -37,7 +37,7 @@ namespace LanceTrack.Server.Projects
                                      .SingleOrDefault(p => p.Id == projectId);
         }
 
-        public Project GetById(int id)
+        public ProjectBase GetById(int id)
         {
             return _projectRepository.GetById(id);
         }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using LanceTrack.Domain.Projects;
 using LanceTrack.Server.Dependencies.Projects;
+using LinqToDB;
 using LinqToDB.Data;
 
 namespace LanceTrack.Server.DataAccess.Projects
@@ -21,9 +23,9 @@ namespace LanceTrack.Server.DataAccess.Projects
             return Projects(userId, ProjectPermissions.BillProject);
         }
 
-        public Project GetById(int id)
+        public ProjectBase GetById(int id)
         {
-            return Db.GetTable<Project>().SingleOrDefault(p => p.Id == id);
+            return Db.GetTable<ProjectBase>().SingleOrDefault(p => p.Id == id);
         }
 
         public IQueryable<DailyTime> GetDailyTime(DateTime startDate, DateTime endDate)
@@ -55,21 +57,21 @@ namespace LanceTrack.Server.DataAccess.Projects
         private IQueryable<Project> Projects(int userId, ProjectPermissions permissions)
         {
             return Db.GetTable<Project>()
-                            .Join(ProjectUserInfo().Where(i => i.UserId == userId),
-                                  p => p.Id,
-                                  i => i.ProjectId,
-                                  (p, i) => new Project
-                                    {
-                                        EndDate = p.EndDate,
-                                        Id = p.Id,
-                                        MaxTotalHours = p.MaxTotalHours,
-                                        Name = p.Name,
-                                        Permissions = i.UserPermissions,
-                                        StartDate = p.StartDate,
-                                        Status = p.Status
-                                    })
-                            .Where(p => (p.Permissions & permissions) != ProjectPermissions.None)
-                            .Where(p => p.Status == ProjectStatus.Active);
+                     .Join(ProjectUserInfo().Where(i => i.UserId == userId),
+                            p => p.Id,
+                            i => i.ProjectId,
+                            (p, i) => new Project
+                            {
+                                EndDate = p.EndDate,
+                                Id = p.Id,
+                                MaxTotalHours = p.MaxTotalHours,
+                                Name = p.Name,
+                                Permissions = i.UserPermissions,
+                                StartDate = p.StartDate,
+                                Status = p.Status
+                            })
+                    .Where(p => (p.Permissions & permissions) != ProjectPermissions.None)
+                    .Where(p => p.Status == ProjectStatus.Active);
         }
 
         private IQueryable<ProjectUserInfo> ProjectUserInfo()

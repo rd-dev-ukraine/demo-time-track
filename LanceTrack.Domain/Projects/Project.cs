@@ -6,7 +6,7 @@ namespace LanceTrack.Domain.Projects
     [TsClass(Module = "Api", Name = "Project")]
     public class Project : ProjectBase
     {
-        [NotColumn]
+        [Column]
         public ProjectPermissions Permissions { get; set; }
     }
 }

@@ -13,24 +13,24 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
         IEventStoreAppendMethod<TimeTrackedEvent, ProjectTimeAggregateRoot, int>,
         IEventStoreAppendMethod<InvoiceEvent, ProjectTimeAggregateRoot, int>
     {
-        public ProjectTimeAggregateRootEventStore(DataConnection dbManager)
+        public ProjectTimeAggregateRootEventStore(DataConnection db)
         {
-            if (dbManager == null)
-                throw new ArgumentNullException("dbManager");
+            if (db == null)
+                throw new ArgumentNullException("db");
 
-            DbManager = dbManager;
+            Db = db;
         }
 
-        private DataConnection DbManager { get; set; }
+        private DataConnection Db { get; set; }
 
         public IEnumerable<IEvent<ProjectTimeAggregateRoot, int>> ReadAggregateRootEvents(int aggregateRootId)
         {
-            return DbManager.GetTable<TimeTrackedEvent>()
+            return Db.GetTable<TimeTrackedEvent>()
                             .Where(e => e.ProjectId == aggregateRootId)
                             .ToArray()
                             .Cast<IEvent<ProjectTimeAggregateRoot, int>>()
             .Concat(
-                   DbManager.GetTable<InvoiceEvent>()
+                   Db.GetTable<InvoiceEvent>()
                             .Where(e => e.ProjectId == aggregateRootId)
                             .ToArray())
             .OrderBy(e => e.Id)
@@ -39,12 +39,12 @@ namespace LanceTrack.Server.Cqrs.DataAccess.ProjectTime
 
         public void Append(TimeTrackedEvent @event)
         {
-            DbManager.InsertWithIdentity(@event);
+            Db.InsertWithIdentity(@event);
         }
 
         public void Append(InvoiceEvent @event)
         {
-            DbManager.InsertWithIdentity(@event);
+            Db.InsertWithIdentity(@event);
         }
     }
 }

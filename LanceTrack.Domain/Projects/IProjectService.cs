@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using LanceTrack.Domain.UserAccounts;
 
 namespace LanceTrack.Domain.Projects
 {
     public interface IProjectService
     {
-        Project GetById(int id);
+        ProjectBase GetById(int id);
 
         IEnumerable<Project> BillableProjects();
 
