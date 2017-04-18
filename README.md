@@ -2,10 +2,6 @@
 
 Demo application developed by R&amp;D Ukraine.
 
-Running application could be found at http://demoapp.rd-dev.net/
-
-Use **demo/demo** login/password to log-in.
-
 Application allows users to track hours per set of projects and then build invoices.
 Application uses CQRS arhitechture and uses own CQRS framework.
 
